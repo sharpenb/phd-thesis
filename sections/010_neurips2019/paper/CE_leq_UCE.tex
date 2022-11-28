@@ -1,0 +1,23 @@
+%\section{Relation between classic cross entropy and \UncertaintyLoss}\label{CE_leq_UCE}
+%
+%The classic cross entropy is equal to:
+%\begin{equation}
+%\begin{aligned}
+%\mathcal{L}_{\IndexEvent}^{\text{CE}} = \CrossEntropy[\bm{p}_{\IndexEvent}^*, \overline{\bm{p}}_{\IndexEvent}(\DeltaTime_{\IndexEvent}^*)] = \CrossEntropy[\bm{p}_{\IndexEvent}^*, \E_{\bm{p}_{\IndexEvent} \sim P_{\IndexEvent}(\theta(\DeltaTime_\IndexEvent^*))}[\bm{p}_{\IndexEvent}]]
+%\end{aligned}
+%\end{equation}
+%
+%The \UncertaintyLoss is equal to:
+%\begin{equation}
+%\begin{aligned}
+%\mathcal{L}_{\IndexEvent}^{\text{UCE}} = \E_{\bm{p}_{\IndexEvent} \sim P_{\IndexEvent}(\theta(\DeltaTime_{\IndexEvent}^*))}[\CrossEntropy[\bm{p}_{\IndexEvent}^*, \bm{p}_{\IndexEvent}]] 
+%\end{aligned}
+%\end{equation}
+%
+%Since the cross entropy $\CrossEntropy[\bm{p}_{\IndexEvent}^*, .]$ is convex, the Jensen Inequality gives: \sg{actually i don't see it immediately; and if it is really so short the discussion, we can have it in the main text. just saying. based on jensens inequali ty it follows that.....}
+%\begin{equation}
+%\begin{aligned}
+%\mathcal{L}_{\IndexEvent}^{\text{CE}} \leq \mathcal{L}_{\IndexEvent}^{\text{UCE}}
+%\end{aligned}
+%\end{equation}
+%Finally, it is known that the cross entropy is positive.

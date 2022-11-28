@@ -1,0 +1,44 @@
+\section{Problem}
+
+Consider the sequence of events $(e_i, t_i)$. The variables $e_i$ and $t_i$ denote respectively the category of the event among $K$ possible classes and its occurrence time. For convenience, we also introduce the notation $\Delta t_i = t_i - t_{i-1}$ which represents the time gap between the $i$th and the $i-1$th events. The history preceding the $i$th event is denoted $H_i$. The setting is summarize on figure \ref{fig:problem_config}.
+
+\begin{wrapfigure}{r}{8cm} \label{fig:problem_config}
+\centering
+\scalebox{0.75}{\begin{tikzpicture}[
+roundnode/.style={circle, draw=green!100, fill=green!50, very thick, minimum size=10mm}, squarednode/.style={rectangle, draw=red!100, fill=red!50, very thick, minimum size=10mm},
+starnode/.style={regular polygon,regular polygon sides=9, draw=orange!100, fill=orange!50, very thick, minimum size=5mm},
+diamondnode/.style={diamond, draw=blue!100, fill=blue!50, very thick, minimum size=10mm},]
+\draw[ultra thick, ->] (-5,0.5) -- (5,0.5);
+\draw[thick, <->] (-0.7,2.5) -- (0.9,2.5);
+\node[draw=none,fill=none] at (0.2,2.2) {$\Delta t_i$};
+\draw[very thick, -, dotted] (1,0) -- (1,2.5);
+
+\filldraw[black] (-4.5,0.5) circle (2pt) node[anchor=north] {$t_{i-3}$};
+\filldraw[black] (-2,0.5) circle (2pt) node[anchor=north] {$t_{i-2}$};
+\filldraw[black] (-0.7,0.5) circle (2pt) node[anchor=north] {$t_{i-1}$};
+\filldraw[black] (1,0.5) circle (2pt) node[anchor=north east] {$t_{i}$};
+
+\draw [blue, ultra thick] plot [smooth, tension=0.5] coordinates { (1,0.75) (2,2) (3,0.75) (4,0.60) (5,0.75)};
+\draw [orange, ultra thick] plot [smooth, tension=0.5] coordinates { (1,2.8) (2,1.5) (3,0.9) (4,0.8) (5,0.75)};
+\draw [green, ultra thick] plot [smooth, tension=0.5] coordinates { (1,0.9) (2,0.75) (3,1.5) (4,1) (5,0.77)};
+\draw [red, ultra thick] plot [smooth, tension=0.5] coordinates { (1,0.75) (2,0.75) (3,0.75) (4,0.75) (5,0.74)};
+
+
+\node[diamondnode]       at (-4.5,1.5)         {$e_{i-3}$};
+\node[starnode]       at (-2,1.5)         {$e_{i-2}$};
+\node[roundnode]         at (-0.7,1.5)       {$e_{i-1}$};
+\node[squarednode]       at (1,1.5)       {$e_{i}$};
+
+\end{tikzpicture}}
+\caption{Problem configuration}
+\end{wrapfigure}
+
+One problem tackled in this paper is to predict at any time $t$ the categorical distribution $p(t)=(p_1(t),..., p_K(t))$ of the next event given the history $H_i$ and current event $e_i$. As time passes since the last event, the most likely prediction might change. For example, the next event after ??? could either be ??? with a short time lapse or ??? with a longer time lapse (example ? Waiting for sthg/sby for short or long time). Knowledge of the real time is in this case an important to determine the most probable next event.
+
+A second problem is to know the confidence we have in the model prediction. Classical models ussually outputs one single prediction even if the input does not correspond to any situation encountered during the training. However, an expected behaviour would be to quantify the uncertainty of the model on the categorical distribution during inference. As explained in \cite{PriorNetworks}, it is important to distinguish between three types of uncertainty:
+\begin{itemize}
+\item Data uncertainty is irreducible uncertainty that arises from natural ambiguous situations (class overlap, noise).
+\item Distributional uncertainty arises from mismatch between data in the train and test sets. A model should not be confident in predicting when the context is completely new.
+\item Model uncertainty correspond to uncertainty on the model itself and can be reduced with a larger amount of data.
+\end{itemize}
+This paper focuses on distributional uncertainty for sequence prediction. Thus, If we did not observe events with similar history or at similar timestamp, the prediction of our model should have a low confidence.

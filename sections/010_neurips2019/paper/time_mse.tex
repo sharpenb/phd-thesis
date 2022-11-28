@@ -1,0 +1,11 @@
+\subsection{Time Prediction with Point Processes}\label{time_mse}
+
+The benefit of the point process framework is the ability to get the point estimate for the time $\hat{\tau}$ of the next event:
+\begin{equation}
+    \hat{\tau} = \int_0^\infty t q(\tau) dt
+\end{equation}
+where
+\begin{equation}
+q(\tau) = \lambda_0(\tau) \exp\left( -\int_0^{\tau} \lambda_0(s) ds \right)
+\end{equation}
+The usual way to evaluate the quality of this prediction is using an MSE score. As we have already discussed in Sec.\ \ref{time_prediction}, this is not optimal for our use case. Nevertheless, we did preliminary experiments comparing our neural point process model \textbf{FD-Dir-PP} to others. We use \textbf{RMTPP} \cite{RMTPP} since it achieves the best results. On Car Indicators dataset our model has mean MSE score of 0.4783 while RMTPP achieves 0.4736. At the same time FD-Dir-PP outperforms RMTPP on other tasks (see Sec.\ \ref{experiments}).

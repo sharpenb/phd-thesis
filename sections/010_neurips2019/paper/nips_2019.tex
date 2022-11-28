@@ -1,0 +1,122 @@
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2019
+
+% ready for submission
+% \usepackage{neurips_2019}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+%     \usepackage[preprint]{neurips_2019}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+\usepackage[final]{neurips_2019}
+
+% to avoid loading the natbib package, add option nonatbib:
+%     \usepackage[nonatbib]{neurips_2019}
+
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage[inline]{enumitem}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{bbold}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{xspace}
+\usetikzlibrary{shapes,snakes, arrows}
+
+\newcommand\Simplex{S}
+\newcommand\History{\mathcal{H}}
+\newcommand\Event{e}
+\newcommand\Input{x}
+\newcommand\Class{c}
+\newcommand\Timestamp{t}
+\newcommand\DeltaTime{\tau}
+\newcommand\DistParam{\theta}
+\newcommand\NbEvents{n}
+\newcommand\IndexEvent{i}
+\newcommand\NbClasses{C}
+\newcommand\IndexClass{c}
+\newcommand\NbPoints{M}
+\newcommand\IndexPoint{j}
+
+\newcommand\GPModel{WGP-LN\xspace}
+\newcommand\DirModel{FD-Dir\xspace}
+\newcommand\UncertaintyLoss{uncertainty cross-entropy\xspace}
+\newcommand\TimeScore{Time-Error\xspace}
+
+\newcommand\com[1]{\textcolor{black}{#1}}
+\newcommand\sg[1]{\textcolor{blue}{(SG: #1)}}
+\newcommand\mb[1]{\textcolor{purple}{(MB) #1}}
+\newcommand\bc[1]{\textcolor{red}{(BC) #1}}
+%\newcommand\sg[1]{}
+
+
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\CrossEntropy}{H}
+
+\title{Uncertainty on Asynchronous Time Event Prediction}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{%
+  Marin Biloš\thanks{Equal contribution} , Bertrand Charpentier\footnote[1]{} , Stephan Günnemann\\
+  Technical University of Munich, Germany\\
+  \texttt{\{bilos, charpent, guennemann\}@in.tum.de}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Asynchronous event sequences are the basis of many applications throughout different industries. In this work, we tackle the task of predicting the next event (given a history), and how this prediction changes with the passage of time. Since at some time points (e.g.\ predictions far into the future) we might not be able to predict anything with confidence, capturing uncertainty in the predictions  is crucial. We present two new architectures, \GPModel and \DirModel, modelling the evolution of the distribution on the probability simplex with time-dependent logistic normal and Dirichlet distributions. In both cases, the combination of RNNs with either Gaussian process or function decomposition allows to express rich temporal evolution of the distribution parameters, and naturally captures uncertainty. Experiments on class prediction, time prediction and anomaly detection demonstrate the high performances of our models on various datasets compared to other approaches.
+\end{abstract}
+
+
+\input{introduction}
+\input{models}
+\input{related_work}
+\input{experiments}
+\input{conclusion}
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+\newpage
+\appendix
+
+% used to get appendix equation numbering with letters (might be some other way to do)
+\setcounter{equation}{0}
+\renewcommand\theequation{\Alph{section}.\arabic{equation}}
+\input{distributions}
+\input{gp_min_kernel}
+\input{CE_leq_UCE}
+\input{loss_dir_proof}
+\input{loss_closed_form_proof}
+\input{non_expressiveness_hawkes_rmtpp}
+\input{dirichlet_triangle_evolution}
+\input{uncertain_loss_classification}
+\input{datasets}
+\input{experiments_apendix}
+
+\end{document}

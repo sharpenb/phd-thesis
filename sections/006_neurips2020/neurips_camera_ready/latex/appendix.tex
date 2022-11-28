@@ -1,0 +1,493 @@
+\appendix
+\section{Dirichlet Distribution Computations}
+
+\subsection{Dirichlet distribution}
+
+The Dirichlet distribution with concentration parameters $\bm \alpha = ( \alpha_1, \dots, \alpha_\nclass )$, where $\alpha_\iclass > 0$, has the probability density function:
+\begin{equation}
+    f(\bm x; \bm \alpha) =
+    \frac{\prod_{\iclass=1}^\nclass \Gamma(\alpha_\iclass)}{\Gamma\left( \sum_{\iclass=1}^\nclass \alpha_\iclass \right)}
+    \prod_{\iclass=1}^\nclass x_i^{\alpha_\iclass - 1}
+\end{equation}
+where $\Gamma$ is a gamma function:
+\begin{align*}
+    \Gamma(\alpha) = \int_0^\infty \alpha^{z-1} e^{-\alpha} dz
+\end{align*}
+
+\subsection{Closed-form formula for Bayesian loss.}
+
+The novel Bayesian loss described in formula \ref{dirichlet_bayesian_loss} can be computed in closed form. For the sample $\vect{x}\dataix$, it is given by:
+\begin{equation}
+       \mathcal{L}\dataix = \underbrace{\E_{q(\bold{p}\dataix)}[\text{CE}(\bold{p}\dataix, \vect{y}\dataix)]}_{\text{(1)}} - \underbrace{H(q\dataix)}_{\text{(2)}}
+\end{equation}
+
+where the distribution $q$ belongs to the family of the Dirichlet distributions Dir$(\bm{\alpha}\dataix)$. The term (1) is the UCE loss \cite{uncertainty_time}. Given that the observed class one-hot encoded by $\vect{y}\dataix$ is denoted by $\iclass*$, the term (1) is equal to:
+\begin{equation}
+\E_{q(\bold{p}\dataix)}[\text{CE}(\bold{p}\dataix, \vect{y}\dataix)] = \Psi(\alpha_{\iclass*}\dataix) - \Psi(\alpha_0\dataix)
+\end{equation}
+where $\Psi$ denotes the digamma function. The term (2) is the entropy of a Dirichlet distribution and is given by:
+\begin{equation}
+H(q\dataix) = \log B(\bm{\alpha}\dataix) + (\alpha_0\dataix - \nclass) \Psi(\alpha_0\dataix) - \sum_\iclass (\alpha_\iclass\dataix - 1) \Psi(\alpha_\iclass\dataix)
+\end{equation}
+where $B$ denotes the beta function.
+
+\subsection{Epistemic covariance for in-distribution samples in \oursacro.}
+\label{epistemic_variance_proof}
+
+The epistemic distribution in \oursacro is a Dirichlet distribution Dir$(\bm{\alpha}\dataix)$ with the following concentration parameters $\alpha_\iclass\dataix = \beta_\iclass^\text{prior} + N \cdot \prob(\iclass | \latent\dataix; \phi) \cdot \prob(\latent\dataix; \phi)$ and $\alpha_0\dataix = \sum_\iclass \beta_\iclass^\text{prior} + N \cdot \prob(\latent\dataix; \phi)$. We can write the variance:
+\begin{equation}
+\begin{aligned}
+\text{Var}_{\vect{p}\sim \Dir(\boldsymbol{\alpha}\dataix)}(p_\iclass) & = \frac{\alpha_\iclass (\alpha_0 - \alpha_\iclass)}{\alpha_0^2 (\alpha_0 + 1)}; \; \text{Cov}_{\vect{p}\sim \Dir(\boldsymbol{\alpha}\dataix)}(p_\iclass, p_{\iclass'}) & = \frac{-\alpha_\iclass\alpha_{\iclass'}}{\alpha_0^2 (\alpha_0 + 1)}
+\end{aligned}
+\end{equation}
+For in-distribution data (i.e. $\prob(\latent\dataix; \phi) \rightarrow \infty$), we have $\text{Var}_{\vect{p}\sim \Dir(\boldsymbol{\alpha}\dataix)}(p_\iclass) = \mathcal{O}\left(\frac{\prob(\iclass | \latent\dataix; \phi)(1-\prob(\iclass | \latent\dataix; \phi))}{\prob(\latent\dataix; \phi) N}\right)$ and $\text{Cov}_{\vect{p}\sim \Dir(\boldsymbol{\alpha}\dataix)}(p_\iclass, p_{\iclass'}) = \mathcal{O}\left(\frac{-\prob(\iclass | \latent\dataix; \phi)\prob(\iclass' | \latent\dataix; \phi)}{\prob(\latent\dataix; \phi)N}\right)$. Hence both terms converge to $0$ when $\prob(\latent\dataix; \phi) \rightarrow \infty$.
+
+\section{Model details}
+\label{model_detais}
+
+For vector datasets, all models share an architecture of 3 linear layers with Relu activation. A grid search in $[32, 64, 128]$ led to no significant changes in the performances. Therefore, we decided to use $64$ hidden units for each layer. For image datasets, we used LeakyRelu activation and add on the top 3 convolutional layers with kernel size of $5$, followed by a Max-pooling of size $2$. Alternatively, we used the VGG16 architecture with batch normalization \cite{vgg} adapted from PyTorch implementation \cite{pytorch}. All models are trained after a grid search for learning rate in $[1e^{-3}, 1e^{-5}]$. All models were optimized with Adam optimizer without further learning rate scheduling. We performed early stopping by checking loss improvement every $2$ epochs and a patience equal to $10$. We trained all models on GPUs (1TB SSD).
+
+For the dropout models, we used $p_{\text{drop}} = .25$ after a grid search in $[.25, .5, .75]$ and sampled $10$ times for uncertainty estimation. As an indicator, the original paper \cite{drop_out}, uses a dropout probability of $.5$ for MNIST. It also states that $10$ samples already lead to reasonable uncertainty estimates. For the ensemble models, we used $m=10$ networks after a grid search in $[2, 5, 10, 20]$. A greater number of networks was also found to give no great improvements in the original paper \cite{ensemble_simple}. To be fair with these models, we distilled the knowledge of $10$ neural networks for Distribution Distillation. We also trained Prior Networks where target parameters $\beta_\text{in}=1e^2$ as suggested in original papers \cite{prior_net, rev_kl_prior_net}.
+
+For \oursacro, we used a 1D batch normalization after the encoder. Experiments on latent dimensions and density types are presented in following sections. If not explicitley mentioned otherwise, we used by default radial flow with a flow length of $6$ and a latent dimension of $6$. This leads to only $80$ parameters. Comparison with IAF are done with two layers of size $256$. In general, we found out that a latent dimension smaller or equal to the number of classes is sufficient. It enables classes to be orthogonal in the latent space if necessary.
+
+All metrics have been scaled by $100$. We obtain numbers in $[0, 100]$  for all scores instead of $[0, 1]$.
+
+\section{Datasets details}
+\label{dataset_details}
+
+For all datasets, we use 5 different random splits to train all models. We split the data in training, validation and test sets ($60\%$, $20\%$, $20\%$). In particular, we did not restrict to classic MNIST and CIFAR10 splits in order do prevent overfitting to a specific split.
+
+We use one toy dataset composed of three 2D isotropic Gaussians corresponding to three classes. The Gaussians means are $[0, 2.]$, $[-1.73205081, -1.]$ and $[ 1.73205081, -1. ]$. The variance of the Gaussians is $0.2$. A visualization of the true distributions for the three Gaussians is given in Figure~\ref{visualization_gaussians}. The final dataset is composed in total of 1500 samples.
+
+We use the segment vector dataset \cite{uci_datasets}, where the goal is to classify areas of images into $7$ classes (window, foliage, grass, brickface, path, cement, sky). We remove the class 'sky' from training and instead use it as the OOD dataset for OOD detection experiments. Each input is composed of $18$ attributes describing the image area. The dataset contains $2,310$ samples in total.
+
+We further use the Sensorless Drive vector dataset \cite{uci_datasets}, where the goal is to classify extracted motor current measurements into $11$ different classes. We remove classes 10 and 11 from training and use them as the OOD dataset for OOD detection experiments. Each input is composed of $49$ attributes describing motor behaviour. The dataset contains $58,509$ samples in total.
+
+Additionally, we use the MNIST image dataset \cite{mnist} where the goal is to classify pictures of hand-drawn digits into $10$ classes (from digit $0$ to digit $9$). Each input is composed of a $1 \times 28 \times 28$ tensor. The dataset contains $70,000$ samples. For OOD detection experiments, we use KMNIST \cite{kmnist} and FashionMNIST \cite{fashionmnist} containing images of Japanese characters and images of clothes, respectively. 
+
+Finally, we use the CIFAR10 image dataset \cite{cifar10} where the goal is to classify a picture of objects into $10$ classes (airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck). Each input is a $3 \times 32 \times 32$ tensor. The dataset contains $60,000$ samples. For OOD detection experiments, we use street view house numbers (SVHN) \cite{svhn} containing images of numbers. For the dataset shift experiments, we use the classic split of CIFAR10 to avoid data leakage with the corrupted images from the test set that is provided online.
+
+\section{Additional Experimental Results}
+\label{sec:app_additional_results}
+
+In this section, we present additional results for uncertainty estimation on other datasets. Tables \ref{fig:unc_segment_full}, \ref{fig:unc_sensorless_drive_full}, \ref{fig:unc_MNIST_full}, \ref{fig:ood_MNIST_full}, \ref{fig:unc_CIFAR10_full} show the performance of all models on the Segment, Sensorless Drive, MNIST, and CIFAR10 datasets. In the same way as for the other datasets, \oursacro is competitive for all metrics and show a significant improvement on calibration among Dirichlet parametrized models and on OOD detection tasks among all models. We evaluated the performances of all models on MNIST using different uncertainty measures and observed very correlated results (see Table~\ref{tab:MNIST++}). We compared different encoder architectures on CIFAR10 (see Fig.~\ref{tab:architecture_CIFAR10}). Without further parameter tuning, \oursacro adapted well to the convolutional architecture, AlexNet \cite{alexnet}, VGG \cite{vgg} and ResNet \cite{resnet}. For easier comparison, we also trained models on the classic CIFAR10 split (79\%, 5\%, 16\%) with VGG architecture. We noticed that a larger training set leads to better accuracy for all models.
+
+We also show results of experiments with different latent dimensions (see Fig.~\ref{fig:latent_dim_segment}; \ref{fig:latent_dim_sensorless_drive}; \ref{fig:latent_dim_MNIST}; \ref{fig:latent_dim_CIFAR10}) and density types (MoG, radial, IAF) (see Tab.~\ref{fig:unc_segment_full}; \ref{fig:unc_sensorless_drive_full}; \ref{fig:unc_MNIST_full}; \ref{fig:ood_MNIST_full}; \ref{fig:unc_CIFAR10_full}) for all datasets. We remarked that \oursacro works with various type of densities even if using mixture of Gaussians presented more instability in practice. We observed no clear winner between Radial flow and IAF. We observed a bit lower performances for MoG which could be explained by its lack of expressiveness. Furthermore, we observed that a too high latent dimension would affect the performance.
+
+Beside tables and figures with detailed metrics, we report additional visualizations. We present the uncertainty visualization on the input space for a 2D toy dataset (see Fig.~\ref{fig:visualization_grid}). We show this visualization for all models parametrizing Dirichlet distributions. \oursacro is the only model which is not overconfident for OOD data. In particular, it demonstrates the best fit of the true in-distribution data shown in figure \ref{visualization_gaussians}. Other models show overconfident prediction for OOD regions and fail even on this simple dataset. 
+
+Furthermore, we plotted histograms of entropy of ID, OOD, OODom data for MNIST and CIFAR10 (see Fig~\ref{entropy_MNIST} and \ref{cifar_shifts}). For both datasets, \oursacro can easily distinguish between the three data types.
+
+Finally, We also included the evolution of the uncertainty while interpolating linearly between images of MNIST (see Fig.~\ref{aleatoric_interpolation} and \ref{epistemic_interpolation}). It corresponds to a smooth walk in latent space. As shown in Figure \ref{aleatoric_interpolation}, \oursacro predicts correctly on clean images and outputs more balanced class predictions for mixed images. Additionally the Figure \ref{epistemic_interpolation} shows the evolution of the concentration parameters and consequently the epistemic uncertainty. We observe that the epistemic uncertainty (i.e. low $\alpha_\iclass$) is higher on mixed images which do not correspond to proper digits.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{3-Gaussians Dataset}
+
+\begin{figure}[ht]
+    \centering
+        \includegraphics[width= 0.25 \columnwidth]{figures/three_gaussians_dataset-crop.pdf}
+        
+    \caption{Three Gaussians toy dataset.}
+    \label{visualization_gaussians}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+        \includegraphics[width=1. \textwidth]{figures/visualization-grid.png}
+        
+    \caption{Visualization of the concentration parameters predicted by Distribution Distillation, Prior Networks trained with KL and reverse KL divergence and \ours on a 3-Gaussians toy dataset over 5 runs. Red dots indicate the mean of the 3 Gaussians. Colours indicate class labels predicted by the models, dark regions correspond to high epistemic uncertainty. \oursacro consistently predicts low uncertainty around the training data and high uncertainty for OOD data.}
+    \label{fig:visualization_grid}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Segment Dataset}
+
+\begin{table}[ht]
+    \resizebox{1 \textwidth}{!}{%
+\begin{tabular}{lllllll}
+\toprule
+{} &  \textbf{Acc.} & \textbf{Alea. Conf.} & \textbf{Epist. Conf.}  & \textbf{Brier} & \textbf{OOD Alea.} & \textbf{OOD Epist.} \\
+\midrule
+\midrule
+\textbf{Drop Out       } &  95.25$\pm$0.1 &        99.75$\pm$0.0 &          99.43$\pm$0.0 &  11.89$\pm$0.2 &      41.48$\pm$0.5 &       43.11$\pm$0.6 \\
+\textbf{Ensemble       } &  *97.27$\pm$0.1 &        *99.88$\pm$0.0 &          *99.85$\pm$0.0 &   *7.64$\pm$0.2 &      54.76$\pm$1.6 &       58.13$\pm$1.7 \\
+\midrule
+\textbf{Distill.       } &  96.21$\pm$0.1 &        99.82$\pm$0.0 &           \textbf{99.8$\pm$0.0} &  57.77$\pm$0.6 &      37.12$\pm$0.5 &       35.83$\pm$0.4 \\
+\textbf{KL-PN          } &  95.61$\pm$0.1 &        99.79$\pm$0.0 &          99.76$\pm$0.0 &  16.84$\pm$0.3 &      65.62$\pm$2.4 &       57.07$\pm$3.7 \\
+\textbf{RKL-PN         } &  96.36$\pm$0.2 &        99.71$\pm$0.0 &          99.58$\pm$0.0 &  11.97$\pm$0.1 &      75.46$\pm$2.4 &       51.02$\pm$0.6 \\
+\textbf{PostN Rad. (2) } &  95.76$\pm$0.1 &        99.23$\pm$0.1 &          98.82$\pm$0.1 &  13.33$\pm$1.3 &      92.75$\pm$1.3 &       90.41$\pm$1.5 \\
+\textbf{PostN Rad. (6) } &  96.52$\pm$0.2 &        99.82$\pm$0.0 &          99.43$\pm$0.0 &   8.69$\pm$0.3 &      98.27$\pm$0.2 &       98.09$\pm$0.3 \\
+\textbf{PostN Rad. (10)} &   94.9$\pm$0.2 &        99.51$\pm$0.0 &          98.57$\pm$0.1 &  12.22$\pm$0.7 &      95.53$\pm$0.8 &       97.51$\pm$0.7 \\
+\textbf{PostN IAF (2)  } &  93.94$\pm$0.3 &        99.02$\pm$0.1 &           98.3$\pm$0.2 &  15.33$\pm$0.7 &       \textbf{*98.3$\pm$0.3} &       \textbf{*99.33$\pm$0.1} \\
+\textbf{PostN IAF (6)  } &  95.71$\pm$0.2 &        99.63$\pm$0.0 &          99.11$\pm$0.1 &  10.16$\pm$0.3 &      96.92$\pm$0.9 &       98.17$\pm$0.6 \\
+\textbf{PostN IAF (10) } &  \textbf{96.92$\pm$0.1} &        \textbf{99.83$\pm$0.0} &          99.49$\pm$0.0 &   \textbf{8.45$\pm$0.4} &      95.75$\pm$1.1 &       96.74$\pm$0.9 \\
+\textbf{PostN MoG (2)  } &  63.43$\pm$5.3 &        79.61$\pm$6.2 &          79.05$\pm$6.1 &  54.14$\pm$5.4 &      90.87$\pm$1.4 &       91.62$\pm$1.4 \\
+\textbf{PostN MoG (6)  } &  89.75$\pm$2.5 &        95.28$\pm$1.6 &          93.15$\pm$2.1 &  24.42$\pm$4.3 &      96.04$\pm$1.3 &       97.71$\pm$0.8 \\
+\textbf{PostN MoG (10) } &  94.44$\pm$0.5 &        99.64$\pm$0.1 &          99.08$\pm$0.2 &  14.79$\pm$1.3 &      91.14$\pm$1.5 &       90.82$\pm$1.3 \\
+\bottomrule
+\end{tabular}
+
+    }
+    \caption{Results on Segment dataset with all models. It shows results with different density types. Number into parentheses indicates flow size (for radial flow and IAF) or number of components (for MoG). Bold numbers indicate best score among Dirichlet parametrized models and starred numbers indicate best scores among all models.}
+    \label{fig:unc_segment_full}
+\end{table}
+
+\begin{table}[ht]
+    \resizebox{1 \textwidth}{!}{%
+\begin{tabular}{lllllll}
+\toprule
+{} &  \textbf{Acc.} & \textbf{Alea. Conf.} & \textbf{Epist. Conf.} & \textbf{Brier} & \textbf{OOD Alea.} & \textbf{OOD Epist.} \\
+\midrule
+\midrule
+\textbf{PostN: No-Flow      } & \cellcolor{Gray} 93.13$\pm$0.3 &        99.48$\pm$0.1 & 98.41$\pm$0.3 & \cellcolor{Gray} 12.94$\pm$0.3 & \cellcolor{Gray}  47.3$\pm$2.9 & \cellcolor{Gray} 35.49$\pm$0.3 \\
+\textbf{PostN: No-Bayes-Loss} & \cellcolor{Gray} 93.94$\pm$0.8 &  98.53$\pm$0.3 & \cellcolor{Gray}  96.08$\pm$1.1 & \cellcolor{Gray} 16.15$\pm$1.9 & \cellcolor{Gray} 94.71$\pm$1.0 & \cellcolor{Gray} 95.92$\pm$0.8 \\
+\textbf{PostN: Seq-No-Bn    } & \cellcolor{Gray} 18.94$\pm$1.1 & \cellcolor{Gray}  20.42$\pm$1.7 & \cellcolor{Gray}  20.42$\pm$1.7 & \cellcolor{Gray} 91.29$\pm$0.0 & \cellcolor{Gray} 58.91$\pm$0.8 & \cellcolor{Gray} 58.43$\pm$0.8 \\
+\textbf{PostN: Seq-Bn       } & \cellcolor{Gray} 93.89$\pm$0.1 &        99.38$\pm$0.1 &  98.93$\pm$0.0 & \cellcolor{Gray} 14.64$\pm$0.3 &      98.02$\pm$0.4 &       99.93$\pm$0.0 \\
+\bottomrule
+\end{tabular}
+
+    }
+    \caption{Ablation study results on Segment dataset. Gray cells indicate significant drops in scores compare to the complete \oursacro Rad. (6) model in Table \ref{fig:unc_segment_full}.}
+    \label{fig:ablation_segment}
+\end{table}
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_seg_acc.png}
+    \end{subfigure}%   
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_seg_conf.png}
+    \end{subfigure}% 
+    
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_seg_brier.png}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_seg_ood.png}
+    \end{subfigure}%
+
+    \caption{Accuracy and uncertainty scores of \oursacro with latent dimension in $[2, 6, 10, 32]$ on the Segment dataset. We observed that the performances remains high for small dimensions (i.e. $2$, $6$, $10$) and drop for a too high dimension (i.e. $32$).}
+    \label{fig:latent_dim_segment}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Sensorless Drive Dataset}
+
+\begin{table}[ht]
+    \resizebox{1 \textwidth}{!}{%
+\begin{tabular}{lllllll}
+\toprule
+{} &  \textbf{Acc.} & \textbf{Alea. Conf.} & \textbf{Epist. Conf.} & \textbf{Brier} & \textbf{OOD Alea.} & \textbf{OOD Epist.} \\
+\midrule
+\midrule
+\textbf{Drop Out       } &  89.32$\pm$0.2 &        98.21$\pm$0.1 &         95.24$\pm$0.2 &  28.86$\pm$0.4 &      35.41$\pm$0.4 &       40.61$\pm$0.7 \\
+\textbf{Ensemble       } &  99.37$\pm$0.0 &        99.99$\pm$0.0 &         *99.98$\pm$0.0 &   2.47$\pm$0.1 &      50.01$\pm$0.0 &       50.62$\pm$0.1 \\
+\midrule
+\textbf{Distill.       } &  93.66$\pm$1.5 &        98.29$\pm$0.5 &         98.15$\pm$0.5 &  44.94$\pm$1.4 &       32.1$\pm$0.6 &       31.17$\pm$0.2 \\
+\textbf{KL-PN          } &  94.77$\pm$0.9 &        99.52$\pm$0.1 &         99.47$\pm$0.1 &  21.47$\pm$1.9 &      35.48$\pm$0.8 &        33.2$\pm$0.6 \\
+\textbf{RKL-PN         } &  99.42$\pm$0.0 &        99.96$\pm$0.0 &         99.89$\pm$0.0 &   9.07$\pm$0.1 &      45.89$\pm$1.6 &       38.14$\pm$0.8 \\
+\textbf{PostN Rad. (2) } &  96.07$\pm$0.0 &        99.28$\pm$0.0 &         98.88$\pm$0.0 &  19.94$\pm$0.0 &      \textbf{*98.22$\pm$0.0} &       \textbf{*98.03$\pm$0.0} \\
+\textbf{PostN Rad. (6) } &  98.02$\pm$0.1 &        99.89$\pm$0.0 &         99.47$\pm$0.0 &   5.51$\pm$0.2 &      72.89$\pm$0.8 &       88.73$\pm$0.5 \\
+\textbf{PostN Rad. (10)} &   97.3$\pm$0.0 &        99.82$\pm$0.0 &         99.31$\pm$0.0 &   7.93$\pm$0.0 &      66.65$\pm$0.0 &       87.91$\pm$0.0 \\
+\textbf{PostN IAF (2)  } &  99.19$\pm$0.0 &        99.98$\pm$0.0 &         99.78$\pm$0.0 &   2.45$\pm$0.0 &      78.13$\pm$0.0 &        85.9$\pm$0.0 \\
+\textbf{PostN IAF (6)  } &  99.11$\pm$0.1 &        99.98$\pm$0.0 &         99.72$\pm$0.0 &   2.71$\pm$0.1 &      78.48$\pm$0.7 &       86.47$\pm$0.5 \\
+\textbf{PostN IAF (10) } &  \textbf{*99.52$\pm$0.0} &        \textbf{*100.0$\pm$0.0} &         \textbf{99.92$\pm$0.0}&   \textbf{*1.43$\pm$0.1} &      82.96$\pm$0.8 &       88.65$\pm$0.4 \\
+\textbf{PostN MoG (2)  } &  59.63$\pm$4.8 &         72.2$\pm$4.7 &         70.38$\pm$4.8 &  68.41$\pm$4.6 &       67.2$\pm$3.1 &        72.3$\pm$2.9 \\
+\textbf{PostN MoG (6)  } &  96.83$\pm$0.2 &        99.72$\pm$0.0 &         99.16$\pm$0.1 &  13.24$\pm$1.0 &      59.82$\pm$2.3 &       60.61$\pm$2.6 \\
+\textbf{PostN MoG (10) } &  96.65$\pm$0.2 &        99.64$\pm$0.0 &         99.12$\pm$0.1 &  13.12$\pm$1.1 &      61.54$\pm$1.8 &       65.35$\pm$2.0 \\
+\bottomrule
+\end{tabular}
+
+    }
+    \caption{Results on Sensorless Drive dataset with all models. It shows results with different density types. Number into parentheses indicates flow size (for radial flow and IAF) or number of components (for MoG).}
+    \label{fig:unc_sensorless_drive_full}
+\end{table}
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_sen_acc.png}
+    \end{subfigure}%   
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_sen_conf.png}
+    \end{subfigure}% 
+    
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_sen_brier.png}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_sen_ood.png}
+    \end{subfigure}%
+
+    \caption{Accuracy and uncertainty scores of \oursacro with latent dimension in $[2, 6, 10, 32]$ on the Sensorless Drive dataset. OOD scores are computed against the left out sky class. We observed that the performances remains high for medium dimensions (i.e. $6$, $10$) and drop for a too high dimension (i.e. $32$).}
+    \label{fig:latent_dim_sensorless_drive}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{MNIST Dataset}
+
+\begin{figure}[t!]
+    \centering
+    \begin{subfigure}[t]{0.46 \columnwidth}
+        \centering
+        \includegraphics[width=0.5 \textwidth]{figures/2D_latent_klpn_3.png}
+         \caption{ID/OOD data (PriorNet)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.46 \columnwidth}
+        \centering
+        \includegraphics[width=0.5 \textwidth]{figures/2D_latent_ours_bn_3.png}
+         \caption{ID/OOD data (\oursacro)}
+    \end{subfigure}%
+    \caption{This figure should be seen in perspective with Fig.~\ref{fig:mnist_2D_latent_space}. We plot FashionMNIST OODom data with black crosses to show where these data would land. OODom data were not used for training the models, A comparison of Fig.~\ref{fig:mnist_2D_latent_space_2}(a) with Fig.~\ref{fig:mnist_2D_latent_space}(b) show that Prior Network assigns high certainty to OODom data. In contrast, a comparison of Fig.~\ref{fig:mnist_2D_latent_space_2}(b) and Fig.~\ref{fig:mnist_2D_latent_space}(c) shows that \ours assigns low uncertainty to OODom data as desired.}
+    \label{fig:mnist_2D_latent_space_2}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[t]{.5 \columnwidth}
+        \centering
+        \includegraphics[width=1 \textwidth]{figures/entropy_MNIST.png}
+        \caption{MNIST}    
+        \end{subfigure}%   
+    \caption{Histograms of the entropy of the predicted categorical distributions for in-distribution (green), out-of-distribution (yellow) and out-of-domain (red) data. The value $2.3026^*$ denotes the maximal entropy achievable for a categorical distribution with 10 classes. We use MNIST, FashionMNIST and the unscaled version of FashionMNIST as in-distribution, out-of-distribution and out-of-domain data. \oursacro clearly distinguishes between the three types of data with low entropy for in-distribution data and high entropy for out-of-distribution, and close to the maximum possible entropy for out-of-domain data.}
+    \label{entropy_MNIST}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+        \includegraphics[width=.9 \textwidth]{figures/image_interpolation_uncertainty3.pdf}
+        
+    \caption{Evolution of the probability predictions when interpolating linearly between four MNIST images. The interpolation goes from the clean digits $5$, $4$, $6$ and $2$ in a cyclic way with $20$ interpolated images between each pair. As desired, We can observe correct predictions around clean images with higher (aleatoric) uncertainty for mixed images, and smooth transitions in between.}
+    \label{aleatoric_interpolation}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+        \includegraphics[width=.9 \textwidth]{figures/image_interpolation_uncertainty4.pdf}
+        
+    \caption{Evolution of the concentration parameters predictions when interpolating linearly between four MNIST images. The interpolation goes from the clean digits $5$, $4$, $6$ and $2$ in a cyclic way with $20$ interpolated images between each pair. As desired, we can observe correct and confident predictions around clean images with higher (epistemic) uncertainty for mixed images.}
+    \label{epistemic_interpolation}
+\end{figure}
+
+\begin{table}[ht]
+\centering
+   % \resizebox{1 \textwidth}{!}{%
+\begin{tabular}{lllll}
+\toprule
+{} &   \textbf{Acc.} & \textbf{Alea. Conf.} & \textbf{Epist. Conf.}  &  \textbf{Brier} \\
+\midrule
+\midrule
+\textbf{Drop Out       } &  99.26$\pm$0.0 &       99.98$\pm$0.0 &         99.97$\pm$0.0 &   1.78$\pm$0.0 \\
+\textbf{Ensemble       } &  *99.35$\pm$0.0 &       *99.99$\pm$0.0 &         *99.98$\pm$0.0 &   1.67$\pm$0.0 \\
+\midrule
+\textbf{Distill.       } &  \textbf{99.34$\pm$0.}0 &       \textbf{99.98$\pm$0.0} &         \textbf{*99.98$\pm$0.}0 &  72.55$\pm$0.2 \\
+\textbf{KL-PN          } &  99.01$\pm$0.0 &       99.92$\pm$0.0 &         99.95$\pm$0.0 &  10.82$\pm$0.0 \\
+\textbf{RKL-PN         } &  99.21$\pm$0.0 &       99.67$\pm$0.0 &         99.57$\pm$0.0 &   9.76$\pm$0.0 \\
+\textbf{RKL-PN w/ F.   } &   99.2$\pm$0.0 &       99.75$\pm$0.0 &         99.68$\pm$0.0 &    9.9$\pm$0.0 \\
+\textbf{PostN Rad. (2) } &  \textbf{99.34$\pm$0.0} &       \textbf{99.98$\pm$0.0} &         99.97$\pm$0.0 &   \textbf{*1.25$\pm$0.0} \\
+\textbf{PostN Rad. (6) } &  99.28$\pm$0.0 &       99.97$\pm$0.0 &         99.96$\pm$0.0 &   1.36$\pm$0.0 \\
+\textbf{PostN Rad. (10)} &  99.22$\pm$0.0 &       99.97$\pm$0.0 &         99.97$\pm$0.0 &   1.41$\pm$0.0 \\
+\textbf{PostN IAF (2)  } &  99.06$\pm$0.0 &       99.96$\pm$0.0 &         99.94$\pm$0.0 &   1.48$\pm$0.0 \\
+\textbf{PostN IAF (6)  } &  99.08$\pm$0.0 &       99.96$\pm$0.0 &         99.94$\pm$0.0 &   1.45$\pm$0.1 \\
+\textbf{PostN IAF (10) } &  98.97$\pm$0.0 &       99.96$\pm$0.0 &         99.94$\pm$0.0 &   1.61$\pm$0.0 \\
+\textbf{PostN MoG (2)  } &  76.41$\pm$2.3 &       99.93$\pm$0.0 &         99.92$\pm$0.0 &  23.23$\pm$2.2 \\
+\textbf{PostN MoG (6)  } &  99.21$\pm$0.0 &       99.94$\pm$0.0 &         99.92$\pm$0.0 &   1.61$\pm$0.0 \\
+\textbf{PostN MoG (10) } &  99.22$\pm$0.0 &       99.94$\pm$0.0 &         99.92$\pm$0.0 &   1.53$\pm$0.0 \\
+\bottomrule
+\end{tabular}
+  %  }
+    \caption{Accuracy, confidence and calibration results on MNIST dataset with all models. It shows results with different density types. Number into parentheses indicates flow size (for radial flow and IAF) or number of components (for MoG). Bold numbers indicate best score among Dirichlet parametrized models and starred numbers indicate best scores among all models.}
+    \label{fig:unc_MNIST_full}
+\end{table}
+
+\begin{table}[ht]
+    \resizebox{1 \textwidth}{!}{%
+\begin{tabular}{lllllllll}
+\toprule
+{} & \textbf{OOD K.} & \textbf{OOD K.} & \textbf{OOD F.} & \textbf{OOD F.} & \textbf{OODom K.} & \textbf{OODom K.} & \textbf{OODom F.} & \textbf{OODom F.} \\
+{} & \textbf{Alea.} & \textbf{Epist.} & \textbf{Alea.} & \textbf{Epist.} & \textbf{Alea.} & \textbf{Epist.} & \textbf{Alea.} & \textbf{Epist.} \\
+\midrule
+\midrule
+\textbf{Drop Out       } &          94.0$\pm$0.1 &          93.01$\pm$0.2 &         96.56$\pm$0.2 &           95.0$\pm$0.2 &           31.59$\pm$0.5 &            31.97$\pm$0.5 &            27.2$\pm$1.1 &            27.52$\pm$1.1 \\
+\textbf{Ensemble       } &         *97.12$\pm$0.0 &           *96.5$\pm$0.0 &         98.15$\pm$0.1 &          96.76$\pm$0.0 &            41.7$\pm$0.3 &            42.25$\pm$0.3 &           37.22$\pm$1.0 &            37.73$\pm$1.0 \\
+\midrule
+\textbf{Distill.       } &         \textbf{96.64$\pm$0.1} &          85.17$\pm$1.0 &         98.83$\pm$0.0 &          94.09$\pm$0.4 &           11.49$\pm$0.3 &            10.66$\pm$0.2 &           13.82$\pm$0.5 &            12.03$\pm$0.3 \\
+\textbf{KL-PN          } &         92.97$\pm$1.2 &          93.39$\pm$1.0 &         98.44$\pm$0.1 &          98.16$\pm$0.0 &            9.54$\pm$0.1 &             9.78$\pm$0.1 &            9.57$\pm$0.1 &            10.06$\pm$0.1 \\
+\textbf{RKL-PN         } &         60.76$\pm$2.9 &          53.76$\pm$3.4 &         78.45$\pm$3.1 &          72.18$\pm$3.6 &            9.35$\pm$0.1 &             8.94$\pm$0.0 &            9.53$\pm$0.1 &             8.96$\pm$0.0 \\
+\textbf{RKL-PN w/ F.   } &         81.34$\pm$4.5 &          78.07$\pm$4.8 &         \textbf{*100.0$\pm$0.0} &          \textbf{*100.0$\pm$0.0} &            9.24$\pm$0.1 &             9.08$\pm$0.1 &           88.96$\pm$4.4 &            87.49$\pm$5.0 \\
+\textbf{PostN Rad. (2) } &         95.49$\pm$0.3 &          93.12$\pm$0.7 &          96.2$\pm$0.3 &           94.6$\pm$0.4 &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} \\
+\textbf{PostN Rad. (6) } &         95.75$\pm$0.2 &          \textbf{94.59$\pm$0.3} &         97.78$\pm$0.2 &          97.24$\pm$0.3 &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} \\
+\textbf{PostN Rad. (10)} &         95.46$\pm$0.4 &          94.19$\pm$0.4 &         97.33$\pm$0.2 &          96.75$\pm$0.3 &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} \\
+\textbf{PostN IAF (2)  } &         92.24$\pm$0.3 &          91.75$\pm$0.3 &         96.58$\pm$0.2 &           96.6$\pm$0.2 &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} \\
+\textbf{PostN IAF (6)  } &         90.74$\pm$0.6 &          90.63$\pm$0.6 &         93.66$\pm$0.5 &          93.17$\pm$0.6 &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} \\
+\textbf{PostN IAF (10) } &         87.08$\pm$0.2 &          86.52$\pm$0.3 &         92.34$\pm$0.6 &          91.27$\pm$0.9 &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} \\
+\textbf{PostN MoG (2)  } &         74.27$\pm$2.0 &          73.34$\pm$1.9 &         76.99$\pm$2.0 &          76.74$\pm$1.9 &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} &           99.99$\pm$0.0 &            99.99$\pm$0.0 \\
+\textbf{PostN MoG (6)  } &         84.67$\pm$1.5 &          81.46$\pm$1.9 &         88.98$\pm$1.7 &          87.07$\pm$2.1 &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} \\
+\textbf{PostN MoG (10) } &         85.14$\pm$1.3 &          81.12$\pm$1.5 &         94.43$\pm$0.8 &           93.8$\pm$1.0 &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} &           \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} \\
+\bottomrule
+\end{tabular}
+
+    }
+    \caption{OOD results on MNIST dataset with all models. It shows results with different density types. Number into parentheses indicates flow size (for radial flow and IAF) or number of components (for MoG).}
+    \label{fig:ood_MNIST_full}
+\end{table}
+
+\begin{table}[ht]
+\centering
+    \resizebox{1. \textwidth}{!}{%
+\begin{tabular}{lllllllll}
+\toprule
+{} & \textbf{OOD K. $\alpha_0$/var.} & \textbf{OOD K. MI.} & \textbf{OOD F. $\alpha_0$/var.} & \textbf{OOD F. MI.} & \textbf{OODom K. $\alpha_0$/var.} & \textbf{OODom K. MI.} & \textbf{OODom F. $\alpha_0$/var.} & \textbf{OODom F. MI} \\
+\midrule
+\midrule
+\textbf{Ensemble     } &          *97.19$\pm$0.0 &       *97.44$\pm$0.0 &          97.53$\pm$0.1 &       97.69$\pm$0.1 &            42.36$\pm$0.3 &         42.38$\pm$0.3 &            37.85$\pm$1.1 &        37.86$\pm$1.1 \\
+\midrule
+\textbf{RKL-PN       } &          54.11$\pm$3.4 &        54.9$\pm$3.3 &          72.54$\pm$3.6 &       73.33$\pm$3.5 &             8.94$\pm$0.0 &          8.94$\pm$0.0 &             8.96$\pm$0.0 &         8.96$\pm$0.0 \\
+\textbf{RKL-PN  w/ F.} &           78.4$\pm$4.8 &       78.73$\pm$4.8 &          \textbf{*100.0$\pm$0.0} &       \textbf{*100.0$\pm$0.0} &             9.08$\pm$0.1 &          9.08$\pm$0.1 &             87.49$\pm$5.0 &        87.49$\pm$5.0 \\
+\textbf{PostN        } &          \textbf{96.04$\pm$0.2} &       \textbf{96.05$\pm$0.2} &          98.17$\pm$0.2 &       98.17$\pm$0.2 &            \textbf{*100.0$\pm$0.0} &         \textbf{*100.0$\pm$0.0} &            \textbf{*100.0$\pm$0.0} &        \textbf{*100.0$\pm$0.0} \\
+\bottomrule
+\end{tabular}
+
+    }
+    \vspace{-0.2cm}
+    \caption{\footnotesize{OOD detection on MNIST with other uncertainty measures. Mutual Information \cite{prior_net} and $\alpha_0$ (Dirichlet) / variance (Ensemble) results are highly correlated.}}
+    \label{tab:MNIST++}
+    \vspace{-.0cm}
+\end{table}
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_minst_acc.png}
+    \end{subfigure}%   
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_minst_conf.png}
+    \end{subfigure}%   
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_minst_brier.png}
+    \end{subfigure}%
+
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_minst_ood_1.png}
+    \end{subfigure}%   
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_minst_ood_2.png}
+    \end{subfigure}%
+    
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_minst_ood_3.png}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_minst_ood_4.png}
+    \end{subfigure}%
+
+    \caption{Accuracy and uncertainty scores of \oursacro with latent dimension in $[2, 6, 10, 32]$ on the MNIST dataset. OOD and OODom scores are computed against scaled and unscaled KMNIST and FashionMNIST datasets. We observed that the performances remains high for medium dimensions (i.e. $6$, $10$) and drop for a too high dimension (i.e. $32$).}
+    \label{fig:latent_dim_MNIST}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{CIFAR10 Dataset}
+
+\begin{table}[ht]
+    \resizebox{1 \textwidth}{!}{%
+\begin{tabular}{lllllllll}
+\toprule
+{} &  \textbf{Acc.} & \textbf{Alea. Conf.} & \textbf{Epist. Conf.}  & \textbf{Brier} & \textbf{OOD Alea.} & \textbf{OOD Epist.} & \textbf{OODom Alea.} & \textbf{OODom Epist.} \\
+\midrule
+\midrule
+\textbf{Drop Out       } &  71.73$\pm$0.2 &        92.18$\pm$0.1 &          84.38$\pm$0.3 &  49.76$\pm$0.2 &      72.94$\pm$0.3 &       41.68$\pm$0.5 &         28.3$\pm$1.8 &          47.1$\pm$3.3 \\
+\textbf{Ensemble       } &  *81.24$\pm$0.1 &        *96.61$\pm$0.0 &          93.25$\pm$0.1 &  38.88$\pm$0.1 &      *77.82$\pm$0.2 &       55.17$\pm$0.3 &        63.18$\pm$1.1 &         89.97$\pm$0.9 \\
+\midrule
+\textbf{Distill.       } &  72.11$\pm$0.4 &        91.72$\pm$0.2 &          90.73$\pm$0.2 &  88.04$\pm$0.1 &      \textbf{75.63$\pm$0.6} &       52.18$\pm$2.1 &        17.76$\pm$0.0 &         17.76$\pm$0.0 \\
+\textbf{KL-PN          } &  48.84$\pm$0.5 &        78.01$\pm$0.6 &          77.99$\pm$0.7 &  83.11$\pm$0.6 &      59.32$\pm$1.1 &       58.03$\pm$0.8 &        17.79$\pm$0.0 &         20.25$\pm$0.2 \\
+\textbf{RKL-PN         } &  62.91$\pm$0.3 &        85.62$\pm$0.2 &          81.73$\pm$0.2 &  58.12$\pm$0.4 &      67.07$\pm$0.4 &       56.64$\pm$0.8 &        17.83$\pm$0.0 &         17.76$\pm$0.0 \\
+\textbf{PostN Rad. (2) } &  76.43$\pm$0.1 &        94.59$\pm$0.1 &          94.02$\pm$0.1 &  37.59$\pm$0.3 &      72.91$\pm$0.4 &       69.26$\pm$1.1 &        99.99$\pm$0.0 &         \textbf{*100.0$\pm$0.0} \\
+\textbf{PostN Rad. (6) } &  76.46$\pm$0.3 &        94.75$\pm$0.1 &          \textbf{*94.34$\pm$0.1} &  \textbf{*37.39$\pm$0.4} &      72.83$\pm$0.6 &       \textbf{*72.82$\pm$0.7} &        \textbf{*100.0$\pm$0.0} &         \textbf{*100.0$\pm$0.0} \\
+\textbf{PostN Rad. (10)} &  75.43$\pm$0.2 &        94.16$\pm$0.1 &          93.64$\pm$0.1 &   39.3$\pm$0.4 &      71.94$\pm$0.3 &       70.99$\pm$0.5 &        \textbf{*100.0$\pm$0.0} &         \textbf{*100.0$\pm$0.0} \\
+\textbf{PostN IAF (2)  } &  76.75$\pm$0.2 &        \textbf{94.78$\pm$0.1} &          92.98$\pm$0.2 &  37.87$\pm$0.5 &      73.07$\pm$0.5 &       65.61$\pm$1.0 &        \textbf{*100.0$\pm$0.0} &         \textbf{*100.0$\pm$0.0} \\
+\textbf{PostN IAF (6)  } &  \textbf{76.79$\pm$0.1} &        94.73$\pm$0.0 &           93.7$\pm$0.1 &  37.86$\pm$0.2 &      73.58$\pm$0.2 &       69.74$\pm$0.3 &        \textbf{*100.0$\pm$0.0} &         \textbf{*100.0$\pm$0.0} \\
+\textbf{PostN IAF (10) } &  75.92$\pm$0.2 &        94.48$\pm$0.1 &          93.23$\pm$0.2 &  39.09$\pm$0.3 &       72.4$\pm$0.3 &       69.04$\pm$0.3 &        \textbf{*100.0$\pm$0.0} &         \textbf{*100.0$\pm$0.0} \\
+\textbf{PostN MoG (2)  } &   44.7$\pm$5.9 &        54.12$\pm$7.9 &          52.12$\pm$7.8 &  68.57$\pm$5.2 &      48.53$\pm$3.6 &       47.45$\pm$4.1 &        99.91$\pm$0.0 &         99.96$\pm$0.0 \\
+\textbf{PostN MoG (6)  } &  71.05$\pm$1.6 &        91.21$\pm$1.0 &          86.91$\pm$1.2 &  46.37$\pm$2.0 &      73.49$\pm$0.6 &       56.04$\pm$3.8 &        98.04$\pm$0.7 &         99.62$\pm$0.1 \\
+\textbf{PostN MoG (10) } &  71.63$\pm$1.3 &        91.57$\pm$0.8 &          88.92$\pm$0.8 &  46.07$\pm$1.9 &      72.61$\pm$0.3 &       56.28$\pm$1.8 &        99.88$\pm$0.0 &         \textbf{*100.0$\pm$0.0} \\
+\bottomrule
+\end{tabular}
+
+    }
+    \caption{Results on CIFAR10 dataset with all models with convolutional architecture. It shows results with different density types. Number into parentheses indicates flow size (for radial flow and IAF) or number of components (for MoG).}
+    \label{fig:unc_CIFAR10_full}
+\end{table}
+
+\begin{table}[ht]
+\centering
+%\vspace{-.2cm}
+    \resizebox{1. \textwidth}{!}{%
+\begin{tabular}{lllllllll}
+\toprule
+{} &   \textbf{Acc.} & \textbf{Alea. Conf.} & \textbf{Epist. Conf.}  &  \textbf{Brier} & \textbf{OOD S. Alea.} & \textbf{OOD S. Epist.} & \textbf{OODom S. Alea.} & \textbf{OODom S. Epist.} \\
+\midrule
+\midrule
+\textbf{Ensemble      } &  *91.34$\pm$0.0 &        *99.1$\pm$0.0 &         98.77$\pm$0.0 &  17.69$\pm$0.1 &          *80.1$\pm$0.3 &          75.14$\pm$0.2 &            21.1$\pm$3.1 &            24.42$\pm$3.7 \\
+\midrule
+\textbf{RKL-PN        } &  60.05$\pm$0.7 &       85.63$\pm$0.8 &         82.11$\pm$1.3 &  70.84$\pm$0.9 &         50.97$\pm$3.9 &            55.37$\pm$4.3 &           56.16$\pm$1.4 &          51.33$\pm$2.4 \\
+\textbf{RKL-PN w/ C100} &  88.18$\pm$0.1 &        95.44$\pm$0.3 &          94.15$\pm$0.3 &  79.99$\pm$2.0 &         56.67$\pm$2.1 &            73.37$\pm$2.3 &           57.06$\pm$1.7 &          50.31$\pm$1.4 \\
+\textbf{PostNet       } &    \textbf{90.05$\pm$0.1 }&       \textbf{98.87$\pm$0.0 }&         \textbf{*98.82$\pm$0.0} &  \textbf{*15.44$\pm$0.1} &         \textbf{76.04$\pm$0.4 }&          \textbf{*75.57$\pm$0.4} &           \textbf{*87.65$\pm$0.3} &            \textbf{*92.13$\pm$0.5} \\
+\bottomrule
+\end{tabular}
+
+    }
+    \vspace{-.2cm}
+    \caption{\footnotesize{Results with VGG16 on CIFAR10 on classic split (79\%, 5\%, 16\%). RKL-PN w/ C100 uses CIFAR100 as training OOD.}}
+    \label{fig:CIFAR10++}
+    \vspace{-.0cm}
+\end{table}
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_cifar10_acc.png}
+    \end{subfigure}%   
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_cifar10_conf.png}
+    \end{subfigure}%   
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_cifar10_brier.png}
+    \end{subfigure}%
+
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_cifar10_ood_1.png}
+    \end{subfigure}%   
+    \begin{subfigure}[t]{0.33 \textwidth}
+        \centering
+        \includegraphics[width=1. \textwidth]{figures/lat_dim_cifar10_ood_2.png}
+    \end{subfigure}%
+
+    \caption{Accuracy and uncertainty scores of \oursacro with latent dimension in $[2, 6, 10, 32]$ on the CIFAR10 dataset. OOD and OODom scores are computed against scaled and unscaled SVHN dataset. We observed that the performances remains high for medium dimensions (i.e. $6$, $10$) and drop for a too high dimension (i.e. $32$).}
+    \label{fig:latent_dim_CIFAR10}
+\end{figure}

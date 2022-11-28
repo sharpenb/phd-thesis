@@ -1,0 +1,65 @@
+%%%%% Horizontal %%%%%%
+%\begin{figure}[H]
+%\centering
+%\scalebox{0.9}{\begin{tikzpicture}[
+%rectanglenode/.style={rectangle, draw=black!100, very thick, minimum size=10mm},
+%roundnode/.style={circle, draw=black!100, very thick, minimum size=10mm},
+%nonenode/.style={rectangle, draw=none, minimum size=6mm},
+%]
+%\tikzset{edge/.style = {->,> = latex'}}
+%\node[nonenode] (H)         at (-5.9, 10.25)       {$\History$};
+%\node[nonenode] (e)      at (-5.9, 9.75)       {$e$};
+%\node[rectanglenode] (RNN)       at (-4.5, 10)       {RNN};
+%\node[nonenode] (pi)        at (-3, 9.5)       {$w_\IndexPoint^{(\IndexClass)}$};
+%\node[nonenode] (mu)       at (-3, 10)       {$\DeltaTime_\IndexPoint^{(\IndexClass)}$};
+%\node[nonenode] (sigma)        at (-3,10.5)       {$y_\IndexPoint^{(\IndexClass)}$};
+%\node[nonenode] (alpha)        at (-1.5, 10)       {$\theta(\DeltaTime)$};
+%\node[nonenode] (p)        at (0.75, 10)       {$\bm{p}(\DeltaTime) \sim P(\theta(\DeltaTime))$};
+%\draw[edge] (H) -> (RNN) {};
+%\draw[edge] (e) -> (RNN) {};
+%\draw[edge] (RNN) -> (pi) {};
+%\draw[edge] (RNN) -> (mu) {};
+%\draw[edge] (RNN) -> (sigma) {};
+%\draw[edge] (pi) -> (alpha) {};
+%\draw[edge] (mu) -> (alpha) {};
+%\draw[edge] (sigma) -> (alpha) {};
+%\draw[edge] (alpha) -> (p) {};
+%\end{tikzpicture}}
+%\caption{Model diagram. Both models output pseudo points given history and new event. In \GPModel they generate parameters $\theta(\DeltaTime) = \{\bm \mu (\DeltaTime), \bm \Sigma(\DeltaTime)\}$ that model $P(\theta(\DeltaTime))$ as a logistic-normal distribution. In \DirModel these points generate $\theta(\DeltaTime) = \bm \alpha(\DeltaTime)$ to model $P(\theta(\DeltaTime))$ as a Dirichlet distribution.}
+%\label{fig:model_diagram}
+%\end{figure}
+%%%%% Vertical %%%%%%
+% \InsertBoxR{3}{\parbox{0.3\linewidth}{
+\begin{wrapfigure}[12]{r}{3.5cm}
+    \vspace*{-0.6cm}
+    \centering
+    \scalebox{.75}{\begin{tikzpicture}[
+    rectanglenode/.style={rectangle, draw=black!100, very thick, minimum size=10mm},
+    roundnode/.style={circle, draw=black!100, very thick, minimum size=5mm},
+    nonenode/.style={rectangle, draw=none, minimum size=6mm},
+    ]
+    \tikzset{edge/.style = {->,> = latex'}}
+    \node[nonenode] (H)         at (8.7,4.5)       {$\History_{\IndexEvent-1}$};
+    \node[nonenode] (e)      at (10,5.6)       {$e_{\IndexEvent-1}$};
+    \node[rectanglenode] (RNN)       at (10,4.5)       {RNN};
+    \node[nonenode] (pi)        at (9.25,3.4)       {$[w_\IndexPoint^{(\IndexClass)},$};
+    \node[nonenode] (mu)       at (10,3.4)       {$\DeltaTime_\IndexPoint^{(\IndexClass)},$};
+    \node[nonenode] (sigma)        at (11,3.4)       {$y_\IndexPoint^{(\IndexClass)}]_{\IndexPoint=1}^\NbPoints$};
+    \node[roundnode] (regression)        at (10,2.4)       {GP};
+    \node[nonenode] (alpha)        at (10,1.4)       {$\DeltaTime_{\IndexClass}(\DeltaTime), \sigma_{\IndexClass}^2(\DeltaTime)$};
+    \node[nonenode] (p)        at (10,0.5)       {$\bm{p}(\DeltaTime) \sim P(\theta(\DeltaTime))$};
+    \draw[edge] (H) -> (RNN) {};
+    \draw[edge] (e) -> (RNN) {};
+    \draw[edge] (RNN) -> (pi) {};
+    \draw[edge] (RNN) -> (mu) {};
+    \draw[edge] (RNN) -> (sigma) {};
+    \draw[edge] (pi) -> (regression) {};
+    \draw[edge] (mu) -> (regression) {};
+    \draw[edge] (sigma) -> (regression) {};
+    \draw[edge] (regression) -> (alpha) {};
+    \draw[edge] (alpha) -> (p) {};
+    \end{tikzpicture}}
+    \caption{Model diagram}\label{fig:model_diagram}
+% }}[6]
+    \vspace*{-1cm}
+\end{wrapfigure}

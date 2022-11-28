@@ -1,0 +1,48 @@
+\subsection{Model Training with the Distributional Uncertainty Loss}
+\label{uncertainty_loss}
+
+The core feature of our models is to perform predictions in the future with uncertainty.
+The classical cross-entropy loss, however, is not well suited to learn uncertainty on the categorical distribution since it is only based on a single (point estimate) of the class distribution. That is, the standard cross-entropy loss for the $\IndexEvent^{\text{th}}$ event between the true categorical distribution $\bm{p}_{\IndexEvent}^{*}$ and the predicted (mean) categorical distribution $\overline{\bm{p}}_{\IndexEvent}$ is
+$\mathcal{L}_{\IndexEvent}^{\text{CE}} = \CrossEntropy[\bm{p}_{\IndexEvent}^*, \overline{\bm{p}}_{\IndexEvent}(\DeltaTime_{\IndexEvent}^*)] = - \sum_\IndexClass p_{\IndexEvent \IndexClass}^* \log \overline{p}_{\IndexEvent \IndexClass}(\DeltaTime_{\IndexEvent}^*)$. Due to the point estimate $\overline{\bm{p}}_{\IndexEvent}(\DeltaTime) = \E_{\bm{p}_{\IndexEvent} \sim P_{\IndexEvent}(\theta(\DeltaTime))}[\bm{p}_{\IndexEvent}]$, the uncertainty on $\bm{p}_{\IndexEvent}$ is completely neglected.
+
+
+Instead, we propose the \UncertaintyLoss which takes into account uncertainty:
+\begin{equation}\label{eq:loss}
+\begin{aligned}
+\mathcal{L}_{\IndexEvent}^{\text{UCE}} = \E_{\bm{p}_{\IndexEvent} \sim P_{\IndexEvent}(\theta(\DeltaTime_{\IndexEvent}^*))}[\CrossEntropy[\bm{p}_{\IndexEvent}^*, \bm{p}_{\IndexEvent}]] = - \int P_{\IndexEvent}(\theta(\DeltaTime_{\IndexEvent}^*)) \sum_\IndexClass p_{\IndexEvent \IndexClass}^* \log p_{\IndexEvent \IndexClass}
+\end{aligned}
+\end{equation}
+\com{Remark that the \UncertaintyLoss does not
+use the compound distribution $\overline{\bm{p}}_{\IndexEvent}(\DeltaTime)$ but considers the expected cross-entropy}. Based on Jensen's inequality, it holds: $0 \leq \mathcal{L}_{\IndexEvent}^{\text{CE}} \leq \mathcal{L}_{\IndexEvent}^{\text{UCE}}
+$. Consequently, a low value of the \UncertaintyLoss guarantees a low value for the classic cross entropy loss, while additionally taking the variation in the class probabilities into account. A comparison between the classic cross entropy and the \UncertaintyLoss on a simple classification task \com{and anomaly detection in asynchronous event setting} is presented in Appendix \ref{uncertain_loss_classification}.
+
+In practice the true distribution $\bm{p}_{\IndexEvent}^*$ is often a one hot-encoded representation of the observed class $\IndexClass_{\IndexEvent}$ which simplifies the computations. During training, the models compute $P_{\IndexEvent}(\theta(\DeltaTime))$ and evaluate it at the true time of the next event $\DeltaTime_{\IndexEvent}^*$ given the past event $\Event_{\IndexEvent-1}$ and the history $\History_{\IndexEvent-1}$. The final loss for a sequence of events is simply obtained by summing up the loss for each event
+$\mathcal{L}=\sum_\IndexEvent \E_{\bm{p}_{\IndexEvent} \sim P_{\IndexEvent}(\theta(\DeltaTime_{\IndexEvent}^*))}[\CrossEntropy[\bm{p}_{\IndexEvent}^*, \bm{p}_{\IndexEvent}]]$.
+
+\textbf{Fast computation.}  In order to have an efficient computation of the \UncertaintyLoss, we propose closed-form expressions.
+\textit{(1) Closed-form loss for Dirichlet.} Given that the observed class $\IndexClass_\IndexEvent$ is one hot-encoded by $\bm{p}_\IndexEvent^*$, the uncertain loss can be computed in closed form for the Dirichlet:
+\begin{equation} \label{eq:dir_loss}
+\mathcal{L}_\IndexEvent^{\text{UCE}} = \E_{\bm{p}_\IndexEvent(\DeltaTime_\IndexEvent^*) \sim \textbf{Dir}(\bm{\alpha}(\DeltaTime_\IndexEvent^*))}[\log p_{\IndexClass_\IndexEvent}(\DeltaTime_\IndexEvent^*)] = \Psi(\alpha_{\IndexClass_\IndexEvent}(\DeltaTime_\IndexEvent^*)) - \Psi(\alpha_0(\DeltaTime_\IndexEvent^*))
+\end{equation}
+where $\Psi$ denotes the digamma function and $\alpha_0(\DeltaTime_\IndexEvent^*) = \sum_\IndexClass^\NbClasses \alpha_\IndexClass(\DeltaTime_\IndexEvent^*)$.
+\textit{(2) Loss approximation for GP.} For \GPModel, we approximate $ \mathcal{L}_\IndexEvent^{\text{UCE}}$ based on second order series expansion (Appendix \ref{loss_closed_form_proof}):
+\small
+\begin{equation} \label{eq:gp_loss}
+    \mathcal{L}_\IndexEvent^{\text{UCE}}
+    \approx \mu_{\IndexClass_\IndexEvent}(\DeltaTime_\IndexEvent^*) - \log \Big( \sum_\IndexClass^\NbClasses \exp(\mu_\IndexClass(\DeltaTime_\IndexEvent^*) + \sigma_\IndexClass^2(\DeltaTime_\IndexEvent^*) / 2) \Big) +
+        \frac{\sum_\IndexClass^\NbClasses (\exp(\sigma_\IndexClass^2(\DeltaTime_\IndexEvent^*)) - 1) \exp(2 \mu_\IndexClass(\DeltaTime_\IndexEvent^*) + \sigma_\IndexClass^2(\DeltaTime_\IndexEvent^*))}
+        {2 \Big( \sum_\IndexClass^\NbClasses \exp(\mu_\IndexClass(\DeltaTime_\IndexEvent^*) + \sigma_\IndexClass^2(\DeltaTime_\IndexEvent^*) / 2) \Big)^2}
+\end{equation}
+\normalsize
+
+Note that we can now fully backpropagate through our loss (and through the models as well), enabling to train our methods efficiently with automatic differentiation frameworks and, e.g., gradient descent.
+
+\textbf{Regularization.} While the above loss much better incorporates uncertainty, it is still possible to generate pseudo points with high weight values outside of the observed data regime giving us predictions with high confidence. To eliminate this behaviour we introduce a regularization term $r_\IndexClass$:
+\begin{equation}\label{gp_regularization}
+r_\IndexClass = \alpha \underbrace{\int_0^T (\mu_\IndexClass(\DeltaTime))^2 \,d\DeltaTime}_{\text{Pushes mean to 0}} +
+\beta  \underbrace{\int_0^T (\nu - \sigma_\IndexClass^2(\DeltaTime))^2 \,d\DeltaTime}_{\text{Pushes variance to $\nu$}}
+\end{equation}
+For the \GPModel, $\mu_\IndexClass(\DeltaTime)$ and $\sigma_\IndexClass(\DeltaTime)$ correspond to the mean and the variance of the class logits which are pushed to prior values of $0$ and $\nu$. For the \DirModel, $\mu_\IndexClass(\DeltaTime)$ and $\sigma_\IndexClass(\DeltaTime)$ correspond to the mean and the variance of the class probabilities where the regularizer on the mean can actually be neglected because of the prior $\nu$ introduced in the function decomposition (Eq. \ref{eq:fct_dec}). In experiments, $\nu$ is set to $1$ for \GPModel and $\smash{\frac{\NbClasses-1}{\NbClasses^2(\NbClasses+1)}}$ for \DirModel which is the variance of the classic Dirichlet prior with concentration parameters equal to $1$. For both models, this regularizer forces high uncertainty on the interval $(0, T)$. In practice, the integrals can be estimated with Monte-Carlo sampling whereas $\alpha$ and $\beta$ are hyperparameters which are tuned on a validation set.
+
+In \citep{PriorNetworks}, to train models capable of uncertain predictions,  another dataset or a generative models to access out of observed distribution samples is required. In contrast, our regularizer suggests a simple way to consider out of distribution data which does not require another model or dataset.
+

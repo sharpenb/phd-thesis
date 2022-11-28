@@ -1,0 +1,13 @@
+\subsection{Model Framework}
+\label{model_framework}
+
+
+
+\
+After training is finished we are given a new asynchronous sequence of events. The two models generate $\NbPoints$ pseudo points per class $\IndexClass$ in the future when they expect event of this type. In our case, the pseudo points are denoted by $\smash{\mu_\IndexPoint^{(\IndexClass)}}$ for \DirModel and by $\smash{\DeltaTime_\IndexPoint^{(\IndexClass)}}$ for a \GPModel. Each pseudo point is weighted to express the probability of the occurrence of class $\IndexClass$ and the amount of certainty for this prediction in the surrounding time interval. These values are denoted by $\smash{c_\IndexPoint^{(\IndexClass)}}$ and $\smash{\sigma_\IndexPoint^{(\IndexClass)}}$ for a \DirModel, and by $\smash{w_\IndexPoint^{(\IndexClass)}}$ and $\smash{x_\IndexPoint^{(\IndexClass)}}$ for a \GPModel.
+
+Finally, pseudo points are used to describe the potentially complex evolution of the categorical distribution $\bm{p}_{\IndexEvent+1}(\DeltaTime)$ over time.
+
+%We are modelling this in the logit space by using a function decomposition for \DirModel and a Gaussian process for \GPModel. The logit space is a meaininful choice since the categorical distribution belongs to the exponential family and its natural parameters are logits. By working in the logits space, the natural parameters are not constrained on the interval $[0,1]$.
+
+%One major difference between the two models is where and how the uncertainty is introduced. For \DirModel, only the categorical distribution is uncertain and $\bm{p}_{\IndexEvent+1}(\DeltaTime)$ follows a Dirichlet distribution. In contrast, for \GPModel, both the logits and the categorical distribution are uncertain. The logits follow normal distribution and $\bm{p}_{\IndexEvent+1}(\DeltaTime)$ follows a logit normal distribution.

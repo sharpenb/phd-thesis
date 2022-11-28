@@ -1,0 +1,12 @@
+%\section{Proof for closed-form loss for Dirichlet} 
+%\label{loss_dir_proof}
+%
+%\sg{actually this is not even worth a proof! it could directly go to the main paper; what do you think?}
+%Considering that $P^*$ is one hot-encoded, we have: \sg{remove this part and directly start with our loss!!!}
+%\begin{equation}
+%    \mathcal{L}_\IndexEvent = \E[\log p_{\IndexClass_\IndexEvent}(\DeltaTime_\IndexEvent)]
+%\end{equation}
+%We know that $\bm{p}_\IndexEvent(\DeltaTime_\IndexEvent) \sim \textbf{Dir}(\bm{\alpha}(\DeltaTime_\IndexEvent))$. Given this the value of the expectation of the logarithm is known:
+%\begin{equation}
+%\E_{\bm{p}_\IndexEvent(\DeltaTime_\IndexEvent) \sim \textbf{Dir}(\bm{\alpha}(\DeltaTime_\IndexEvent))}[\log p_{\IndexClass_\IndexEvent}(\DeltaTime_\IndexEvent)] = \Psi(\alpha_{\IndexClass_\IndexEvent}(\DeltaTime_\IndexEvent)) - \Psi(\alpha_0(\DeltaTime_\IndexEvent))
+%\end{equation}

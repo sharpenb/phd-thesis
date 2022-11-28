@@ -1,0 +1,10 @@
+\section{Non Expressiveness of RMTPP intensities}
+\label{non_expressiveness_hawkes_rmtpp}
+
+The intensity function has the following form in the RMTPP model \cite{RMTPP}:
+\begin{equation}
+\begin{aligned}
+\log \lambda_0(\Timestamp) = \bm v^T\cdot \bm h_\IndexEvent + w(\Timestamp-\Timestamp_\IndexEvent) + b
+\end{aligned}
+\end{equation}
+ The variables  $\bm v$, $w$ and $b$ are learned parameters and $\bm h_\IndexEvent$ is given by the hidden state of an RNN.  The only dependence on $\Timestamp$ is $(\Timestamp-\Timestamp_\IndexEvent)$. RMTPP is then limited to monotonic intensity functions with respect to time.

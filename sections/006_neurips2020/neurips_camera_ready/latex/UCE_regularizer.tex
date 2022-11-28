@@ -1,0 +1,27 @@
+\section{Uncertainty-Aware Loss Computation}
+\label{sec:uncertainty_loss}
+
+A crucial design choice for neural network learning is the loss function. \oursacro estimates both aleatoric and epistemic uncertainty by learning a distribution $q\dataix$ for data point $\idata$ which is close to the true posterior of the categorical distribution $\vect{p}\dataix$ given the training data $\vect{x}\dataix$:
+%\begin{equation}
+    $q(\vect{p}\dataix) \simeq \prob(\vect{p}\dataix | \vect{x}\dataix)$.
+%\end{equation}
+One way to approximate the posterior is the following Bayesian loss function \cite{update_belief_propagation,PAC_bayesian_estimator,opt_info_processing_bayes}, which has the nice property of being optimal when $q\dataix$ is equal to the true posterior distribution:
+\begin{equation}
+\label{general_bayesian_loss}
+    q^* = \underset{q\dataix \in \mathcal{P}}{\arg \min}\; \E_{\psi\dataix \sim q(\psi\dataix)}[l(\psi\dataix, \vect{x}\dataix)] - H(q\dataix),
+\end{equation}
+where $l$ is a generic loss over \smash{$\psi\dataix$} satisfying \smash{$ 0 < \int \exp(-l(\psi, x)) d\psi < \infty$, $\mathcal{P}$} is the family of distributions we consider and \smash{$H(q\dataix)$} denotes the entropy of $q\dataix$.
+
+Applied in our case, \ours learns a distribution $q$ from the family of the Dirichlet distributions \smash{$\text{Dir}(\bm{\alpha}\dataix) = \mathcal{P}$} over the parameters \smash{$\vect{p}\dataix = \psi\dataix$}. Instantiating the loss $l$ with the cross-entropy loss (CE) we obtain the following optimization objective
+\begin{equation}
+\label{dirichlet_bayesian_loss}
+       \min_{\theta,\phi} \mathcal{L} = \min_{\theta, \phi} \frac{1}{N} \sum_{\idata}^{N} \underbrace{\E_{q(\bold{p}\dataix)}[\text{CE}(\bold{p}\dataix, \vect{y}\dataix)]}_{\text{(1)}} - \underbrace{H(q\dataix)}_{\text{(2)}}
+\end{equation}
+where $\bold{y}\dataix$ corresponds to the one-hot encoded ground-truth class of data point $i$.
+Optimizing this loss approximates the true posterior distribution for the the categorical distribution $\vect{p}\dataix$. The first term (1) corresponds the \UCE (\UCEacro) introduced by \cite{uncertainty_time}, which is known to increase confidence for observed data. The second term (2) is an entropy regularizer, which emerges naturally and favors smooth distributions $q\dataix$. Here we are optimizing jointly over the neural network parameters $\theta$ and $\phi$. We also experimented with sequential training i.e. optimizing over the normalizing flow component only with a pre-trained model (see Tab.~\ref{fig:ablation_sensorless_drive} and app.). Once trained, \oursacro can predict uncertainty-aware Dirichlet distributions for unseen data points.
+
+Observe that Eq.~\eqref{dirichlet_bayesian_loss} is equivalent to the ELBO loss used in variational inference when using a uniform Dirichlet prior (i.e. $(1)=-\E_{q(\bold{p}\dataix)}[\log \prob(\vect{y}\dataix|\bold{p}\dataix)]$ and $(2)=\text{KL}(q\dataix||\prob(\bold{p}\dataix))$ where $\prob(\bold{p}\dataix) = \text{Dir}(\bold{1})$). The more general Eq.~\eqref{general_bayesian_loss}, however, is not necessarily equal to an ELBO loss.
+
+Another interesting special case is to consider the family of Dirac distributions as \smash{$\mathcal{P}$} instead of the family of Dirichlet distributions. In this case we find back the traditional cross-entropy loss, which performs a simple point estimate for the distribution $\vect{p}\dataix$. CE is therefore not suited to learn a distribution with non-zero variance, as explained in \cite{uncertainty_time}.
+
+Other approaches, such as dropout, approximate the expectation in \UCEacro by sampling from \smash{$q\dataix$}. Our approach has the advantage of using closed-form expressions both for \UCEacro \cite{uncertainty_time} and the entropy term, thus being efficient and exact. The weight of the entropy regularization is a hyperparameter; experiments have shown \oursacro to be fairly insensitive to it, so in our experiments we set it to \smash{$10^{-5}$}.

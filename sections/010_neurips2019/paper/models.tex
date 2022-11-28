@@ -1,0 +1,21 @@
+\section{Model Description}\label{model_description}
+
+We consider a sequence $[e_1,\ldots, e_n]$ of events $\Event_\IndexEvent = (\Class_\IndexEvent, \Timestamp_\IndexEvent)$, where $\Class_\IndexEvent\in \{1,\ldots,\NbClasses\}$ denotes the class of the $\IndexEvent$th event and $\Timestamp_\IndexEvent\in \mathbb{R}$ is its time of occurrence. We assume the events arrive over time, i.e.\ $t_{\IndexEvent}>t_{\IndexEvent-1}$, and we introduce $\DeltaTime^*_\IndexEvent = \Timestamp_\IndexEvent - \Timestamp_{\IndexEvent-1}$ as the observed time gap between the $\IndexEvent$th and the $(\IndexEvent-1)$th event. The history preceding the $\IndexEvent$th event is denoted by $\History_{\IndexEvent}$.
+Let $\Simplex=\{\bm{p} \in [0,1]^\NbClasses, \sum_\IndexClass p_\IndexClass = 1\}$ denote the set of probability vectors that form the $(\NbClasses-1)$-dimensional simplex, and $P(\theta)$ be a family of probability distributions on this simplex parametrized by parameters $\theta$. Every sample $\bm p \sim P(\theta)$ corresponds to a (categorical) class distribution.
+
+Given $\Event_{\IndexEvent-1}$ and $\History_{\IndexEvent-1}$, our goal is to model the evolution of the class probabilities, and their uncertainty, of the next event $\IndexEvent$ over time. Technically, we model parameters $\theta(\DeltaTime)$, leading to a distribution $P$ over the class probabilities $\bm p$ for all $\DeltaTime \geq 0$. Thus, we can estimate the most likely class after a time gap $\DeltaTime$ by calculating $\arg\!\max_c \bm{\bar p}(\DeltaTime)_c$, where $\smash{\bm{\bar p}(\DeltaTime) := \E_{\bm p(\DeltaTime) \sim P(\theta(\DeltaTime))}[\bm p(\DeltaTime)]}$ is the expected probability vector. Even more, since we do not consider a point estimate, we can get the amount of certainty in a prediction. For this, we estimate the probability of class $\IndexClass$ being more likely than the other classes, given by $\smash{q_\IndexClass(\DeltaTime) := \E_{\bm p(\DeltaTime) \sim P(\theta(\DeltaTime))}[\mathbb{1}_{\bm p(\DeltaTime)_\IndexClass \geq  \max_{c'\neq c} \bm p(\DeltaTime)_{c'}}]}$. This tells us how certain we are that one class is the most probable (i.e.\ 'how often' is $c$ the argmax when sampling from $P$).
+
+Two expressive and well-established choices for the family $P$ are the Dirichlet distribution and the logistic-normal distribution (Appendix \ref{distributions}). Based on a common modeling idea, we present two models that exploit the specificities of these distributions: the \GPModel (Sec.~\ref{GP}) and the \DirModel (Sec.~\ref{dirichlet}). We also introduce a novel loss to train these models in Sec.~\ref{uncertainty_loss}.
+
+Independent of the chosen model, we have to tackle two core challenges: (1) \textbf{Expressiveness.} Since the time dependence of $\theta(\DeltaTime)$ may be of different forms, we need to capture complex behavior. (2) \textbf{Locality.} For regions out of the observed data we want to have a higher uncertainty in our predictions. Specifically for $\DeltaTime \rightarrow \infty$, i.e.\  far into the future, the distribution should have a high uncertainty.
+
+
+\input{gaussian_process}
+
+
+
+\input{dirichlet}
+\input{distributional_uncertainty_loss}
+%\input{model_framework}
+
+\input{point_process}

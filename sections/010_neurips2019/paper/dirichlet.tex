@@ -1,0 +1,55 @@
+\subsection{Dirichlet via a Function Decomposition (\DirModel)}
+\label{dirichlet}
+
+Next, we consider the Dirichlet distribution to model the uncertainty in the predictions. The goal is to model the evolution of the concentrations parameters $\bm{\alpha}=(\alpha_1, \dots,\alpha_\NbClasses)^T$ of the Dirichlet over time. 
+Since unlike to the logistic-normal, we cannot draw the connection to the GP, we propose  to decompose the parameters of the Dirichlet distribution with expressive (local) functions in order to allow complex dependence on time. 
+ %
+Since the concentration parameters $\alpha_\IndexClass(\DeltaTime)$  need to be positive, we propose the following decomposition of $\alpha_\IndexClass(\DeltaTime)$ in the log-space
+\begin{equation}\label{eq:fct_dec}
+\begin{aligned}
+\log \alpha_\IndexClass(\DeltaTime) &= \sum_{\IndexPoint=1}^{\NbPoints} w_\IndexPoint^{(\IndexClass)} \cdot \mathcal{N}(\DeltaTime|\DeltaTime_\IndexPoint^{(\IndexClass)}, \sigma_\IndexPoint^{(\IndexClass)}) + \nu
+%f(\DeltaTime, \theta_\IndexPoint^{(\IndexClass)}) + \nu
+\end{aligned}
+\end{equation}
+
+where the real-valued scalar $\nu$ is a constant prior on $\log \alpha_\IndexClass(\DeltaTime)$ which takes over in regions where the Gaussians are close to $0$.
+
+The decomposition into a sum of Gaussians is beneficial for various reasons: 
+\begin{enumerate*}[label=(\roman*)]
+\item First note that the concentration parameter $\alpha_\IndexClass$ can be viewed as the effective number of observations of class $\IndexClass$. Accordingly the larger $\log \alpha$, the more certain becomes the prediction. Thus, the functions $\smash{\mathcal{N}(\DeltaTime|\DeltaTime_\IndexPoint^{(\IndexClass)}, \sigma_\IndexPoint^{(\IndexClass)})}$ can describe time regions where we observed data and, thus, should be more certain; i.e. regions around the time $\smash{\DeltaTime_\IndexPoint^{(\IndexClass)}}$ where the 'width' is controlled by $\smash{\sigma_\IndexPoint^{(\IndexClass)}}$.
+\item Since most of the functions'  mass is centered around their mean, the locality property is fulfilled. Put differently: In regions where we did not observed data (i.e. where the functions $\smash{\mathcal{N}(\DeltaTime|\DeltaTime_\IndexPoint^{(\IndexClass)}, \sigma_\IndexPoint^{(\IndexClass)})}$ are close to $0$), the value $\log \alpha_\IndexClass(\DeltaTime)$ is close to the prior value $\nu$. In the experiments, we use $\nu=0$ , thus $\alpha_\IndexClass(\DeltaTime)=1$ in the out of observed data regions; a common (uninformative) prior value for the Dirichlet parameters. Specifically for $\DeltaTime \rightarrow \infty$ the resulting predictions have a high uncertainty.
+\item Lastly, a linear combination of translated Gaussians is able to approximate a wide family of functions \cite{ApproximatingWithGaussians}. And similar to the weighted GP, the coefficients $\smash{w_\IndexPoint^{(\IndexClass)}}$ allow discarding unnecessary basis functions.
+%Henceforth, we will use Gaussians as basis functions. However, other families of functions can also be good candidates (e.g. Wavelets).
+\end{enumerate*}
+
+The basis functions parameters $\smash{(w_\IndexPoint^{(\IndexClass)}, \DeltaTime_\IndexPoint^{(\IndexClass)}, \sigma_\IndexPoint^{(\IndexClass)})}$ are the output of the neural network, and can also be interpreted as weighted pseudo points that determine the regression of Dirichlet parameters $\theta(\DeltaTime)$, i.e. $\alpha_\IndexClass(\DeltaTime)$, over time (Fig. \ref{fig:model_illustration} \& Fig. \ref{fig:model_diagram}). The concentration parameters $\alpha_\IndexClass(\DeltaTime)$ themselves have also a natural interpretation: they can be viewed as the rate of events after time gap~$\DeltaTime$.
+
+
+%\textbf{Uncertainty with Dirichlet Distribution.} %Classification tasks can be easily modelled with a categorical distribution $\textbf{Cat}(\bm{p})$ where $\bm{p}=(p_1,\dots,p_\NbClasses)^T$ is the class probability vector. 
+%Given this model, uncertainty on the categorical distribution may be introduced by assuming that probability vector follows a Dirichlet distribution $\bm{p} \sim \textbf{Dir}(\bm{\alpha})$ where $\bm{\alpha}=(\alpha_1, \dots,\alpha_\NbClasses)^T$ is the concentration parameter vector. The mean and the variance of this distribution are
+%\begin{equation}
+%\begin{aligned}
+%\E[p_\IndexClass] = \frac{\alpha_\IndexClass}{\alpha_0} \text{,}\; \textbf{Var}[p_\IndexClass] = \frac{\alpha_\IndexClass(\alpha_0 - \alpha_\IndexClass)}{\alpha_0^2 (\alpha_0+1)}
+%\end{aligned}
+%\end{equation}
+%where $\alpha_0 = \sum_{\IndexClass=0}^{\NbClasses} \alpha_\IndexClass$. Given observations $\bm{m} = (m_1, \dots,m_\NbClasses)^T$, the Bayesian update of the probability vector distribution is simply $\bm{p} \sim \textbf{Dir}(\bm{\alpha} + \bm{m})$. This formula shows us two things:
+%\begin{enumerate*}[label=(\roman*)]
+%	\item the concentration parameter $\alpha_\IndexClass$ can be viewed as the effective number of observations of class $\IndexClass$
+%	\item the posterior distribution becomes more certain with more observations (even if the classes are equiprobable).
+%\end{enumerate*}
+%
+%In the context of the initial problem of adaptive prediction, a simple solution is to learn a different Dirichlet distribution given different time. Therefore, the model is
+%\begin{equation}
+%\begin{aligned}
+%\bm{p}(\DeltaTime)  \sim \textbf{Dir}(\bm{\alpha}(\DeltaTime))
+%\end{aligned}
+%\end{equation}
+%where $\bm{p}(\DeltaTime) = (p_1(\DeltaTime),\dots, p_\IndexClass(\DeltaTime))^T$ and $\bm{\alpha}(\DeltaTime) = (\alpha_1(\DeltaTime),\dots,\alpha_\IndexClass(\DeltaTime))^T$. The time dependent Dirichlet distribution allows both adaptative predictions and uncertainty on the categorical distribution at time $\DeltaTime$. Note that the concentration parameter $\alpha_\IndexClass(\DeltaTime)$ can be interpreted as the number of observed events of type $\IndexClass$ at time $\DeltaTime$.
+
+%\textbf{Computation of $\alpha$-regularizer.} As stated before, the concentration parameters can be interpreted as pseudocounts of events for each category. In the case of a \DirModel, they represent the rate of events at a given time $\DeltaTime$. While training, the model is likely to overfit and learn very large values of alphas. We propose the following additional loss for the $\IndexEvent$th event that acts as a regularizer:
+%\begin{equation}
+%\begin{aligned}
+%r_\IndexEvent = \Big(\alpha_0(\DeltaTime_\IndexEvent) - \sum_j  \mathbb{1}_{\DeltaTime_j \in [\DeltaTime_\IndexEvent-\frac{w}{2}, \DeltaTime_\IndexEvent+\frac{w}{2}]} \Big)^2
+%\end{aligned}
+%\end{equation}
+%where the summation term counts the total number of events which really occurred in a time window of size $w$ around $\DeltaTime_\IndexEvent$. Hence, the regularizer prevents the predicted pseudocounts of events $\alpha_0(\DeltaTime_\IndexEvent)$ to deviate from the true number of events observed at time $\DeltaTime_\IndexEvent$. Here, the true number of events does not depend on the history which allows beforehand computation during the data preprocessing step.
