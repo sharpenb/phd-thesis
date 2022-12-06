@@ -1,0 +1,147 @@
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2020
+
+% ready for submission
+% \usepackage{neurips_2020}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+    %  \usepackage[preprint]{neurips_2020}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+    \usepackage[final, nonatbib]{neurips_2020}
+
+% to avoid loading the natbib package, add option nonatbib:
+%\usepackage[]{neurips_2020}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs} % for professional tables
+\usepackage{makecell}
+
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage[inline]{enumitem}
+\usepackage{amsmath, amssymb}
+\usepackage{bbold}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{amsthm}
+\usepackage{xspace}
+\usepackage{stmaryrd}
+\usepackage{caption} 
+\captionsetup[table]{skip=6pt}
+\usetikzlibrary{shapes,snakes, arrows}
+\usepackage[table]{colortbl}
+
+
+% hyperref makes hyperlinks in the resulting PDF.
+% If your build breaks (sometimes temporarily if a hyperlink spans a page)
+% please comment out the following usepackage line and replace
+% \usepackage{icml2020} with \usepackage[nohyperref]{icml2020} above.
+\usepackage{hyperref}
+\usepackage{xspace}
+
+\definecolor{Gray}{gray}{0.85}
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\Dir}{\mathrm{Dir}}
+\newcommand{\Ber}{\mathrm{Ber}}
+\newcommand{\Cat}{\mathrm{Cat}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand\UCE{Uncertain Cross Entropy loss\xspace}
+\newcommand\UCEacro{UCE\xspace}
+\newcommand\ours{Posterior Network\xspace}
+\newcommand\oursacro{PostNet\xspace}
+\newcommand\SeqBn{Seq-Bn\xspace}
+\newcommand\SeqNoBn{Seq-No-Bn\xspace}
+\newcommand\NoFlow{No-Flow\xspace}
+\newcommand\NoUCE{No-Bayes-Loss\xspace}
+\newcommand\idata{i\xspace}
+\newcommand\dataix{^{(\idata)}}
+\newcommand\iclass{c\xspace}
+\newcommand\nclass{C\xspace}
+\newcommand\latent{\bold{z}}
+\newcommand\vect[1]{\mathbf{#1}}
+\newcommand{\latentdim}{H}
+\newtheorem{property}{Property}
+\newtheorem{proposition}{Proposition}
+\newcommand\dz[1]{\textcolor{violet}{(DZ: #1)}}
+\newcommand\bc[1]{\textcolor{blue}{(BC: #1)}}
+\newcommand\sg[1]{\textcolor{green}{(SG: #1)}}
+
+\title{\ours: Uncertainty Estimation without OOD Samples via Density-Based Pseudo-Counts}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{%
+  Bertrand Charpentier, Daniel Z\"ugner, Stephan G\"unnemann\\
+  Technical University of Munich, Germany\\
+  \texttt{\{charpent, zuegnerd, guennemann\}@in.tum.de} \\
+  % examples of more authors
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \AND
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+Accurate estimation of aleatoric and epistemic uncertainty is crucial to build safe and reliable systems. Traditional approaches, such as dropout and ensemble methods, estimate uncertainty by sampling probability predictions from different submodels, which leads to slow uncertainty estimation at inference time. Recent works address this drawback by directly predicting parameters of prior distributions over the probability predictions with a neural network. While this approach has demonstrated accurate uncertainty estimation, it requires defining arbitrary target parameters for in-distribution data and makes the unrealistic assumption that out-of-distribution (OOD) data is known at training time. 
+
+In this work we propose the Posterior Network (PostNet), which uses Normalizing Flows to predict an individual closed-form posterior distribution over predicted probabilites for any input sample. The posterior distributions learned by PostNet accurately reflect uncertainty for in- and out-of-distribution data -- without requiring access to OOD data at training time. PostNet achieves state-of-the art results in OOD detection and in uncertainty calibration under dataset shifts.
+\end{abstract}
+
+\input{introduction}
+\input{model}
+\input{UCE_regularizer}
+\input{experiments}
+\input{conclusion}
+
+\input{ethical_impact}
+\input{acknowledgements}
+\bibliography{main}
+\bibliographystyle{plain}
+\clearpage
+\input{appendix}
+
+\end{document}

@@ -1,0 +1,205 @@
+% 006
+
+\definecolor{Gray}{gray}{0.85}
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\Dir}{\mathrm{Dir}}
+\newcommand{\Ber}{\mathrm{Ber}}
+\newcommand{\Cat}{\mathrm{Cat}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand\UCE{Uncertain Cross Entropy loss\xspace}
+\newcommand\UCEacro{UCE\xspace}
+\newcommand\ours{Posterior Network\xspace}
+\newcommand\oursacro{PostNet\xspace}
+\newcommand\SeqBn{Seq-Bn\xspace}
+\newcommand\SeqNoBn{Seq-No-Bn\xspace}
+\newcommand\NoFlow{No-Flow\xspace}
+\newcommand\NoUCE{No-Bayes-Loss\xspace}
+\newcommand\idata{i\xspace}
+\newcommand\dataix{^{(\idata)}}
+\newcommand\iclass{c\xspace}
+\newcommand\nclass{C\xspace}
+\newcommand\latent{\bold{z}}
+\newcommand{\latentdim}{H}
+\newtheorem{property}{Property}
+\newtheorem{proposition}{Proposition}
+
+% 007
+
+\newcommand{\condition}{\ensuremath{\,|\,}}
+\newcommand{\concat}{\ensuremath{\;||\;}}
+
+\newcommand\NatPN{Natural Posterior Network}
+\newcommand\NatPNacro{NatPN}
+
+%% Math %%
+% \newcommand\x{\bm{x}}
+% \newcommand\z{\bm{z}}
+\newcommand\expparam{\bm{\theta}}
+\newcommand\priorparam{\bm{\chi}}
+\newcommand\evidence{n}
+% \newcommand\y{y}
+\newcommand{\inputdim}{D}
+% \newcommand{\latentdim}{H}
+\newcommand{\suffstatdim}{L}
+% \newcommand\idata{i\xspace}
+\newcommand\ndata{N\xspace}
+% \newcommand\dataix{^{(\idata)}}
+% \newcommand\iclass{c\xspace}
+% \newcommand\nclass{C\xspace}
+\newtheorem{theorem}{Theorem}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\DeclareMathOperator{\DCat}{Cat}
+\DeclareMathOperator{\DDir}{Dir}
+\DeclareMathOperator{\DBeta}{Beta}
+\DeclareMathOperator{\DGamma}{\Gamma}
+\DeclareMathOperator{\DNIG}{\mathcal{N}\Gamma^{-1}}
+\DeclareMathOperator{\DNormal}{\mathcal{N}}
+\DeclareMathOperator{\DPoi}{Poi}
+\DeclareMathOperator{\corpus}{\mathbb{K}}
+\DeclareMathOperator{\real}{\mathbb{R}}
+\DeclareMathOperator{\posinteger}{\mathbb{N}}
+% \DeclareMathOperator{\prob}{\mathbb{P}}
+\DeclareMathOperator{\prior}{\mathbb{Q}}
+\DeclareMathOperator{\entropy}{\mathbb{H}}
+\DeclareMathOperator{\expectation}{\mathbb{E}}
+\DeclareMathOperator{\variance}{Var}
+\DeclareMathOperator{\loss}{\mathcal{L}}
+\DeclareMathOperator{\data}{\mathcal{D}}
+\DeclareMathOperator{\Enc}{Enc}
+\DeclareMathOperator{\Dec}{Dec}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% 008
+
+% \DeclareMathOperator{\DNormal}{\mathcal{N}}
+
+% \newcommand\idata{i\xspace}
+% \newcommand\dataix{^{(\idata)}}
+% \newcommand\iclass{c\xspace}
+% \newcommand\nclass{C\xspace}
+\newcommand\PriorNet{PriorNet\xspace}
+\newcommand\RevPriorNet{RevPriorNet\xspace}
+\newcommand\EvNet{EvNet\xspace}
+\newcommand\DDNet{DDNet\xspace}
+\newcommand\PostNet{PostNet\xspace}
+
+% 009
+
+%% generic math notations %%
+\newcommand{\rvar}[1]{\textnormal{#1}}
+\newcommand{\rvec}[1]{\mathbf{#1}}
+\newcommand{\rvecelem}[1]{\textnormal{#1}}
+\newcommand{\rmat}[1]{\mathbf{#1}}
+\newcommand{\rmatelem}[1]{\textnormal{#1}}
+% vectors
+\newcommand{\vect}[1]{\bm{#1}}
+% matrices
+\newcommand{\mat}[1]{\bm{#1}}
+% entries of vectors are simply scalars
+% entries of matrices are simply scalars
+% sets
+\newcommand{\set}[1]{\mathcal{#1}}
+
+
+%% short-hand notations %%
+% short-hand for epsilon
+\def\eps{{\epsilon}}
+% short-hand notations for vectors
+\def\veczero{\vect{0}}
+\def\vecone{\vect{1}}
+\def\va{\vect{a}}
+\def\ve{\vect{e}}
+\def\vh{\vect{h}}
+\def\vi{\vect{i}}
+\def\vn{\vect{n}}
+\def\vp{\vect{p}}
+\def\vu{\vect{u}}
+\def\vw{\vect{w}}
+\def\vx{\vect{x}}
+\def\vy{\vect{y}}
+\def\vz{\vect{z}}
+\def\valpha{\vect{\alpha}}
+\def\vbeta{\vect{\beta}}
+\def\vpi{\vect{\pi}}
+\def\vpsi{\vect{\psi}}
+\def\vphi{\vect{\phi}}
+\def\vmu{\vect{\mu}}
+\def\vtheta{\vect{\theta}}
+\def\vomega{\vect{\omega}}
+\def\vchi{\vect{\chi}}
+% short-hand notation for matrices
+\def\mA{\mat{A}}
+\def\mE{\mat{E}}
+\def\mH{\mat{H}}
+\def\mI{\mat{I}}
+\def\mW{\mat{W}}
+\def\mX{\mat{X}}
+\def\mY{\mat{Y}}
+\def\mZ{\mat{Z}}
+% short-hand notation for graphs
+\def\sG{\set{G}}
+\def\sN{\set{N}}
+\def\sE{\set{E}}
+\def\sU{\set{U}}
+\def\sV{\set{V}}
+\def\sY{\set{Y}}
+\def\sL{\set{L}}
+\def\sT{\set{T}}
+
+\newcommand{\ExpecationArgs}[2]{\expectation_{#1}\left[#2\right]}
+
+%% abbreviations %%
+\newcommand\GPN{Graph Posterior Network}
+\newcommand\GPNacro{GPN}
+
+\newcommand\x{\vx}
+\newcommand\z{\vz}
+\newcommand\y{y}
+\newcommand\p{\vp}
+\newcommand\unc{u}
+% \newcommand\expparam{\bm{\theta}}
+% \newcommand\priorparam{\bm{\chi}}
+% \newcommand\evidence{n}
+\newcommand\genlatent{\vect{\zeta}}
+\newcommand\suffstat{\bm{\chi}}
+% \newcommand{\inputdim}{D}
+% \newcommand{\latentdim}{H}
+% \newcommand{\suffstatdim}{L}
+\newcommand\nnodes{N}
+\newcommand\nodeu{u}
+\newcommand\nodev{v}
+\newcommand\nodew{w}
+\newcommand\noderepru{\hat{u}}
+\newcommand\nodereprv{\hat{v}}
+\newcommand\postnoderepru{\tilde{\hat{u}}}
+\newcommand\postnodereprv{\tilde{\hat{v}}}
+\newcommand\nodeidxu{^{(u)}}
+\newcommand\nodeidxv{^{(v)}}
+\newcommand\namednodeidxu[1]{^{#1, (u)}}
+\newcommand\namednodeidxv[1]{^{#1, (v)}}
+% \newcommand\iclass{c}
+% \newcommand\nclass{C}
+\newcommand\targets{\sY}
+\newcommand\graph{\sG}
+\newcommand\vertices{\sV}
+\newcommand\edges{\sE}
+\newcommand\neighbors{\sN}
+\newcommand\nodeslabeled{\sT}
+\newcommand\nodesunlabeled{\sU}
+\newcommand\adj{\mA}
+\newcommand\features{\mX}
+\newcommand\adjobs{\adj_{obs}}
+\newcommand\param{\bm{\theta}}
+\newcommand\modelparam{\vomega}
+\newcommand\flowparam{\vphi}
+\newcommand\decoderparam{\vpsi}
+\newcommand\ppr{\mat{\Pi}^{ppr}}
+\newcommand\pprelem{\Pi^{ppr}}
+
+\newtheorem{axiom}{Axiom}[section]

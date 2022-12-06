@@ -1,0 +1,9 @@
+\section{Uncertainty Quantification for Node Classification}
+
+\looseness=-1
+We consider the task of (semi-supervised) node classification on an attributed graph \smash{$\graph = \left(\adj, \features\right)$}  with adjacency matrix \smash{$\adj \in \left\{0, 1\right\}^{\nnodes \times \nnodes}$} and node attribute matrix $\features \in \real^{\nnodes \times \inputdim}$. We aim at inferring the labels \smash{$\y\nodeidxv \in \{1, ..., \nclass\}$} plus the the aleatoric uncertainty \smash{$u_\text{alea}\nodeidxv$} and the epistemic uncertainty \smash{$u_\text{epist}\nodeidxv$} of unlabeled nodes \smash{$\nodev \in \nodeslabeled$} given a set of labelled nodes \smash{$\nodeu \in \nodesunlabeled$} in the graph where \smash{$\vertices  = \nodeslabeled \cup \nodesunlabeled$} denotes the set of vertices.
+
+\input{sections/009_neurips2021/include/03a-axioms}
+\input{sections/009_neurips2021/include/03b-model}
+\input{sections/009_neurips2021/include/03c-guarantees}
+\input{sections/009_neurips2021/include/03d-limitations}

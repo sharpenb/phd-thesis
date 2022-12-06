@@ -1,0 +1,24 @@
+\begin{table*}[!h]
+    \centering
+   % \scriptsize
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lccccccccc}
+        \toprule
+        & \textbf{CoraML} & \textbf{CiteSeer} & \textbf{PubMed} & \textbf{Amazon Computers} & \textbf{Amazon Photos} & \textbf{Coauthor CS} & \textbf{Coauthor Physics} & \textbf{OGBN - Arxiv} \\
+        \midrule
+        vertices &              2,995       & 3,327     & 19,717    & 13,752    & 7,650     & 18,333 &  34,493 & 169,343 \\
+        edges                   & 16,316    & 9,104     & 88,648    & 491,722   & 238,162   &163,788 & 495,924 & 2,315,598\\
+        homophily               & 78.86\%   & 73.55\%   & 80.24\%   & 77.22\%   & 82.72\% & 80.81\% & 93.15\% & 65.42\% \\ 
+        feature dimension       & 2,879     & 3,703     & 500       & 767       & 745       & 6,805  & 8,415 & 128\\
+        max words               & 176       & 54        & 122       & 767       & 745       & 666    & 335 & $N/A$\\
+        mean words              & 50.47     & 31.61     & 50.11     & 267.24    & 258.81    & 59.57  & 32.97 & $N/A$\\
+        median words            & 49        & 32        & 50        & 204       & 193       & 45     & 27 & $N/A$ \\
+        classes                 & 7         & 6         & 3         & 10        & 8         & 15     & 5 & 40 \\
+        left-out classes        & 3         & 2         & 1         & 5         & 3         & 4      & 2 & 15 \\
+        fraction left-out       & 44.91\%     & 33.18\%     & 39.94\%     & 29.52\%     & 40.46\%     & 40.72\%  & 18.18\% & 39.11\% \\
+        \bottomrule
+    \end{tabular}}
+    \caption{Dataset details summarizing the graph size, the homophily ratio (fraction of intra-class edges), the number of classes, and statistics on the Bag-Of-Word features when available. In particular, \emph{OGBN-Arxiv} uses averaged skip-gram embeddings for the nodes' features and thus does not require bag-of-word-features. Further, we provide the number of left-out classes and the fraction of left-out nodes for the LOC experiments.}
+    \label{tab:dataset-summary}
+    %\vspace{-6mm}
+\end{table*}

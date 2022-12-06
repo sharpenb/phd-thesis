@@ -1,0 +1,128 @@
+\begin{table}[ht]
+    \centering
+    
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{ll|lll|lll}
+    \toprule
+             \textbf{Dataset} &          \textbf{Model} & \textbf{Alea w/ Net} & \textbf{Epis w/ Net} & \textbf{Epis w/o Net} & \textbf{Alea w/ Net} & \textbf{Epis w/ Net} & \textbf{Epis w/o Net} \\
+            {} & {} & \multicolumn{3}{c|}{misclassification AUC-ROC} & \multicolumn{3}{c}{misclassification AUC-PR} \\
+            \midrule
+                
+                \multirow{8}{*}{CoraML} 
+               &          APPNP &    $\mathbf{83.64 \pm 0.08}$ &               $n.a.$ &                $n.a.$ &   $48.39 \pm 0.19$ &              $n.a.$ &               $n.a.$ \\
+               &           VGCN &    $81.02 \pm 0.07$ &               $n.a.$ &                $n.a.$ &   $48.30 \pm 0.23$ &              $n.a.$ &               $n.a.$ \\
+               &   VGCN-Dropout &    $81.42 \pm 0.06$ &    $65.52 \pm 0.28$ &                $n.a.$ &   $49.34 \pm 0.17$ &   $26.11 \pm 0.21$ &               $n.a.$ \\
+               &    VGCN-Energy &    $81.02 \pm 0.07$ &               $n.a.$ &                $n.a.$ &   $48.30 \pm 0.23$ &              $n.a.$ &               $n.a.$ \\
+               &  VGCN-Ensemble &    $81.12 \pm 0.17$ &    $72.62 \pm 0.19$ &                $n.a.$ &   $49.16 \pm 0.59$ &   $31.88 \pm 0.29$ &               $n.a.$ \\
+               &       VGCN-BNN &    $80.64 \pm 0.10$ &    $65.40 \pm 0.48$ &                $n.a.$ &   $47.49 \pm 0.26$ &   $26.70 \pm 0.33$ &               $n.a.$ \\
+               &        GKDE-GCN &    $80.80 \pm 0.14$ &    $76.83 \pm 0.17$ &                $n.a.$ &   $\mathbf{49.61 \pm 0.47}$ &   $45.87 \pm 0.48$ &               $n.a.$ \\
+               &            GPN &    $81.19 \pm 0.13$ &    $78.10 \pm 0.26$ &     $77.46 \pm 0.24$ &   $49.51 \pm 0.26$ &   $44.42 \pm 0.32$ &    $43.31 \pm 0.41$ \\
+            
+            \midrule
+            
+            \multirow{8}{*}{CiteSeer} 
+             &          APPNP &    $73.55 \pm 0.08$ &               $n.a.$ &                $n.a.$ &   $51.70 \pm 0.15$ &              $n.a.$ &               $n.a.$ \\
+             &           VGCN &    $74.64 \pm 0.09$ &               $n.a.$ &                $n.a.$ &   $54.32 \pm 0.18$ &              $n.a.$ &               $n.a.$ \\
+             &   VGCN-Dropout &    $74.81 \pm 0.11$ &    $64.09 \pm 0.16$ &                $n.a.$ &   $55.12 \pm 0.23$ &   $39.41 \pm 0.19$ &               $n.a.$ \\
+             &    VGCN-Energy &    $74.64 \pm 0.09$ &               $n.a.$ &                $n.a.$ &   $54.32 \pm 0.18$ &              $n.a.$ &               $n.a.$ \\
+             &  VGCN-Ensemble &    $74.42 \pm 0.26$ &    $68.15 \pm 0.23$ &                $n.a.$ &   $53.28 \pm 0.33$ &   $43.30 \pm 0.30$ &               $n.a.$ \\
+             &       VGCN-BNN &    $73.28 \pm 0.11$ &    $61.68 \pm 0.29$ &                $n.a.$ &   $54.62 \pm 0.21$ &   $37.99 \pm 0.24$ &               $n.a.$ \\
+             &        GKDE-GCN &    $75.45 \pm 0.11$ &    $73.83 \pm 0.12$ &                $n.a.$ &   $54.78 \pm 0.19$ &   $53.57 \pm 0.20$ &               $n.a.$ \\
+             &            GPN &    $\mathbf{75.89 \pm 0.15}$ &    $74.16 \pm 0.17$ &     $72.50 \pm 0.12$ &   $\mathbf{60.78 \pm 0.32}$ &   $59.32 \pm 0.40$ &    $52.10 \pm 0.18$ \\
+              
+              \midrule
+              
+              \multirow{8}{*}{PubMed} 
+               &          APPNP &    $80.98 \pm 0.02$ &               $n.a.$ &                $n.a.$ &   $37.79 \pm 0.08$ &              $n.a.$ &               $n.a.$ \\
+               &           VGCN &    $81.16 \pm 0.02$ &               $n.a.$ &                $n.a.$ &   $38.24 \pm 0.08$ &              $n.a.$ &               $n.a.$ \\
+               &   VGCN-Dropout &    $80.46 \pm 0.04$ &    $72.69 \pm 0.09$ &                $n.a.$ &   $38.63 \pm 0.11$ &   $25.90 \pm 0.09$ &               $n.a.$ \\
+               &    VGCN-Energy &    $81.16 \pm 0.02$ &               $n.a.$ &                $n.a.$ &   $38.24 \pm 0.08$ &              $n.a.$ &               $n.a.$ \\
+               &  VGCN-Ensemble &    $\mathbf{81.31 \pm 0.06}$ &    $79.30 \pm 0.08$ &                $n.a.$ &   $38.06 \pm 0.33$ &   $31.73 \pm 0.19$ &               $n.a.$ \\
+               &       VGCN-BNN &    $79.96 \pm 0.07$ &    $72.63 \pm 0.45$ &                $n.a.$ &   $39.31 \pm 0.08$ &   $27.59 \pm 0.39$ &               $n.a.$ \\
+               &        GKDE-GCN &    $80.95 \pm 0.09$ &    $73.99 \pm 0.27$ &                $n.a.$ &   $39.64 \pm 0.10$ &   $33.19 \pm 0.14$ &               $n.a.$ \\
+               &            GPN &    $80.46 \pm 0.13$ &    $75.38 \pm 0.25$ &     $80.48 \pm 0.13$ &   $40.74 \pm 0.19$ &   $35.11 \pm 0.11$ &    $\mathbf{51.12 \pm 0.52}$ \\
+     
+    \bottomrule
+    \end{tabular}}
+    \vspace{1em}
+    \caption{Misclassification Scores on the clean graphs given as AUC-ROC and AUC-PR scores. AUC-ROC and AUC-APR scores are given as \emph{[Alea w/ Net] / [Epist w/ Net] / [Epist w/o Net]}. $n.a.$ means either model or metric not applicable. Bold numbers indicate the best model across all the uncertainty metrics for each dataset.}
+    \label{tab:misclassification-one}
+\end{table}
+
+\begin{table}[ht]
+    \centering
+    
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{ll|lll|lll}
+    \toprule
+             \textbf{Dataset} &          \textbf{Model} & \textbf{Alea w/ Net} & \textbf{Epis w/ Net} & \textbf{Epis w/o Net} & \textbf{Alea w/ Net} & \textbf{Epis w/ Net} & \textbf{Epis w/o Net} \\
+             {} & {} & \multicolumn{3}{c|}{misclassification AUC-ROC} & \multicolumn{3}{c}{misclassification AUC-PR} \\
+    
+            \midrule
+                
+     
+        \multirow{8}{*}{\shortstack[l]{Amazon\\Computers}}
+      &          APPNP &    $79.75 \pm 0.03$ &               $n.a.$ &                $n.a.$ &   $45.10 \pm 0.11$ &              $n.a.$ &               $n.a.$ \\
+      &           VGCN &    $82.08 \pm 0.03$ &               $n.a.$ &                $n.a.$ &   $45.52 \pm 0.12$ &              $n.a.$ &               $n.a.$ \\
+      &   VGCN-Dropout &    $\mathbf{82.70 \pm 0.04}$ &    $72.02 \pm 0.11$ &                $n.a.$ &   $47.19 \pm 0.17$ &   $31.45 \pm 0.14$ &               $n.a.$ \\
+      &    VGCN-Energy &    $82.08 \pm 0.03$ &               $n.a.$ &                $n.a.$ &   $45.52 \pm 0.12$ &              $n.a.$ &               $n.a.$ \\
+      &  VGCN-Ensemble &    $82.05 \pm 0.06$ &    $67.62 \pm 0.44$ &                $n.a.$ &   $45.40 \pm 0.24$ &   $26.33 \pm 0.37$ &               $n.a.$ \\
+      &       VGCN-BNN &    $82.15 \pm 0.17$ &    $48.65 \pm 0.82$ &                $n.a.$ &   $\mathbf{69.61 \pm 0.42}$ &   $30.87 \pm 0.43$ &               $n.a.$ \\
+      &        GKDE-GCN &    $79.66 \pm 0.19$ &    $73.66 \pm 0.15$ &                $n.a.$ &   $63.26 \pm 0.57$ &   $56.93 \pm 0.54$ &               $n.a.$ \\
+      &            GPN &    $82.20 \pm 0.10$ &    $77.58 \pm 0.16$ &     $70.06 \pm 0.19$ &   $47.93 \pm 0.42$ &   $41.80 \pm 0.44$ &    $28.70 \pm 0.51$ \\
+        
+        \midrule
+        
+        \multirow{8}{*}{\shortstack[l]{Amazon\\Photos}}
+         &          APPNP &    $85.74 \pm 0.06$ &               $n.a.$ &                $n.a.$ &   $37.00 \pm 0.20$ &              $n.a.$ &               $n.a.$ \\
+         &           VGCN &    $87.94 \pm 0.05$ &               $n.a.$ &                $n.a.$ &   $48.35 \pm 0.19$ &              $n.a.$ &               $n.a.$ \\
+         &   VGCN-Dropout &    $\mathbf{89.52 \pm 0.05}$ &    $78.46 \pm 0.10$ &                $n.a.$ &   $50.27 \pm 0.19$ &   $23.08 \pm 0.12$ &               $n.a.$ \\
+         &    VGCN-Energy &    $87.94 \pm 0.05$ &               $n.a.$ &                $n.a.$ &   $48.35 \pm 0.19$ &              $n.a.$ &               $n.a.$ \\
+         &  VGCN-Ensemble &    $88.08 \pm 0.16$ &    $76.05 \pm 0.54$ &                $n.a.$ &   $49.40 \pm 0.67$ &   $24.13 \pm 0.67$ &               $n.a.$ \\
+         &       VGCN-BNN &    $84.17 \pm 0.19$ &    $51.84 \pm 0.66$ &                $n.a.$ &   $51.05 \pm 0.64$ &   $18.69 \pm 0.55$ &               $n.a.$ \\
+         &        GKDE-GCN &    $84.11 \pm 0.29$ &    $75.07 \pm 0.50$ &                $n.a.$ &   $\mathbf{54.35 \pm 0.58}$ &   $45.43 \pm 0.68$ &               $n.a.$ \\
+         &            GPN &    $87.21 \pm 0.10$ &    $83.38 \pm 0.30$ &     $79.93 \pm 0.23$ &   $46.32 \pm 0.39$ &   $37.07 \pm 0.60$ &    $29.90 \pm 0.71$ \\
+          
+          \midrule
+          
+          \multirow{8}{*}{\shortstack[l]{Coauthor\\CS}}
+           & APPNP &    ${89.92 \pm 0.03}$ &               $n.a.$ & $n.a.$ &   $37.98 \pm 0.12$ &              $n.a.$ &               $n.a.$ \\
+           & VGCN &    $89.46 \pm 0.03$ &               $n.a.$ &                $n.a.$ &   $38.86 \pm 0.10$ &              $n.a.$ &               $n.a.$ \\
+           & VGCN-Dropout &    $88.46 \pm 0.04$ &    $79.03 \pm 0.08$ &                $n.a.$ &   $38.06 \pm 0.12$ &   $17.98 \pm 0.09$ &               $n.a.$ \\
+           & VGCN-Energy &    $89.46 \pm 0.03$ &               $n.a.$ &                $n.a.$ &   $38.86 \pm 0.10$ &              $n.a.$ &               $n.a.$ \\
+           & VGCN-Ensemble &    $89.51 \pm 0.08$ &    $86.61 \pm 0.09$ &                $n.a.$ &   $38.74 \pm 0.23$ &   $30.60 \pm 0.38$ &               $n.a.$ \\
+           & VGCN-BNN &    $89.01 \pm 0.06$ &    $78.40 \pm 0.23$ &                $n.a.$ &   $38.17 \pm 0.17$ &   $19.06 \pm 0.20$ &               $n.a.$ \\
+           & GKDE-GCN &    $89.24 \pm 0.05$ &    $80.98 \pm 0.13$ &                $n.a.$ &   $39.30 \pm 0.27$ &   $30.52 \pm 0.25$ &               $n.a.$ \\
+           & GPN &    $85.72 \pm 0.15$ &    $81.56 \pm 0.29$ &     $\mathbf{94.41 \pm 0.11}$ &   $46.12 \pm 0.32$ &   $38.98 \pm 0.28$ &    $\mathbf{77.26 \pm 0.45}$ \\
+           
+           \midrule
+     
+        \multirow{8}{*}{\shortstack[l]{Coauthor\\Physics}}
+      &          APPNP &    $93.27 \pm 0.02$ &               $n.a.$ &                $n.a.$ &   $38.14 \pm 0.09$ &              $n.a.$ &               $n.a.$ \\
+      &           VGCN &    $92.86 \pm 0.02$ &               $n.a.$ &                $n.a.$ &   $37.19 \pm 0.10$ &              $n.a.$ &               $n.a.$ \\
+      &   VGCN-Dropout &    $92.28 \pm 0.03$ &    $89.85 \pm 0.04$ &                $n.a.$ &   $35.47 \pm 0.11$ &   $23.70 \pm 0.08$ &               $n.a.$ \\
+      &    VGCN-Energy &    $92.86 \pm 0.02$ &               $n.a.$ &                $n.a.$ &   $37.19 \pm 0.10$ &              $n.a.$ &               $n.a.$ \\
+      &  VGCN-Ensemble &    $92.95 \pm 0.07$ &    $91.92 \pm 0.07$ &                $n.a.$ &   $37.96 \pm 0.28$ &   $28.44 \pm 0.21$ &               $n.a.$ \\
+      &       VGCN-BNN &    $92.44 \pm 0.09$ &    $89.03 \pm 0.27$ &                $n.a.$ &   $36.79 \pm 0.21$ &   $25.11 \pm 0.49$ &               $n.a.$ \\
+      &        GKDE-GCN &    $92.77 \pm 0.02$ &    $86.12 \pm 0.06$ &                $n.a.$ &   $37.08 \pm 0.11$ &   $25.13 \pm 0.10$ &               $n.a.$ \\
+      &            GPN &    $91.14 \pm 0.04$ &    $89.63 \pm 0.07$ &     $\mathbf{93.89 \pm 0.05}$ &   $41.43 \pm 0.13$ &   $35.64 \pm 0.16$ &    $\mathbf{59.03 \pm 0.28}$ \\
+          
+          \midrule
+          
+          \multirow{7}{*}{\shortstack[l]{OGBN\\Arxiv}}
+           &          APPNP &    $77.55 \pm 0.05$ &               $n.a.$ &                $n.a.$ &   $54.57 \pm 0.14$ &              $n.a.$ &               $n.a.$ \\
+           &           VGCN &    $77.89 \pm 0.05$ &               $n.a.$ &                $n.a.$ &   $54.87 \pm 0.12$ &              $n.a.$ &               $n.a.$ \\
+           &   VGCN-Dropout &    $78.11 \pm 0.05$ &    $71.74 \pm 0.14$ &                $n.a.$ &   $55.40 \pm 0.13$ &   $43.43 \pm 0.18$ &               $n.a.$ \\
+           &    VGCN-Energy &    $77.89 \pm 0.05$ &               $n.a.$ &                $n.a.$ &   $54.87 \pm 0.12$ &              $n.a.$ &               $n.a.$ \\
+           &  VGCN-Ensemble &             $\mathbf{78.14}$ &             $71.48$ &                $n.a.$ &            $53.95$ &            $42.87$ &               $n.a.$ \\
+           &        GKDE-GCN &    $77.47 \pm 0.33$ &    $77.55 \pm 0.33$ &                $n.a.$ &   $\mathbf{61.62 \pm 1.00}$ &   $62.33 \pm 1.00$ &               $n.a.$ \\
+           &            GPN &    $75.44 \pm 0.19$ &    $72.71 \pm 0.28$ &     $61.45 \pm 0.49$ &   $55.64 \pm 0.37$ &   $52.99 \pm 0.49$ &    $39.37 \pm 0.42$ \\
+    \bottomrule
+    \end{tabular}}
+    \vspace{1em}
+    \caption{Misclassification Scores on the clean graphs given as AUC-ROC and AUC-PR scores. AUC-ROC and AUC-APR scores are given as \emph{[Alea w/ Net] / [Epist w/ Net] / [Epist w/o Net]}. $n.a.$ means either model or metric not applicable. Bold numbers indicate the best model across all the uncertainty metrics for each dataset.}
+    \label{tab:misclassification-two}
+\end{table}
+
+
+

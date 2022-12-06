@@ -1,0 +1,24 @@
+\begin{table}[ht]
+    \centering
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{lrrrrrrrr}
+\toprule
+\textbf{Model} &    \textbf{CoraML} &  \textbf{CiteSeer} &    \textbf{PubMed} & \textbf{Amazon C.} & \textbf{Amazon Ph.} & \textbf{Coauthor CS} & \textbf{Coauthor Ph.} &  \textbf{OGBN Arxiv} \\
+\midrule
+APPNP &   $\hphantom{0}45.44$ &   $\hphantom{0}27.74$ &   $\mathbf{\hphantom{0}54.92}$ &        $257.55$ &     $230.75$ &   $166.84$ &        $217.73$ &    $425.75$ \\
+VGCN &   $47.28$ &   $32.98$ &   $55.77$ &        $211.79$ &     $174.00$ &   $167.77$ &        $194.53$ &    $\mathbf{329.43}$ \\
+VGCN-Dropout &   $47.28$ &   $32.98$ &   $55.77$ &        $211.79$ &     $174.00$ &   $167.77$ &        $194.53$ &    $\mathbf{329.43}$ \\
+VGCN-Energy &   $47.28$ &   $32.98$ &   $55.77$ &        $211.79$ &     $174.00$ &   $167.77$ &        $194.53$ &    $\mathbf{329.43}$ \\
+VGCN-Ensemble &  {\color{red}$472.82$} &  {\color{red}$329.84$} &  \color{red}{$557.65$} &       {\color{red}$2117.86$} &    {\color{red}$1740.00$} &  {\color{red}$1677.72$} &       {\color{red}$1945.34$} &   $3294.34$ \\
+GKDE-GCN &   $46.48$ &   $\mathbf{17.77}$ &  $523.41$ &        $354.66$ &     $473.71$ &   $247.01$ &        $475.40$ &  {\color{red}$60185.40$} \\
+{\color{gray}GKDE} &    {\color{gray}$5.12$} &    {\color{gray}$5.04$} &   {\color{gray}$54.72$} & {\color{gray}$61.27$} & {\color{gray}$21.24$} &   {\color{gray}$103.34$} &  {\color{gray}$320.98$} &  {\color{gray}$59775.90$} \\
+\midrule
+GPN &   $\mathbf{10.20}$ &   $39.40$ &   $59.15$ &         $\mathbf{81.59}$ &      $\mathbf{64.72}$ &    $\mathbf{32.80}$ &         $\mathbf{93.38}$ &   $2393.03$ \\
+\bottomrule
+\end{tabular}
+    }
+    \vspace{1em}
+    \caption{Average training times (in s) for a single model and initializations across different datasets evaluated mostly on a single NVIDIA GTX 1080 Ti. Bold numbers indicate the fastest algorithm during training for each dataset while red numbers indicate the slowest one. The gray line shows the GKDE component of the GKDE-GCN approach as reference.}
+    \label{tab:training-times}
+\end{table}
+

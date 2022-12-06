@@ -1,0 +1,87 @@
+\section{Related work}
+\label{sec:related_work}
+
+% add papers not related to this work
+The existence of adversarial examples is a problematic property of neural networks \citep{szegedy2014, goodfellow2014}. Previous works have study this phenomena by proposing adversarial attacks \citep{carlini2016, brendel2018,DBLP:conf/kdd/ZugnerAG18}, defenses \citep{cisse2017, gu2015} and verification techniques  \citep{wong2017, singh2019krelu, cohen2019, DBLP:conf/icml/BojchevskiKG20, kopetzki2021}. This includes the study of different settings such as i.i.d. inputs, sequential inputs and graphs \citep{zheng2016, DBLP:conf/nips/BojchevskiG19, cheng2020, schuchardt2021}.
+
+% related work
+In the context of uncertainty estimation, robustness of the class prediction has been studied in previous works for Bayesian Neural Networks \citep{blundell2015, osawa2019, wesley2019}, drop out \citep{drop_out} or ensembles \citep{ensemble_simple} focusing on data set shifts \cite{snoek2019} or adversarial attacks \cite{robustness_bnn, cardelli2019, wicker2020}. Despite their efficient and high quality uncertainty estimates, the robustness of DBU models has not been investigated in detail yet --- indeed only for one single DBU model, \citep{malinin2019} has briefly performed attacks aiming to change the label. 
+In contrast, our work focuses on a large variety of DBU models and analyzes two robustness properties: robustness of the class prediction w.r.t. adversarial perturbations and robustness of uncertainty estimation w.r.t.\ our newly proposed attacks against uncertainty measures. 
+
+
+This so called \emph{uncertainty attack} directly targets uncertainty estimation and are different from traditional \emph{label attacks}, which target the class prediction \citep{madry2018, raphael2020}. They allow us to jointly evaluate robustness of the class prediction and robustness of uncertainty estimation. This goes beyond previous attack defenses that were either focused on evaluating \emph{robustness w.r.t.\ class predictions} \citep{carlini2016, clever_robustness} or detecting attacks against the class prediction \citep{bypassing_attack_detection}. 
+
+
+Different models have been proposed to account for uncertainty while being robust.  \citep{smith2018} and \citep{simple_ood_adv_detection} have tried to improve label attack detection based on uncertainty using drop-out or density estimation. In addition to improving label attack detection for large unseen perturbations, \citep{stutz2020} aimed at improving robustness w.r.t. class label predictions on small input perturbations. They used adversarial training and soft labels for adversarial samples further from the original input. \citep{qin2020} suggested a similar adversarial training procedure, that softens labels depending on the input robustness. These previous works consider the aleatoric uncertainty that is contained in the predicted categorical probabilities, but in contrast to DBU models they are not capable of taking epistemic uncertainty into account. 
+
+
+
+Recently, four studies tried to obtain certificates on aleatoric uncertainty estimates. \citep{single_model_quantile} and \citep{confidence_certificate_rs} compute confidence intervals and certificates on softmax predictions. \citep{bitterwolf2020} uses interval bound propagation to compute bounds on softmax predictions within the $L_{\infty}$-ball around an OOD sample using ReLU networks. \citep{meinke2020} focuses on obtaining certifiably low confidence for OOD data. These four studies estimate confidence based on softmax predictions, which accounts for aleatoric uncertainty only. In this paper, we provide certificates which apply for all uncertainty measures. In particular, we use our certificates on epistemic uncertainty measures such as differential entropy which are well suited for OOD detection.
+
+
+
+% List of Papers on Robustness (group website)
+%
+%Anna-Kathrin Kopetzki, Stephan Günnemann
+%Reachable sets of classifiers and regression models: (non-)robustness analysis and robust training
+%Machine Learning Journal, 2021 --> cited
+%
+%Jan Schuchardt, Aleksandar Bojchevski, Johannes Klicpera, Stephan Günnemann
+%Collective Robustness Certificates: Exploiting Interdependence in Graph Neural Networks
+%International Conference on Learning Representations (ICLR), 2021
+%
+%Simon Geisler, Daniel Zügner, Stephan Günnemann
+%Reliable Graph Neural Networks via Robust Aggregation
+%Neural Information Processing Systems (NeurIPS), 2020
+%
+%Aleksandar Bojchevski, Johannes Klicpera, Stephan Günnemann
+%Efficient Robustness Certificates for Discrete Data: Sparsity-Aware Randomized Smoothing for Graphs, Images and More
+%International Conference on Machine Learning (ICML), 2020
+%
+%Daniel Zügner, Stephan Günnemann
+%Certifiable Robustness of Graph Convolutional Networks under Structure Perturbations
+%ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), 2020
+%
+%Daniel Zügner, Oliver Borchert, Amir Akbarnejad, Stephan Günnemann
+%Adversarial Attacks on Graph Neural Networks: Perturbations and their Patterns
+%ACM Transactions on Knowledge Discovery from Data, 2020
+%
+%Aleksandar Bojchevski, Stephan Günnemann
+%Certifiable Robustness to Graph Perturbations
+%Neural Information Processing Systems (NeurIPS), 2019
+%
+%Daniel Zügner, Stephan Günnemann
+%Certifiable Robustness and Robust Training for Graph Convolutional Networks
+%ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), 2019
+%
+%Aleksandar Bojchevski, Stephan Günnemann
+%Adversarial Attacks on Node Embeddings via Graph Poisoning
+%International Conference on Machine Learning (ICML), 2019
+%
+%Daniel Zügner, Stephan Günnemann
+%Adversarial Attacks on Graph Neural Networks via Meta Learning
+%International Conference on Learning Representations (ICLR), 2019
+%
+%Daniel Zügner, Amir Akbarnejad, Stephan Günnemann
+%Adversarial Attacks on Neural Networks for Graph Data (Extended Abstract)
+%International Joint Conference on Artificial Intelligence (IJCAI), 2019
+%(Invited contribution to the IJCAI Sister Conference Best Paper Track)
+%
+%Daniel Zügner, Amir Akbarnejad, Stephan Günnemann
+%Adversarial Attacks on Neural Networks for Graph Data 
+%(Best Research Paper Award)
+%ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), 2018
+%
+%
+%Richard Leibrandt, Stephan Günnemann
+%Making Kernel Density Estimation Robust towards Missing Values in Highly Incomplete Multivariate Data without Imputation
+%SIAM International Conference on Data Mining (SDM), 2018 
+%
+%Aleksandar Bojchevski, Stephan Günnemann
+%Bayesian Robust Attributed Graph Clustering: Joint Learning of Partial Anomalies and Group Structure
+%AAAI Conference on Artificial Intelligence, pp. 2738-2745, 2018
+%
+%Aleksandar Bojchevski, Yves Matkovic, Stephan Günnemann
+%Robust Spectral Clustering for Noisy Data: Modeling Sparse Corruptions Improves Latent Embeddings
+%ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), pp. 737-746, 2017
+

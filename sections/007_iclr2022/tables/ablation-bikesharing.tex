@@ -1,0 +1,302 @@
+\begin{table*}[ht]
+    \centering
+    \caption{Bike Sharing (Normal $\DNormal$) comparison (<latent dim> -- <certainty budget> -- <radial layers>/<MAF layers>). Bold and starred number indicate best score among all models.}
+    \label{tab:ablation-bikesharing-normal}
+    \scriptsize
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lcccccc}
+        \toprule
+        & \textbf{RMSE} & \textbf{Calibration} & \textbf{Winter Epist.} & \textbf{Spring Epist.} & \textbf{Autumn Epist.} & \textbf{OODom Epist.} \\
+        \midrule
+        \textbf{$H$ = 4, $N_H$ = I, Flow = 8/0} & 60.12 $\pm$ 4.17 & 21.15 $\pm$ 2.06 & 21.11 $\pm$ 2.59 & 14.97 $\pm$ 0.48 & 17.61 $\pm$ 1.02 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = I, Flow = 16/0} & 53.68 $\pm$ 3.45 & 21.92 $\pm$ 1.65 & 26.80 $\pm$ 2.61 & 17.54 $\pm$ 0.87 & 17.96 $\pm$ 1.20 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = I, Flow = 0/4} & 83.51 $\pm$ 8.56 & 23.94 $\pm$ 1.94 & 30.25 $\pm$ 6.17 & 17.49 $\pm$ 1.50 & 18.79 $\pm$ 1.30 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = I, Flow = 0/8} & 75.16 $\pm$ 8.97 & 25.93 $\pm$ 1.01 & 29.86 $\pm$ 4.07 & 17.71 $\pm$ 0.78 & 17.98 $\pm$ 0.41 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 4, $N_H$ = II, Flow = 8/0} & 53.90 $\pm$ 3.72 & 22.76 $\pm$ 0.93 & 24.59 $\pm$ 2.43 & 16.69 $\pm$ 0.76 & 18.30 $\pm$ 1.10 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = II, Flow = 16/0} & 56.08 $\pm$ 4.96 & 26.30 $\pm$ 1.32 & 26.93 $\pm$ 4.34 & 17.11 $\pm$ 1.06 & 20.41 $\pm$ 1.84 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = II, Flow = 0/4} & 65.03 $\pm$ 8.07 & 23.10 $\pm$ 1.68 & 27.99 $\pm$ 3.46 & 17.04 $\pm$ 1.06 & 22.55 $\pm$ 2.60 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = II, Flow = 0/8} & 74.25 $\pm$ 7.89 & 26.51 $\pm$ 1.09 & 31.66 $\pm$ 3.21 & 18.31 $\pm$ 0.90 & 20.35 $\pm$ 2.26 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 4, $N_H$ = III, Flow = 8/0} & 51.68 $\pm$ 1.25 & 19.04 $\pm$ 1.75 & 25.06 $\pm$ 2.21 & 17.05 $\pm$ 0.47 & 17.44 $\pm$ 1.50 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = III, Flow = 16/0} & 55.23 $\pm$ 4.45 & 19.04 $\pm$ 1.13 & 27.77 $\pm$ 2.88 & 16.69 $\pm$ 0.60 & 18.74 $\pm$ 0.19 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = III, Flow = 0/4} & 79.25 $\pm$ 11.47 & 25.54 $\pm$ 0.94 & 26.66 $\pm$ 2.88 & 16.73 $\pm$ 0.92 & 19.28 $\pm$ 0.68 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = III, Flow = 0/8} & 92.99 $\pm$ 3.68 & 26.48 $\pm$ 0.41 & 28.84 $\pm$ 1.87 & 17.26 $\pm$ 0.43 & 22.35 $\pm$ 2.26 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 4, $N_H$ = IV, Flow = 8/0} & 51.71 $\pm$ 1.50 & 18.36 $\pm$ 2.24 & 23.72 $\pm$ 2.95 & 16.19 $\pm$ 0.75 & 16.77 $\pm$ 0.38 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = IV, Flow = 16/0} & 60.81 $\pm$ 5.56 & 21.01 $\pm$ 1.35 & 22.02 $\pm$ 1.85 & 15.43 $\pm$ 0.48 & 17.31 $\pm$ 0.61 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = IV, Flow = 0/4} & 57.74 $\pm$ 4.29 & 22.78 $\pm$ 1.02 & 26.75 $\pm$ 1.99 & 17.57 $\pm$ 0.36 & 18.85 $\pm$ 1.22 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = IV, Flow = 0/8} & 78.64 $\pm$ 8.29 & 23.29 $\pm$ 1.91 & 34.19 $\pm$ 2.72 & 19.14 $\pm$ 0.86 & 20.46 $\pm$ 0.70 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 4, $N_H$ = V, Flow = 8/0} & 53.74 $\pm$ 2.95 & 23.27 $\pm$ 1.51 & 30.83 $\pm$ 4.89 & 17.34 $\pm$ 0.25 & 20.26 $\pm$ 1.24 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = V, Flow = 16/0} & 56.01 $\pm$ 2.32 & 23.35 $\pm$ 0.94 & 27.03 $\pm$ 2.64 & 17.52 $\pm$ 1.04 & 17.07 $\pm$ 0.81 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = V, Flow = 0/4} & 83.87 $\pm$ 8.67 & 24.20 $\pm$ 2.03 & 27.64 $\pm$ 3.59 & 16.48 $\pm$ 0.78 & 21.24 $\pm$ 2.11 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = V, Flow = 0/8} & 90.87 $\pm$ 5.11 & 22.54 $\pm$ 0.99 & 30.61 $\pm$ 2.20 & 17.46 $\pm$ 0.72 & 19.84 $\pm$ 0.93 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \midrule
+        \textbf{$H$ = 16, $N_H$ = I, Flow = 8/0} & 58.52 $\pm$ 5.08 & 9.86 $\pm$ 3.10 & 22.85 $\pm$ 3.51 & 15.57 $\pm$ 1.36 & 19.51 $\pm$ 3.12 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = I, Flow = 16/0} & 58.33 $\pm$ 4.80 & 10.29 $\pm$ 4.02 & 38.20 $\pm$ 3.14 & 19.10 $\pm$ 0.91 & 21.55 $\pm$ 1.90 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = I, Flow = 0/4} & 52.02 $\pm$ 1.93 & 7.98 $\pm$ 2.43 & 48.51 $\pm$ 5.78 & 22.11 $\pm$ 1.76 & 31.46 $\pm$ 3.21 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = I, Flow = 0/8} & 59.43 $\pm$ 5.49 & 9.20 $\pm$ 3.32 & 55.93 $\pm$ 8.21 & 25.67 $\pm$ 2.12 & 32.76 $\pm$ 5.61 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 16, $N_H$ = II, Flow = 8/0} & 58.02 $\pm$ 2.35 & 4.25 $\pm$ 1.32 & 23.71 $\pm$ 1.27 & 16.69 $\pm$ 0.69 & 17.95 $\pm$ 0.53 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = II, Flow = 16/0} & 58.92 $\pm$ 6.56 & 4.69 $\pm$ 1.23 & 33.81 $\pm$ 5.95 & 18.33 $\pm$ 1.66 & 21.59 $\pm$ 2.26 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = II, Flow = 0/4} & 51.87 $\pm$ 2.45 & 8.01 $\pm$ 1.89 & 48.39 $\pm$ 10.55 & 23.12 $\pm$ 3.23 & 25.23 $\pm$ 2.61 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = II, Flow = 0/8} & 58.00 $\pm$ 5.68 & 4.57 $\pm$ 1.15 & 51.38 $\pm$ 8.78 & 24.60 $\pm$ 2.22 & 26.31 $\pm$ 3.59 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 16, $N_H$ = III, Flow = 8/0} & 60.73 $\pm$ 4.01 & 4.45 $\pm$ 0.89 & 30.21 $\pm$ 2.21 & 17.74 $\pm$ 0.74 & 20.59 $\pm$ 2.19 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = III, Flow = 16/0} & 59.87 $\pm$ 5.68 & 5.70 $\pm$ 1.47 & 36.65 $\pm$ 6.92 & 18.95 $\pm$ 1.61 & 21.12 $\pm$ 3.18 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = III, Flow = 0/4} & 58.80 $\pm$ 4.49 & 7.34 $\pm$ 2.08 & 56.72 $\pm$ 3.51 & 25.77 $\pm$ 1.72 & 27.21 $\pm$ 3.06 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = III, Flow = 0/8} & 54.08 $\pm$ 2.95 & 8.56 $\pm$ 2.70 & 55.37 $\pm$ 8.22 & 25.82 $\pm$ 2.32 & 31.20 $\pm$ 4.73 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 16, $N_H$ = IV, Flow = 8/0} & 52.49 $\pm$ 1.77 & 5.54 $\pm$ 1.22 & 33.26 $\pm$ 4.84 & 16.93 $\pm$ 1.23 & 22.32 $\pm$ 1.87 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = IV, Flow = 16/0} & 53.29 $\pm$ 3.17 & 4.15 $\pm$ 1.67 & 30.48 $\pm$ 4.05 & 17.72 $\pm$ 1.15 & 20.31 $\pm$ 1.66 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = IV, Flow = 0/4} & 56.11 $\pm$ 3.47 & 5.48 $\pm$ 1.63 & 54.10 $\pm$ 10.31 & 23.80 $\pm$ 3.44 & 25.87 $\pm$ 2.60 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = IV, Flow = 0/8} & 56.03 $\pm$ 2.51 & 3.74 $\pm$ 1.59 & 55.41 $\pm$ 7.83 & 23.78 $\pm$ 2.41 & 30.82 $\pm$ 2.93 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 16, $N_H$ = V, Flow = 8/0} & 55.11 $\pm$ 3.53 & 6.72 $\pm$ 1.17 & 39.26 $\pm$ 7.71 & 19.03 $\pm$ 1.41 & 23.03 $\pm$ 3.74 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = V, Flow = 16/0} & 57.19 $\pm$ 4.36 & 6.13 $\pm$ 1.77 & 30.47 $\pm$ 3.14 & 17.24 $\pm$ 1.30 & 22.40 $\pm$ 3.35 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = V, Flow = 0/4} & 54.33 $\pm$ 2.57 & 4.31 $\pm$ 1.03 & 40.28 $\pm$ 7.97 & 18.99 $\pm$ 1.47 & 24.85 $\pm$ 3.95 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = V, Flow = 0/8} & 55.97 $\pm$ 4.00 & 2.09 $\pm$ 0.55 & 57.11 $\pm$ 9.02 & 26.22 $\pm$ 3.44 & 25.91 $\pm$ 4.23 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \midrule
+        \textbf{$H$ = 32, $N_H$ = I, Flow = 8/0} & 55.82 $\pm$ 1.49 & 3.19 $\pm$ 0.78 & 33.14 $\pm$ 4.82 & 18.14 $\pm$ 1.42 & 19.36 $\pm$ 0.80 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = I, Flow = 16/0} & 60.20 $\pm$ 4.97 & 3.11 $\pm$ 0.78 & 40.89 $\pm$ 5.92 & 19.51 $\pm$ 1.50 & 19.08 $\pm$ 1.31 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = I, Flow = 0/4} & 59.49 $\pm$ 2.94 & 2.90 $\pm$ 0.54 & 40.57 $\pm$ 8.66 & 19.14 $\pm$ 2.25 & 26.81 $\pm$ 2.90 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = I, Flow = 0/8} & 61.86 $\pm$ 4.98 & 1.94 $\pm$ 0.33 & \textbf{*72.07 $\pm$ 8.34} & \textbf{*28.46 $\pm$ 1.65} & 32.84 $\pm$ 3.41 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 32, $N_H$ = II, Flow = 8/0} & 57.46 $\pm$ 3.24 & 5.08 $\pm$ 1.96 & 30.09 $\pm$ 2.78 & 17.55 $\pm$ 0.67 & 18.25 $\pm$ 0.78 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = II, Flow = 16/0} & 55.34 $\pm$ 2.78 & 2.15 $\pm$ 0.41 & 35.14 $\pm$ 2.49 & 19.24 $\pm$ 1.00 & 20.53 $\pm$ 2.12 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = II, Flow = 0/4} & 58.50 $\pm$ 7.43 & 2.23 $\pm$ 0.29 & 57.94 $\pm$ 5.29 & 24.43 $\pm$ 0.60 & 29.14 $\pm$ 3.00 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = II, Flow = 0/8} & 54.68 $\pm$ 4.01 & 2.26 $\pm$ 0.60 & 45.24 $\pm$ 5.14 & 19.82 $\pm$ 1.48 & 29.27 $\pm$ 2.28 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 32, $N_H$ = III, Flow = 8/0} & 53.35 $\pm$ 3.39 & 2.88 $\pm$ 0.81 & 32.52 $\pm$ 1.58 & 18.28 $\pm$ 1.29 & 20.08 $\pm$ 1.05 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = III, Flow = 16/0} & 54.91 $\pm$ 2.39 & 4.51 $\pm$ 0.92 & 35.21 $\pm$ 4.26 & 18.68 $\pm$ 1.00 & 19.81 $\pm$ 1.46 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = III, Flow = 0/4} & 58.84 $\pm$ 1.61 & \textbf{*1.49 $\pm$ 0.20} & 50.90 $\pm$ 11.50 & 21.83 $\pm$ 2.72 & 33.23 $\pm$ 5.33 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = III, Flow = 0/8} & \textbf{*51.12 $\pm$ 1.93} & 2.17 $\pm$ 0.35 & 55.22 $\pm$ 5.21 & 24.55 $\pm$ 2.43 & 28.35 $\pm$ 2.18 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 32, $N_H$ = IV, Flow = 8/0} & 52.58 $\pm$ 2.37 & 6.09 $\pm$ 1.30 & 28.88 $\pm$ 5.31 & 16.77 $\pm$ 1.24 & 20.28 $\pm$ 2.63 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = IV, Flow = 16/0} & 58.58 $\pm$ 5.19 & 5.05 $\pm$ 1.43 & 28.78 $\pm$ 2.57 & 16.47 $\pm$ 0.83 & 21.19 $\pm$ 1.64 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = IV, Flow = 0/4} & 51.88 $\pm$ 1.57 & 2.72 $\pm$ 0.74 & 55.32 $\pm$ 7.42 & 24.11 $\pm$ 2.10 & \textbf{*35.59 $\pm$ 3.99} & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = IV, Flow = 0/8} & 53.84 $\pm$ 2.82 & 1.85 $\pm$ 0.33 & 49.44 $\pm$ 3.65 & 21.06 $\pm$ 2.11 & 30.14 $\pm$ 2.12 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 32, $N_H$ = V, Flow = 8/0} & 53.52 $\pm$ 1.64 & 8.24 $\pm$ 0.64 & 30.51 $\pm$ 2.22 & 18.50 $\pm$ 0.67 & 20.98 $\pm$ 2.00 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = V, Flow = 16/0} & 58.21 $\pm$ 9.11 & 6.91 $\pm$ 1.16 & 35.75 $\pm$ 3.59 & 18.07 $\pm$ 0.91 & 19.09 $\pm$ 1.29 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = V, Flow = 0/4} & 56.22 $\pm$ 4.42 & 1.98 $\pm$ 0.45 & 40.97 $\pm$ 5.06 & 20.21 $\pm$ 1.98 & 23.40 $\pm$ 1.69 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = V, Flow = 0/8} & 54.06 $\pm$ 3.18 & 2.09 $\pm$ 0.32 & 35.75 $\pm$ 7.51 & 18.86 $\pm$ 2.13 & 22.27 $\pm$ 1.83 & \textbf{*100.00 $\pm$ 0.00} \\
+        \bottomrule
+    \end{tabular}
+    }
+\end{table*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table*}[ht]
+    \centering
+    \caption{Bike Sharing (Poisson $\DPoi)$ comparison (<latent dim> -- <certainty budget> -- <radial layers>/<MAF layers>). Bold and starred number indicate best score among all models.}
+    \label{tab:ablation-bikesharing-poisson}
+    \scriptsize
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lccccc}
+        \toprule
+        & \textbf{RMSE} & \textbf{Winter Epist.} & \textbf{Spring Epist.} & \textbf{Autumn Epist.} & \textbf{OODom Epist.} \\
+        \midrule
+        \textbf{$H$ = 4, $N_H$ = I, Flow = 8/0} & 937.56 $\pm$ 238.40 & 33.50 $\pm$ 4.83 & 18.04 $\pm$ 0.58 & 20.44 $\pm$ 1.53 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = I, Flow = 16/0} & 777.22 $\pm$ 328.71 & 22.53 $\pm$ 2.16 & 17.00 $\pm$ 0.74 & 18.30 $\pm$ 1.25 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = I, Flow = 0/4} & 33780.69 $\pm$ 19607.73 & 45.22 $\pm$ 7.96 & 21.35 $\pm$ 2.09 & 37.89 $\pm$ 4.13 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = I, Flow = 0/8} & 22686.67 $\pm$ 5815.18 & 53.51 $\pm$ 5.83 & 21.80 $\pm$ 1.14 & 39.25 $\pm$ 2.59 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 4, $N_H$ = II, Flow = 8/0} & 60383.07 $\pm$ 21389.07 & 15.20 $\pm$ 0.57 & 13.50 $\pm$ 0.22 & 15.28 $\pm$ 0.77 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = II, Flow = 16/0} & 32982.63 $\pm$ 17819.36 & 33.09 $\pm$ 8.79 & 17.55 $\pm$ 2.25 & 19.17 $\pm$ 1.19 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = II, Flow = 0/4} & 21467.31 $\pm$ 17019.59 & 44.60 $\pm$ 8.61 & 20.27 $\pm$ 1.97 & 33.25 $\pm$ 8.69 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = II, Flow = 0/8} & 11231.30 $\pm$ 4784.62 & 42.64 $\pm$ 7.58 & 21.06 $\pm$ 2.63 & 23.93 $\pm$ 2.05 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 4, $N_H$ = III, Flow = 8/0} & 2048.78 $\pm$ 538.12 & 22.84 $\pm$ 1.90 & 16.59 $\pm$ 0.73 & 17.21 $\pm$ 0.50 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = III, Flow = 16/0} & 5181.92 $\pm$ 3581.91 & 25.42 $\pm$ 2.91 & 15.24 $\pm$ 0.53 & 17.00 $\pm$ 1.34 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = III, Flow = 0/4} & 35092.52 $\pm$ 10813.54 & 47.42 $\pm$ 5.98 & 22.49 $\pm$ 1.88 & 28.50 $\pm$ 1.52 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = III, Flow = 0/8} & 86946.86 $\pm$ 42792.69 & 53.87 $\pm$ 7.18 & 22.87 $\pm$ 2.17 & 33.78 $\pm$ 5.12 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 4, $N_H$ = IV, Flow = 8/0} & 10255.94 $\pm$ 6207.90 & 19.89 $\pm$ 1.82 & 14.93 $\pm$ 0.30 & 16.38 $\pm$ 0.57 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = IV, Flow = 16/0} & 6665.70 $\pm$ 3160.53 & 29.95 $\pm$ 6.24 & 17.66 $\pm$ 1.06 & 17.33 $\pm$ 0.46 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = IV, Flow = 0/4} & 119600.14 $\pm$ 85229.53 & 35.15 $\pm$ 5.20 & 19.58 $\pm$ 2.37 & 27.15 $\pm$ 2.87 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = IV, Flow = 0/8} & 132950.39 $\pm$ 98199.93 & 56.85 $\pm$ 8.13 & 24.17 $\pm$ 1.99 & 40.23 $\pm$ 5.69 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 4, $N_H$ = V, Flow = 8/0} & 131051.70 $\pm$ 124947.53 & 23.89 $\pm$ 2.55 & 15.68 $\pm$ 0.71 & 17.94 $\pm$ 1.34 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = V, Flow = 16/0} & 16481.96 $\pm$ 7339.53 & 26.55 $\pm$ 1.59 & 16.40 $\pm$ 0.25 & 26.36 $\pm$ 5.15 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = V, Flow = 0/4} & 28238.41 $\pm$ 10202.38 & 39.68 $\pm$ 9.73 & 19.04 $\pm$ 2.13 & 29.09 $\pm$ 3.57 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 4, $N_H$ = V, Flow = 0/8} & 27167.10 $\pm$ 9698.30 & 46.59 $\pm$ 6.57 & 23.03 $\pm$ 1.22 & 27.77 $\pm$ 5.03 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \midrule
+        \textbf{$H$ = 16, $N_H$ = I, Flow = 8/0} & 633.14 $\pm$ 237.64 & 35.20 $\pm$ 5.92 & 18.16 $\pm$ 0.91 & 22.16 $\pm$ 2.43 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = I, Flow = 16/0} & 408.28 $\pm$ 246.12 & 45.32 $\pm$ 4.53 & 19.96 $\pm$ 1.66 & 34.91 $\pm$ 6.35 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = I, Flow = 0/4} & 276.23 $\pm$ 151.72 & 64.86 $\pm$ 8.92 & 26.40 $\pm$ 3.85 & 37.05 $\pm$ 5.43 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = I, Flow = 0/8} & 262.91 $\pm$ 126.12 & 80.30 $\pm$ 4.85 & 32.12 $\pm$ 2.86 & 38.83 $\pm$ 3.14 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 16, $N_H$ = II, Flow = 8/0} & 1325.94 $\pm$ 79.27 & 30.06 $\pm$ 3.95 & 18.63 $\pm$ 1.33 & 21.43 $\pm$ 1.82 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = II, Flow = 16/0} & 1042.48 $\pm$ 413.69 & 45.96 $\pm$ 5.13 & 20.63 $\pm$ 1.63 & 24.25 $\pm$ 1.57 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = II, Flow = 0/4} & 129.87 $\pm$ 79.26 & 71.03 $\pm$ 5.39 & 34.02 $\pm$ 4.65 & 36.16 $\pm$ 5.75 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = II, Flow = 0/8} & 182.97 $\pm$ 129.05 & 81.19 $\pm$ 6.60 & 36.17 $\pm$ 5.02 & \textbf{*43.97 $\pm$ 7.12} & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 16, $N_H$ = III, Flow = 8/0} & 1233.19 $\pm$ 76.60 & 34.22 $\pm$ 4.42 & 19.09 $\pm$ 1.47 & 25.34 $\pm$ 1.63 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = III, Flow = 16/0} & 881.87 $\pm$ 367.31 & 38.58 $\pm$ 3.13 & 21.66 $\pm$ 1.47 & 22.85 $\pm$ 1.57 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = III, Flow = 0/4} & 89.12 $\pm$ 37.11 & 84.06 $\pm$ 3.99 & 37.00 $\pm$ 3.23 & 36.77 $\pm$ 5.20 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = III, Flow = 0/8} & 93.06 $\pm$ 28.11 & 76.50 $\pm$ 6.64 & 30.94 $\pm$ 5.14 & 37.96 $\pm$ 5.69 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 16, $N_H$ = IV, Flow = 8/0} & 1893.36 $\pm$ 970.62 & 40.06 $\pm$ 6.68 & 20.01 $\pm$ 1.96 & 25.71 $\pm$ 4.91 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = IV, Flow = 16/0} & 2212.13 $\pm$ 1084.13 & 41.60 $\pm$ 4.41 & 17.93 $\pm$ 0.92 & 29.77 $\pm$ 3.60 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = IV, Flow = 0/4} & 56.60 $\pm$ 2.25 & 72.66 $\pm$ 6.46 & 32.09 $\pm$ 4.74 & 34.56 $\pm$ 5.52 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = IV, Flow = 0/8} & 52.01 $\pm$ 2.10 & 79.58 $\pm$ 5.81 & 33.47 $\pm$ 2.84 & 36.19 $\pm$ 4.91 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 16, $N_H$ = V, Flow = 8/0} & 4434.32 $\pm$ 3059.38 & 31.63 $\pm$ 4.31 & 17.82 $\pm$ 1.02 & 20.77 $\pm$ 2.04 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = V, Flow = 16/0} & 4115.67 $\pm$ 1891.56 & 47.58 $\pm$ 4.69 & 22.82 $\pm$ 2.46 & 26.51 $\pm$ 5.27 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = V, Flow = 0/4} & 50.47 $\pm$ 1.54 & 83.71 $\pm$ 5.23 & \textbf{*37.46 $\pm$ 5.13} & 42.63 $\pm$ 4.37 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 16, $N_H$ = V, Flow = 0/8} & 51.79 $\pm$ 0.78 & \textbf{*85.15 $\pm$ 3.61} & 37.03 $\pm$ 2.35 & 42.73 $\pm$ 4.38 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \midrule
+        \textbf{$H$ = 32, $N_H$ = I, Flow = 8/0} & 351.49 $\pm$ 157.14 & 38.59 $\pm$ 5.39 & 21.90 $\pm$ 2.62 & 25.23 $\pm$ 2.66 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = I, Flow = 16/0} & 167.67 $\pm$ 116.18 & 45.10 $\pm$ 6.51 & 21.90 $\pm$ 2.76 & 24.84 $\pm$ 3.40 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = I, Flow = 0/4} & 50.10 $\pm$ 1.55 & 73.09 $\pm$ 9.70 & 27.10 $\pm$ 2.42 & 40.78 $\pm$ 8.19 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = I, Flow = 0/8} & 51.97 $\pm$ 2.57 & 58.80 $\pm$ 10.68 & 23.64 $\pm$ 2.46 & 30.77 $\pm$ 5.51 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 32, $N_H$ = II, Flow = 8/0} & 580.40 $\pm$ 250.82 & 38.80 $\pm$ 5.56 & 20.62 $\pm$ 1.89 & 25.80 $\pm$ 1.92 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = II, Flow = 16/0} & 49.96 $\pm$ 1.60 & 46.52 $\pm$ 6.52 & 22.78 $\pm$ 1.69 & 27.16 $\pm$ 5.09 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = II, Flow = 0/4} & \textbf{*48.85 $\pm$ 0.92} & 60.12 $\pm$ 10.37 & 22.57 $\pm$ 2.44 & 37.51 $\pm$ 6.70 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = II, Flow = 0/8} & 50.12 $\pm$ 2.29 & 69.33 $\pm$ 4.57 & 30.96 $\pm$ 2.55 & 35.11 $\pm$ 6.33 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 32, $N_H$ = III, Flow = 8/0} & 462.85 $\pm$ 169.59 & 43.86 $\pm$ 7.00 & 20.62 $\pm$ 2.41 & 30.58 $\pm$ 4.59 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = III, Flow = 16/0} & 569.28 $\pm$ 219.42 & 54.12 $\pm$ 8.10 & 22.49 $\pm$ 1.98 & 31.49 $\pm$ 4.90 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = III, Flow = 0/4} & 49.83 $\pm$ 1.25 & 67.93 $\pm$ 9.50 & 27.61 $\pm$ 3.98 & 31.87 $\pm$ 6.17 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = III, Flow = 0/8} & 51.26 $\pm$ 1.53 & 70.68 $\pm$ 5.97 & 32.89 $\pm$ 3.07 & 28.56 $\pm$ 5.79 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 32, $N_H$ = IV, Flow = 8/0} & 50.79 $\pm$ 1.07 & 42.61 $\pm$ 8.46 & 18.84 $\pm$ 2.13 & 26.45 $\pm$ 3.68 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = IV, Flow = 16/0} & 49.91 $\pm$ 1.54 & 45.15 $\pm$ 7.53 & 23.00 $\pm$ 2.26 & 27.90 $\pm$ 3.31 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = IV, Flow = 0/4} & 49.82 $\pm$ 1.59 & 59.64 $\pm$ 7.63 & 26.64 $\pm$ 4.29 & 34.17 $\pm$ 7.65 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = IV, Flow = 0/8} & 51.66 $\pm$ 1.79 & 65.31 $\pm$ 9.06 & 28.34 $\pm$ 3.83 & 38.84 $\pm$ 6.46 & \textbf{*100.00 $\pm$ 0.00} \\
+        \midrule
+        \textbf{$H$ = 32, $N_H$ = V, Flow = 8/0} & 52.95 $\pm$ 1.36 & 39.37 $\pm$ 7.16 & 17.74 $\pm$ 1.36 & 28.73 $\pm$ 5.78 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = V, Flow = 16/0} & 146.99 $\pm$ 94.70 & 56.50 $\pm$ 3.61 & 24.44 $\pm$ 2.00 & 34.28 $\pm$ 4.16 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = V, Flow = 0/4} & 51.42 $\pm$ 1.68 & 74.23 $\pm$ 7.35 & 27.64 $\pm$ 1.85 & 35.90 $\pm$ 6.06 & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{$H$ = 32, $N_H$ = V, Flow = 0/8} & 49.31 $\pm$ 1.81 & 76.36 $\pm$ 10.30 & 31.86 $\pm$ 4.07 & 41.32 $\pm$ 4.75 & \textbf{*100.00 $\pm$ 0.00} \\
+        \bottomrule
+    \end{tabular}
+    }
+\end{table*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \begin{table*}[ht]
+% \vspace{-.1cm}
+%     \centering
+%     \scriptsize
+%     \begin{tabular}{lcccccc}
+%         \toprule
+%         & \textbf{RMSE} & \textbf{Calibration} & \textbf{Winter Epist.} & \textbf{Spring Epist.} & \textbf{Autumn Epist.} & \textbf{OODom Epist.} \\
+%         \midrule
+%         \textbf{\oursacro{} (4 -- 8/0)} & 52.81 $\pm$ 2.43 & 21.75 $\pm$ 1.84 & 20.12 $\pm$ 0.43 & 15.62 $\pm$ 0.37 & 17.95 $\pm$ 0.26 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (4 -- 16/0)} & 51.87 $\pm$ 3.52 & 22.96 $\pm$ 0.98 & 20.94 $\pm$ 0.79 & 14.96 $\pm$ 0.33 & 18.98 $\pm$ 1.31 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (4 -- 0/4)} & 64.26 $\pm$ 10.56 & 23.95 $\pm$ 1.02 & 26.45 $\pm$ 0.65 & 16.46 $\pm$ 0.58 & 18.98 $\pm$ 1.37 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (4 -- 0/8)} & 63.09 $\pm$ 8.16 & 24.13 $\pm$ 0.71 & 38.24 $\pm$ 6.09 & 18.47 $\pm$ 1.09 & 21.78 $\pm$ 1.94 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (4 -- 0/16)} & 73.99 $\pm$ 9.85 & 24.68 $\pm$ 1.67 & 35.99 $\pm$ 3.88 & 20.40 $\pm$ 1.51 & 21.49 $\pm$ 1.07 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \midrule
+%         %\textbf{\oursacro{} (8 -- 8/0)} & 51.67 $\pm$ 1.84 & 10.02 $\pm$ 2.74 & 25.71 $\pm$ 2.71 & 16.12 $\pm$ 0.58 & 18.28 $\pm$ 0.70 & \textbf{*100.00 $\pm$ 0.00} \\
+%         %\textbf{\oursacro{} (8 -- 16/0)} & 49.62 $\pm$ 1.18 & 15.68 $\pm$ 2.77 & 22.25 $\pm$ 2.47 & 15.58 $\pm$ 0.68 & 18.27 $\pm$ 1.54 & \textbf{*100.00 $\pm$ 0.00} \\
+%         %\textbf{\oursacro{} (8 -- 0/4)} & 65.16 $\pm$ 11.05 & 13.62 $\pm$ 2.69 & 36.13 $\pm$ 7.42 & 18.07 $\pm$ 0.70 & 23.00 $\pm$ 3.34 & \textbf{*100.00 $\pm$ 0.00} \\
+%         %\textbf{\oursacro{} (8 -- 0/8)} & 57.51 $\pm$ 4.48 & 13.70 $\pm$ 1.19 & 41.34 $\pm$ 7.34 & \textbf{*21.91 $\pm$ 2.69} & 25.43 $\pm$ 1.76 & \textbf{*100.00 $\pm$ 0.00} \\
+%         %\textbf{\oursacro{} (8 -- 0/16)} & 57.50 $\pm$ 2.74 & 11.43 $\pm$ 1.34 & \textbf{*44.08 $\pm$ 8.47} & 19.73 $\pm$ 1.66 & \textbf{*26.91 $\pm$ 3.36} & \textbf{*100.00 $\pm$ 0.00} \\
+%         %\midrule
+%         \textbf{\oursacro{} (16 -- 8/0)} & 51.11 $\pm$ 1.24 & \textbf{*2.32 $\pm$ 0.41} & 25.89 $\pm$ 5.12 & 16.57 $\pm$ 1.23 & 19.57 $\pm$ 2.73 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (16 -- 16/0)} & 50.30 $\pm$ 2.49 & 4.44 $\pm$ 1.09 & 25.92 $\pm$ 2.76 & 17.03 $\pm$ 0.91 & 18.63 $\pm$ 1.30 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (16 -- 0/4)} & \textbf{*48.75 $\pm$ 2.14} & 3.18 $\pm$ 0.63 & 29.97 $\pm$ 1.75 & 17.91 $\pm$ 0.82 & 22.76 $\pm$ 1.85 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (16 -- 0/8)} & 54.15 $\pm$ 3.08 & 3.07 $\pm$ 0.52 & \textbf{*40.58 $\pm$ 7.10} & 20.51 $\pm$ 1.60 & \textbf{*24.69 $\pm$ 4.73} & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (16 -- 0/16)} & 49.85 $\pm$ 1.28 & 2.53 $\pm$ 0.41 & 39.15 $\pm$ 9.16 & \textbf{*20.52 $\pm$ 3.20} & 23.08 $\pm$ 2.14 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \midrule
+%         \textbf{\oursacro{} (32 -- 8/0)} & 52.80 $\pm$ 2.51 & 4.09 $\pm$ 0.94 & 26.85 $\pm$ 2.82 & 16.76 $\pm$ 0.92 & 17.30 $\pm$ 1.53 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (32 -- 16/0)} & 55.67 $\pm$ 4.29 & 3.15 $\pm$ 0.72 & 27.53 $\pm$ 3.28 & 17.40 $\pm$ 0.80 & 18.64 $\pm$ 0.81 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (32 -- 0/4)} & 50.50 $\pm$ 1.29 & 3.72 $\pm$ 0.72 & 26.15 $\pm$ 6.27 & 16.65 $\pm$ 2.07 & 18.43 $\pm$ 1.10 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (32 -- 0/8)} & 52.20 $\pm$ 3.16 & 2.80 $\pm$ 0.72 & 25.95 $\pm$ 5.84 & 16.17 $\pm$ 1.34 & 20.79 $\pm$ 2.80 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (32 -- 0/16)} & 50.61 $\pm$ 1.72 & 2.38 $\pm$ 0.76 & 20.92 $\pm$ 3.44 & 14.17 $\pm$ 0.88 & 19.68 $\pm$ 2.58 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \bottomrule
+%     \end{tabular}
+%     \caption{Bike Sharing (Normal $\DNormal$) Comparison (<latent dim> -- <radial layers>/<MAF layers>). Bold and starred number indicate best score among all models.}
+%     \label{tab:ablation-bikesharing-normal}
+% \end{table*}
+
+% \begin{table*}[ht]
+% \vspace{-.1cm}
+%     \centering
+%     \scriptsize
+%     \begin{tabular}{lcccccc}
+%         \toprule
+%         & \textbf{RMSE} & \textbf{Calibration} & \textbf{Winter Epist.} & \textbf{Spring Epist.} & \textbf{Autumn Epist.} & \textbf{OODom Epist.} \\
+%         \midrule
+%         \textbf{\oursacro{}} ($1$-budget) & \textbf{*49.22 $\pm$ 1.58} & 3.38 $\pm$ 0.72 & 23.54 $\pm$ 3.14 & 15.46 $\pm$ 0.89 & 19.76 $\pm$ 1.48 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{}} ($N$-budget) & 54.50 $\pm$ 4.78 & \textbf{*1.95 $\pm$ 0.49} & 33.17 $\pm$ 7.40 & 18.79 $\pm$ 2.29 & 20.87 $\pm$ 1.74 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{}} ($H$-budget) & 49.85 $\pm$ 1.28 & 2.53 $\pm$ 0.41 & \textbf{*39.15 $\pm$ 9.16} & \textbf{*20.52 $\pm$ 3.20} & \textbf{*23.08 $\pm$ 2.14} & \textbf{*100.00 $\pm$ 0.00} \\
+%         %\textbf{\oursacro{} ($N_H = $ new)} & 54.49 $\pm$ 2.38 & 2.60 $\pm$ 0.57 & 27.92 $\pm$ 3.06 & 17.75 $\pm$ 1.57 & 21.47 $\pm$ 1.86 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \bottomrule
+%     \end{tabular}
+%     \caption{Bike Sharing (Normal $\DNormal$) Comparison $N_H$ Scaling. Bold and starred number indicate best score among all models.}
+%     \label{tab:ablation-bike-sharing-normal-log-scale}
+% \end{table*}
+
+% \begin{table*}[ht]
+% \vspace{-.1cm}
+%     \centering
+%     \scriptsize
+%     \begin{tabular}{lccccc}
+%         \toprule
+%         & \textbf{RMSE} & \textbf{Winter Epist.} & \textbf{Spring Epist.} & \textbf{Autumn Epist.} & \textbf{Winter OODom Epist.} \\
+%         \midrule
+%         \textbf{\oursacro{} (4 -- 8/0)} & 15878.27 $\pm$ 9480.29 & 21.35 $\pm$ 3.08 & 14.00 $\pm$ 0.58 & 17.51 $\pm$ 1.22 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (4 -- 16/0)} & 18534.26 $\pm$ 9295.93 & 31.88 $\pm$ 4.38 & 17.90 $\pm$ 0.90 & 22.61 $\pm$ 2.16 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (4 -- 0/4)} & 179635.99 $\pm$ 93952.22 & 42.26 $\pm$ 8.69 & 19.42 $\pm$ 2.11 & 23.29 $\pm$ 1.68 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (4 -- 0/8)} & 45382.86 $\pm$ 22573.84 & 54.55 $\pm$ 9.79 & 22.81 $\pm$ 2.72 & 34.32 $\pm$ 5.10 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (4 -- 0/16)} & 52011.84 $\pm$ 15966.07 & 60.11 $\pm$ 7.21 & 25.57 $\pm$ 1.92 & 25.55 $\pm$ 1.53 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \midrule
+%         %\textbf{\oursacro{} (8 -- 8/0)} & 5298.49 $\pm$ 1551.35 & 36.83 $\pm$ 6.95 & 19.70 $\pm$ 2.01 & 21.01 $\pm$ 1.59 & \textbf{*100.00 $\pm$ 0.00} \\
+%         %\textbf{\oursacro{} (8 -- 16/0)} & 24094.20 $\pm$ 16929.53 & 37.27 $\pm$ 4.79 & 19.67 $\pm$ 0.92 & 22.68 $\pm$ 3.41 & \textbf{*100.00 $\pm$ 0.00} \\
+%         %\textbf{\oursacro{} (8 -- 0/4)} & 34505.67 $\pm$ 31485.78 & 57.00 $\pm$ 8.07 & 22.07 $\pm$ 1.93 & 31.41 $\pm$ 2.86 & \textbf{*100.00 $\pm$ 0.00} \\
+%         %\textbf{\oursacro{} (8 -- 0/8)} & 8480.70 $\pm$ 6039.53 & 77.99 $\pm$ 12.72 & \textbf{*39.62 $\pm$ 5.92} & \textbf{*47.24 $\pm$ 4.48} & \textbf{*100.00 $\pm$ 0.00} \\
+%         %\textbf{\oursacro{} (8 -- 0/16)} & 6090.86 $\pm$ 4649.46 & \textbf{*85.57 $\pm$ 3.09} & 38.96 $\pm$ 2.09 & 42.84 $\pm$ 6.97 & \textbf{*100.00 $\pm$ 0.00} \\
+%         %\midrule
+%         \textbf{\oursacro{} (16 -- 8/0)} & 2322.25 $\pm$ 1505.61 & 33.35 $\pm$ 5.24 & 18.40 $\pm$ 1.96 & 24.66 $\pm$ 3.21 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (16 -- 16/0)} & 2875.78 $\pm$ 1336.66 & 48.02 $\pm$ 6.85 & 21.68 $\pm$ 1.73 & 32.12 $\pm$ 4.34 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (16 -- 0/4)} & 52.65 $\pm$ 1.88 & 85.25 $\pm$ 4.53 & 34.96 $\pm$ 3.52 & 41.72 $\pm$ 7.10 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (16 -- 0/8)} & 62.97 $\pm$ 13.91 & 82.10 $\pm$ 3.20 & \textbf{*35.39 $\pm$ 3.61} & \textbf{*43.33 $\pm$ 5.66} & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (16 -- 0/16)} & 52.25 $\pm$ 1.47 & 68.14 $\pm$ 9.41 & 31.83 $\pm$ 2.72 & 29.99 $\pm$ 6.08 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \midrule
+%         \textbf{\oursacro{} (32 -- 8/0)} & 52.07 $\pm$ 1.10 & 47.53 $\pm$ 7.40 & 21.82 $\pm$ 1.57 & 29.98 $\pm$ 5.71 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (32 -- 16/0)} & 49.37 $\pm$ 1.63 & 59.66 $\pm$ 7.89 & 26.61 $\pm$ 5.37 & 34.29 $\pm$ 4.62 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (32 -- 0/4)} & \textbf{*49.08 $\pm$ 1.80} & 68.83 $\pm$ 9.31 & 26.00 $\pm$ 3.84 & 42.78 $\pm$ 5.77 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (32 -- 0/8)} & 50.89 $\pm$ 1.24 & \textbf{*85.39 $\pm$ 3.99} & 31.88 $\pm$ 2.19 & 41.68 $\pm$ 3.15 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{} (32 -- 0/16)} & 50.33 $\pm$ 3.16 & 68.93 $\pm$ 7.99 & 32.00 $\pm$ 4.80 & 32.74 $\pm$ 4.13 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \bottomrule
+%     \end{tabular}
+%     \caption{Bike Sharing (Poisson $\DPoi$) Comparison (<latent dim> -- <radial layers>/<MAF layers>). Bold and starred number indicate best score among all models.}
+%     \label{tab:ablation-bikesharing-poisson}
+% \end{table*}
+
+% \begin{table*}[ht]
+%     \centering
+%     \scriptsize
+%     \begin{tabular}{lccccc}
+%         \toprule
+%         & \textbf{RMSE} & \textbf{Winter Epist.} & \textbf{Spring Epist.} & \textbf{Autumn Epist.} & \textbf{Winter OODom Epist.} \\
+%         \midrule
+%         \textbf{\oursacro{}} ($1$-budget) & 87.86 $\pm$ 29.81 & 72.27 $\pm$ 4.95 & 29.31 $\pm$ 3.71 & 40.86 $\pm$ 3.62 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{}} ($N$-budget) & 172.25 $\pm$ 73.44 & \textbf{*88.19 $\pm$ 2.34} & \textbf{*39.23 $\pm$ 2.97} & \textbf{41.81 $\pm$ 5.16} & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{}} ($H$-budget) & \textbf{*52.65 $\pm$ 1.88} & 85.25 $\pm$ 4.53 & 34.96 $\pm$ 3.52 & 41.72 $\pm$ 7.10 & \textbf{*100.00 $\pm$ 0.00} \\
+%         %\textbf{\oursacro{} ($N_H = $ new)} & 53.33 $\pm$ 3.56 & 83.84 $\pm$ 3.46 & 37.43 $\pm$ 3.89 & \textbf{*44.68 $\pm$ 2.39} & \textbf{*100.00 $\pm$ 0.00} \\
+%         \bottomrule
+%     \end{tabular}
+%     \caption{Bike Sharing (Poisson $\DPoi$) Comparison $N_H$ Scaling. Bold and starred number indicate best score among all models.}
+%     \label{tab:ablation-bike-sharing-poisson-log-scale}
+% \end{table*}

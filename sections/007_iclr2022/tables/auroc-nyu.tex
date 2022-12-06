@@ -1,0 +1,15 @@
+\begin{table*}[ht]
+    \caption{NYU AUC-ROC}
+    \centering
+    \scriptsize
+    \begin{tabular}{lcccccccc}
+        \toprule
+        & \textbf{LSUN Alea. Cl} & \textbf{LSUN Alea. Ch} & \textbf{LSUN Epist. Cl} & \textbf{LSUN Epist. Ch} & \textbf{Kitti Alea.} & \textbf{Kitti Epist.} & \textbf{OODom Alea.} & \textbf{OODom Epist.} \\
+        \midrule
+        \textbf{Dropout} & *85.68 & 92.20 & 58.10 & 56.51 & 93.35 & 60.31 & 61.47 & *100.00 \\
+        \midrule
+        \textbf{EvReg} & 8.00 & 3.15 & 24.76 & 14.45 & 2.45 & 11.97 & 45.75 & 1.19 \\
+        \textbf{\oursacro{}} & \textbf{83.75} & \textbf{*95.97} & \textbf{*64.63} & \textbf{*72.97} & \textbf{*97.18} & \textbf{*83.15} & \textbf{*100.00} & \textbf{*100.00} \\
+        \bottomrule
+    \end{tabular}
+\end{table*}

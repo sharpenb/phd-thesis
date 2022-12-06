@@ -1,0 +1,17 @@
+\begin{table}[!h]
+    \centering
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{l|cccccccccc}
+            \toprule
+             & $H$  & $L$   &   $n_{layers}$    & $n_{radial}$  &   $ACT$   &   $p_{drop}$ &    $\tau$ & budget & $\lambda$   &   weight decay \\
+             \midrule
+             \textbf{(1)} & $64$ & $10$ & $2$ & $10$ & ReLU & $0.5$ & $0.2$ & $N_H \cdot C$ & $1.0e-05$ & $0.0005$ \\
+             \textbf{(2)} & $64$ & $16$ & $2$ & $10$ & ReLU & $0.5$ & $0.1$ & $N_H$ & $1.0e-3$ & $0.001$ \\
+             \textbf{(3)} & $256$ & $16$ & $3$ & $10$ & ReLU + BN & $0.25$ & $0.2$ & $N_H$ & $1.0e-3$ & $0.0$\\
+             \bottomrule
+        \end{tabular}
+    }
+        \vspace{2mm}
+        \caption{\oursacro{} hyperparameters used in our experiments. (1) is used for \emph{Amazon Photos} and \emph{Amazon Computers} datasets, (3) is used for \emph{OGBN-Arxiv} dataset and (2) is used for all other datasets. For all those settings, we furthermore use $K=10$ power-iterations steps, 5 warmup epochs for the Normalizing Flows, and no weight decay for the normalizing flows.}
+        \label{tab:gpn-hyper-parameters}
+\end{table}

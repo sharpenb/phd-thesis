@@ -1,0 +1,266 @@
+
+\section{Experiments}
+\label{sec:results}
+    
+    % CIFAR10 - PGD
+    \begin{table}[t]
+        \begin{minipage}{0.33\textwidth}
+            \centering
+            \resizebox{1. \textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+\textbf{Att. Rad.} &   0.0 &   0.1 &   0.2 &   0.5 &   1.0 &   2.0 &  4.0 \\
+\midrule
+\textbf{PostNet } &  89.5 &  73.5 &  51.7 &  13.2 &   2.2 &   0.8 &  0.3 \\
+\textbf{PriorNet} &  88.2 &  77.8 &  68.4 &  54.0 &  37.9 &  17.5 &  5.1 \\
+\textbf{DDNet   } &  86.1 &  73.9 &  59.1 &  20.5 &   1.5 &   0.0 &  0.0 \\
+\textbf{EvNet   } &  89.8 &  71.7 &  48.8 &  11.5 &   2.7 &   1.5 &  0.4 \\
+\bottomrule
+\end{tabular}
+}
+            \caption{Acc. under PGD label attacks of CIFAR10}
+        \end{minipage}
+        \hfillx
+        \begin{minipage}{0.33\textwidth}
+            \centering
+            \resizebox{1. \textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+\textbf{Att. Rad.e} &   0.0 &   0.1 &   0.2 &   0.5 &   1.0 &   2.0 &  4.0 \\
+\midrule
+\textbf{PostNet } &  98.7 &  88.6 &  56.2 &   7.8 &   1.2 &   0.4 &  0.3 \\
+\textbf{PriorNet} &  92.9 &  77.7 &  60.5 &  37.6 &  24.9 &  11.3 &  3.0 \\
+\textbf{DDNet   } &  97.6 &  91.8 &  78.3 &  18.1 &   0.8 &   0.0 &  0.0 \\
+\textbf{EvNet   } &  97.9 &  85.9 &  57.2 &  10.2 &   4.0 &   2.4 &  0.3 \\
+\bottomrule
+\end{tabular}
+}
+            \caption{Conf. under PGD label attacks of CIFAR10}
+        \end{minipage}
+                \hfillx
+        \begin{minipage}{0.33\textwidth}
+            \centering
+            \resizebox{1. \textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+\textbf{Att. Rad.} &   0.1 &   0.2 &   0.5 &   1.0 &   2.0 &   4.0 \\
+\midrule
+\textbf{PostNet } &  63.4 &  66.9 &  42.1 &  32.9 &  31.6 &  31.2 \\
+\textbf{PriorNet} &  53.3 &  56.0 &  55.6 &  49.2 &  42.2 &  35.4 \\
+\textbf{DDNet   } &  55.8 &  60.5 &  57.3 &  38.7 &  32.3 &  31.4 \\
+\textbf{EvNet   } &  48.4 &  46.9 &  46.3 &  46.3 &  44.5 &  42.5 \\
+\bottomrule
+\end{tabular}
+}
+            \caption{Att-Det. under PGD label attacks of CIFAR10}
+        \end{minipage}
+    \end{table}
+
+% Sensorless - PGD
+    \begin{table}[t]
+        \begin{minipage}{0.33\textwidth}
+            \centering
+            \resizebox{1. \textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+\textbf{Att. Rad.} &   0.0 &   0.1 &   0.2 &   0.5 &  1.0 &  2.0 &   4.0 \\
+\midrule
+\textbf{PostNet } &  98.3 &  13.1 &   6.4 &   4.0 &  7.0 &  9.8 &  11.3 \\
+\textbf{PriorNet} &  99.3 &  16.5 &   5.6 &   1.2 &  0.4 &  0.2 &   1.6 \\
+\textbf{DDNet   } &  99.3 &  12.4 &   2.4 &   0.6 &  0.3 &  0.1 &   0.1 \\
+\textbf{EvNet   } &  99.0 &  35.3 &  22.3 &  11.2 &  7.0 &  5.2 &   4.0 \\
+\bottomrule
+\end{tabular}
+}
+            \caption{Acc. under PGD label attacks of Sens.}
+        \end{minipage}
+        \hfillx
+        \begin{minipage}{0.33\textwidth}
+            \centering
+            \resizebox{1. \textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+\textbf{Att. Rad.} &   0.0 &   0.1 &   0.2 &  0.5 &  1.0 &  2.0 &   4.0 \\
+\midrule
+\textbf{PostNet } &  99.7 &   8.3 &   3.9 &  3.6 &  7.0 &  9.8 &  11.3 \\
+\textbf{PriorNet} &  99.8 &  10.5 &   3.2 &  0.7 &  0.2 &  0.2 &   2.2 \\
+\textbf{DDNet   } &  99.7 &  11.9 &   1.6 &  0.4 &  0.2 &  0.1 &   0.2 \\
+\textbf{EvNet   } &  99.9 &  22.9 &  13.0 &  6.0 &  3.7 &  3.2 &   3.1 \\
+\bottomrule
+\end{tabular}
+}
+            \caption{Conf. under PGD label attacks of Sens.}
+        \end{minipage}
+                \hfillx
+        \begin{minipage}{0.33\textwidth}
+            \centering
+            \resizebox{1. \textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+\textbf{Att. Rad.} &  0.1 &   0.2 &   0.5 &   1.0 &   2.0 &   4.0 \\
+\midrule
+\textbf{PostNet } &  47.7 &  42.3 &  36.9 &  48.5 &  85.0 &  99.0 \\
+\textbf{PriorNet} &  38.8 &  33.6 &  31.4 &  33.1 &  40.9 &  53.5 \\
+\textbf{DDNet   } &  53.5 &  42.2 &  35.0 &  32.8 &  32.6 &  33.9 \\
+\textbf{EvNet   } &  48.2 &  42.6 &  38.2 &  36.0 &  37.2 &  41.7 \\
+\bottomrule
+\end{tabular}
+}
+            \caption{Att-Det. under PGD label attacks of Sens.}
+        \end{minipage}
+    \end{table}
+
+% CIFAR10 - ood - PGD
+    \begin{table}[t]
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \resizebox{1. \textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+\textbf{Att. Rad.} &   0.0 &   0.1 &   0.2 &   0.5 &   1.0 &   2.0 &   4.0 \\
+\midrule
+\textbf{PostNet } &  81.8 &  64.3 &  47.2 &  22.4 &  17.6 &  16.9 &  16.4 \\
+\textbf{PriorNet} &  54.4 &  40.1 &  30.0 &  17.9 &  15.6 &  15.4 &  15.4 \\
+\textbf{DDNet   } &  82.8 &  71.4 &  59.2 &  28.9 &  16.0 &  15.4 &  15.4 \\
+\textbf{EvNet   } &  80.3 &  62.4 &  45.4 &  21.7 &  17.9 &  16.5 &  15.6 \\
+\bottomrule
+\end{tabular}
+}
+            \caption{OOD detection under PGD uncertainty attacks on ID (CIFAR10) against non-attacked OOD (SVHN)}
+        \end{minipage}
+        \hfillx
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \resizebox{1. \textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+\textbf{Att. Rad.} &   0.0 &   0.1 &   0.2 &   0.5 &   1.0 &   2.0 &   4.0 \\
+\midrule
+\textbf{PostNet } &  81.8 &  60.5 &  40.7 &  23.3 &  21.8 &  19.8 &  18.1 \\
+\textbf{PriorNet} &  54.4 &  40.7 &  30.7 &  19.5 &  16.5 &  15.7 &  15.4 \\
+\textbf{DDNet   } &  82.8 &  72.0 &  57.2 &  20.8 &  15.6 &  15.4 &  15.4 \\
+\textbf{EvNet   } &  80.3 &  58.2 &  46.5 &  34.6 &  28.0 &  23.9 &  21.0 \\
+\bottomrule
+\end{tabular}
+}
+            \caption{OOD detection under non-attacked ID (CIFAR10) against PGD uncertainty attacks on OOD (SVHN)}
+        \end{minipage}
+    \end{table}
+
+% Sensorless - ood - PGD
+    \begin{table}[t]
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \resizebox{1. \textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+\textbf{Att. Rad.} &   0.0 &   0.1 &   0.2 &   0.5 &   1.0 &   2.0 &   4.0 \\
+\midrule
+\textbf{PostNet } &  74.5 &  39.8 &  36.1 &  36.0 &  45.9 &  46.0 &  46.0 \\
+\textbf{PriorNet} &  32.3 &  26.6 &  26.5 &  26.5 &  26.6 &  28.3 &  38.6 \\
+\textbf{DDNet   } &  31.7 &  26.8 &  26.6 &  26.5 &  26.6 &  27.1 &  30.5 \\
+\textbf{EvNet   } &  66.5 &  30.5 &  28.2 &  27.1 &  28.1 &  31.8 &  37.5 \\
+\bottomrule
+\end{tabular}
+}
+            \caption{OOD detection under PGD uncertainty attacks on ID (Sens.) against non-attacked OOD (Sens. 10, 11 classes)}
+        \end{minipage}
+        \hfillx
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \resizebox{1. \textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+\textbf{Att. Rad.} &   0.0 &   0.1 &   0.2 &   0.5 &   1.0 &   2.0 &   4.0 \\
+\midrule
+\textbf{PostNet } &  74.5 &  43.3 &  42.0 &  32.1 &  35.1 &  82.6 &  99.4 \\
+\textbf{PriorNet} &  32.3 &  26.7 &  26.6 &  26.6 &  27.0 &  30.4 &  36.8 \\
+\textbf{DDNet   } &  31.7 &  27.1 &  26.7 &  26.7 &  26.8 &  26.9 &  27.3 \\
+\textbf{EvNet   } &  66.5 &  38.7 &  36.1 &  30.2 &  28.2 &  28.8 &  32.2 \\
+\bottomrule
+\end{tabular}
+}
+            \caption{OOD detection under non-attacked ID (Sens.) against PGD uncertainty attacks on OOD (Sens. 10, 11 classes)}
+        \end{minipage}
+    \end{table}
+    
+% % Segment - ood - PGD
+%     \begin{table}[t]
+%         \begin{minipage}{0.45\textwidth}
+%             \centering
+%             \resizebox{1. \textwidth}{!}{%
+% \begin{tabular}{lrrrrrrr}
+% \toprule
+% \textbf{Att. Rad.} &   0.0 &   0.1 &   0.2 &   0.5 &   1.0 &   2.0 &   4.0 \\
+% \midrule
+% \textbf{PostNet } &  98.4 &  75.9 &  52.8 &  38.6 &  33.1 &  43.0 &  49.9 \\
+% \textbf{PriorNet} &  32.1 &  30.9 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 \\
+% \textbf{DDNet   } &  31.0 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 \\
+% \textbf{EvNet   } &  98.3 &  82.6 &  59.2 &  34.7 &  32.0 &  31.1 &  30.8 \\
+% \bottomrule
+% \end{tabular}
+% }
+%             \caption{OOD detection under PGD uncertainty attacks on ID (Seg.) against non-attacked OOD (Seg. sky)}
+%         \end{minipage}
+%         \hfillx
+%         \begin{minipage}{0.45\textwidth}
+%             \centering
+%             \resizebox{1. \textwidth}{!}{%
+% \begin{tabular}{lrrrrrrr}
+% \toprule
+% \textbf{Att. Rad.} &   0.0 &   0.1 &   0.2 &   0.5 &   1.0 &   2.0 &   4.0 \\
+% \midrule
+% \textbf{PostNet } &  98.4 &  84.7 &  66.1 &  43.5 &  36.3 &  43.3 &  76.8 \\
+% \textbf{PriorNet} &  32.1 &  31.0 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 \\
+% \textbf{DDNet   } &  31.0 &  30.8 &  30.8 &  30.8 &  31.0 &  31.1 &  30.8 \\
+% \textbf{EvNet   } &  98.3 &  94.4 &  88.8 &  64.1 &  35.3 &  31.0 &  30.9 \\
+% \bottomrule
+% \end{tabular}
+% }
+%             \caption{OOD detection under non-attacked ID (Seg.) against PGD uncertainty attacks on OOD (Seg. sky)}
+%         \end{minipage}
+%     \end{table}
+
+
+
+
+%We show that Dirichlet models such as prior networks, reverse prior networks, posterior network, distribution destillation networks and evidential networks are not robust w.r.t.\ distinguishing between in-distribution and out-of-distribution samples, regardless of the uncertainty measure used for discrimination. Robustness analysis is based on attacks and randomized-smoothing based robustness verification. Second, we show that our high-certainty attack generates adversarial examples against the classification decision which are visually and from their uncertainty indistinguishable from the original input. Third, we propose robust training procedures to improve robustness properties of neural networks. 
+
+
+
+%\subsection{Experimental Setup}
+
+
+%Our approaches are implemented in Python/Pytorch. 
+
+
+%We train feed-forward ReLU networks using \todo{arg1}. Experiments are carried out on the following popular data sets and neural network architectures: 
+%
+
+%Experiments are conducted in Python (version \todo{??}) on a machine with 10 Intel Xeon CPU cores with 2.2 GHz, 4 GEFORCE GTX 1080 Ti and 256 GB of RAM running Ubuntu (version \todo{arg1}). 
+%
+
+
+ 
+%\textbf{Attacks.} \todo{arg1}
+
+%\textbf{Perturbations.} We bound perturbations by~$L_{\infty}$-norm or by~$L_2$-norm, with 
+%
+%\begin{equation}
+%\begin{aligned}
+%	L_{\infty} (x) = \max_{i=1,\dots, D} \left|x_i\right| \mathrm{~~~~and~~~~}
+%	L_2 (x)        = (\sum_{i=1}^{D} x_i^2)^{0.5}.
+%\end{aligned}
+%\end{equation}
+%
+%For $L_{\infty}$-norm it is obvious how to relate perturbation size~$\varepsilon$ with perturbed input images, because all inputs are standardized such that the values of their features are between~$0$ and~$1$.
+%A perturbation of size~$\varepsilon=0$ corresponds to the original input, while a perturbation of size~$\varepsilon=1$ corresponds to the whole input space and allows to change all features to any value. 
+
+%For~$L_2$-norm the relation between perturbation size~$\varepsilon$ and perturbed input images is less obvious. To justify our choice for~$\varepsilon$ w.r.t. this norm, we relate perturbations size~$\varepsilon_2$ corresponding to $L_2$-norm with perturbations size~$\varepsilon_{\infty}$ corresponding to $L_{\infty}$-norm. 
+%First, we compute~$\varepsilon_2$, such that the $L_2$-norm is the smallest super-set of the $L_{\infty}$-norm. Let us consider a perturbation of~$\varepsilon_{\infty}$. The largest~$L_2$-norm would be obtained if each feature is perturbed by~$\varepsilon_{\infty}$. Thus, perturbation~$\varepsilon_2$, such that $L_2$ encloses~$L_{\infty}$ is $\varepsilon_2 = (\sum_{i=1}^{D} \varepsilon_{\infty}^2)^{0.5} = \sqrt{D} \varepsilon_{\infty}$. For the MNIST-dataset, with $D=28 \times 28$ input features $L_2$-norm with $\varepsilon_2=28$ encloses $L_{\infty}$-norm with~$\varepsilon_{\infty}=1$. 
+
+%Alternatively, $\varepsilon_2$ can be computes such that the volume spanned by~$L_2$-norm is equivalent to the one spanned by~$L_{\infty}$-norm. Using that the volume spanned by $L_{\infty}$-norm is $\varepsilon_{\infty}^D$ and the volume spanned by $L_2$-norm is 
+%$\frac{\pi^{0.5 D} \varepsilon_2^D}{\Gamma(0.5 D +1)}$ (where $\Gamma$ is the Gamma-function), we obtain volume equivalence if 
+%$\varepsilon_2 = \Gamma(0.5 D +1)^{\frac{1}{D}} \sqrt{\pi} \varepsilon_{\infty}$. For the MNIST-dataset, with $D=28 \times 28$ input features $L_2$-norm with $\varepsilon_2 \approx 21.39$ encloses $L_{\infty}$-norm with~$\varepsilon_{\infty}=1$.
+
+

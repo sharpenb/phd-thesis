@@ -1,0 +1,1851 @@
+\section{Appendix}
+\label{sec:appendix}
+
+%\subsection{Dirichlet-based uncertainty models}
+%
+%In this section, we provide details on the losses used by each DBU model. \PostNet uses a Bayesian loss which can be expressed as follows:
+%
+%\begin{equation}
+%\begin{aligned}
+%    L_{\mathrm{\PostNet}} &= \frac{1}{N} \sum_i \E_{q(p\dataix)}  [\mathrm{CE} (p\dataix, y\dataix)] - H(q\dataix)
+%\end{aligned}
+%\end{equation}
+%where $\mathrm{CE}$ denotes the cross-entropy. Both the expectation term (i.e. $\E_{q(p\dataix)}  [\mathrm{CE} (p\dataix, y\dataix)]$) and the entropy term (i.e. $H(q\dataix)$) can be computed in closed-form \citep{charpentier2020}. \PriorNet uses a loss composed of two KL divergence terms for ID and OOD data: 
+%\begin{equation}
+%\begin{aligned}
+%    L_{\mathrm{\PriorNet}} &= \frac{1}{N} \left[\sum_{\vx\dataix \in \text{ID data}}  [\mathrm{KL} [\mathrm{Dir} (\alpha^{\mathrm{ID}}) || q\dataix]]  \right. \\
+%                           &+ \left.\sum_{\vx\dataix \in OOD data} [\mathrm{KL} [\mathrm{Dir} (\alpha^{\mathrm{OOD}}) || q\dataix]]\right]. \\
+%\end{aligned}
+%\end{equation}
+%Both KL divergences terms can be computed in closed-form \citep{malinin2019}. The precision $\alpha^{\mathrm{ID}}$ and $\alpha^{\mathrm{OOD}}$ are hyper-parameters. The precision $\alpha^{\mathrm{ID}}$ is usually set to $1e^{1}$ for the correct class and $1$ otherwise. The precision $\alpha^{\mathrm{OOD}}$ is usually set to $\mathbf{1}$. \DDNet uses use the Dirichlet likelihood of soft labels produce by an ensemble of $M$ neural networks:
+%\begin{equation}
+%\begin{aligned}
+%    L_{\mathrm{\DDNet}} &= - \frac{1}{N}  \sum_i \sum_{m=1}^{M} [\ln q\dataix(\pi^{im})] \\
+%\end{aligned}
+%\end{equation}
+%where $\pi^{im}$ denotes the soft-label of $m$th neural network. The Dirichlet likelihood can be computed in closed-form \citep{malinin2019ensemble}. \EvNet uses the expected mean square error between the one-hot encoded label and the predicted categorical distribution:
+%
+%\begin{equation}
+%\begin{aligned}
+%    L_{\mathrm{\EvNet}} &= \frac{1}{N} \sum_i \E_{\vp\dataix \sim \text{Dir}(\bm{\alpha}\dataix)}||\vy*\dataix - \vp\dataix||^2 \\
+%\end{aligned}
+%\end{equation}
+%where $\vy*\dataix$ denotes the one-hot encoded label. The expected MSE loss can also be computed in closed form \citep{sensoy2018}.
+%For more details please have a look at the original paper on \PriorNet \citep{malini2018}, \PostNet \citep{charpentier2020}, \DDNet \citep{malinin2019} and \EvNet \citep{sensoy2018}. 
+
+
+\subsection{Closed-form computation of uncertainty measures \& Uncertainty attacks}
+\label{subsec:appendix_measurecomp}
+
+Dirichlet-based uncertainty models allow to compute several uncertainty measures in closed form (see \citep{malini2018} for a derivation). As proposed by \cite{malini2018}, we use precision~$m_{\alpha_0}$, differential entropy~$m_{\mathrm{diffE}}$ and mutual information~$m_{\mathrm{MI}}$ to estimate uncertainty on predictions.
+
+The differential entropy $m_{\mathrm{diffE}}$ of a DBU model reaches its maximum value for equally probable categorical distributions and thus, a on flat Dirichlet distribution. It is a measure for distributional uncertainty and expected to be low on ID data, but high on OOD data. 
+%
+\begin{equation}
+\begin{aligned}
+	%m_{\mathrm{diffE}}  &= \sum_c^K \ln \Gamma (\alpha_c) - \ln \Gamma (\alpha_0) - \sum_c^K (\alpha_c -1) \cdot (\Psi (\alpha_c) - \Psi (\alpha_0))
+	m_{\mathrm{diffE}}  = &\sum_c^K \ln \Gamma (\alpha_c) - \ln \Gamma (\alpha_0) \\
+	&- \sum_c^K (\alpha_c -1) \cdot (\Psi (\alpha_c) - \Psi (\alpha_0))
+\end{aligned}
+\end{equation}
+%
+where $\alpha$ are the parameters of the Dirichlet-distribution, $\Gamma$ is the Gamma function and $\Psi$ is the Digamma function. 
+
+
+The mutual information $m_{\mathrm{MI}}$ is the difference between the total uncertainty (entropy of the expected distribution) and the expected uncertainty on the data (expected entropy of the distribution). This uncertainty is expected to be low on ID data and high on OOD data. 
+%
+\begin{equation}
+\begin{aligned}
+	m_{\mathrm{MI}}  &= - \sum_{c=1}^{K} \frac{\alpha_c}{\alpha_0} \left( \ln \frac{\alpha_c}{\alpha_0} - \Psi(\alpha_c +1) + \Psi (\alpha_0 +1) \right)
+\end{aligned}
+\end{equation}
+
+Furthermore, we use the precision~$\alpha_0$ to measure uncertainty, which is expected to be high on ID data and low on OOD data.
+%
+\begin{equation}
+\begin{aligned}
+	m_{\alpha_0}        &= \alpha_0 = \sum_{c=1}^{K} \alpha_c 
+\end{aligned}
+\end{equation}
+
+
+As these uncertainty measures are computed in closed form and it is possible to obtain their gradients, we use them (i.e. $m_{\mathrm{diffE}}$, $m_{\mathrm{MI}}$, $m_{\alpha_0}$) are target function of our uncertainty attacks. Changing the attacked target function allows us to use a wide range of gradient-based attacks such as FGSM attacks, PGD attacks, but also more sophisticated attacks such as Carlini-Wagner attacks. 
+
+
+
+\subsection{Details of the Experimental setup}
+\label{subsec:exp_setup}
+
+\textbf{Models.} We trained all models with a similar based architecture. We used namely 3 linear layers for vector data sets, 3 convolutional layers with size of 5 + 3 linear layers for MNIST and the VGG16 \cite{vgg} architecture with batch normalization for CIFAR10. All the implementation are performed using Pytorch \citep{pytorch}. We optimized all models using Adam optimizer. We performed early stopping by checking for loss improvement every 2 epochs and a patience of 10. The models were trained on GPUs (1 TB SSD).
+
+We performed a grid-search for hyper-parameters for all models. The learning rate grid search was done in $[1e^{-5}, 1e^{-3}]$. For \PostNet, we used Radial Flows with a depth of 6 and a latent space equal to 6. Further, we performed a grid search for the regularizing factor in $[1e^{-7}, 1e^{-4}]$. For \PriorNet, we performed a grid search for the OOD loss weight in $[1, 10]$. For \DDNet, we distilled the knowledge of $5$ neural networks after a grid search in $[2, 5, 10, 20]$ neural networks. Note that it already implied a significant overhead at training compare to other models.
+
+\textbf{Metrics.} For all experiments, we focused on using AUC-PR scores since it is well suited to imbalance tasks \citep{imbalance_apr} while bringing theoretically similar information than AUC-ROC scores \citep{apr_auroc}. We scaled all scores from $[0, 1]$ to $[0, 100]$. All results are average over 5 training runs using the best hyper-parameters found after the grid search.
+
+\textbf{Data sets.} For vector data sets, we use 5 different random splits to train all models. We split the data in training, validation and test sets ($60\%$, $20\%$, $20\%$). 
+
+We use the segment vector data set \cite{uci_datasets}, where the goal is to classify areas of images into $7$ classes (window, foliage, grass, brickface, path, cement, sky). We remove class window from ID training data to provide OOD training data to \PriorNet. Further, We remove the class 'sky' from training and instead use it as the OOD data set for OOD detection experiments. Each input is composed of $18$ attributes describing the image area. The data set contains $2,310$ samples in total.
+
+We further use the Sensorless Drive vector data set \cite{uci_datasets}, where the goal is to classify extracted motor current measurements into $11$ different classes. We remove class 9 from ID training data to provide OOD training data to \PriorNet. We remove classes 10 and 11 from training and use them as the OOD dataset for OOD detection experiments. Each input is composed of $49$ attributes describing motor behaviour. The data set contains $58,509$ samples in total.
+
+Additionally, we use the MNIST image data set \cite{mnist} where the goal is to classify pictures of hand-drawn digits into $10$ classes (from digit $0$ to digit $9$). Each input is composed of a $1 \times 28 \times 28$ tensor. The data set contains $70,000$ samples. For OOD detection experiments, we use FashionMNIST \cite{fashionmnist} and KMNIST \cite{kmnist} containing images of Japanese characters and images of clothes, respectively. FashionMNIST was used as training OOD for \PriorNet while KMNIST is used as OOD at test time.
+
+Finally, we use the CIFAR10 image data set \cite{cifar10} where the goal is to classify a picture of objects into $10$ classes (airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck). Each input is a $3 \times 32 \times 32$ tensor. The data set contains $60,000$ samples. For OOD detection experiments, we use street view house numbers (SVHN) \cite{svhn}  and CIFAR100 \citep{cifar10} containing images of numbers and objects respectively. CIFAR100 was used as training OOD for \PriorNet while SVHN is used as OOD at test time.
+ 
+\textbf{Perturbations.} For all label and uncertainty attacks, we used Fast Gradient Sign Methods and Project Gradient Descent. We tried 6 different attack radii $[0.0, 0.1, 0.2, 0.5, 1.0, 2.0, 4.0]$. These radii operate on the input space after data normalization. We bound perturbations by~$L_{\infty}$-norm or by~$L_2$-norm, with 
+%
+\begin{equation}
+\begin{aligned}
+	L_{\infty} (x) = \max_{i=1,\dots, D} \left|x_i\right| \mathrm{~~~~and~~~~}
+	L_2 (x)        = (\sum_{i=1}^{D} x_i^2)^{0.5}.
+\end{aligned}
+\end{equation}
+%
+For $L_{\infty}$-norm it is obvious how to relate perturbation size~$\varepsilon$ with perturbed input images, because all inputs are standardized such that the values of their features are between~$0$ and~$1$.
+A perturbation of size~$\varepsilon=0$ corresponds to the original input, while a perturbation of size~$\varepsilon=1$ corresponds to the whole input space and allows to change all features to any value. 
+
+For~$L_2$-norm the relation between perturbation size~$\varepsilon$ and perturbed input images is less obvious. To justify our choice for~$\varepsilon$ w.r.t. this norm, we relate perturbations size~$\varepsilon_2$ corresponding to $L_2$-norm with perturbations size~$\varepsilon_{\infty}$ corresponding to $L_{\infty}$-norm. 
+First, we compute~$\varepsilon_2$, such that the $L_2$-norm is the smallest super-set of the $L_{\infty}$-norm. Let us consider a perturbation of~$\varepsilon_{\infty}$. The largest~$L_2$-norm would be obtained if each feature is perturbed by~$\varepsilon_{\infty}$. Thus, perturbation~$\varepsilon_2$, such that $L_2$ encloses~$L_{\infty}$ is $\varepsilon_2 = (\sum_{i=1}^{D} \varepsilon_{\infty}^2)^{0.5} = \sqrt{D} \varepsilon_{\infty}$. For the MNIST-data set, with $D=28 \times 28$ input features $L_2$-norm with $\varepsilon_2=28$ encloses $L_{\infty}$-norm with~$\varepsilon_{\infty}=1$. 
+
+Alternatively, $\varepsilon_2$ can be computes such that the volume spanned by~$L_2$-norm is equivalent to the one spanned by~$L_{\infty}$-norm. Using that the volume spanned by $L_{\infty}$-norm is $\varepsilon_{\infty}^D$ and the volume spanned by $L_2$-norm is 
+$\frac{\pi^{0.5 D} \varepsilon_2^D}{\Gamma(0.5 D +1)}$ (where $\Gamma$ is the Gamma-function), we obtain volume equivalence if 
+$\varepsilon_2 = \Gamma(0.5 D +1)^{\frac{1}{D}} \sqrt{\pi} \varepsilon_{\infty}$. For the MNIST-data set, with $D=28 \times 28$ input features $L_2$-norm with $\varepsilon_2 \approx 21.39$ is volume equivalent to $L_{\infty}$-norm with~$\varepsilon_{\infty}=1$.
+
+
+
+
+
+
+
+
+
+
+
+\newpage 
+\subsection{Additional Experiments}
+
+
+
+Table~\ref{tab:acc_label_attack} and~\ref{tab:acc_label_attack_fgsm} illustrate that no DBU model maintains high accuracy under gradient-based label attacks. Accuracy under PGD attacks decreases more than under FGSM attacks, since PGD is stronger.  Interestingly Noise attacks achieve also good performances with increasing Noise standard deviation. Note that the attack is not constraint to be with a given radius for Noise attacks.
+
+
+
+\begin{table*}[htbp!]
+ 	\centering
+ 	\caption{Accuracy under PGD label attacks.}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+  			Att. Rad. & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{CIFAR10} \\
+ 			\PostNet  &  \bf{99.4} &  \bf{99.2} &  \bf{98.8} &  96.8 &  89.6 &  53.8 &  13.0 & &
+ 			          &  89.5 &  73.5 &  51.7 &  13.2 &   2.2 &   0.8 &  0.3 \\
+ 			\PriorNet &  99.3 &  99.1 &  \bf{98.8} &  97.4 &  \bf{93.9} &  \bf{75.3} &   4.8 & &
+ 			          &  88.2 &  \bf{77.8} &  \bf{68.4} &  \bf{54.0} &  \bf{37.9} &  \bf{17.5} &  \bf{5.1} \\
+ 		    \DDNet    &  \bf{99.4} &  99.1 &  \bf{98.8} &  \bf{97.5} &  91.6 &  48.8 &   0.2 & &
+ 		              &  86.1 &  73.9 &  59.1 &  20.5 &   1.5 &   0.0 &  0.0 \\
+ 		    \EvNet    &  99.2 &  98.9 &  98.4 &  96.8 &  92.4 &  73.1 &  \bf{40.9} & &
+ 		              &  \bf{89.8} &  71.7 &  48.8 &  11.5 &   2.7 &   1.5 &  0.4 \\
+ 		    \midrule
+ 		 & \multicolumn{7}{c}{Sensorless} & & & \multicolumn{7}{c}{Segment} \\
+ 			\PostNet  &  98.3 &  13.1 &   6.4 &   4.0 &  \bf{7.0} &  \bf{9.8} &  \bf{11.3} & &
+ 			          &  98.9 &  82.8 &  \bf{50.1} &  \bf{19.2} &  \bf{8.8} &  \bf{5.1} &  \bf{8.6}   \\
+ 			\PriorNet &  \bf{99.3} &  16.5 &   5.6 &   1.2 &  0.4 &  0.2 &   1.6 & &
+ 			          &  \bf{99.5} &  90.7 &  47.6 &   7.8 &  0.2 &  0.0 &  0.4 \\
+ 		    \DDNet    &  \bf{99.3} &  12.4 &   2.4 &   0.6 &  0.3 &  0.1 &   0.1 & &
+ 		              &  99.2 &  \bf{90.8} &  45.7 &   6.9 &  0.0 &  0.0 &  0.0 \\
+ 		    \EvNet    &  99.0 &  \bf{35.3} &  \bf{22.3} &  \bf{11.2} &  \bf{7.0} &  5.2 &   4.0 & &
+ 		              &  99.3 &  91.8 &  54.0 &  10.3 &  0.8 &  0.5 &  0.6 \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:acc_label_attack}
+\end{table*}
+
+
+
+\begin{table*}[htbp!]
+ 	\centering
+ 	\caption{Accuracy under FGSM label attacks.}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+ 			Att. Rad. & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{CIFAR10} \\
+ 			\PostNet  & \bf{99.4} &  \bf{99.2} &  \bf{98.9} &  97.7 &  95.2 &  \bf{90.1} &  \bf{79.2} & &
+ 			          & 89.5 &  72.3 &  54.9 &  31.2 &  21.0 &  16.8 &  15.6 \\
+ 			\PriorNet & 99.3 &  99.1 &  \bf{98.9} &  97.7 &  \bf{95.8} &  93.2 &  76.7 & &
+ 			          & 88.2 &  \bf{77.3} &  \bf{70.1} &  \bf{59.4} &  \bf{52.3} &  \bf{48.5} &  \bf{46.8} \\
+ 		    \DDNet    & \bf{99.4} &  \bf{99.2} &  \bf{98.9} &  \bf{97.8} &  94.7 &  79.2 &  25.2 & &
+ 			          & 86.1 &  73.0 &  60.2 &  32.5 &  14.6 &   7.1 &   6.0 \\
+ 		    \EvNet    & 99.2 &  98.9 &  98.6 &  97.6 &  \bf{95.8} &  \bf{90.1} &  74.4 & &
+ 			          & \bf{89.8} &  71.4 &  54.5 &  29.6 &  18.1 &  14.4 &  13.4 \\
+ 		    \midrule
+ 		     & \multicolumn{7}{c}{Sensorless} & & & \multicolumn{7}{c}{Segment} \\
+ 			\PostNet  & 98.3 &  19.6 &  10.9 &  10.9 &  11.9 &  12.4 &  12.5 & &
+ 			          & 98.9 &  79.6 &  \bf{57.3} &  \bf{31.5} &  \bf{18.4} &  \bf{20.6} &  \bf{19.9} \\
+ 			\PriorNet & \bf{99.3} &  24.7 &  11.8 &   8.6 &   8.5 &   8.1 &   8.3 & &
+ 			          & \bf{99.5} &  85.5 &  40.5 &   8.9 &   0.4 &   0.3 &   0.2 \\
+ 		    \DDNet    & \bf{99.3} &  18.0 &   8.2 &   6.5 &   5.4 &   6.7 &   7.8 & &
+ 			          & 99.2 &  86.4 &  36.2 &  11.9 &   0.9 &   0.0 &   0.0 \\
+ 		    \EvNet    & 99.0 &  \bf{42.0} &  \bf{28.0} &  \bf{17.5} &  \bf{13.7} &  \bf{13.6} &  \bf{14.9} & &
+ 			          & 99.3 &  \bf{90.6} &  55.2 &  14.2 &   2.4 &   0.5 &   0.1 \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:acc_label_attack_fgsm}
+\end{table*}
+
+
+\begin{table*}[htbp!]
+ 	\centering
+ 	\caption{Accuracy under Noise label attacks.}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+ 			%& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{CIFAR10} \\
+ 			%\cmidrule{2-8}  \cmidrule{11-16}
+ 			Noise Std & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{CIFAR10} \\
+ 			\PostNet  & \bf{99.4} &  \bf{98.6} &  91.8 &  \bf{14.9} &  \bf{1.3} &  \bf{0.1} &  0.0 & &
+ 			          & \bf{91.7} &  21.5 &  10.1 &   0.1 &   1.2 &  0.0 &  1.9 \\
+ 			\PriorNet & 99.3 &  98.5 &  \bf{95.7} &  14.4 &  0.0 &  0.0 &  0.0 & &
+ 			          & 87.7 &  \bf{28.1} &  \bf{11.2} &   9.7 &   5.0 &  \bf{8.5} &  \bf{9.0}\\
+ 		    \DDNet    & \bf{99.4} &  \bf{98.6} &  92.4 &  13.3 &  0.7 &  0.0 &  0.0 & &
+ 			          & 81.7 &  23.0 &  \bf{11.2} &  \bf{11.2} &  \bf{11.0} &  7.8 &  6.7 \\
+ 		    \EvNet    & 99.3 &  96.9 &  81.6 &  11.7 &  0.5 &  0.0 &  0.0 & &
+ 			          & 89.5 &  20.7 &  11.1 &   5.2 &   0.5 &  2.3 &  3.9 \\
+ 		    \midrule
+ 		     & \multicolumn{7}{c}{Sensorless} & & & \multicolumn{7}{c}{Segment} \\
+ 			\PostNet  & 98.1 &  0.1 &  \bf{3.7} &  \bf{11.7} &  \bf{11.7} &  \bf{11.7} &  \bf{11.7} & &
+ 			          & 98.5 &  39.4 &   3.9 &  \bf{1.8} &  \bf{12.1} &  \bf{20.3} &  \bf{22.1} \\
+ 			\PriorNet & \bf{99.3} &  0.2 &  0.0 &   0.0 &   0.0 &   0.3 &   2.4 & &
+ 			          & \bf{99.4} &  47.9 &   8.8 &  0.0 &   0.0 &   0.0 &   0.0 \\
+ 		    \DDNet    & 99.0 &  \bf{0.4} &  0.1 &   0.0 &   0.0 &   0.0 &   0.0 & &
+ 			          & 99.1 &  50.0 &  \bf{10.3} &  0.0 &   0.0 &   0.3 &   0.0 \\
+ 		    \EvNet    & 98.6 &  0.2 &  0.0 &   0.1 &   1.4 &   4.6 &   8.8 & &
+ 			          & 99.1 &  \bf{50.3} &  \bf{10.3} &  1.2 &   0.3 &   0.0 &   1.5 \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:acc_label_attack_noise_attack}
+\end{table*}
+
+\clearpage
+\subsubsection{Uncertainty estimation under label attacks}
+
+\textbf{Is low uncertainty a reliable indicator of correct predictions?}
+
+On non-perturbed data uncertainty estimates are an indicator of correctly classified samples, but if the input data is perturbed none of the DBU models maintains its high performance. Thus, uncertainty estimates are not a robust indicator of correctly labeled inputs. 
+
+\begin{table*}[htbp!]
+ 	\centering
+ 	\caption{Distinguishing between correctly and wrongly predicted labels based on the differential entropy under PGD label attacks (AUC-PR).}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+ 			& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{Segment} \\
+ 			\cmidrule{2-8}  \cmidrule{11-16}
+ 			Att. Rad. & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			%& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{Segment} \\
+ 			\PostNet  &  99.9 &   99.9 &  99.8 &  98.7 &  89.5 &  43.5 &   9.0 & & 
+ 			          &  99.9 &  77.6 &  31.6 &  \bf{11.1} &  \bf{5.3} &  \bf{4.4} &   8.7 \\
+ 			\PriorNet &  99.9 &   99.8 &  99.6 &  97.7 &  90.5 &  \bf{69.1} &   6.4 & & 
+ 			          &  \bf{100.0} &  \bf{96.8} &  44.5 &   4.5 &  0.4 &  0.0 &  \bf{15.2} \\
+ 		    \DDNet    &  \bf{100.0} &  \bf{100.0} &  \bf{99.9} &  \bf{99.7} &  \bf{97.6} &  50.2 &   0.1 & &
+ 		              &  \bf{100.0} &  \bf{96.8} &  \bf{54.0} &   4.3 &  0.0 &  0.0 &   0.0 \\
+ 		    \EvNet    &  99.6 &   99.3 &  98.7 &  96.1 &  88.8 &  63.1 &  \bf{31.7} & &
+ 		              &  \bf{100.0} &  95.9 &  44.3 &   5.9 &  0.8 &  0.6 &   0.7 \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:conf_label_attack_2}
+\end{table*}
+
+
+
+\begin{table*}[htbp!]
+ 	\centering
+ 	\caption{Distinguishing between correctly and wrongly predicted labels based on the precision~$\alpha_0$ under PGD label attacks (AUC-PR).}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+ 			%& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{CIFAR10} \\
+ 			%\cmidrule{2-8}  \cmidrule{11-16}
+ 			Att. Rad. & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{CIFAR10} \\
+            \PostNet  & \bf{100.0} &   99.9 &   99.7 &  98.2 &  87.9 &  39.1 &   6.9 & &
+                      & \bf{98.7} &  88.6 &  56.2 &   7.8 &   1.2 &   0.4 &  0.3  \\
+            \PriorNet &  99.9 &   99.8 &   99.6 &  97.7 &  90.4 & \bf{69.1} &   6.6  & &
+                      &  92.9 &  77.7 &  60.5 & \bf{37.6} & \bf{24.9} & \bf{11.3} & \bf{3.0} \\
+            \DDNet    & \bf{100.0} & \bf{100.0} & \bf{100.0} & \bf{99.8} & \bf{98.2} &  51.1 &   0.1  & &
+                      &  97.6 & \bf{91.8} & \bf{78.3} &  18.1 &   0.8 &   0.0 &  0.0  \\
+            \EvNet    &  99.6 &   99.2 &   98.6 &  95.7 &  88.6 &  63.6 & \bf{32.6} & &
+                                  &  97.9 &  85.9 &  57.2 &  10.2 &   4.0 &   2.4 &  0.3  \\
+ 		    \midrule
+ 		     & \multicolumn{7}{c}{Sensorless} & & & \multicolumn{7}{c}{Segment} \\
+            \PostNet  &  99.6 &   7.0 &   3.3 &  3.1 & \bf{6.9} & \bf{9.8} & \bf{11.3} & &
+                      &  99.9 &  74.2 &  31.6 & \bf{11.1} & \bf{5.0} & \bf{4.2} & \bf{8.6} \\
+            \PriorNet &  99.8 &  10.5 &   3.2 &  0.6 &  0.2 &  0.2 &   1.8 & &
+                     & \bf{100.0} &  96.9 & \bf{45.2} &   4.4 &  0.4 &  0.0 &  1.2  \\
+            \DDNet    &  99.8 &   8.7 &   1.3 &  0.3 &  0.2 &  0.1 &   0.2 & &
+                    & \bf{100.0} & \bf{97.1} &  45.0 &   4.1 &  0.0 &  0.0 &  0.0 \\
+            \EvNet    & \bf{99.9} & \bf{23.2} & \bf{13.2} & \bf{6.0} &  3.7 &  2.7 &   2.1 & &
+                    & \bf{100.0} &  95.7 &  44.5 &   5.9 &  0.8 &  0.6 &  0.7 \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:conf_label_attack_alpha}
+\end{table*}
+
+
+
+\begin{table*}[htbp!]
+ 	\centering
+ 	\caption{Distinguishing between correctly and wrongly predicted labels based on the mutual information under PGD label attacks (AUC-PR).}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+ 			%& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{CIFAR10} \\
+ 			%\cmidrule{2-8}  \cmidrule{11-16}
+ 			Att. Rad. & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{CIFAR10} \\
+            \PostNet  & 99.7 &  99.7 &  99.6 &  99.2 &  92.4 &  40.0 &   6.9 & &
+                      & \bf{97.3} &  84.5 &  56.2 &  12.2 &   2.4 &   0.7 &  0.3  \\
+            \PriorNet &  99.9 &  99.8 &  99.6 &  97.7 &  90.3 & \bf{68.9} &   6.4  & &
+                      &  82.7 &  65.6 &  51.4 & \bf{35.5} & \bf{24.4} & \bf{11.0} & \bf{2.9} \\
+            \DDNet    & \bf{100.0} & \bf{99.9} & \bf{99.9} & \bf{99.7} & \bf{97.4} &  50.2 &   0.1  & &
+                      &  96.9 & \bf{90.8} & \bf{77.2} &  18.8 &   0.8 &   0.0 &  0.0  \\
+            \EvNet    &  97.8 &  97.0 &  95.7 &  92.6 &  86.1 &  62.3 & \bf{28.9} & &
+                      &  91.3 &  72.4 &  47.9 &  11.4 &   1.6 &   0.9 &  1.6  \\
+ 		    \midrule
+ 		     & \multicolumn{7}{c}{Sensorless} & & & \multicolumn{7}{c}{Segment} \\
+            \PostNet  &  99.3 &   7.0 &   3.3 &  3.3 & \bf{7.0} & \bf{9.8} &  11.3 & &
+                      &  99.9 &  73.2 &  31.5 & \bf{11.1} & \bf{5.0} & \bf{4.3} & \bf{8.7} \\
+            \PriorNet & \bf{99.8} &  10.5 &   3.2 &  0.6 &  0.2 &  0.1 & \bf{11.8} & &
+                      & \bf{100.0} & \bf{96.6} & \bf{45.2} &   4.5 &  0.4 &  0.0 &  1.1  \\
+            \DDNet    &  99.6 &   8.6 &   1.3 &  0.3 &  0.2 &  0.1 &   0.1 & &
+                      & \bf{100.0} &  96.5 &  42.4 &   4.1 &  0.0 &  0.0 &  0.0 \\
+            \EvNet    &  99.1 & \bf{22.0} & \bf{12.6} & \bf{5.9} &  3.7 &  2.7 &   2.2 & &
+                      & \bf{100.0} &  90.5 &  41.0 &   5.9 &  0.8 &  0.6 &  0.7 \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:conf_label_attack_mi}
+\end{table*}
+
+
+\begin{table*}[htbp!]
+ 	\centering
+ 	\caption{Distinguishing between correctly and wrongly predicted labels based on the differential entropy under FGSM label attacks (AUC-PR).}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+ 			%& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{CIFAR10} \\
+ 			%\cmidrule{2-8}  \cmidrule{11-16}
+ 			Att. Rad. & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{CIFAR10} \\
+             \PostNet  & 99.9 &   99.9 &  99.8 &  99.4 &  97.8 & \bf{92.1} & \bf{83.2} & &
+                      & \bf{98.5} &  88.7 &  68.9 &  31.0 &  18.6 &  15.5 &  16.7 \\
+            \PriorNet & 99.9 &   99.9 &  99.7 &  98.3 &  94.1 &  88.5 &  78.6  & &
+                      & 90.1 &  73.6 &  61.6 & \bf{46.1} & \bf{38.5} & \bf{35.6} & \bf{37.3} \\
+            \DDNet    & \bf{100.0} & \bf{100.0} & \bf{99.9} & \bf{99.8} & \bf{98.7} &  86.4 &  23.0 & &
+                      & 97.3 & \bf{90.6} & \bf{78.7} &  39.4 &  13.7 &   6.0 &   5.1 \\
+            \EvNet    & 99.6 &   99.4 &  99.1 &  97.8 &  95.8 &  90.4 &  76.8 & &
+                      & 98.0 &  86.2 &  67.4 &  32.7 &  19.9 &  18.2 &  19.7 \\		
+ 		    \midrule
+ 		     & \multicolumn{7}{c}{Sensorless} & & & \multicolumn{7}{c}{Segment} \\
+             \PostNet  & 99.7 &  11.7 &   7.3 &   9.3 &  11.8 &  12.5 &  12.5 & &
+                      & 99.9 &  73.6 &  40.6 & \bf{23.7} & \bf{17.2} & \bf{19.8} & \bf{20.2} \\
+            \PriorNet & 99.8 &  21.4 &  10.4 &   8.5 &   9.0 &   9.2 &  10.3 & &
+                      & \bf{100.0} &  93.7 &  37.7 &   5.8 &   1.1 &   0.9 &   0.8 \\
+            \DDNet    & 99.7 &  18.5 &   5.4 &   4.3 &   4.2 &   5.7 &   7.9 & &
+                      & \bf{100.0} & \bf{94.1} &  42.9 &   7.2 &   1.0 &   0.0 &   0.0 \\
+            \EvNet    & \bf{99.9} & \bf{44.8} & \bf{29.2} & \bf{18.2} & \bf{15.1} & \bf{14.9} & \bf{15.5} & &
+                      & \bf{100.0} &  93.7 & \bf{48.7} &   8.7 &   2.4 &   1.6 &   0.5 \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:conf_label_attack_fgsm}
+\end{table*}
+
+\begin{table*}[htbp!]
+ 	\centering
+ 	\caption{Distinguishing between correctly and wrongly predicted labels based on the differential entropy under Noise label attacks (AUC-PR).}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+ 			%& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{CIFAR10} \\
+ 			%\cmidrule{2-8}  \cmidrule{11-16}
+ 			Noise Std & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{CIFAR10} \\
+             \PostNet  & 99.9 &  99.8 &  99.6 &  \bf{74.2} &  \bf{7.4} &  \bf{0.2} &  0.0 & &
+                      & \bf{98.}7 &  \bf{76.}3 &  24.3 &   0.4 &   4.9 &  0.0 &  1.7 \\
+            \PriorNet & 99.9 &  99.9 &  \bf{99.8} &  73.4 &  0.0 &  0.0 &  0.0  & &
+                      & 85.0 &  27.8 &  15.9 &  \bf{20.}4 &   7.0 &  \bf{7.}7 &  \bf{8.3} \\
+            \DDNet    & \bf{100.0} &  \bf{99.9} &  99.4 &  51.1 &  0.6 &  0.1 &  0.0 & &
+                      & 96.1 &  61.0 &  \bf{39.}8 &  14.2 &  \bf{11.}3 &  6.9 &  6.9 \\
+            \EvNet    & 99.5 &  98.4 &  88.5 &  20.2 &  0.9 &  0.0 &  0.0  & &
+                      & 97.5 &  66.1 &  21.4 &   7.7 &   2.3 &  3.0 &  3.8 \\		
+ 		    \midrule
+ 		     & \multicolumn{7}{c}{Sensorless} & & & \multicolumn{7}{c}{Segment} \\
+             \PostNet  & 99.7 &  0.3 &  \bf{3.2} &  \bf{13.3} &  \bf{12.0} &  \bf{11.7} &  \bf{11.7} & &
+                      & 99.9 &  53.9 &   4.8 &  1.8 &  \bf{11.2} &  \bf{21.7} &  \bf{21.6} \\
+            \PriorNet & \bf{100.0} &  0.3 &  0.0 &   0.0 &   0.0 &  7.8 &  11.5 & &
+                      & \bf{100.0} &  \bf{84.5} &  15.6 &  0.0 &   0.0 &   0.0 &   0.0 \\
+            \DDNet    & 99.7 &  \bf{0.9} &  0.6 &   0.0 &   0.0 &   0.0 &   0.0 & &
+                      & \bf{100.0} &  82.7 &  \bf{23.9} &  0.0 &   0.0 &   0.6 &   0.0 \\
+            \EvNet    & 99.8 &  0.3 &  0.0 &   0.1 &   1.7 &   5.5 &  10.0 & &
+                      & \bf{100.0} &  78.3 &  19.0 &  \bf{3.5} &   0.5 &   0.0 &   1.7 \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:conf_label_attack_noise_attack}
+\end{table*}
+
+
+
+
+
+Table~\ref{tab:conf_label_attack}, \ref{tab:conf_label_attack_2}, \ref{tab:conf_label_attack_alpha}, and~\ref{tab:conf_label_attack_mi} illustrate that neither differential entropy nor precision, nor mutual information are a reliable indicator of correct predictions under PGD attacks. 
+DBU-models achieve significantly better results when they are attacked by FGSM-attacks (Table~\ref{tab:conf_label_attack_fgsm}), but as FGSM attacks provide much weaker adversarial examples than PGD attacks, this cannot be seen as real advantage. 
+
+
+
+
+
+\clearpage
+\textbf{Can we use uncertainty estimates to detect attacks against the class prediction?}
+
+PGD attacks do not explicitly consider uncertainty during the computation of adversarial examples, but they seem to provide perturbed inputs with similar uncertainty as the original input. 
+
+
+
+\begin{table*}[htbp!]
+ 	\centering
+ 	\caption{Attack-Detection based on differential entropy under PGD label attacks (AUC-PR).}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrc|crrrrrr@{}}
+ 			\toprule
+ 		     & \multicolumn{6}{c}{MNIST} & & & \multicolumn{6}{c}{Segment} \\
+ 			\cmidrule{2-7}  \cmidrule{10-15}
+ 			Att. Rad. & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+            \PostNet  &  57.7 &  66.3 &  83.4 &  90.5 &  79.0 &  50.1 & & 
+                      & \bf{95.6} &  73.5 & \bf{47.0} & \bf{42.3} & \bf{53.4} & \bf{82.7} \\
+            \PriorNet & \bf{67.7} & \bf{83.2} & \bf{97.1} & \bf{96.7} &  92.1 &  82.9 & & 
+                      &  86.7 &  83.3 &  38.0 &  31.3 &  30.8 &  31.5 \\
+            \DDNet    &  53.4 &  57.1 &  68.5 &  83.9 & \bf{96.0} & \bf{86.3} & & 
+                      &  76.1 & \bf{83.5} &  45.4 &  32.4 &  30.8 &  30.8 \\
+            \EvNet    &  54.8 &  59.0 &  68.5 &  75.9 &  72.6 &  59.8 & & 
+                      &  94.9 &  80.9 &  41.5 &  32.5 &  31.1 &  31.1 \\
+ 			\bottomrule 			
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:label_attack_detect_2}
+\end{table*}
+
+
+
+
+\begin{table*}[htbp!]
+ 	\centering
+ 	\caption{Attack-Detection based on precision $\alpha_0$ under PGD label attacks (AUC-PR).}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrc|crrrrrr@{}}
+ 			\toprule
+ 			Att. Rad. & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 		     & \multicolumn{6}{c}{MNIST} & & & \multicolumn{6}{c}{CIFAR10} \\
+            \PostNet  &  63.3 &  75.7 &  92.6 &  95.1 &  75.3 &  39.5 & & 
+                      & \bf{63.4} & \bf{66.9} &  42.1 &  32.9 &  31.6 &  31.2 \\
+            \PriorNet & \bf{67.6} & \bf{83.2} & \bf{97.1} & \bf{96.9} & \bf{92.7} & \bf{84.7} & & 
+                      &  53.3 &  56.0 &  55.6 & \bf{49.2} &  42.2 &  35.4 \\
+            \DDNet    &  52.7 &  55.7 &  64.7 &  78.4 &  91.9 &  80.9 & & 
+                      &  55.8 &  60.5 & \bf{57.3} &  38.7 &  32.3 &  31.4  \\
+            \EvNet    &  49.1 &  48.0 &  45.1 &  42.7 &  41.8 &  39.2 & & 
+                      &  48.4 &  46.9 &  46.3 &  46.3 & \bf{44.5} & \bf{42.5} \\
+ 		    \midrule
+ 		  	& \multicolumn{6}{c}{Sensorless} & & & \multicolumn{6}{c}{Segment} \\
+            \PostNet  &  39.8 &  35.8 &  35.4 & \bf{52.0} & \bf{88.2} & \bf{99.0} & & 
+                      & \bf{94.6} &  70.3 & \bf{46.3} & \bf{42.6} & \bf{54.9} & \bf{84.0} \\
+            \PriorNet &  40.9 &  35.1 &  32.0 &  31.1 &  30.7 &  30.7 & & 
+                      &  82.7 &  82.6 &  39.4 &  31.6 &  30.8 &  30.8 \\
+            \DDNet    & \bf{47.7} & \bf{40.3} &  35.3 &  32.8 &  31.3 &  30.8 & & 
+                      &  80.0 & \bf{86.0} &  43.3 &  33.6 &  31.0 &  30.8 \\
+            \EvNet    &  45.4 &  39.7 & \bf{36.1} &  34.8 &  34.7 &  36.0 & & 
+                      &  90.9 &  72.4 &  40.4 &  32.4 &  31.1 &  31.1 \\
+             			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:label_attack_detect_auroc_1}
+\end{table*}
+
+\begin{table*}[htbp!]
+ 	\centering
+ 	\caption{Attack-Detection based on mutual information under PGD label attacks (AUC-PR).}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrc|crrrrrr@{}}
+ 			\toprule
+ 			Att. Rad. & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 		     & \multicolumn{6}{c}{MNIST} & & & \multicolumn{6}{c}{CIFAR10} \\
+ 		    \PostNet  &   42.2 &  37.5 &  36.7 &  54.5 &  70.5 &  70.3 & & 
+                        &   52.2 &  52.1 &  50.0 & \bf{65.9} & \bf{76.3} & \bf{80.7} \\
+            \PriorNet & \bf{67.7} & \bf{83.3} & \bf{97.1} & \bf{96.9} &  92.6 & \bf{84.5} & & 
+                      &   54.0 &  56.9 &  56.3 &  49.7 &  42.4 &  35.5  \\
+            \DDNet    &   53.1 &  56.3 &  66.5 &  81.0 & \bf{94.0} &  82.9 & & 
+                      & \bf{56.0} & \bf{60.8} & \bf{57.4} &  38.2 &  32.1 &  31.3  \\
+            \EvNet    &   49.1 &  48.0 &  45.2 &  42.9 &  41.9 &  39.3 & & 
+                      &   48.7 &  47.3 &  46.3 &  46.0 &  44.1 &  42.2 \\
+ 		    \midrule
+ 		  	& \multicolumn{6}{c}{Sensorless} & & & \multicolumn{6}{c}{Segment} \\
+            \PostNet  & \bf{75.3} & \bf{76.6} & \bf{66.5} & \bf{57.7} & \bf{85.6} & \bf{98.7} & & 
+                      & \bf{94.8} &  73.5 & \bf{55.9} & \bf{47.9} & \bf{58.0} & \bf{84.0} \\
+            \PriorNet &  40.7 &  35.0 &  32.0 &  31.0 &  30.7 &  30.7 & & 
+                      &  83.5 &  82.7 &  39.2 &  31.6 &  30.8 &  30.8 \\
+            \DDNet    &  48.0 &  40.0 &  35.2 &  32.6 &  31.2 &  30.8 & & 
+                      &  82.4 & \bf{88.1} &  43.4 &  33.4 &  30.9 &  30.8 \\
+            \EvNet    &  45.5 &  39.7 &  36.1 &  34.8 &  34.7 &  36.0 & & 
+                      &  91.7 &  72.9 &  40.5 &  32.4 &  31.1 &  31.1  \\ 			
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:label_attack_detect_auroc_2}
+\end{table*}
+
+FGSM and Noise attacks are easier to detect, but also weaker thand PGD attacks. This suggests that DBU models are capable of detecting weak attacks by using uncertainty estimation.
+
+\begin{table*}[htbp!]
+ 	\centering
+ 	\caption{Attack-Detection based on differential entropy under FGSM label attacks (AUC-PR).}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrc|crrrrrr@{}}
+ 			\toprule
+ 			Att. Rad. & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 		     & \multicolumn{6}{c}{MNIST} & & & \multicolumn{6}{c}{CIFAR10} \\
+            \PostNet  &   55.9 &  61.8 &  74.8 &  84.0 &  88.9 &  89.9 & & 
+                      & \bf{62.1} & \bf{67.2} &  65.7 &  63.1 &  65.4 &  73.8  \\
+            \PriorNet & \bf{67.4} & \bf{82.4} & \bf{96.9} & \bf{98.3} & \bf{98.9} & \bf{99.6} & & 
+                      &   58.4 &  63.1 &  68.5 & \bf{70.1} &  68.5 &  62.5  \\
+            \DDNet    &   53.6 &  57.3 &  68.3 &  82.6 &  95.6 &  98.7 & & 
+                      &   57.2 &  62.9 & \bf{69.1} &  68.7 & \bf{69.7} & \bf{76.5} \\
+            \EvNet    &   54.1 &  57.4 &  63.8 &  67.6 &  68.6 &  69.9 & & 
+                      &   57.8 &  61.7 &  63.3 &  62.9 &  65.7 &  72.5 \\ 		    
+ 		    \midrule
+ 		  	& \multicolumn{6}{c}{Sensorless} & & & \multicolumn{6}{c}{Segment} \\
+            \PostNet  & \bf{98.4} & \bf{99.8} & \bf{99.9} & \bf{99.9} & \bf{99.9} & \bf{99.9} & & 
+                      & \bf{96.9} & \bf{93.9} & \bf{99.5} & \bf{99.9} & \bf{100.0} & \bf{100.0} \\
+            \PriorNet &  48.7 &  38.6 &  32.7 &  32.9 &  38.6 &  44.3 & & 
+                      &  89.0 &  80.8 &  46.7 &  37.2 &   33.7 &   32.4 \\
+            \DDNet    &  61.5 &  47.8 &  37.1 &  33.1 &  32.4 &  33.2 & & 
+                      &  79.6 &  86.2 &  60.2 &  47.5 &   36.6 &   31.6 \\
+            \EvNet    &  67.3 &  65.5 &  72.3 &  73.4 &  75.3 &  79.1 & & 
+                      &  95.7 &  87.2 &  59.3 &  51.7 &   51.1 &   53.5 \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:label_attack_detect_auroc_3}
+\end{table*}
+
+\begin{table*}[htbp!]
+ 	\centering
+ 	\caption{Attack-Detection based on differential entropy under Noise label attacks (AUC-PR).}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrc|crrrrrr@{}}
+ 			\toprule
+ 			Noise Std. & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 		     & \multicolumn{6}{c}{MNIST} & & & \multicolumn{6}{c}{CIFAR10} \\
+            \PostNet  &   51.3 &  65.3 &  93.8 &   95.1 &  95.2 &  95.2 & & 
+                      & \bf{80.8} &  \bf{84.5} &  \bf{97.6} &  \bf{99.5} &  99.3 &   98.2  \\
+            \PriorNet & 32.5 &  36.8 &  88.9 &   99.6 &  99.7 &  92.7 & & 
+                      &   34.7 &  32.3 &  34.3 &  60.3 &  95.5 &  \bf{100.0}  \\
+            \DDNet    &   \bf{60.7} &  \bf{87.6} &  \bf{99.8} &  \bf{100.0} &  \bf{99.9} &  \bf{99.8} & & 
+                      &   59.1 &  62.6 &  81.5 &  98.6 &  \bf{99.8} &   98.7 \\
+            \EvNet    &   51.2 &  55.7 &  66.9 &   70.3 &  68.0 &  67.1 & & 
+                      &   75.7 &  78.6 &  88.2 &  97.8 &  96.4 &   95.6 \\ 		    
+ 		    \midrule
+ 		  	& \multicolumn{6}{c}{Sensorless} & & & \multicolumn{6}{c}{Segment} \\
+            \PostNet  & \bf{99.8} &  \bf{100.0} &  \bf{100.0} &  \bf{100.0} &  \bf{100.0} &  \bf{100.0} & & 
+                      &  \bf{95.6} &  \bf{99.4} &  \bf{100.0} &  \bf{100.0} &  \bf{100.0} &  \bf{100.0} \\
+            \PriorNet & 42.0 &   33.8 &   31.5 &   34.7 &   43.7 &   47.0 & & 
+                      & 56.7 &  56.7 &   39.8 &   33.7 &   31.9 &   33.7 \\
+            \DDNet    &  53.4 &   43.5 &   34.3 &   31.6 &   32.5 &   36.1 & & 
+                      &  57.0 &  58.9 &   43.1 &   33.7 &   31.5 &   31.3 \\
+            \EvNet    &  67.1 &   78.8 &   88.3 &   95.4 &   96.9 &   97.8 & & 
+                      &  60.8 &  63.5 &   61.2 &   64.8 &   73.7 &   85.2 \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:label_attack_detect_auroc_4}
+\end{table*}
+
+
+\clearpage
+\subsubsection{Attacking uncertainty estimation}
+
+\textbf{Are uncertainty estimates a robust feature for OOD detection?}
+
+Using uncertainty estimation to distinguish between ID and OOD data is not robust as shown in the following tables.
+
+ \begin{table*}[htbp!]
+ 	\centering
+ 	\caption{OOD detection based on differential entropy under PGD uncertainty attacks against differential entropy on ID data and OOD data (AUC-PR).}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+ 			& \multicolumn{7}{c}{ID-Attack (non-attacked OOD)} &  & &  \multicolumn{7}{c}{OOD-Attack (non-attacked ID)} \\
+ 			\cmidrule{2-8}  \cmidrule{11-17}
+ 			Att. Rad. & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & &
+ 			            0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{MNIST -- KMNIST}} \\
+            \PostNet  & 94.5 &  94.1 &  93.9 &  91.1 &  77.1 &  44.0 &  31.9 & &
+                      & 94.5 &  93.1 &  91.4 &  82.1 &  62.2 &  50.7 &  48.8 \\
+            \PriorNet & \bf{99.6} & \bf{99.4} & \bf{99.1} & \bf{97.8} & \bf{93.8} & \bf{77.6} &  \bf{32.0} & &
+                      & \bf{99.6} & \bf{99.4} & \bf{99.1} &  98.0 &  94.6 &  85.5 &  \bf{73.9} \\
+            \DDNet    & 99.3 &  99.1 &  98.9 & \bf{97.8} &  93.5 &  63.3 &  30.7 & &
+                      & 99.3 &  99.1 &  99.0 & \bf{98.3} & \bf{96.7} & \bf{91.3} &  73.8  \\
+            \EvNet    & 69.0 &  67.1 &  65.6 &  61.8 &  57.4 &  50.9 &  43.6 & &
+                      & 69.0 &  55.8 &  48.0 &  39.4 &  36.2 &  34.9 &  34.4  \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{Seg. -- Seg. class sky}} \\
+            \PostNet  & \bf{99.0} & \bf{80.7} & \bf{53.5} & \bf{38.0} & \bf{34.0} & \bf{41.6} &  \bf{49.5} & &
+                      & \bf{99.0} & \bf{88.4} &  69.2 &  45.1 & \bf{36.4} & \bf{42.6} &  \bf{75.4} \\
+            \PriorNet & 34.8 &  31.4 &  30.9 &  30.8 &  30.8 &  30.8 &  30.8 & &
+                      & 34.8 &  31.8 &  31.0 &  30.8 &  30.8 &  30.8 &  32.1 \\
+            \DDNet    & 31.5 &  30.9 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 & &
+                      & 31.5 &  31.0 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8  \\
+            \EvNet    & 92.5 &  67.2 &  43.2 &  31.6 &  30.9 &  30.9 &  31.2 & &
+                      & 92.5 &  86.1 & \bf{82.7} & \bf{48.9} &  32.7 &  30.9 &  30.9  \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:id_ood_attacks_part2}
+\end{table*}
+
+ \begin{table*}[htbp!]
+ 	\centering
+ 	\caption{OOD detection under PGD uncertainty attacks against differential entropy on ID data and OOD data (AUC-ROC).}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+ 			& \multicolumn{7}{c}{ID-Attack (non-attacked OOD)} &  & &  \multicolumn{7}{c}{OOD-Attack (non-attacked ID)} \\
+ 			\cmidrule{2-8}  \cmidrule{11-17}
+ 			Att. Rad. & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & &
+ 			            0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{MNIST -- KMNIST}} \\
+            \PostNet  & 91.6 &  91.3 &  91.9 &  91.5 &  80.2 &  38.8 &   9.2 & &
+                      & 91.6 &  90.4 &  89.0 &  81.6 &  62.6 &  45.0 &  43.1 \\
+            \PriorNet & \bf{99.8} & \bf{99.7} & \bf{99.5} & \bf{99.0} & \bf{97.1} & \bf{81.1} &   8.7 & &
+                      & \bf{99.8} & \bf{99.7} & \bf{99.6} & \bf{99.1} & \bf{97.7} & \bf{93.0} &  \bf{84.9} \\
+            \DDNet    & 99.2 &  98.9 &  98.6 &  97.3 &  92.1 &  58.2 &   1.2 & &
+                      & 99.2 &  99.0 &  98.8 &  97.9 &  95.8 &  89.1 &  69.3 \\
+            \EvNet    & 81.2 &  79.6 &  78.2 &  74.6 &  69.5 &  58.7 &  \bf{43.0} & &
+                      & 81.2 &  67.2 &  54.8 &  35.4 &  25.5 &  20.7 &  18.5 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{CIFAR10 -- SVHN}} \\
+            \PostNet  & 87.0 &  71.9 &  56.3 & \bf{30.2} & \bf{20.2} & \bf{15.0} &  \bf{9.7} & &
+                      & 87.0 &  71.0 &  54.3 &  33.5 &  30.3 &  26.2 &  19.4 \\
+            \PriorNet & 62.4 &  48.2 &  35.9 &  13.8 &   3.6 &   0.9 &  0.3 & &
+                      & 62.4 &  48.0 &  35.6 &  14.8 &   6.6 &   3.4 &   1.6 \\
+            \DDNet    & 87.0 & \bf{76.0} & \bf{63.6} &  29.3 &   6.1 &   1.1 &  0.4 & &
+                      & 87.0 & \bf{78.1} & \bf{66.1} &  26.2 &   5.1 &   0.7 &   0.1 \\
+            \EvNet    & \bf{88.0} &  69.1 &  51.7 &  24.6 &  15.5 &   9.5 &  4.2 & &
+                      & \bf{88.0} &  72.0 &  60.7 & \bf{47.9} & \bf{42.1} & \bf{33.3} &  \bf{24.0} \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{Sens. -- Sens. class 10, 11}} \\
+            \PostNet  & \bf{85.3} & \bf{49.1} & \bf{38.1} & \bf{7.8} & \bf{8.2} &  8.2 &   8.2 & &
+                      & \bf{85.3} & \bf{57.2} & \bf{54.0} & \bf{27.3} & \bf{31.5} & \bf{86.7} &  \bf{99.5} \\
+            \PriorNet & 28.1 &   0.8 &   0.3 &  0.4 &  1.6 & \bf{8.4} &  \bf{26.8} & &
+                      & 28.1 &   2.5 &   0.7 &   0.2 &   2.3 &  18.9 &  41.0 \\
+            \DDNet    & 21.0 &   3.0 &   0.9 &  0.4 &  0.6 &  2.1 &   7.3 & &
+                      & 21.0 &   4.4 &   2.1 &   1.9 &   2.2 &   2.2 &   4.1 \\
+            \EvNet    & 74.2 &  21.4 &  12.2 &  4.3 &  1.4 &  0.6 &   0.3 & &
+                      & 74.2 &  45.3 &  38.5 &  19.6 &   9.6 &  12.1 &  26.0 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{Seg. -- Seg. class sky}} \\
+            \PostNet  & \bf{99.2} & \bf{84.7} & \bf{55.5} & \bf{23.0} & \bf{9.7} & \bf{4.4} &  \bf{4.7} & &
+                      & \bf{99.2} & \bf{92.1} & \bf{77.1} &  41.5 & \bf{24.9} & \bf{41.0} &  \bf{80.8} \\
+            \PriorNet & 17.1 &   4.4 &   1.3 &   0.0 &  0.0 &  0.0 &  0.1 & &
+                      & 17.1 &   5.9 &   1.5 &   0.1 &   0.0 &   0.1 &   5.8 \\
+            \DDNet    & 4.1 &   1.1 &   0.0 &   0.0 &  0.0 &  0.0 &  0.0 & &
+                      &  4.1 &   1.8 &   0.4 &   0.0 &   0.0 &   0.0 &   0.0 \\
+            \EvNet    & 91.2 &  54.5 &  23.3 &   3.9 &  0.9 &  0.4 &  0.2 & &
+                      & 91.2 &  82.9 &  76.4 & \bf{42.2} &   9.7 &   0.8 &   0.6 \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:id_ood_attacks_measure_diffe_auroc}
+\end{table*}
+
+
+
+
+ \begin{table*}[htbp!]
+ 	\centering
+ 	\caption{OOD detection (AU-PR) under PGD uncertainty attacks against precision~$\alpha_0$ on ID data and OOD data.}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+ 			& \multicolumn{7}{c}{ID-Attack (non-attacked OOD)} &  & &  \multicolumn{7}{c}{OOD-Attack (non-attacked ID)} \\
+ 			\cmidrule{2-8}  \cmidrule{11-17}
+ 			Att. Rad. & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & &
+ 			            0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{MNIST -- KMNIST}} \\
+            \PostNet  & 98.4 &  97.4 &  96.0 &  88.8 &  70.9 &  39.3 &  31.3 & &
+                      & 98.4 &  97.2 &  95.2 &  82.8 &  52.6 &  34.3 &  32.1 \\
+            \PriorNet & \bf{99.6} & \bf{99.5} & \bf{99.2} & \bf{98.0} & \bf{94.1} & \bf{76.0} &  31.1 & &
+                      & \bf{99.6} & \bf{99.5} & \bf{99.2} & \bf{98.2} & \bf{95.3} & \bf{87.5} & \bf{75.6} \\
+            \DDNet    & 97.2 &  96.7 &  96.1 &  93.8 &  86.4 &  53.2 &  31.0 & &
+                      & 97.2 &  96.7 &  96.2 &  94.5 &  91.1 &  82.9 &  64.6 \\
+            \EvNet    & 39.8 &  39.2 &  38.8 &  37.9 &  37.1 &  36.3 & \bf{35.4} & &
+                      & 39.8 &  34.5 &  32.5 &  31.2 &  31.0 &  30.9 &  31.0 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{CIFAR10 -- SVHN}} \\
+            \PostNet  & \bf{82.4} &  63.8 &  46.1 &  22.3 &  17.4 &  16.7 &  16.4 & &
+                      & \bf{82.4} &  61.8 &  41.5 &  21.8 & \bf{19.8} & \bf{17.5} & \bf{15.8} \\
+            \PriorNet & 37.9 &  25.0 &  19.2 &  15.8 &  15.4 &  15.4 &  15.4 & &
+                      & 37.9 &  25.9 &  19.4 &  15.6 &  15.4 &  15.4 &  15.4 \\
+            \DDNet    & 81.1 & \bf{70.1} & \bf{58.4} & \bf{30.0} &  16.7 &  15.5 &  15.4 & &
+                      & 81.1 & \bf{71.2} & \bf{59.9} & \bf{27.8} &  16.5 &  15.5 &  15.4 \\
+            \EvNet    & 34.7 &  27.4 &  25.4 &  22.0 & \bf{19.7} & \bf{18.1} & \bf{17.1} & &
+                      & 34.7 &  19.4 &  18.1 &  17.1 &  16.8 &  16.2 &  15.7 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{Sens. -- Sens. class 10, 11}} \\
+            \PostNet  & \bf{77.4} & \bf{39.6} & \bf{35.9} & \bf{31.7} & \bf{44.4} & \bf{44.4} & \bf{44.4} & &
+                      & \bf{77.4} &  40.3 & \bf{38.6} &  29.5 & \bf{34.0} & \bf{79.4} & \bf{97.4} \\
+            \PriorNet & 35.9 &  27.0 &  26.8 &  26.8 &  26.8 &  27.5 &  36.2 & &
+                      & 35.9 &  27.7 &  27.0 &  26.7 &  26.6 &  26.5 &  26.5 \\
+            \DDNet    & 55.6 &  34.4 &  31.7 &  30.4 &  29.5 &  30.2 &  33.4 & &
+                      & 55.6 & \bf{40.9} &  34.1 &  28.0 &  26.9 &  26.6 &  26.5 \\
+            \EvNet    & 66.3 &  33.3 &  29.7 &  27.0 &  27.1 &  29.2 &  33.9 & &
+                      & 66.3 &  39.3 &  37.1 & \bf{31.3} &  28.3 &  28.4 &  29.7 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{Seg. -- Seg. class sky}} \\
+            \PostNet  & \bf{98.4} &  74.8 &  51.0 & \bf{37.2} & \bf{32.8} & \bf{43.5} & \bf{49.9} & &
+                      & \bf{98.4} &  84.7 &  66.1 &  42.4 &  34.8 & \bf{40.9} & \bf{71.2} \\
+            \PriorNet & 32.1 &  30.9 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 & &
+                      & 32.1 &  31.0 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 \\
+            \DDNet    & 31.0 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 & &
+                      & 31.0 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 \\
+            \EvNet    & 98.3 & \bf{83.0} & \bf{60.5} &  34.0 &  31.0 &  30.8 &  30.8 & &
+                      & 98.3 & \bf{94.4} & \bf{88.8} & \bf{65.6} & \bf{37.0} &  31.4 &  30.9 \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:id_ood_attacks_measure_alpha0_aupr}
+\end{table*}
+
+
+
+ \begin{table*}[htbp!]
+ 	\centering
+ 	\caption{OOD detection (AUC-ROC) under PGD uncertainty attacks against precision~$\alpha_0$ on ID data and OOD data.}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+ 			& \multicolumn{7}{c}{ID-Attack (non-attacked OOD)} &  & &  \multicolumn{7}{c}{OOD-Attack (non-attacked ID)} \\
+ 			\cmidrule{2-8}  \cmidrule{11-17}
+ 			Att. Rad. & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & &
+ 			            0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{MNIST -- KMNIST}} \\
+            \PostNet  & 98.4 &  97.6 &  96.4 &  90.9 &  74.0 &  28.9 &   6.3 & &
+                      & 98.4 &  97.6 &  96.3 &  89.0 &  61.3 &  19.6 &   9.7 \\
+            \PriorNet & \bf{99.8} & \bf{99.7} & \bf{99.6} & \bf{99.1} & \bf{97.2} & \bf{79.4} &   4.4 & &
+                      & \bf{99.8} & \bf{99.7} & \bf{99.6} & \bf{99.2} & \bf{98.0} & \bf{93.9} & \bf{85.8} \\
+            \DDNet    & 96.5 &  95.9 &  95.1 &  92.0 &  82.6 &  44.3 &   3.5 & &
+                      & 96.5 &  95.9 &  95.2 &  92.9 &  88.6 &  78.7 &  59.4 \\
+            \EvNet    & 35.9 &  34.1 &  32.8 &  30.1 &  27.4 &  24.6 & \bf{21.4} & &
+                      & 35.9 &  18.7 &  10.4 &   3.7 &   2.0 &   1.7 &   2.0 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{CIFAR10 -- SVHN}} \\
+            \PostNet  & \bf{87.4} &  71.2 &  54.8 &  29.2 &  19.0 &  14.0 &   9.4 & &
+                      & \bf{87.4} &  71.4 &  54.1 &  30.1 & \bf{25.8} & \bf{17.5} & \bf{5.8} \\
+            \PriorNet & 45.6 &  31.1 &  20.4 &   6.3 &   1.4 &   0.3 &   0.1 & &
+                      & 45.6 &  32.2 &  21.7 &   5.4 &   1.0 &   0.3 &  0.1 \\
+            \DDNet    & 84.9 & \bf{73.8} & \bf{61.8} &  30.2 &   9.3 &   3.0 &   0.8 & &
+                      & 84.9 & \bf{76.6} & \bf{66.2} & \bf{34.6} &  10.4 &   2.3 &  0.3 \\
+            \EvNet    & 61.2 &  49.4 &  45.2 & \bf{37.6} & \bf{30.5} & \bf{23.4} & \bf{17.0} & &
+                      & 61.2 &  29.4 &  23.0 &  16.8 &  14.2 &  10.2 &  5.5 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{Sens. -- Sens. class 10, 11}} \\
+            \PostNet  & \bf{87.2} & \bf{48.8} & \bf{37.3} &   4.1 &   0.7 &   0.7 &   0.7 & &
+                      & \bf{87.2} & \bf{50.0} & \bf{45.4} &  16.5 & \bf{27.6} & \bf{81.9} & \bf{98.0} \\
+            \PriorNet & 37.3 &   3.5 &   2.4 &   2.2 &   2.9 &   6.3 & \bf{19.2} & &
+                      & 37.3 &   8.0 &   3.6 &   1.4 &   0.6 &   0.1 &   0.0 \\
+            \DDNet    & 55.2 &  23.7 &  17.7 & \bf{14.1} & \bf{12.5} & \bf{12.7} &  15.7 & &
+                      & 55.2 &  37.1 &  27.7 &   9.4 &   2.5 &   0.6 &   0.1 \\
+            \EvNet    & 75.5 &  30.8 &  18.2 &   5.8 &   1.6 &   0.6 &   0.2 & &
+                      & 75.5 &  47.8 &  41.9 & \bf{24.1} &  10.2 &  10.2 &  15.6 \\
+             \midrule
+ 			& \multicolumn{16}{c}{\textbf{Seg. -- Seg. class sky}} \\
+            \PostNet  & \bf{98.6} &  77.7 & \bf{50.8} & \bf{20.3} & \bf{8.2} & \bf{1.3} & \bf{0.5} & &
+                      & \bf{98.6} &  88.9 &  73.4 &  36.2 &  19.4 & \bf{36.7} & \bf{75.2} \\
+            \PriorNet & 8.5 &   1.3 &   0.2 &   0.0 &  0.0 &  0.0 &  0.1 & &
+                      & 8.5 &   2.0 &   0.4 &   0.0 &   0.0 &   0.0 &   0.0 \\
+            \DDNet    & 2.2 &   0.3 &   0.0 &   0.0 &  0.0 &  0.0 &  0.0 & &
+                      & 2.2 &   0.5 &   0.1 &   0.0 &   0.0 &   0.0 &   0.0 \\
+            \EvNet    & 97.7 & \bf{78.4} &  47.7 &   9.9 &  1.2 &  0.2 &  0.1 & &
+                      & 97.7 & \bf{93.5} & \bf{86.9} & \bf{62.2} & \bf{21.5} &   3.7 &   1.0 \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:id_ood_attacks_measure_alpha0_auroc}
+\end{table*}
+
+
+
+ \begin{table*}[htbp!]
+ 	\centering
+ 	\caption{OOD detection (AU-PR) under PGD uncertainty attacks against distributional uncertainty on ID data and OOD data.}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+ 			& \multicolumn{7}{c}{ID-Attack (non-attacked OOD)} &  & &  \multicolumn{7}{c}{OOD-Attack (non-attacked ID)} \\
+ 			\cmidrule{2-8}  \cmidrule{11-17}
+ 			Att. Rad. & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & &
+ 			            0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{MNIST -- KMNIST}} \\
+            \PostNet  & 80.5 &  76.2 &  73.4 &  69.1 &  66.6 &  65.4 & \bf{60.2} & &
+                      & 80.5 &  72.1 &  63.9 &  43.9 &  33.0 &  30.9 &  30.8 \\
+            \PriorNet & \bf{99.6} & \bf{99.4} & \bf{99.2} & \bf{98.0} & \bf{94.1} & \bf{76.3} &  31.2 & &
+                      & \bf{99.6} & \bf{99.4} & \bf{99.2} & \bf{98.2} & \bf{95.2} & \bf{87.2} & \bf{75.2} \\
+            \DDNet    & 98.4 &  98.1 &  97.7 &  95.8 &  89.5 &  56.2 &  30.9 & &
+                      & 98.4 &  98.1 &  97.8 &  96.5 &  93.8 &  86.3 &  67.7 \\
+            \EvNet    & 40.1 &  39.5 &  39.1 &  38.2 &  37.3 &  36.5 &  35.6 & &
+                      & 40.1 &  34.6 &  32.6 &  31.3 &  31.0 &  31.0 &  31.1 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{CIFAR10 -- SVHN}} \\
+            \PostNet  & 64.2 &  44.7 &  37.5 & \bf{31.1} & \bf{28.5} & \bf{25.0} & \bf{19.3} & &
+                      & 64.2 &  31.0 &  19.5 &  16.3 &  16.4 & \bf{16.5} & \bf{16.3} \\
+            \PriorNet & 40.8 &  27.4 &  20.4 &  15.9 &  15.4 &  15.4 &  15.4  & &
+                      & 40.8 &  28.3 &  21.1 &  15.9 &  15.4 &  15.4 &  15.4 \\
+            \DDNet    & \bf{82.0} & \bf{71.0} & \bf{59.1} &  29.9 &  16.6 &  15.5 &  15.4 & &
+                      & \bf{82.0} & \bf{72.2} & \bf{60.3} & \bf{26.3} &  16.2 &  15.4 &  15.4 \\
+            \EvNet    & 36.4 &  28.7 &  26.5 &  22.8 &  20.2 &  18.4 &  17.2 & &
+                      & 36.4 &  19.8 &  18.3 &  17.2 & \bf{16.9} &  16.2 &  15.7 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{Sens. -- Sens. class 10, 11}} \\
+            \PostNet  & \bf{79.1} & \bf{40.3} & \bf{35.9} & \bf{33.0} & \bf{45.5} & \bf{45.5} &  45.5 & &
+                      & \bf{79.1} & \bf{47.3} & \bf{43.7} & \bf{36.5} & \bf{37.9} & \bf{74.6} & \bf{96.5} \\
+            \PriorNet & 35.5 &  26.8 &  26.7 &  26.9 &  29.6 &  43.7 & \bf{68.7} & &
+                      & 35.5 &  27.5 &  26.9 &  26.7 &  26.6 &  26.5 &  26.5 \\
+            \DDNet    & 52.9 &  31.7 &  29.8 &  29.1 &  28.4 &  30.1 &  37.6 & &
+                      & 52.9 &  38.4 &  31.5 &  27.5 &  26.8 &  26.6 &  26.5 \\
+            \EvNet    & 66.3 &  33.3 &  29.6 &  27.0 &  27.2 &  29.3 &  35.2 & &
+                      & 66.3 &  39.3 &  37.1 &  31.3 &  28.3 &  28.4 &  29.7 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{Seg. -- Seg. class sky}} \\
+            \PostNet  & 98.0 &  76.3 &  53.1 & \bf{37.4} & \bf{32.9} & \bf{44.6} & \bf{50.2} & &
+                      & 98.0 &  83.5 &  64.8 &  41.8 &  35.4 & \bf{43.1} & \bf{71.3} \\
+            \PriorNet & 32.3 &  30.9 &  30.8 &  30.8 &  30.8 &  32.5 &  45.0 & &
+                      & 32.3 &  31.0 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 \\
+            \DDNet    & 30.9 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 & &
+                      & 30.9 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 &  30.8 \\
+            \EvNet    & \bf{98.1} & \bf{82.1} & \bf{59.1} &  33.8 &  31.0 &  30.8 &  30.8 & &
+                      & \bf{98.1} & \bf{93.8} & \bf{88.2} & \bf{64.5} & \bf{36.4} &  31.3 &  31.0 \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:id_ood_attacks_measure_distU_aupr}
+\end{table*}
+
+
+
+
+
+ \begin{table*}[htbp!]
+ 	\centering
+ 	\caption{OOD detection (AUC-ROC) under PGD uncertainty attacks against distributional uncertainty on ID data and OOD data.}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+ 			& \multicolumn{7}{c}{ID-Attack (non-attacked OOD)} &  & &  \multicolumn{7}{c}{OOD-Attack (non-attacked ID)} \\
+ 			\cmidrule{2-8}  \cmidrule{11-17}
+ 			Att. Rad. & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & &
+ 			            0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{MNIST -- KMNIST}} \\
+            \PostNet  & 90.1 &  88.0 &  86.2 &  82.2 &  79.0 &  77.1 & \bf{66.1} & &
+                      & 90.1 &  84.5 &  77.2 &  46.4 &  12.9 &   2.7 &   2.4 \\
+            \PriorNet & \bf{99.8} & \bf{99.7} & \bf{99.6} & \bf{99.1} & \bf{97.2} & \bf{79.7} &   4.7 & &
+                      & \bf{99.8} & \bf{99.7} & \bf{99.6} & \bf{99.2} & \bf{97.9} & \bf{93.7} & \bf{85.6} \\
+            \DDNet    & 98.1 &  97.7 &  97.2 &  94.8 &  87.0 &  48.7 &   3.0 & &
+                      & 98.1 &  97.8 &  97.3 &  95.8 &  92.3 &  83.3 &  63.3 \\
+            \EvNet    & 36.8 &  35.0 &  33.7 &  30.9 &  28.2 &  25.3 &  22.1 & &
+                      & 36.8 &  19.3 &  10.7 &   3.9 &   2.1 &   1.8 &   2.2 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{CIFAR10 -- SVHN}} \\
+            \PostNet  & 82.9 &  67.7 &  59.2 & \bf{51.3} & \bf{47.7} & \bf{40.1} & \bf{24.2} & &
+                    & 82.9 &  51.9 &  26.2 &   8.9 &   9.5 & \bf{11.1} & \bf{9.9} \\
+            \PriorNet & 48.0 &  33.6 &  22.5 &   7.1 &   1.6 &   0.3 &   0.1 & &
+                      & 48.0 &  34.8 &  24.0 &   6.7 &   1.6 &   0.6 &  0.2 \\
+            \DDNet    & \bf{85.9} & \bf{74.9} & \bf{62.7} &  30.1 &   8.3 &   2.3 &   0.6 & &
+                    & \bf{85.9} & \bf{77.6} & \bf{66.9} & \bf{32.1} &   8.0 &   1.5 &  0.2 \\
+            \EvNet    & 63.3 &  51.4 &  47.1 &  39.3 &  32.1 &  24.9 &  17.9 & &
+                    & 63.3 &  31.1 &  24.4 &  17.7 & \bf{15.0} &  10.7 &  5.7 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{Sens. -- Sens. class 10, 11}} \\
+            \PostNet  & \bf{87.1} & \bf{50.9} & \bf{37.8} &   5.5 &  4.5 &   4.5 &   4.5 & &
+                      & \bf{87.1} & \bf{55.3} & \bf{51.1} & \bf{34.4} & \bf{38.9} & \bf{79.7} & \bf{97.9} \\
+            \PriorNet & 36.5 &   2.9 &   1.8 &   1.8 &  5.2 & \bf{21.5} & \bf{52.8} & &
+                      & 36.5 &   7.3 &   3.0 &   1.3 &   0.5 &   0.1 &   0.0 \\
+            \DDNet    & 52.3 &  18.7 &  13.1 & \bf{10.3} & \bf{9.3} &  10.8 &  18.4 & &
+                      & 52.3 &  33.1 &  22.0 &   6.7 &   2.2 &   0.6 &   0.1 \\
+            \EvNet    & 75.5 &  30.7 &  18.1 &   5.8 &  1.6 &   0.6 &   0.8 & &
+                      & 75.5 &  47.7 &  41.8 &  23.8 &  10.3 &  10.2 &  15.8 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{Seg. -- Seg. class sky}} \\
+            \PostNet  & \bf{98.6} & \bf{78.3} & \bf{51.9} & \bf{20.5} & \bf{8.3} & \bf{2.1} &   1.7 & &
+                      & \bf{98.6} &  88.8 &  73.1 &  35.9 & \bf{21.4} & \bf{39.9} & \bf{75.9} \\
+            \PriorNet & 9.4 &   1.6 &   0.3 &   0.0 &  0.0 &  1.8 & \bf{15.4} & &
+                      & 9.4 &   2.4 &   0.4 &   0.0 &   0.0 &   0.0 &   0.0 \\
+            \DDNet    & 1.3 &   0.2 &   0.0 &   0.0 &  0.0 &  0.0 &   0.0 & &
+                      & 1.3 &   0.2 &   0.0 &   0.0 &   0.0 &   0.0 &   0.0 \\
+            \EvNet    & 97.4 &  77.1 &  45.9 &   9.4 &  1.3 &  0.2 &   0.1 & &
+                      & 97.4 & \bf{92.9} & \bf{86.1} & \bf{60.9} &  20.4 &   3.0 &   1.2 \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:id_ood_attacks_measure_distU_auroc}
+\end{table*}
+
+ \begin{table*}[htbp!]
+ 	\centering
+ 	\caption{OOD detection (AU-PR) under FGSM uncertainty attacks against differential entropy on ID data and OOD data.}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+ 			& \multicolumn{7}{c}{ID-Attack (non-attacked OOD)} &  & &  \multicolumn{7}{c}{OOD-Attack (non-attacked ID)} \\
+ 			\cmidrule{2-8}  \cmidrule{11-17}
+ 			Att. Rad. & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & &
+ 			            0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{MNIST -- KMNIST}} \\
+            \PostNet  & 94.5 &  94.2 &  94.1 &  93.5 &  89.9 &  81.2 &  \bf{71.6} & &
+                      & 94.5 &  93.3 &  92.0 &  87.6 &  81.1 &  75.7 &  75.7 \\
+            \PriorNet & \bf{99.6} &  \bf{99.4} &  \bf{99.2} &  \bf{98.1} &  \bf{95.6} &  \bf{90.0} &  65.3 & &
+                      & \bf{99.6} &  \bf{99.4} &  \bf{99.2} &  \bf{98.6} &  97.5 &  \bf{95.9} &  \bf{94.4} \\
+            \DDNet    & 99.3 &  99.1 &  98.9 &  98.0 &  95.4 &  80.9 &  48.2 & &
+                      & 99.3 &  99.2 &  99.0 &  98.5 &  \bf{97.6} &  95.5 &  92.0 \\
+            \EvNet    & 69.0 &  67.4 &  66.2 &  64.0 &  61.9 &  59.8 &  56.70 & &
+                      & 9.0 &  60.1 &  56.5 &  53.4 &  52.7 &  52.9 &  53.5 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{CIFAR10 -- SVHN}} \\
+            \PostNet  & 81.8 &  66.2 &  61.6 &  \bf{64.2} &  \bf{65.7} &  61.3 &  48.4 & &
+                    & 81.8 &  63.1 &  51.9 &  43.4 &  46.6 &  \bf{61.7} &  \bf{77.0} \\
+            \PriorNet & 54.4 &  40.6 &  33.8 &  27.0 &  25.5 &  27.2 &  35.5 & &
+                      & 54.4 &  42.3 &  36.8 &  30.6 &  28.3 &  29.5 &  32.1 \\
+            \DDNet    & \bf{82.8} &  \bf{71.9} &  \bf{64.6} &  53.8 &  50.2 &  47.8 &  41.0 & &
+                    & \bf{82.8} &  \bf{71.5} &  \bf{60.5} &  39.1 &  31.4 &  41.2 &  66.6 \\
+            \EvNet    & 80.3 &  67.8 &  64.0 &  61.9 &  61.6 &  57.4 &  \bf{49.6} & &
+                    & 80.3 &  59.2 &  51.5 &  \bf{46.7} &  \bf{49.0} &  56.3 &  64.6 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{Sens. -- Sens. class 10, 11}} \\
+            \PostNet  & \bf{74.5} &  40.6 &  37.2 &  31.4 &  38.1 &  44.9 &  45.9 & &
+                      & \bf{74.5} &  \bf{99.6} &  \bf{99.8} &  \bf{99.9} &  \bf{99.9} &  \bf{99.9} &  \bf{99.9} \\
+            \PriorNet & 32.3 &  35.7 &  \bf{57.6} &  \bf{83.1} &  \bf{88.8} &  79.7 &  70.0 & &
+                      & 32.3 &  28.3 &  28.1 &  27.6 &  28.0 &  32.7 &  38.5 \\
+            \DDNet    & 31.7 &  31.3 &  44.4 &  70.3 &  87.9 &  \bf{92.5} &  \bf{91.9} & &
+                      & 31.7 &  28.8 &  29.3 &  29.1 &  27.7 &  27.9 &  28.01 \\
+            \EvNet    & 66.5 &  \bf{45.7} &  46.8 &  42.3 &  42.0 &  41.4 &  41.8 & &
+                      & 66.5 &  54.7 &  66.5 &  76.2 &  71.1 &  75.3 &  75.8 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{Seg. -- Seg. class sky}} \\
+            \PostNet  & \bf{99.0} &  \bf{80.8} &  \bf{66.4} &  43.6 &  37.0 &  35.5 &  43.0 & &
+                      & \bf{99.0} &  \bf{94.8} &  \bf{92.0} &  \bf{98.5} &  \bf{99.7} &  \bf{100.0} &  \bf{100.0} \\
+            \PriorNet & 34.8 &  31.2 &  31.4 &  46.3 &  \bf{74.0} &  \bf{88.8} &  \bf{94.5} & &
+                      & 34.8 &  31.6 &  31.0 &  31.2 &  30.9 &   30.8 &   30.8 \\
+            \DDNet    & 31.5 &  30.8 &  30.8 &  30.9 &  37.9 &  56.2 &  84.3 & &
+                      & 31.5 &  30.9 &  30.8 &  30.8 &  30.8 &   30.8 &   30.8 \\
+            \EvNet    & 92.5 &  64.9 &  54.6 &  \bf{66.6} &  69.5 &  69.6 &  64.6 & &
+                      & 92.5 &  85.9 &  83.0 &  66.3 &  66.1 &   61.1 &   56.8  \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:id_ood_attacks_measure_diffE_aupr_fgsm}
+\end{table*}
+
+
+ \begin{table*}[htbp!]
+ 	\centering
+ 	\caption{OOD detection (AU-PR) under Noise uncertainty attacks against differential entropy on ID data and OOD data.}
+ 	\begin{small}
+ 		\begin{tabular}{@{}rrrrrrrrc|crrrrrrr@{}}
+ 			\toprule
+ 			& \multicolumn{7}{c}{ID-Attack (non-attacked OOD)} &  & &  \multicolumn{7}{c}{OOD-Attack (non-attacked ID)} \\
+ 			\cmidrule{2-8}  \cmidrule{11-17}
+ 			Noise Std & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 & & &
+ 			            0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & 4.0 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{MNIST -- KMNIST}} \\
+            \PostNet  & 93.0 &  94.2 &  82.3 &  34.4 &  31.6 &  31.0 &  30.9 & &
+                      & 92.2 &  91.8 &  91.5 &  92.3 &   92.7 &  93.2 &  93.5 \\
+            \PriorNet & \bf{99.7} &  \bf{99.6} &  \bf{96.7} &  \bf{40.0} &  \bf{40.6} &  \bf{45.7} &  \bf{55.6} & &
+                      & \bf{99.5} &  97.3 &  96.5 &  99.4 &  \bf{100.0} &  99.5 &  72.4 \\
+            \DDNet    & 99.1 &  97.5 &  81.2 &  31.3 &  31.0 &  30.9 &  31.2 & &
+                      & 99.0 &  \bf{98.8} &  \bf{99.2} &  \bf{99.8} &   99.9 &  \bf{99.8} &  \bf{99.1} \\
+            \EvNet    & 65.5 &  60.5 &  51.4 &  35.3 &  34.5 &  35.5 &  35.0 & &
+                      & 62.5 &  47.2 &  40.9 &  35.1 &   34.6 &  33.5 &  34.9 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{CIFAR10 -- SVHN}} \\
+            \PostNet  & 88.5 &  41.4 &  39.8 &  31.0 &  30.7 &  31.6 &  33.9 & &
+                    & 88.5 &  \bf{86.6} &  \bf{81.9} & \bf{ 93.}0 &  \bf{98.5} &  98.6 &   97.3 \\
+            \PriorNet & 73.3 &  88.3 &  \bf{95.3} &  \bf{92.4} &  \bf{70.4} &  30.9 &  30.8 & &
+                      & 73.3 &  31.6 &  30.9 &  31.7 &  51.8 &  94.3 &  \bf{100.0} \\
+            \DDNet    & 87.3 &  69.3 &  78.4 &  55.2 &  31.6 &  30.7 &  31.4 & &
+                    & 87.3 &  55.8 &  57.9 &  73.9 &  97.3 &  \bf{99.5} &   97.2 \\
+            \EvNet    & \bf{92.4} &  \bf{56.8} &  53.8 &  33.4 &  30.9 &  \bf{32.9} &  \bf{36.6} & &
+                    & \bf{92.4} &  73.7 &  73.5 &  77.7 &  93.7 &  92.5 &   92.1 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{Sens. -- Sens. class 10, 11}} \\
+            \PostNet  & \bf{85.3} &  \bf{30.8} &  \bf{39.4} &  50.0 &  50.0 &  50.0 &  50.0 & &
+                      & \bf{85.3} &  \bf{98.9} &  \bf{100.0} &  \bf{100.0} &  \bf{100.0} &  \bf{100.0} &  \bf{100.0} \\
+            \PriorNet & 32.3 &  \bf{30.8} &  34.9 &  \bf{83.7} &  \bf{77.7} &  49.8 &  \bf{80.3} & &
+                      & 32.3 &  30.7 &   30.7 &   32.5 &   40.1 &   49.9 &   47.6 \\
+            \DDNet    & 31.1 &  30.7 &  30.7 &  32.4 &  58.8 &  \bf{88.1} &  74.3 & &
+                      & 31.1 &  30.7 &   30.7 &   30.7 &   30.8 &   31.6 &   39.1 \\
+            \EvNet    & 80.3 &  \bf{30.8} &  31.2 &  37.9 &  46.3 &  50.0 &  50.0 & &
+                      & 80.3 &  34.6 &   38.4 &   53.9 &   69.3 &   78.8 &   81.5 \\
+ 			\midrule
+ 			& \multicolumn{16}{c}{\textbf{Seg. -- Seg. class sky}} \\
+            \PostNet  & \bf{99.9} &  \bf{41.8} &  30.8 &  \bf{34.5} &  \bf{49.1} &  50.0 &  50.0 & &
+                      & \bf{99.9} &  \bf{97.4} &  \bf{96.6} &  \bf{99.5} &  \bf{100.0} &  \bf{100.0} &  \bf{100.0} \\
+            \PriorNet & 31.0 &  30.8 &  30.8 &  30.8 &  32.7 &  \bf{69.0} &  78.3 & &
+                      & 31.0 &  30.8 &  30.8 &  30.8 &   30.9 &   31.1 &   32.4 \\
+            \DDNet    & 30.8 &  30.8 &  30.8 &  30.8 &  30.8 &  58.2 &  \bf{91.3} & &
+                      & 30.8 &  30.8 &  30.8 &  30.8 &   30.8 &   30.8 &   31.9 \\
+            \EvNet    & 99.1 &  38.1 &  \bf{32.2} &  30.8 &  30.8 &  32.2 &  37.5 & &
+                      & 99.1 &  95.6 &  87.6 &  58.0 &   44.9 &   46.6 &   53.8  \\
+ 			\bottomrule
+ 		\end{tabular}
+ 	\end{small}
+ 	\label{tab:id_ood_attacks_measure_diffE_aupr_noise}
+\end{table*}
+
+
+
+
+
+
+
+
+\clearpage
+\subsection{How to make DBU models more robust}
+
+To improve robustness of DBU models we perform median smoothing and adversarial training. Smoothing computes the smooth median, worst case and best case performance of DBU models for three tasks:  distinguishing between correct and wrong predictions, attack detection, distinguishing between ID data and OOD data under label attacks and under uncertainty attacks. 
+
+%%%% Confidence %%%%
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Distinguishing between correctly and wrongly labeled inputs based on differential entropy under PGD label attacks. Smoothed DBU models on CIFAR10. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:cifar10_smooth_confidence}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+    \begin{tabular}{llcccccc}
+    \toprule
+    & \textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+    \midrule
+    %& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+    \input{sections/008_icml2021/tables_v2/normal-CIFAR10-in-PGD_L2-crossentropy-confidence}
+    \midrule
+    %& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using label attacks}} \\
+    \input{sections/008_icml2021/tables_v2/adv-CIFAR10-in-PGD_L2-crossentropy-confidence}
+    \midrule
+    %& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using uncertainty attacks}} \\
+    \input{sections/008_icml2021/tables_v2/unc_adv-CIFAR10-in-PGD_L2-crossentropy-confidence}
+    \bottomrule
+    \end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Distinguishing between correctly and wrongly labeled inputs based on differential entropy under PGD label attacks. Smoothed DBU models on MNIST. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:mnist_smooth_confidence}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llccccccc}
+			\toprule
+			& \textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+            \input{sections/008_icml2021/tables_v2/normal-MNIST-in-PGD_L2-crossentropy-confidence}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Adversarially trained models using label attacks}} \\
+            \input{sections/008_icml2021/tables_v2/adv-MNIST-in-PGD_L2-crossentropy-confidence}
+            \midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using uncertainty attacks}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-MNIST-in-PGD_L2-crossentropy-confidence}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Distinguishing between correctly and wrongly labeled inputs based on differential entropy under PGD label attacks. Smoothed DBU models on Sensorless. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:sensorless_smooth_confidence}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llccccccc}
+			\toprule
+			& \textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+            \input{sections/008_icml2021/tables_v2/normal-sensorless_drive-in-PGD_L2-crossentropy-confidence}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using label attacks}} \\
+            \input{sections/008_icml2021/tables_v2/adv-sensorless_drive-in-PGD_L2-crossentropy-confidence}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using uncertainty attacks}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-sensorless_drive-in-PGD_L2-crossentropy-confidence}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Distinguishing between correctly and wrongly labeled inputs based on differential entropy under PGD label attacks. Smoothed DBU models on Segment. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model)..}
+	\label{tab:segment_smooth_confidence}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llccccccc}
+			\toprule
+			& \textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+            \input{sections/008_icml2021/tables_v2/normal-segment-in-PGD_L2-crossentropy-confidence}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using label attacks}} \\
+            \input{sections/008_icml2021/tables_v2/adv-segment-in-PGD_L2-crossentropy-confidence}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using uncertainty attacks}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-segment-in-PGD_L2-crossentropy-confidence}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Distinguishing between correctly and wrongly labeled inputs based on differential entropy under FGSM label attacks. Smoothed DBU models on CIFAR10. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:cifar10_smooth_confidence_fgsm}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llccccccc}
+			\toprule
+			& \textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+            \input{sections/008_icml2021/tables_v2/normal-CIFAR10-in-FGSM_L2-crossentropy-confidence}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using label attacks}} \\
+            \input{sections/008_icml2021/tables_v2/adv-CIFAR10-in-FGSM_L2-crossentropy-confidence}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using uncertainty attacks}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-CIFAR10-in-FGSM_L2-crossentropy-confidence}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Distinguishing between correctly and wrongly labeled inputs based on differential entropy under FGSM label attacks. Smoothed DBU models on MNIST. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:mnist_smooth_confidence_fgsm}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llccccccc}
+			\toprule
+			& \textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+            \input{sections/008_icml2021/tables_v2/normal-MNIST-in-FGSM_L2-crossentropy-confidence}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using label attacks}} \\
+            \input{sections/008_icml2021/tables_v2/adv-MNIST-in-FGSM_L2-crossentropy-confidence}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using uncertainty attacks}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-MNIST-in-FGSM_L2-crossentropy-confidence}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Distinguishing between correctly and wrongly labeled inputs based on differential entropy under FGSM label attacks. Smoothed DBU models on Sensorless. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:sensorless_smooth_confidence_fgsm}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llccccccc}
+			\toprule
+			& \textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+            \input{sections/008_icml2021/tables_v2/normal-sensorless_drive-in-FGSM_L2-crossentropy-confidence}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using label attacks}} \\
+            \input{sections/008_icml2021/tables_v2/adv-sensorless_drive-in-FGSM_L2-crossentropy-confidence}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using uncertainty attacks}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-sensorless_drive-in-FGSM_L2-crossentropy-confidence}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Distinguishing between correctly and wrongly labeled inputs based on differential entropy under FGSM label attacks. Smoothed DBU models on Segment. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:segments_smooth_confidence_fgsm}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llccccccc}
+			\toprule
+			& \textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+            \input{sections/008_icml2021/tables_v2/normal-segment-in-FGSM_L2-crossentropy-confidence}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using label attacks}} \\
+            \input{sections/008_icml2021/tables_v2/adv-segment-in-FGSM_L2-crossentropy-confidence}
+            \midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using uncertainty attacks}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-segment-in-FGSM_L2-crossentropy-confidence}
+            \bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+
+%%% Attack detection %%%%
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Attack detection (PGD label attacks) based on differential entropy. Smoothed DBU models on CIFAR10. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:cifar10_smooth_attackdetection}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llccccc}
+			\toprule
+			& \textbf{Att. Rad.} &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+            \input{sections/008_icml2021/tables_v2/normal-CIFAR10-in-PGD_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using label attacks}} \\
+            \input{sections/008_icml2021/tables_v2/adv-CIFAR10-in-PGD_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Adversarially training models using uncertainty attacks}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-CIFAR10-in-PGD_L2-crossentropy-attack_detection}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Attack detection (PGD label attacks) based on differential entropy. Smoothed DBU models on MNIST. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:mnist_smooth_attackdetection}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llcccccc}
+			\toprule
+			& \textbf{Att. Rad.} &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+            \input{sections/008_icml2021/tables_v2/normal-MNIST-in-PGD_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using label attacks}} \\
+            \input{sections/008_icml2021/tables_v2/adv-MNIST-in-PGD_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Adversarially training models using uncertainty attacks}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-MNIST-in-PGD_L2-crossentropy-attack_detection}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Attack detection (PGD label attacks) based on differential entropy. Smoothed DBU models on Sensorless. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:sensorless_smooth_attackdetection}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llcccccc}
+			\toprule
+			& \textbf{Att. Rad.} &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+            \input{sections/008_icml2021/tables_v2/normal-sensorless_drive-in-PGD_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using label attacks}} \\
+            \input{sections/008_icml2021/tables_v2/adv-sensorless_drive-in-PGD_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Adversarially training models using uncertainty attacks}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-sensorless_drive-in-PGD_L2-crossentropy-attack_detection}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+
+
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Attack detection (PGD label attacks) based on differential entropy. Smoothed DBU models on Segment. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:segment_smooth_attackdetection}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llcccccc}
+			\toprule
+			& \textbf{Att. Rad.} &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+            \input{sections/008_icml2021/tables_v2/normal-segment-in-PGD_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using label attacks}} \\
+            \input{sections/008_icml2021/tables_v2/adv-segment-in-PGD_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Adversarially training models using uncertainty attacks}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-segment-in-PGD_L2-crossentropy-attack_detection}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Attack detection (FGSM label attacks) based on differential entropy. Smoothed DBU models on CIFAR10. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:cifar10_smooth_attackdetection_fgsm}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llcccccc}
+			\toprule
+			& \textbf{Att. Rad.} &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+            \input{sections/008_icml2021/tables_v2/normal-CIFAR10-in-FGSM_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using label attacks}} \\
+            \input{sections/008_icml2021/tables_v2/adv-CIFAR10-in-FGSM_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Adversarially training models using uncertainty attacks}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-CIFAR10-in-FGSM_L2-crossentropy-attack_detection}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Attack detection (FGSM label attacks) based on differential entropy. Smoothed DBU models on MNIST. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:mnist_smooth_attackdetection_fgsm}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llcccccc}
+			\toprule
+			& \textbf{Att. Rad.} &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+            \input{sections/008_icml2021/tables_v2/normal-MNIST-in-FGSM_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using label attacks}} \\
+            \input{sections/008_icml2021/tables_v2/adv-MNIST-in-FGSM_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Adversarially training models using uncertainty attacks}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-MNIST-in-FGSM_L2-crossentropy-attack_detection}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Attack detection (FGSM label attacks) based on differential entropy. Smoothed DBU models on Sensorless. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:sensorless_smooth_attackdetection_fgsm}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llcccccc}
+			\toprule
+			& \textbf{Att. Rad.} &    0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+            \input{sections/008_icml2021/tables_v2/normal-sensorless_drive-in-FGSM_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using label attacks}} \\
+            \input{sections/008_icml2021/tables_v2/adv-sensorless_drive-in-FGSM_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Adversarially training models using uncertainty attacks}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-sensorless_drive-in-FGSM_L2-crossentropy-attack_detection}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{Attack detection (FGSM label attacks) based on differential entropy. Smoothed DBU models on Segment. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model)..}
+	\label{tab:segment_smooth_attackdetection_fgsm}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llcccccc}
+			\toprule
+			& \textbf{Att. Rad.} &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models}} \\
+            \input{sections/008_icml2021/tables_v2/normal-segment-in-FGSM_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Smoothed models + adversarial training using label attacks}} \\
+            \input{sections/008_icml2021/tables_v2/adv-segment-in-FGSM_L2-crossentropy-attack_detection}
+			\midrule
+			%& \multicolumn{6}{c}{\textbf{Adversarially training models using uncertainty attacks}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-segment-in-FGSM_L2-crossentropy-attack_detection}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+
+
+
+
+%%%% OOD detection %%%%
+
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{OOD detection based on differential entropy under PGD uncertainty attacks against differential entorpy on ID data and OOD data. Smoothed DBU models on CIFAR10. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:cifar10_smooth_ooddetection}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llcccccc}
+			\toprule
+			& \textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-CIFAR10-in-PGD_L2-diffE-ood}
+			\midrule
+			%& &\multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-CIFAR10-in-PGD_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-CIFAR10-in-PGD_L2-diffE-ood}
+			\midrule
+			\midrule
+			& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-CIFAR10-out-PGD_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-CIFAR10-out-PGD_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-CIFAR10-out-PGD_L2-diffE-ood}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{OOD detection based on differential entropy under PGD uncertainty attacks against differential entropy on ID data and OOD data. Smoothed DBU models  on MNIST. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:mnist_smooth_ooddetection}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llccccccc}
+			\toprule
+			&\textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-MNIST-in-PGD_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-MNIST-in-PGD_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-MNIST-in-PGD_L2-diffE-ood}
+			\midrule
+			\midrule
+			& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-MNIST-out-PGD_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-MNIST-out-PGD_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-MNIST-out-PGD_L2-diffE-ood}
+    \bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+
+
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{OOD detection based on differential entropy under PGD uncertainty attacks against differential entropy on ID data and OOD data. Smoothed DBU models  on Sensorless. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:sensorless_smooth_ooddetection}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llccccccc}
+			\toprule
+			& \textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-sensorless_drive-in-PGD_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-sensorless_drive-in-PGD_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-sensorless_drive-in-PGD_L2-diffE-ood}
+			\midrule
+			\midrule
+			& &\multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-sensorless_drive-out-PGD_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-sensorless_drive-out-PGD_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-sensorless_drive-out-PGD_L2-diffE-ood}			
+        \bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{OOD detection based on differential entropy under PGD uncertainty attacks against differential entropy on ID data and OOD data. Smoothed DBU models  on Segment. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:segment_smooth_ooddetection}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llccccccc}
+			\toprule
+			& \textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-segment-in-PGD_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-segment-in-PGD_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-segment-in-PGD_L2-diffE-ood}
+			\midrule
+			\midrule
+			& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-segment-out-PGD_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-segment-out-PGD_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-segment-out-PGD_L2-diffE-ood}
+		\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+
+
+
+
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{OOD detection based on differential entropy under FGSM uncertainty attacks against differential entropy on ID data and OOD data. Smoothed DBU models  on CIFAR10. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:cifar10_smooth_ooddetection_fgsm}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llccccccc}
+			\toprule
+			& \textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-CIFAR10-in-FGSM_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-CIFAR10-in-FGSM_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-CIFAR10-in-FGSM_L2-diffE-ood}
+			\midrule
+			\midrule
+			& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-CIFAR10-out-FGSM_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-CIFAR10-out-FGSM_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-CIFAR10-out-FGSM_L2-diffE-ood}
+			\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{OOD detection based on differential entropy under FGSM uncertainty attacks against differential entropy on ID data and OOD data. Smoothed DBU models  on MNIST. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:mnist_smooth_ooddetection_fgsm}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llccccccc}
+			\toprule
+			& \textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-MNIST-in-FGSM_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-MNIST-in-FGSM_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-MNIST-in-FGSM_L2-diffE-ood}
+			\midrule
+			\midrule
+			& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-MNIST-out-FGSM_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-MNIST-out-FGSM_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-MNIST-out-FGSM_L2-diffE-ood}
+		\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{OOD detection based on differential entropy under FGSM uncertainty attacks against differential entropy on ID data and OOD data. Smoothed DBU models  on Sensorless. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model)..}
+	\label{tab:sensorless_smooth_ooddetection_fgsm}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llccccccc}
+			\toprule
+			& \textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-sensorless_drive-in-FGSM_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-sensorless_drive-in-FGSM_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-sensorless_drive-in-FGSM_L2-diffE-ood}
+			\midrule
+			\midrule
+			& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-sensorless_drive-out-FGSM_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-sensorless_drive-out-FGSM_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-sensorless_drive-out-FGSM_L2-diffE-ood}
+		\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+
+\begin{table*}[ht!]
+	\centering
+	\caption{OOD detection based on differential entropy under FGSM uncertainty attacks against differential entropy on ID data and OOD data. Smoothed DBU models  on Segment. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:segment_smooth_ooddetection_fgsm}
+	%\begin{tiny}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{llccccccc}
+			\toprule
+			& \textbf{Att. Rad.} & 0.0 &   0.1 &  0.2 &  0.5 &  1.0 &  2.0 \\
+			\midrule
+			& &\multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-segment-in-FGSM_L2-diffE-ood}
+			\midrule
+			%& &\multicolumn{6}{c}{\textbf{ID-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-segment-in-FGSM_L2-diffE-ood}
+			\midrule
+			%& & \multicolumn{6}{c}{\textbf{ID-Attack,}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-segment-in-FGSM_L2-diffE-ood}		
+    \midrule
+			\midrule
+			& &\multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/normal-segment-out-FGSM_L2-diffE-ood}
+			\midrule
+			%& &\multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/adv-segment-out-FGSM_L2-diffE-ood}
+			\midrule
+			%& &\multicolumn{6}{c}{\textbf{OOD-Attack}} \\
+            \input{sections/008_icml2021/tables_v2/unc_adv-segment-out-FGSM_L2-diffE-ood}
+		\bottomrule
+		\end{tabular}}
+	%\end{tiny}
+\end{table*}
+
+
+
+
+
+
+\clearpage
+\subsection{Visualization of differential entropy distributions on ID data and OOD data}
+
+The following Figures visualize the differential entropy distribution for ID data and OOD data for all models with standard training. We used label attacks and uncertainty attacks for CIFAR10 and MNIST. Thus, they show how well the DBU models separate on clean and perturbed ID data and OOD data. 
+
+Figures~\ref{fig:attaked_samples_idood_label_attacks_2} and \ref{fig:attaked_samples_idood_label_attacks_3} visualizes the differential entropy distribution of ID data and OOD data under label attacks. On CIFAR10, \PriorNet and \DDNet can barely distinguish between clean ID and OOD data. We observe a better ID/OOD distinction for \PostNet and \EvNet for clean data. However, we do not observe for any model an increase of the uncertainty estimates on label attacked data. Even worse, \PostNet, \PriorNet and \DDNet seem to assign higher confidence on class label attacks. On MNIST, models show a slightly better behavior. They are capable to assign a higher uncertainty to label attacks up to some attack radius.
+
+Figures~\ref{fig:attaked_samples_idood_2}, \ref{fig:attaked_samples_idood_3}, \ref{fig:attaked_samples_idood_mnist} and \ref{fig:attaked_samples_idood_mnist_2} visualizes the differential entropy distribution of ID data and OOD data under uncertainty attacks. For both CIFAR10 and MNIST data sets, we observed that uncertainty estimations of all models can be manipulated. That is, OOD uncertainty attacks can shift the OOD uncertainty distribution to more certain predictions, and ID uncertainty attacks can shift the ID uncertainty distribution to less certain predictions.
+
+
+\begin{figure*}[ht!]
+    \centering
+        \begin{subfigure}[t]{1.0\textwidth}
+        \centering
+        \includegraphics[width=0.99 \textwidth]{sections/008_icml2021/eval/unc_dist_label_id_cifar10_c.png}
+    \end{subfigure}%
+    \caption{Visualization of the differential entropy distribution of ID data (CIFAR10) and OOD data (SVHN) under label attack. The first row corresponds to no attack. The other rows correspond do increasingly stronger attack strength.}
+    \label{fig:attaked_samples_idood_label_attacks_2}
+	\vspace{-.5cm}
+\end{figure*}
+\newpage
+
+\begin{figure*}[ht!]
+    \centering
+        \begin{subfigure}[t]{1.0\textwidth}
+        \centering
+        \includegraphics[width=0.99 \textwidth]{sections/008_icml2021/eval/unc_dist_label_id_mnist_c.png}
+    \end{subfigure}%
+    \caption{Visualization of the differential entropy distribution of ID data (MNIST) and OOD data (KMNIST) under label attack. The first row corresponds to no attack. The other rows correspond do increasingly stronger attack strength.}
+    \label{fig:attaked_samples_idood_label_attacks_3}
+	\vspace{-.5cm}
+\end{figure*}
+\newpage
+
+\begin{figure*}[ht!]
+    \centering
+        \begin{subfigure}[t]{1.0\textwidth}
+        \centering
+        \includegraphics[width=0.99 \textwidth]{sections/008_icml2021/eval/unc_dist_unc_ood_cifar10_c.png}
+    \end{subfigure}%
+    \caption{Visualization of the differential entropy distribution of ID data (CIFAR10) and OOD data (SVHN) under OOD uncertainty attack. The first row corresponds to no attack. The other rows correspond do increasingly stronger attack strength.}
+    \label{fig:attaked_samples_idood_2}
+	\vspace{-.5cm}
+\end{figure*}
+
+
+\begin{figure*}[ht!]
+    \centering
+        \begin{subfigure}[t]{1.0\textwidth}
+        \centering
+        \includegraphics[width=0.99 \textwidth]{sections/008_icml2021/eval/unc_dist_unc_id_cifar10_c.png}
+    \end{subfigure}%
+    \caption{Visualization of the differential entropy distribution of ID data (CIFAR10) and OOD data (SVHN) under ID uncertainty attack. The first row corresponds to no attack. The other rows correspond do increasingly stronger attack strength.}
+    \label{fig:attaked_samples_idood_3}
+	\vspace{-.5cm}
+\end{figure*}
+
+\begin{figure*}[ht!]
+    \centering
+        \begin{subfigure}[t]{1.0\textwidth}
+        \centering
+        \includegraphics[width=0.99 \textwidth]{sections/008_icml2021/eval/unc_dist_unc_ood_mnist_c.png}
+    \end{subfigure}%
+    \caption{Visualization of the differential entropy distribution of ID data (MNIST) and OOD data (KMNIST) under OOD uncertainty attack. The first row corresponds to no attack. The other rows correspond do increasingly stronger attack strength.}
+    \label{fig:attaked_samples_idood_mnist}
+	\vspace{-.5cm}
+\end{figure*}
+
+
+\begin{figure*}[ht!]
+    \centering
+        \begin{subfigure}[t]{1.0\textwidth}
+        \centering
+        \includegraphics[width=0.99 \textwidth]{sections/008_icml2021/eval/unc_dist_unc_id_mnist_c.png}
+    \end{subfigure}%
+    \caption{Visualization of the differential entropy distribution of ID data (MNIST) and OOD data (KMNIST) under ID uncertainty attack. The first row corresponds to no attack. The other rows correspond do increasingly stronger attack strength.}
+    \label{fig:attaked_samples_idood_mnist_2}
+	\vspace{-.5cm}
+\end{figure*}
+
+
+
+
+
+

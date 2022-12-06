@@ -1,0 +1,99 @@
+\documentclass{article}
+\PassOptionsToPackage{square,numbers}{natbib}
+
+% options
+% none              ready for submission
+% [preprint]        compile preprint version
+% [final]           camera-ready version
+% [nonatbib]        avoid loading natbib package
+\usepackage[final]{neurips_2021}
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{chngcntr}
+\usepackage{amsthm}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+% custom settings and math commands
+\include{include/00-settings}
+\include{include/00-commands}
+%----------------------------------
+
+%\title{Axioms, Bayesian Prediction and Evaluation for Uncertainty Estimation in Graphs}
+\title{\ours{}: Bayesian Predictive Uncertainty for Node Classification}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{
+  Maximilian Stadler\thanks{equal contribution}, Bertrand Charpentier\footnotemark[1], Simon Geisler, Daniel Zügner,\\\textbf{Stephan Günnemann}\\
+  Department of Informatics\\
+  Technical University of Munich, Germany\\
+  \texttt{\{stadlmax, charpent, geisler, zuegnerd, guennemann\}@in.tum.de}\\
+  %\And 
+  %\\
+  %Department of Informatics\\
+  %Technical University of Munich, Germany\\
+  %\texttt{}
+}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{acronym}
+    \acro{PostNet}{Posterior Network}
+    \acro{NatPN}{Natural Posterior Network}
+    \acro{BGCN}{Bayesian Graph Convolutional Network}
+    \acro{RGCN}{Robust Graph Convolutional Network}
+    \acro{LP}{Label Propagation}
+    \acro{GNN}{Graph Neural Network}
+\end{acronym}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+The interdependence between nodes in graphs is key to improve class predictions on nodes and utilized in approaches like \ac{LP} or in \acp{GNN}. Nonetheless, uncertainty estimation for non-independent node-level predictions is under-explored. In this work, we explore uncertainty quantification for node classification in three ways: \textbf{(1)} We derive three axioms explicitly characterizing the expected predictive uncertainty behavior in homophilic attributed graphs. \textbf{(2)} We propose a new model \ours{} (\oursacro{}) which explicitly performs Bayesian posterior updates for predictions on \emph{interdependent} nodes. \oursacro{} provably obeys the proposed axioms. \textbf{(3)} We extensively evaluate \oursacro{} and a strong set of baselines on semi-supervised node classification including detection of anomalous features, and detection of left-out classes. \oursacro{} outperforms existing approaches for uncertainty estimation in the experiments.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frenchspacing
+
+\input{include/01-introduction}
+\input{include/02-related_work}
+\input{include/03-approach}
+\input{include/05-experiment}
+\input{include/06-conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ack}
+This research was supported by the BMW AG, by the Helmholtz Association under the joint research school “Munich School for Data Science - MUDS“, and by a grant from Software Campus through the German Federal Ministry of Education and Research. 
+\end{ack}
+
+\newpage
+
+\bibliography{neurips_2021}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\appendix
+\input{include/xx-appendix}
+
+\newpage
+\input{include/xx-checklist}
+
+\end{document}

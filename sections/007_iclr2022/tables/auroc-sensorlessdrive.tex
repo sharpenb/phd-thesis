@@ -1,0 +1,19 @@
+\begin{table*}[ht]
+    \caption{Sensorless Drive AUC-ROC}
+    \centering
+    \scriptsize
+    \begin{tabular}{lcccc}
+        \toprule
+        & \textbf{9/10 Alea.} & \textbf{9/10 Epist.} & \textbf{OODom Alea.} & \textbf{OODom Epist.} \\
+        \midrule
+        \textbf{Dropout} & 22.08 $\pm$ 2.31 & 39.90 $\pm$ 3.59 & 3.47 $\pm$ 0.52 & 99.06 $\pm$ 0.38 \\
+        \textbf{Ensemble} & 24.30 $\pm$ 1.33 & 37.54 $\pm$ 1.89 & 3.59 $\pm$ 0.59 & 99.95 $\pm$ 0.01 \\
+        \textbf{NatPE} & *91.77 $\pm$ 1.27 & 79.61 $\pm$ 2.96 & 99.97 $\pm$ 0.00 & *100.00 $\pm$ 0.00 \\
+        \midrule
+        \textbf{R-PriorNet} & 54.79 $\pm$ 5.47 & 32.17 $\pm$ 2.50 & \textbf{*100.00 $\pm$ 0.00} & 0.01 $\pm$ 0.00 \\
+        \textbf{EnD$^2$} & 19.25 $\pm$ 2.72 & 11.40 $\pm$ 2.30 & 79.57 $\pm$ 19.89 & 0.00 $\pm$ 0.00 \\
+        \textbf{PostNet} & 86.22 $\pm$ 1.41 & \textbf{*94.10 $\pm$ 0.99} & 99.99 $\pm$ 0.00 & 99.99 $\pm$ 0.00 \\
+        \textbf{\oursacro{}} & \textbf{89.21 $\pm$ 1.91} & 83.51 $\pm$ 3.93 & 99.96 $\pm$ 0.00 & \textbf{*100.00 $\pm$ 0.00} \\
+        \bottomrule
+    \end{tabular}
+\end{table*}

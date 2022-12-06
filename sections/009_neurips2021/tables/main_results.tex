@@ -1,0 +1,47 @@
+\begin{table*}[!h]
+    \centering
+    %\tiny
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{ll|cl|cl|cl}
+        \toprule
+        & \textbf{Model} & \textbf{ID-ACC} & \textbf{OOD-AUC-ROC} & \textbf{OOD-ACC} & \textbf{OOD-AUC-ROC} & \textbf{OOD-ACC} & \textbf{OOD-AUC-ROC} \\
+        & & \multicolumn{2}{c|}{Leave-Out Classes} & \multicolumn{2}{c|}{{$\x\nodeidxv \sim \DBer(0.5)$}} & \multicolumn{2}{c}{$\x\nodeidxv \sim \DNormal(0,1)$} \\
+        \midrule
+        
+        %\hphantom{0}
+        %$\hphantom{00.00}$
+
+        \multirow{6}{*}{CoraML} 
+        & Matern-GGP & ${87.03}$ & ${83.13}$  /  ${82.98}$  /  $n.a.$ & $n.a.$ & $\hphantom{00.00}$ $n.a.$ $\hphantom{00.00}$ & $n.a.$ & $\hphantom{00.00}$ $n.a.$ $\hphantom{00.00}$ \\
+        & VGCN-Dropout & ${89.08}$ & ${81.27}$ / ${71.65}$ / $n.a.$ & ${77.76}$ & ${62.06}$ / ${50.38}$ / $n.a.$ & ${18.28}$ & ${40.53}$ / ${{71.06}}$ / $n.a.$\\
+        & VGCN-Energy & ${89.66}$ & ${81.70}$ / ${83.15}$ / $n.a.$ & ${78.90}$ & ${{63.68}}$ / ${{66.26}}$ / $n.a.$ & ${18.37}$ & ${\hphantom{0}9.34}$ / ${\hphantom{0}0.32}$ / $n.a.$\\
+        & VGCN-Ensemble & ${\mathbf{89.87}}$ & ${81.85}$ / ${74.24}$ / $n.a.$ & ${78.00}$ & ${63.58}$ / ${56.81}$ / $n.a.$ & ${21.00}$ & ${33.72}$ / ${64.92}$ / $n.a.$\\
+        & GKDE-GCN & ${89.33}$ & ${82.23}$ / ${82.09}$ / $n.a.$ & ${76.40}$ & ${61.74}$ / ${63.15}$ / $n.a.$ & ${16.86}$ & ${40.03}$ / ${\hphantom{0}1.42}$ / $n.a.$\\
+        & GPN & ${88.51}$ & ${{83.25}}$ / ${\mathbf{86.28}}$ / ${{80.95}}$ & ${\mathbf{80.98}}$ & ${57.99}$ / ${55.23}$ / ${\mathbf{89.47}}$ & ${\mathbf{81.53}}$ & ${55.96}$ / ${56.51}$ / ${\mathbf{100.00}}$\\
+
+        \midrule
+
+        \multirow{6}{*}{\shortstack{Amazon \\ Photos}}
+        & Matern-GGP & ${88.65}$ & ${{87.26}}$ / ${86.75}$ / $n.a.$ & $n.a.$ & $\hphantom{00.00}$ $n.a.$ $\hphantom{00.00}$ & $n.a.$ & $\hphantom{00.00}$ $n.a.$ $\hphantom{00.00}$\\
+        & VGCN-Dropout & ${94.04}$ & ${80.90}$ / ${70.11}$ / $n.a.$ & ${83.86}$ & ${56.85}$ / ${55.04}$ / $n.a.$ & ${22.29}$ & ${49.11}$ / ${66.74}$ / $n.a.$\\
+        & VGCN-Energy & ${94.24}$ & ${82.44}$ / ${79.64}$ / $n.a.$ & ${83.91}$ & ${57.91}$ / ${59.07}$ / $n.a.$ & ${21.40}$ & ${31.07}$ / ${\hphantom{0}6.42}$ / $n.a.$\\
+        & VGCN-Ensemble & ${\mathbf{94.28}}$ & ${82.72}$ / ${88.53}$ / $n.a.$ & ${84.40}$ & ${57.86}$ / ${56.01}$ / $n.a.$ & ${20.30}$ & ${44.14}$ / ${69.01}$ / $n.a.$\\
+        & GKDE-GCN & ${89.84}$ & ${73.65}$ / ${69.09}$ / $n.a.$ & ${73.17}$ & ${57.01}$ / ${58.00}$ / $n.a.$ & ${24.04}$ & ${24.45}$ / ${\hphantom{0}9.82}$ / $n.a.$\\
+        & GPN & ${94.01}$ & ${82.72}$ / ${\mathbf{91.98}}$ / ${76.57}$ & ${\mathbf{87.47}}$ & ${56.25}$ / ${60.52}$ / $\mathbf{75.24}$ & ${\mathbf{88.29}}$ & ${51.89}$ / ${61.89}$ / $\mathbf{100.00}$\\
+        
+        \midrule
+        
+        \multirow{6}{*}{\shortstack{OGBN \\ Arxiv}}
+        & Matern-GGP & $n.f.$ & $\hphantom{00.00}$ $n.f.$ $\hphantom{00.00}$ & $n.f.$ &$ \hphantom{00.00}$ $n.f.$ $\hphantom{00.00}$ & $n.f.$ & $\hphantom{00.00}$ $n.f.$ $\hphantom{00.00}$\\
+        & VGCN-Dropout & ${75.47}$ & ${65.35}$ / ${64.24}$ / $n.a.$ & ${65.30}$ & ${48.11}$ / ${50.64}$ / $n.a.$ & ${49.90}$ & ${{60.10}}$ / ${62.87}$ / $n.a.$\\
+        & VGCN-Energy & ${75.61}$ & ${64.91}$ / ${64.50}$ / $n.a.$ & ${65.70}$ & ${46.16}$ / ${48.54}$ / $n.a.$ & ${{51.30}}$ & ${53.83}$ / ${48.53}$ / $n.a.$\\
+        & VGCN-Ensemble & ${\mathbf{76.12}}$ & ${65.93}$ / ${70.77}$ / $n.a.$ & ${\mathbf{67.00}}$ & ${45.99}$ / ${47.41}$ / $n.a.$ & ${49.00}$ & ${59.94}$ / ${{66.44}}$ / $n.a.$\\
+        & GKDE-GCN & ${73.89}$ & ${{68.84}}$ / ${72.44}$ / $n.a.$ & ${65.20}$ & ${{50.98}}$ / ${{51.31}}$ / $n.a.$ & ${45.40}$ & ${53.94}$ / ${55.28}$ / $n.a.$\\
+        & GPN & ${73.84}$ & ${66.33}$ / ${\mathbf{74.82}}$ / ${{62.17}}$ & ${65.50}$ & ${{51.49}}$ / ${{55.82}}$ / ${\mathbf{93.05}}$ & ${\mathbf{65.50}}$ & ${51.43}$ / ${55.85}$ / ${\mathbf{95.54}}$\\
+        \bottomrule
+    \end{tabular}
+    }
+    \caption{LOC and Feature Perturbations: Accuracy is reported on ID nodes for LOC experiments and on OOD nodes for feature perturbation experiments. OOD-AUC-ROC scores are given as \emph{[Alea w/ Net] / [Epist w/ Net] / [Epist w/o Net]}. $n.a.$ means either model or metric not applicable and $n.f.$ means not finished within our constraints.}
+    \label{tab:ood_short}
+    \vspace{-3mm}
+\end{table*}

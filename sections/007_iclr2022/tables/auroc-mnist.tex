@@ -1,0 +1,44 @@
+\begin{table*}[ht]
+    \centering
+    \caption{MNIST - OOD detection with AUC-ROC scores. Bold numbers indicate best score among single-pass models. Starred numbers indicate best scores among all models. Gray numbers indicate that R-PriorNet has seen samples from the Fashion-MNIST dataset during training.}
+    \label{tab:auroc-mnist}
+    \scriptsize
+    \begin{tabular}{lcccccc}
+        \toprule
+        & \textbf{K. Alea.} & \textbf{K. Epist.} & \textbf{F. Alea.} & \textbf{F. Epist.} & \textbf{OODom Alea.} & \textbf{OODom Epist.} \\
+        \midrule
+        \textbf{Dropout} & 98.12 $\pm$ 0.05 & 97.16 $\pm$ 0.11 & *99.26 $\pm$ 0.03 & 96.87 $\pm$ 0.25 & 15.19 $\pm$ 1.70 & 88.16 $\pm$ 0.59 \\
+        \textbf{Ensemble} & 98.17 $\pm$ 0.07 & 98.03 $\pm$ 0.05 & 99.15 $\pm$ 0.07 & 98.04 $\pm$ 0.11 & 11.83 $\pm$ 1.81 & 81.53 $\pm$ 0.38 \\
+        \textbf{NatPE} & 98.25 $\pm$ 0.27 & 99.48 $\pm$ 0.03 & 98.79 $\pm$ 0.33 & *99.61 $\pm$ 0.07 & *100.00 $\pm$ 0.00 & *100.00 $\pm$ 0.00 \\
+        \midrule
+        \textbf{R-PriorNet} & \textbf{*99.44 $\pm$ 0.09} & \textbf{*99.59 $\pm$ 0.08} & \textcolor{gray}{100.00 $\pm$ 0.00} & \textcolor{gray}{100.00 $\pm$ 0.00} & 99.44 $\pm$ 0.16 & 1.82 $\pm$ 0.67 \\
+        \textbf{EnD$^2$} & 98.21 $\pm$ 0.16 & 98.65 $\pm$ 0.15 & 99.06 $\pm$ 0.20 & 99.21 $\pm$ 0.17 & 56.31 $\pm$ 2.78 & 4.60 $\pm$ 1.89 \\
+        \textbf{PostNet} & 98.73 $\pm$ 0.05 & 98.62 $\pm$ 0.06 & 98.65 $\pm$ 0.35 & 98.57 $\pm$ 0.34 & \textbf{*100.00 $\pm$ 0.00} & \textbf{*100.00 $\pm$ 0.00} \\
+        \textbf{\oursacro{}} & 99.11 $\pm$ 0.17 & 99.25 $\pm$ 0.09 & \textbf{99.13 $\pm$ 0.24} & \textbf{99.45 $\pm$ 0.11} & 99.98 $\pm$ 0.01 & \textbf{*100.00 $\pm$ 0.00} \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
+
+% \begin{table*}[ht]
+%     \centering
+%     \scriptsize
+%     \resizebox{\textwidth}{!}{
+%     \begin{tabular}{lcccccccc}
+%         \toprule
+%         & \textbf{Accuracy} & \textbf{Brier} & \textbf{M. Alea.} & \textbf{M. Epist.} & \textbf{K. Alea.} & \textbf{K. Epist.} & \textbf{OODom Alea.} & \textbf{OODom Epist.} \\
+%         \midrule
+%         \textbf{Dropout} & 92.44 $\pm$ 0.17 & 13.89 $\pm$ 0.31 & 60.75 $\pm$ 1.41 & 75.85 $\pm$ 1.73 & 76.57 $\pm$ 1.30 & 92.48 $\pm$ 0.46 & 39.97 $\pm$ 0.69 & 90.90 $\pm$ 1.74 \\
+%         \textbf{Ensemble} & 92.64 $\pm$ 0.10 & 13.63 $\pm$ 0.25 & 77.14 $\pm$ 1.49 & 90.78 $\pm$ 0.75 & 86.20 $\pm$ 0.76 & 95.16 $\pm$ 0.35 & 37.30 $\pm$ 0.83 & 82.93 $\pm$ 0.96 \\
+%         \textbf{NatPE} & *92.89 $\pm$ 0.06 & 14.44 $\pm$ 0.06 & 82.56 $\pm$ 0.33 & 96.38 $\pm$ 0.29 & 92.12 $\pm$ 0.17 & *98.79 $\pm$ 0.09 & *100.00 $\pm$ 0.00 & *100.00 $\pm$ 0.00 \\
+%         \midrule
+%         \textbf{R-PriorNet} & 91.53 $\pm$ 0.10 & \textbf{*12.21 $\pm$ 0.20} & \textbf{*98.83 $\pm$ 0.49} & \textbf{*99.54 $\pm$ 0.18} & \textcolor{gray}{99.96 $\pm$ 0.02} & \textcolor{gray}{99.99 $\pm$ 0.00} & 72.23 $\pm$ 6.32 & 48.84 $\pm$ 6.09 \\
+%         \textbf{EnD$^2$} & \textbf{91.84 $\pm$ 0.03} & 29.23 $\pm$ 0.79 & 79.32 $\pm$ 1.39 & 91.61 $\pm$ 1.04 & 91.99 $\pm$ 0.06 & 98.36 $\pm$ 0.20 & 43.70 $\pm$ 3.37 & 36.73 $\pm$ 3.74 \\
+%         \textbf{PostNet} & 91.04 $\pm$ 0.10 & 16.11 $\pm$ 0.30 & 90.56 $\pm$ 1.25 & 92.10 $\pm$ 1.77 & \textbf{*96.65 $\pm$ 0.33} & 97.06 $\pm$ 0.42 & \textbf{*100.00 $\pm$ 0.00} & \textbf{*100.00 $\pm$ 0.00} \\
+%         \textbf{\oursacro{}} & 91.65 $\pm$ 0.14 & 14.88 $\pm$ 0.30 & 81.12 $\pm$ 2.77 & 96.51 $\pm$ 0.81 & 93.03 $\pm$ 1.00 & \textbf{98.38 $\pm$ 0.23} & 99.99 $\pm$ 0.01 & \textbf{*100.00 $\pm$ 0.00} \\
+%         \bottomrule
+%     \end{tabular}
+%     }
+%     \caption{MNIST - OOD detection with AUC-ROC scores. Bold numbers indicate best score among single-pass models. Starred numbers indicate best scores among all models. Gray numbers indicate that R-PriorNet has seen samples from the Fashion-MNIST dataset during training.}
+%     \label{tab:auroc-mnist}
+% \end{table*}
+

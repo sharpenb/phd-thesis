@@ -1,0 +1,56 @@
+
+
+
+%\section{\ours{}}
+%\label{sec:ngpn}
+%Building upon the axioms presented in the previous section, this section will show our approach of \ours{} which follows principles introduced in the family of \acp{PostNet} \citep{Charpentier2020} and \acp{NatPN} \citep{NatPN2021}. Those approaches incorporate the idea of the Bayesian update rule. Instead of predicting the parameters of a target distribution $\prob(\data|\param)$ directly, the proposed updates introduce a prior over those parameters $\prior(\param)$ which is used to obtain the posterior distribution of those parameters $\prior(\param|\data)$. This allows introducing default prior beliefs for the case of uncertain observations and assigns each prediction an inherent confidence score. For the case of node classification, we are interested in the target distribution $\y\nodeidxv \sim \DCat(\p\nodeidxv)$ for each node $\nodev$. A natural choice for the prior distribution is the Dirichlet distribution $\DDir(\valpha^{prior})$. With a set of observed class counts $\vbeta^{data}$ similarly to \citep{Charpentier2020}, we would obtain the posterior distribution $\p\nodeidxv \sim \DDir(\valpha^{post}) = \DDir(\valpha^{prior} + \vbeta^{data})$. Expressing the parameters of the Dirichlet distribution in its natural form with certain sufficient statistics $\suffstat$ and an evidence score $\evidence$, i.e. $\valpha = \evidence \cdot \suffstat$, we obtain an update similar to \citep{NatPN2021} for each node $\nodev$. 
+%\begin{equation}
+%    \label{eq:ngpn_update}
+%    \priorparam\namednodeidxv{\text{post}} = \frac{\evidence^\text{prior}\priorparam^\text{prior} + \evidence\nodeidxv \priorparam\nodeidxv}{\evidence^\text{prior} + \evidence\nodeidxv}, \quad \evidence\namednodeidxv{\text{post}} = \evidence^\text{prior} + \evidence\nodeidxv
+%\end{equation}
+
+%\subsection{Input-Dependent Bayesian Update} \label{subsec:node_evidence}
+%Given that framework, the key contribution of \acp{PostNet} and \acp{NatPN} is an input-dependent Bayesian update. To facilitate that, a density estimation approach is used to estimate $\prob(\genlatent^{(i)}$ as proxy for each input $\x^{(i)}$ which is transformed into an evidence score $\evidence^{(i)}$. The sufficient statistics $\suffstat^{(i)}$ are obtained using the same latent representation $\genlatent^{(i)}$. For the graph setting, we propose a hierarchical decomposition of the evidence. Following the axioms of uncertainty, the evidence should increase when neighbors are more certain about their feature representation and their neighborhood. To do so, we model a node evidence $\prob(\nodereprv)$ by taking inspiration from generative models. Approaches like \citep{Bojchevski2018a} often adopt a global view for a graph generating distribution $\prob(\features, \adj)$ which factorizes given some latent variables $\genlatent$, i.e. $\prob(\features, \adj) = \sum_{\genlatent} \prob(\features, \adj, \genlatent) = \sum_{\genlatent} \prob(\features \condition \genlatent)\prob(\adj \condition \genlatent)\prob(\genlatent)$. In the case of node classification, those latent variable can be seen as class indicator variables. We adopt this to a local point of view, where each node is represented through its feature vector $\x\nodeidxu$ and a set of neighbors $\neighbors(u)$ (including the node itself) leading to the joint likelihood $\prob(\x\nodeidxu, \neighbors(u))$ representing an isolated estimate of a node's likelihood. Introducing unobserved class indicators $\iclass$, and given the conditional independence on those, we have
+%    \begin{equation} \label{eq:node_likelihood}
+%        \prob(\noderepru) = \prob(\x\nodeidxu, \neighbors(\nodeu)) = \sum_{\iclass=1}^\nclass\prob(\x\nodeidxu, \neighbors(\nodeu), c) = \sum_{\iclass=1}^\nclass \prob(\x\nodeidxu \condition c) \prob(\sN(u) \condition c) \prob(c)
+%    \end{equation}
+
+%\paragraph{Node Evidence} A final likelihood estimate of a node $\nodev$ considering global effects is obtained through a posterior update. Given the a representation of a node as random variable combining the influence of its features and its neighborhood, we are interested the global likelihood of a node. $\nodeu$ influences each other node $\nodev$ through an influence distribution $\prob(\nodereprv \condition \noderepru)$, i.e. $\prob(\postnodereprv) = \int \prob(\nodereprv \condition \noderepru) \prob(\noderepru) d\nodeu$, degenerate case of finite-amount observed nodes, i.e.  $\prob(\nodereprv \condition \noderepru) = 0$ for realizations of nodes not being observed, and  $\prob(\nodereprv \condition \noderepru) = \pprelem_{v,u}$ for observed nodes, i.e. random walk (likelihood of ending up at a certain node given the staring node 
+    
+%Laying ground by theoretical considerations above, we estimate the mentioned densities through a set of class-conditional Normalizing Flows given a latent embedding of a node's features $\z\namednodeidxu{ft}$ and a neighborhood embedding for each node $\z\namednodeidxu{nn}$,, i.e. $\prob(\z\namednodeidxu{ft} \condition \iclass, \flowparam^{ft})$ and $\prob(\z\namednodeidxu{nn} | \iclass, \flowparam^{nn})$
+%\begin{equation}\label{eq:node_evidence}
+%    \evidence\nodeidxv = N \cdot \sum_{\nodeu \in \neighbors(\nodev)} \pprelem_{v, u} \cdot \prob(\nodeu)
+%\end{equation}
+
+%budget: $N = N_H \cdot N_H \cdot C$, i.e. $N_H$ to account for the decreasing density with increasing latent dimension, $C$ for similar effect with the number of classes
+
+%\textbf{weighted GNN aggregations} the sufficient statistics $\suffstat\nodeidxv$ are obtained from a robust GNN. In particular, we consider APPNP \citep{Klicpera2018} as backbone architecture for the task of classification. We use the first layer to obtain the latent embedding $\z\namednodeidxv{ft}$ while the second layer is used to obtain sufficient statistics for each node together with a robust aggregation scheme. Following other approaches like RGCN\citep{Zhu2019} or UAT\citep{Feng2020}), this is achieved by introducing uncertainty weights $w^{(u), ft}$ and $w^{(u), nn}$ effectively weighting down uncertain features or nodes in uncertain neighborhoods avoiding the propagation of uncertain information potentially harmful to other nodes. Following those approaches, a similar exponential weighting transformation is adopted to obtain weights $w \in [0, 1]$, i.e. $w^{x, (u)} = 1 - exp(-\evidence^{(u), x})$ with $x \in \{ft, nn\}$ with $\evidence^{nn, (u)} = N_H \prob(\z^{nn, (u)})$ and with $\evidence^{ft, (u)} = N_H \prob(\z^{ft, (u)})$ with the feature and neighborhood evidence terms obtained in a similar fashion as the node evidence by marginalising corresponding terms. For the case of APPNP, we weight each node in the propagation with $w^{(u), ft} \cdot w^{(u), nn}$. 
+
+
+%\paragraph{Axioms fulfilled}
+%\begin{itemize}
+%    \item absence of neighborhood effects, influence scores $\pprelem_{v, u} = \delta_{v, u}$, prediction and evidence for each node only depends on node itself
+%    \item stubborn neighbors (i.e. larger evidence) are more convincing by construction as sufficient statistics associated to neighbors with a larger evidence have a larger influence in the aggregation
+%    \item stubborn neighbors make you more stubborn, also per construction as the increase of a node's evidence leads to an increase in the target node's evidence
+%    \item role of neighborhood: while reverting back to some proxy, the more likely the neighborhood is, the more evidence is propagated, nodes in less likely neighborhoods propagate less information
+%    \item also: like PostNet, evidence to 0 corresponds to a revision back to the prior, evidence to infinity corresponds to relying on the likelihood estimates
+%\end{itemize}
+
+%\paragraph{Ensemble of Nodes. } By using equation \eqref{eq:node_evidence} and introducing a budget for each node that is distributed among that node's neighbors according to the influence scores, i.e. $\nodev$ $N_{v, u} = \pprelem_{v, u} \cdot N$, resulting into the evidence $\evidence^{(\nodev, \nodeu)} = N_{v,u} \cdot \prob(\nodeu)$, we obtain the following expression for the posterior sufficient statistics and evidence.  
+%\begin{equation}
+%    \label{eq:gpn_update}
+%    \suffstat^{post, (\nodev)} = \frac{\evidence^{prior}\suffstat^{prior} + \sum_{u \in \sN(v)} \evidence^{(v, u)} \suffstat^{(\nodeu)}}{\evidence^{prior} + \sum_{u' \in \neighbors(v)} \evidence^{(v, u')}}, \quad \evidence^{post, (\nodev)} = \evidence^{prior} + \sum_{\nodeu \in \neighbors(\nodev)} \evidence^{(v, u)}
+%\end{equation}
+%i.e. our proposed update can be seen as an ensemble of nodes $\nodeu \in \neighbors(\nodev)$ voting for the prediction of node $\nodev$
+
+
+%\subsection{Optimization}
+%\paragraph{Bayesian Loss} We follow \citet{Charpentier2020} and optimize the proposed model by minimizing the following Bayesian loss
+%\begin{equation}
+%    \loss\nodeidxv = -\ExpecationArgs{\p\nodeidxv\sim \prior\namednodeidxv{post}}{\log \prob(\y\nodeidxv \condition \p\nodeidxv)} - \Entropy{\prior\namednodeidxv{post}}
+%\end{equation}
+
+%\paragraph{Optimization Scheme} joint training, ..., We also observed that "warm-up" training for a certain amount is helpful. We set the number of epochs in this phase to an empirically determined value that depends on the dataset and usually coincides with the model leaving an initial plateau. also, auxiliary loss, enforcing the mixture models to focus on certain classes only by incorporating class information from training labels 
+%\begin{equation}
+%    \loss\namednodeidxv{aux} = - \frac{\lambda}{2}\left( \log \prob(\z\namednodeidxv{ft} \condition c\namednodeidxv{*}, \flowparam^{ft}) + \log (\prob(\z\namednodeidxv{nn} \condition c\namednodeidxv{*}, \flowparam^{nn}) \right)
+%\end{equation}

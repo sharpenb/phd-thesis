@@ -1,0 +1,19 @@
+\begin{table*}[ht]
+    \centering
+    \scriptsize
+    \resizebox{0.95\textwidth}{!}{
+    \begin{tabular}{lcccccccc}
+        \toprule
+        & \textbf{Accuracy} & \textbf{Brier} & \textbf{SVHN Alea.} & \textbf{SVHN Epist.} & \textbf{CelebA Alea.} & \textbf{CelebA Epist.} & \textbf{OODom Alea.} & \textbf{OODom Epist.} \\
+        \midrule
+        \textbf{Ensemble} & *73.98 & *40.87 & *77.08 & 15.91 & *70.90 & 17.15 & 8.89 & 99.87 \\
+        \midrule
+        \textbf{PostNet} & 60.30 & \textbf{56.47} & 68.51 & \textbf{*57.54} & 55.57 & \textbf{*37.38} & 99.87 & 99.87 \\
+        \textbf{\oursacro{}} & \textbf{63.74} & 59.24 & \textbf{70.84} & 22.84 & \textbf{58.13} & 17.08 & \textbf{*99.91} & \textbf{*99.93} \\
+        \bottomrule
+    \end{tabular}
+    }
+    \caption{Results on Tiny-ImageNet (classification with Categorical target distribution). Best scores among all single-pass models are in bold. Best scores among all models are starred. Gray numbers indicate that R-PriorNet has seen samples from the FMNIST dataset during training.}
+    \label{tab:mnist}
+            \vspace{-.3cm}
+\end{table*}

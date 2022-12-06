@@ -1,0 +1,176 @@
+%% comments %%
+\newcommand\dz[1]{\textcolor{violet}{(DZ: #1)}}
+\newcommand\bc[1]{\textcolor{blue}{(BC: #1)}}
+\newcommand\sg[1]{\textcolor{green}{(SG: #1)}}
+\newcommand\sge[1]{\textcolor{orange}{(SGE: #1)}}
+\newcommand\ms[1]{\textcolor{red}{(MS: #1)}}
+
+
+%% generic math notations %%
+% Random variables
+\newcommand{\rvar}[1]{\textnormal{#1}}
+% Random vectors
+\newcommand{\rvec}[1]{\mathbf{#1}}
+% Elements of random vectors
+\newcommand{\rvecelem}[1]{\textnormal{#1}}
+% Random matrices
+\newcommand{\rmat}[1]{\mathbf{#1}}
+% Elements of random matrices
+\newcommand{\rmatelem}[1]{\textnormal{#1}}
+% vectors
+\newcommand{\vect}[1]{\bm{#1}}
+% matrices
+\newcommand{\mat}[1]{\bm{#1}}
+% entries of vectors are simply scalars
+% entries of matrices are simply scalars
+% sets
+\newcommand{\set}[1]{\mathcal{#1}}
+
+
+%% short-hand notations %%
+% short-hand for epsilon
+\def\eps{{\epsilon}}
+% short-hand notations for vectors
+\def\veczero{\vect{0}}
+\def\vecone{\vect{1}}
+\def\va{\vect{a}}
+\def\ve{\vect{e}}
+\def\vh{\vect{h}}
+\def\vi{\vect{i}}
+\def\vn{\vect{n}}
+\def\vp{\vect{p}}
+\def\vu{\vect{u}}
+\def\vw{\vect{w}}
+\def\vx{\vect{x}}
+\def\vy{\vect{y}}
+\def\vz{\vect{z}}
+\def\valpha{\vect{\alpha}}
+\def\vbeta{\vect{\beta}}
+\def\vpi{\vect{\pi}}
+\def\vpsi{\vect{\psi}}
+\def\vphi{\vect{\phi}}
+\def\vmu{\vect{\mu}}
+\def\vtheta{\vect{\theta}}
+\def\vomega{\vect{\omega}}
+\def\vchi{\vect{\chi}}
+% short-hand notation for matrices
+\def\mA{\mat{A}}
+\def\mE{\mat{E}}
+\def\mH{\mat{H}}
+\def\mI{\mat{I}}
+\def\mW{\mat{W}}
+\def\mX{\mat{X}}
+\def\mY{\mat{Y}}
+\def\mZ{\mat{Z}}
+% short-hand notation for graphs
+\def\sG{\set{G}}
+\def\sN{\set{N}}
+\def\sE{\set{E}}
+\def\sU{\set{U}}
+\def\sV{\set{V}}
+\def\sY{\set{Y}}
+\def\sL{\set{L}}
+\def\sT{\set{T}}
+
+
+%% math operators %%
+\DeclareMathOperator{\DBer}{Ber}
+\DeclareMathOperator{\DCat}{Cat}
+\DeclareMathOperator{\DDir}{Dir}
+\DeclareMathOperator{\DBeta}{Beta}
+\DeclareMathOperator{\DGamma}{\Gamma}
+\DeclareMathOperator{\DNIG}{\mathcal{N}\Gamma^{-1}}
+\DeclareMathOperator{\DNormal}{\mathcal{N}}
+\DeclareMathOperator{\DPoi}{Poi}
+\DeclareMathOperator{\corpus}{\mathbb{K}}
+\DeclareMathOperator{\real}{\mathbb{R}}
+\DeclareMathOperator{\posinteger}{\mathbb{N}}
+\DeclareMathOperator{\integer}{\mathbb{Z}}
+\DeclareMathOperator{\complex}{\mathbb{C}}
+\DeclareMathOperator{\prob}{\mathbb{P}}
+\DeclareMathOperator{\prior}{\mathbb{Q}}
+\DeclareMathOperator{\entropy}{\mathbb{H}}
+\DeclareMathOperator{\expectation}{\mathbb{E}}
+\DeclareMathOperator{\kld}{KL}
+\DeclareMathOperator{\js}{JS}
+\DeclareMathOperator{\variance}{Var}
+\DeclareMathOperator{\covariance}{Cov}
+\DeclareMathOperator{\loss}{\mathcal{L}}
+\DeclareMathOperator{\data}{\mathcal{D}}
+\DeclareMathOperator{\Enc}{Enc}
+\DeclareMathOperator{\Dec}{Dec}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Tr}{Tr}
+
+
+%% math notations %%
+\newcommand{\condition}{\ensuremath{\,|\,}}
+\newcommand{\concat}{\ensuremath{\;||\;}}
+\newcommand{\ceil}[1]{\lceil #1 \rceil}
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+\newcommand{\KLD}[2]{\kld\left(#1\;\delimsize\|\;#2\right)}
+\newcommand{\JSD}[2]{\jsdleft(#1\;\delimsize\|\;#2\right)}
+\newcommand{\Expecation}[1]{\expectation\left[#1\right]}
+\newcommand{\ExpecationArgs}[2]{\expectation_{#1}\left[#2\right]}
+\newcommand{\Entropy}[1]{\entropy\left[#1\right]}
+\newcommand{\EntropyArgs}[2]{\entropy_{#1}\left[#2\right]}
+\newcommand{\normlzero}{L^0}
+\newcommand{\normlone}{L^1}
+\newcommand{\normltwo}{L^2}
+\newcommand{\normlp}{L^p}
+\newcommand{\normmax}{L^\infty}
+
+
+%% abbreviations %%
+\newcommand\ours{Graph Posterior Network}
+\newcommand\oursacro{GPN}
+
+\newcommand\x{\vx}
+\newcommand\z{\vz}
+\newcommand\y{y}
+\newcommand\p{\vp}
+\newcommand\unc{u}
+\newcommand\expparam{\bm{\theta}}
+\newcommand\priorparam{\bm{\chi}}
+\newcommand\evidence{n}
+\newcommand\genlatent{\vect{\zeta}}
+\newcommand\suffstat{\bm{\chi}}
+\newcommand{\inputdim}{D}
+\newcommand{\latentdim}{H}
+\newcommand{\suffstatdim}{L}
+\newcommand\nnodes{N}
+\newcommand\nodeu{u}
+\newcommand\nodev{v}
+\newcommand\nodew{w}
+\newcommand\noderepru{\hat{u}}
+\newcommand\nodereprv{\hat{v}}
+\newcommand\postnoderepru{\tilde{\hat{u}}}
+\newcommand\postnodereprv{\tilde{\hat{v}}}
+\newcommand\nodeidxu{^{(u)}}
+\newcommand\nodeidxv{^{(v)}}
+\newcommand\namednodeidxu[1]{^{#1, (u)}}
+\newcommand\namednodeidxv[1]{^{#1, (v)}}
+\newcommand\iclass{c}
+\newcommand\nclass{C}
+\newcommand\targets{\sY}
+\newcommand\graph{\sG}
+\newcommand\vertices{\sV}
+\newcommand\edges{\sE}
+\newcommand\neighbors{\sN}
+\newcommand\nodeslabeled{\sT}
+\newcommand\nodesunlabeled{\sU}
+\newcommand\adj{\mA}
+\newcommand\features{\mX}
+\newcommand\adjobs{\adj_{obs}}
+\newcommand\param{\bm{\theta}}
+\newcommand\modelparam{\vomega}
+\newcommand\flowparam{\vphi}
+\newcommand\decoderparam{\vpsi}
+\newcommand\ppr{\mat{\Pi}^{ppr}}
+\newcommand\pprelem{\Pi^{ppr}}
+
+\newtheorem{theorem}{Theorem}
+\counterwithin*{theorem}{section}
+\newtheorem{lemma}{Lemma}
