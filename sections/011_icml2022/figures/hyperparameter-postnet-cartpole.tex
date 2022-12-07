@@ -1,0 +1,26 @@
+\begin{figure}
+\centering
+    \begin{subfigure}{.3\textwidth}
+        \includegraphics[width=\textwidth]{sections/011_icml2022/resources/CartPole-v0-mean_reward_-testing-hyperparameter-flow_length-postnet.png}  
+    \end{subfigure}
+        \begin{subfigure}{.3\textwidth}
+        \includegraphics[width=\textwidth]{sections/011_icml2022/resources/CartPole-v0-mean_reward_-testing-hyperparameter-latent_dim-postnet.png}  
+    \end{subfigure}
+        \begin{subfigure}{.3\textwidth}
+        \includegraphics[width=\textwidth]{sections/011_icml2022/resources/CartPole-v0-mean_reward_-testing-hyperparameter-bn-postnet.png}  
+    \end{subfigure}
+    
+    \begin{subfigure}{.3\textwidth}
+        \includegraphics[width=\textwidth]{sections/011_icml2022/resources/CartPoleOOD-v0-AUC-ROC-epistemic_-testing-hyperparameter-flow_length-postnet.png}
+    \end{subfigure}
+    \begin{subfigure}{.3\textwidth}
+        \includegraphics[width=\textwidth]{sections/011_icml2022/resources/CartPoleOOD-v0-AUC-ROC-epistemic_-testing-hyperparameter-latent_dim-postnet.png}
+    \end{subfigure}
+        \begin{subfigure}{.3\textwidth}
+        \includegraphics[width=\textwidth]{sections/011_icml2022/resources/CartPoleOOD-v0-AUC-ROC-epistemic_-testing-hyperparameter-bn-postnet.png}
+    \end{subfigure}        
+    \vspace{-3mm}
+    \caption{Hyper-parameter study for PostNet w.r.t. the flow depth $d$, the latent dimension $H$ and the the batch norm layer. Ideally, an uncertainty aware-model should achieve high reward and high OOD detection scores.}
+    \label{fig:hyperparameter-postnet-cartpole}
+    \vspace{-4mm}
+\end{figure}

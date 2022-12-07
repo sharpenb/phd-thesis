@@ -1,0 +1,59 @@
+\newcommand{\condition}{\ensuremath{\,|\,}}
+\newcommand{\concat}{\ensuremath{\;||\;}}
+
+%% Text %%
+\newcommand\dz[1]{\textcolor{violet}{(DZ: #1)}}
+\newcommand\bc[1]{\textcolor{blue}{#1}}
+\newcommand\sg[1]{\textcolor{green}{(SG: #1)}}
+
+\newcommand\ours{Framework for Uncertainty in RL}
+\newcommand\oursacro{FURL}
+
+%% Math %%
+\newcommand\x{\bm{x}}
+\newcommand\s{\bm{s}}
+\newcommand\z{\bm{z}}
+\newcommand\expparam{\bm{\theta}}
+\newcommand\priorparam{\bm{\chi}}
+\newcommand\evidence{n}
+\newcommand\y{y}
+\newcommand{\inputdim}{D}
+\newcommand{\latentdim}{H}
+\newcommand{\suffstatdim}{L}
+\newcommand\idata{i\xspace}
+\newcommand\ndata{N\xspace}
+\newcommand\tdata{t\xspace}
+\newcommand\Tdata{T\xspace}
+\newcommand\dataix{^{(\idata)}}
+\newcommand\datatx{^{(\tdata)}}
+\newcommand\iclass{c\xspace}
+\newcommand\nclass{C\xspace}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\DeclareMathOperator{\DCat}{Cat}
+\DeclareMathOperator{\DDir}{Dir}
+\DeclareMathOperator{\DBeta}{Beta}
+\DeclareMathOperator{\DGamma}{\Gamma}
+\DeclareMathOperator{\DNIG}{\mathcal{N}\Gamma^{-1}}
+\DeclareMathOperator{\DNormal}{\mathcal{N}}
+\DeclareMathOperator{\DPoi}{Poi}
+\DeclareMathOperator{\corpus}{\mathbb{K}}
+\DeclareMathOperator{\real}{\mathbb{R}}
+\DeclareMathOperator{\posinteger}{\mathbb{N}}
+\DeclareMathOperator{\prob}{\mathbb{P}}
+\DeclareMathOperator{\prior}{\mathbb{Q}}
+\DeclareMathOperator{\entropy}{\mathbb{H}}
+\DeclareMathOperator{\expectation}{\mathbb{E}}
+\DeclareMathOperator{\variance}{Var}
+\DeclareMathOperator{\loss}{\mathcal{L}}
+\DeclareMathOperator{\data}{\mathcal{D}}
+\DeclareMathOperator{\Enc}{Enc}
+\DeclareMathOperator{\Dec}{Dec}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\policy}{\pi}
+
+\newtheorem{desiderata}{Desideratum}[section]
+\newcommand{\cmark}{\textcolor{green}{\ding{51}}}%
+\newcommand{\xmark}{\textcolor{red}{\ding{55}}}%

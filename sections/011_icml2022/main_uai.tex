@@ -1,0 +1,96 @@
+\documentclass{uai2022} % for initial submission
+% \documentclass[accepted]{uai2022} % after acceptance, for a revised
+                                    % version; also before submission to
+                                    % see how the non-anonymous paper
+                                    % would look like
+%% There is a class option to choose the math font
+% \documentclass[mathfont=ptmx]{uai2022} % ptmx math instead of Computer
+                                         % Modern (has noticable issues)
+% \documentclass[mathfont=newtx]{uai2022} % newtx fonts (improves upon
+                                          % ptmx; less tested, no support)
+% NOTE: Only keep *one* line above as appropriate, as it will be replaced
+%       automatically for papers to be published. Do not make any other
+%       change above this note for an accepted version.
+
+%% Choose your variant of English; be consistent
+\input{include/00-packages}
+
+%% Provided macros
+% \smaller: Because the class footnote size is essentially LaTeX's \small,
+%           redefining \footnotesize, we provide the original \footnotesize
+%           using this macro.
+%           (Use only sparingly, e.g., in drawings, as it is quite small.)
+
+%% Self-defined macros
+\input{include/00-commands}
+
+\title{Disentangling Epistemic and Aleatoric Uncertainty in Reinforcement Learning}
+
+% The standard author block has changed for UAI 2022 to provide
+% more space for long author lists and allow for complex affiliations
+%
+% All author information is authomatically removed by the class for the
+% anonymous submission version of your paper, so you can already add your
+% information below.
+%
+% Add authors
+\author[1]{\href{mailto:<jj@example.edu>?Subject=Your UAI 2022 paper}{Author}{}}
+\author[2]{Harry~Q.~Bovik}
+\author[2]{Further~Coauthor}
+\author[1]{Further~Coauthor}
+% Add affiliations after the authors
+\affil[1]{%
+    Computer Science Dept.\\
+    Cranberry University\\
+    Pittsburgh, Pennsylvania, USA
+}
+\affil[2]{%
+    Second Affiliation\\
+    Address\\
+    …
+}
+  
+  \begin{document}
+\maketitle
+
+\begin{abstract}
+
+    \looseness=-1
+    Characterizing \emph{aleatoric} and \emph{epistemic} uncertainty on the predicted rewards can help in building reliable reinforcement learning (RL) systems. Aleatoric uncertainty results from the irreducible environment stochasticity leading to inherently risky states and actions. Epistemic uncertainty results from the limited information accumulated during learning to make informed decisions. Characterizing aleatoric and epistemic uncertainty can be used to speed up learning in a training environment, improve generalization to similar testing environments, and flag unfamiliar behavior in anomalous testing environments. In this work, we introduce a framework for disentangling aleatoric and epistemic uncertainty in RL. \textbf{(1)} We first define four \emph{desiderata} that capture the desired behavior for aleatoric and epistemic uncertainty estimation in RL at both training and testing time. \textbf{(2)} We then present four RL \emph{models} inspired by supervised learning (i.e., Monte Carlo dropout, ensemble, deep kernel learning models, and evidential networks) to instantiate aleatoric and epistemic uncertainty. Finally, \textbf{(3)} we propose a practical \emph{evaluation} method to evaluate uncertainty estimation in model-free RL based on detection of out-of-distribution environments and generalization to perturbed environments. We present \emph{theoretical} and \emph{experimental} evidence to validate that carefully equipping model-free RL agents with supervised learning uncertainty methods can fulfill our desiderata.
+    
+\end{abstract}
+
+\input{include/01-introduction}
+\input{include/02-setup}
+\input{include/03-desiderata}
+\input{include/04-models}
+\input{include/05-evaluation}
+\input{include/06-related_works}
+%\input{include/07-limitations}
+\input{include/08-conclusion}
+
+\begin{contributions} % will be removed in pdf for initial submission,
+                      % so you can already fill it to test with the
+                      % ‘accepted’ class option
+    Briefly list author contributions.
+    This is a nice way of making clear who did what and to give proper credit.
+
+    H.~Q.~Bovik conceived the idea and wrote the paper.
+    Coauthor One created the code.
+    Coauthor Two created the figures.
+\end{contributions}
+
+\begin{acknowledgements} % will be removed in pdf for initial submission,
+                         % so you can already fill it to test with the
+                         % ‘accepted’ class option
+    Briefly acknowledge people and organizations here.
+
+    \emph{All} acknowledgements go in this section.
+\end{acknowledgements}
+
+\bibliography{bibliography}
+
+\appendix
+\input{include/xx-appendix}
+
+\end{document}

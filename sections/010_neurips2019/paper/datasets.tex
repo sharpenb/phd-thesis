@@ -8,14 +8,14 @@ In this section we describe the datasets in more detail. The time gap between tw
 \centering
     \begin{subfigure}{.45\textwidth}
         \centering
-    	\includegraphics[width=.8\linewidth]{images/categorical_evolution.pdf}
+    	\includegraphics[width=.8\linewidth]{sections/010_neurips2019/paper/images/categorical_evolution.pdf}
         \caption{Car example explained in section \ref{introduction} where probabilities of events to occur change over time}
     \label{fig:car_categorical}
     \end{subfigure}%
     \hspace*{10.mm}
     \begin{subfigure}{.45\textwidth}
         \centering
-   		\includegraphics[width=.8 \linewidth]{images/k-gaussians-density.pdf}
+   		\includegraphics[width=.8 \linewidth]{sections/010_neurips2019/paper/images/k-gaussians-density.pdf}
 		\caption{Probability density of events in K-Gaussians dataset. We can see that classes are independent of history.}\label{fig:k-gaussians-density}
     \end{subfigure}
 \end{figure}
@@ -39,7 +39,7 @@ def generate():
 A sequence contains signals from a single car during one ride. We remove signals that are perfectly correlated giving 6 unique classes in the end. Top 3 classes make up 33\%, 32\%, and 16\% of a total respectively. From figure \ref{fig:car-indicators-density} we can see that the setting is again asynchronous.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.35 \linewidth]{images/car-indicators-density.pdf}
+    \includegraphics[width=0.35 \linewidth]{sections/010_neurips2019/paper/images/car-indicators-density.pdf}
     \caption{Probability density of events in Car Indicators dataset for 2 selected classes. Time is log-transformed.}\label{fig:car-indicators-density}
 \end{figure}
 
@@ -48,6 +48,6 @@ A sequence contains signals from a single car during one ride. We remove signals
 We generate graph $G$ with $10$ nodes and $48$ edges between them. We assign variables $\mu$ and $\sigma$ to each transition (edge) between events (nodes). The time it takes to make a transition between nodes $i$ and $j$ is drawn from normal distribution $\mathcal{N}(\mu_{ij}, \sigma^2_{ij})$. By performing a random walk on the graph we create $10$ thousand events. This dataset is similar to K-Gaussians with the difference that a model needs to learn the relationship between events together with the time dependency. Parts of the trace are shown in figure \ref{fig:random-graph-trace}.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/random-graph-trace.pdf}
+    \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/random-graph-trace.pdf}
     \caption{Trace of events for random graph. Different colors represent different classes and width of a single column represents the time that passed.}\label{fig:random-graph-trace}
 \end{figure}

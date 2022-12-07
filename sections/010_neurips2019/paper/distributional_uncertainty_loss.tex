@@ -12,9 +12,9 @@ Instead, we propose the \UncertaintyLoss which takes into account uncertainty:
 \mathcal{L}_{\IndexEvent}^{\text{UCE}} = \E_{\bm{p}_{\IndexEvent} \sim P_{\IndexEvent}(\theta(\DeltaTime_{\IndexEvent}^*))}[\CrossEntropy[\bm{p}_{\IndexEvent}^*, \bm{p}_{\IndexEvent}]] = - \int P_{\IndexEvent}(\theta(\DeltaTime_{\IndexEvent}^*)) \sum_\IndexClass p_{\IndexEvent \IndexClass}^* \log p_{\IndexEvent \IndexClass}
 \end{aligned}
 \end{equation}
-\com{Remark that the \UncertaintyLoss does not
-use the compound distribution $\overline{\bm{p}}_{\IndexEvent}(\DeltaTime)$ but considers the expected cross-entropy}. Based on Jensen's inequality, it holds: $0 \leq \mathcal{L}_{\IndexEvent}^{\text{CE}} \leq \mathcal{L}_{\IndexEvent}^{\text{UCE}}
-$. Consequently, a low value of the \UncertaintyLoss guarantees a low value for the classic cross entropy loss, while additionally taking the variation in the class probabilities into account. A comparison between the classic cross entropy and the \UncertaintyLoss on a simple classification task \com{and anomaly detection in asynchronous event setting} is presented in Appendix \ref{uncertain_loss_classification}.
+Remark that the \UncertaintyLoss does not
+use the compound distribution $\overline{\bm{p}}_{\IndexEvent}(\DeltaTime)$ but considers the expected cross-entropy. Based on Jensen's inequality, it holds: $0 \leq \mathcal{L}_{\IndexEvent}^{\text{CE}} \leq \mathcal{L}_{\IndexEvent}^{\text{UCE}}
+$. Consequently, a low value of the \UncertaintyLoss guarantees a low value for the classic cross entropy loss, while additionally taking the variation in the class probabilities into account. A comparison between the classic cross entropy and the \UncertaintyLoss on a simple classification task and anomaly detection in asynchronous event setting is presented in Appendix \ref{uncertain_loss_classification}.
 
 In practice the true distribution $\bm{p}_{\IndexEvent}^*$ is often a one hot-encoded representation of the observed class $\IndexClass_{\IndexEvent}$ which simplifies the computations. During training, the models compute $P_{\IndexEvent}(\theta(\DeltaTime))$ and evaluate it at the true time of the next event $\DeltaTime_{\IndexEvent}^*$ given the past event $\Event_{\IndexEvent-1}$ and the history $\History_{\IndexEvent-1}$. The final loss for a sequence of events is simply obtained by summing up the loss for each event
 $\mathcal{L}=\sum_\IndexEvent \E_{\bm{p}_{\IndexEvent} \sim P_{\IndexEvent}(\theta(\DeltaTime_{\IndexEvent}^*))}[\CrossEntropy[\bm{p}_{\IndexEvent}^*, \bm{p}_{\IndexEvent}]]$.

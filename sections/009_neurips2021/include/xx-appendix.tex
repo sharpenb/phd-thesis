@@ -7,20 +7,20 @@
 
 \begin{theorem}
 \label{thm:axiom-feature-proof}
-Lets consider a \oursacro{} model. Let \smash{$f_{\phi}(\x\nodeidxv)= V^{(l)}\x\nodeidxv + a^{(l)}$} be the piecewise affine representation of the ReLU network \smash{$f_{\phi}$} on the finite number of affine regions \smash{$Q^{(l)}$} \cite{understanding-nn-relu}. Suppose that \smash{$V^{(l)}$} have independent rows, then for any node $\nodev$ and almost any $\x\nodeidxv$ we have \smash{$\prob(f_{\phi}(\delta \cdot \x\nodeidxv) \condition \iclass; \vphi) \underset{\delta \rightarrow \infty}{\rightarrow} 0$}. Without network effects, it implies that \smash{$\beta_\iclass^{\text{ft}, (\nodev)} = \beta_\iclass^{\text{agg}, (\nodev)} \underset{\delta \rightarrow \infty}{\rightarrow} 0$}.
+Lets consider a \GPNacro{} model. Let \smash{$f_{\phi}(\x\nodeidxv)= V^{(l)}\x\nodeidxv + a^{(l)}$} be the piecewise affine representation of the ReLU network \smash{$f_{\phi}$} on the finite number of affine regions \smash{$Q^{(l)}$} \cite{understanding-nn-relu}. Suppose that \smash{$V^{(l)}$} have independent rows, then for any node $\nodev$ and almost any $\x\nodeidxv$ we have \smash{$\prob(f_{\phi}(\delta \cdot \x\nodeidxv) \condition \iclass; \vphi) \underset{\delta \rightarrow \infty}{\rightarrow} 0$}. Without network effects, it implies that \smash{$\beta_\iclass^{\text{ft}, (\nodev)} = \beta_\iclass^{\text{agg}, (\nodev)} \underset{\delta \rightarrow \infty}{\rightarrow} 0$}.
 \end{theorem}
 
 \begin{proof}
-First, remark that each normalizing flow density in \oursacro{} fulfills the conditions of Lem.~\ref{lem:relu-encoder-density}. This means that \smash{$\prob(f_{\phi}(\delta \cdot \x\nodeidxv) \condition \iclass; \vphi) \underset{\delta \rightarrow \infty}{\rightarrow} 0$} which implies $\beta_\iclass^{\text{ft}, (\nodev)} \underset{\delta \rightarrow \infty}{\rightarrow} 0$. Further note that in the absence of network effects, the PPR diffusion has no effect on the pseudo-counts i.e. $\beta_\iclass^{\text{ft}, (\nodev)} = \beta_\iclass^{\text{agg}, (\nodev)}$.
+First, remark that each normalizing flow density in \GPNacro{} fulfills the conditions of Lem.~\ref{lem:relu-encoder-density}. This means that \smash{$\prob(f_{\phi}(\delta \cdot \x\nodeidxv) \condition \iclass; \vphi) \underset{\delta \rightarrow \infty}{\rightarrow} 0$} which implies $\beta_\iclass^{\text{ft}, (\nodev)} \underset{\delta \rightarrow \infty}{\rightarrow} 0$. Further note that in the absence of network effects, the PPR diffusion has no effect on the pseudo-counts i.e. $\beta_\iclass^{\text{ft}, (\nodev)} = \beta_\iclass^{\text{agg}, (\nodev)}$.
 \end{proof}
 
 \begin{theorem}
 \label{thm:axiom-network-epistemic-proof}
-Lets consider a \oursacro{} model. Then, given a node $\nodev$, the aggregated feature evidence $\alpha_0^{\text{agg}, (\nodev)}$ is increasing if the feature evidence $\alpha_0^{\text{ft}, (\nodeu)}$ of one of its neighbor $\nodeu \in \neighbors(\nodev)$ is increasing.
+Lets consider a \GPNacro{} model. Then, given a node $\nodev$, the aggregated feature evidence $\alpha_0^{\text{agg}, (\nodev)}$ is increasing if the feature evidence $\alpha_0^{\text{ft}, (\nodeu)}$ of one of its neighbor $\nodeu \in \neighbors(\nodev)$ is increasing.
 \end{theorem}
 
 \begin{proof}
-We recall first the definition of the aggregated and feature total evidence pseudo-count and the PPR diffusion step of \oursacro{}:
+We recall first the definition of the aggregated and feature total evidence pseudo-count and the PPR diffusion step of \GPNacro{}:
 \begin{align*}
     \alpha_0^{\text{ft}, (\nodev)} &= \sum_\iclass \beta_\iclass^{\text{ft}, (\nodev)}\\
     \alpha_0^{\text{agg}, (\nodev)} &= \sum_\iclass \beta_\iclass^{\text{agg}, (\nodev)}\\
@@ -38,7 +38,7 @@ This shows that the aggregated evidence is the diffused feature evidence with PP
 
 \begin{theorem}
 \label{thm:axiom-network-aleatoric-proof}
-Lets consider a \oursacro{} model. Lets denote $\bar{\p}^\text{agg, (\nodev)} = \nicefrac{\vbeta^{\text{agg}, (\nodev)}}{\alpha_0^{\text{agg}, (\nodev)}}$ the diffused categorical prediction for node $\nodev$ where $\iclass^*$ is its winning class. Further, lets denote \smash{$\bar{\p}^\text{ft, (\nodeu)} = \nicefrac{\vbeta^{\text{ft}, (\nodev)}}{\alpha_0^{\text{ft}, (\nodev)}}$} the non-diffused categorical prediction for a node $\nodeu \in \vertices$. First, there exists normalized weights $\Pi_{v, u}^{'}$ such that \smash{$\sum_{\nodeu \in \vertices} \Pi_{v, u}^{'} \Entropy{\DCat(\bar{\p}^\text{ft, (\nodeu)})} \leq \Entropy{\DCat(\bar{\p}^\text{agg, (\nodev)})}$}. Second, if for any node \smash{$\nodeu \in \vertices$} the probability of $\bar{\p}_{\iclass^*}^\text{ft, (\nodeu)}$ decreases, then \smash{$\Entropy{\DCat(\bar{\p}^\text{agg, (\nodev)})}$} increases.
+Lets consider a \GPNacro{} model. Lets denote $\bar{\p}^\text{agg, (\nodev)} = \nicefrac{\vbeta^{\text{agg}, (\nodev)}}{\alpha_0^{\text{agg}, (\nodev)}}$ the diffused categorical prediction for node $\nodev$ where $\iclass^*$ is its winning class. Further, lets denote \smash{$\bar{\p}^\text{ft, (\nodeu)} = \nicefrac{\vbeta^{\text{ft}, (\nodev)}}{\alpha_0^{\text{ft}, (\nodev)}}$} the non-diffused categorical prediction for a node $\nodeu \in \vertices$. First, there exists normalized weights $\Pi_{v, u}^{'}$ such that \smash{$\sum_{\nodeu \in \vertices} \Pi_{v, u}^{'} \entropy{\DCat(\bar{\p}^\text{ft, (\nodeu)})} \leq \entropy{\DCat(\bar{\p}^\text{agg, (\nodev)})}$}. Second, if for any node \smash{$\nodeu \in \vertices$} the probability of $\bar{\p}_{\iclass^*}^\text{ft, (\nodeu)}$ decreases, then \smash{$\entropy{\DCat(\bar{\p}^\text{agg, (\nodev)})}$} increases.
 \end{theorem}
 
 \begin{proof}
@@ -51,18 +51,18 @@ We first show the first part of the theorem. To this end, we use the relation be
 \end{align*}
 where $\Pi_{v, u}^{'} =  \frac{\pprelem_{v, u} \alpha_0^{\text{ft}, (\nodeu)} }{\sum_{\nodeu' \in \vertices} \pprelem_{v, u'} \alpha_0^{\text{ft}, (\nodeu')}}$. Hence, the probability vector $\bar{\p}^\text{agg, (\nodev)}$ is a convex combination of the probability vectors $\bar{\p}^\text{agg, (\nodeu)}$ of other nodes. Further, using the concavity of the entropy function, we obtain the results:
 \begin{align*}
-    \sum_{\nodeu \in \vertices} \Pi_{v, u}^{'} \Entropy{\DCat(\bar{\p}^\text{ft, (\nodeu)})} \leq \Entropy{\DCat(\bar{\p}^\text{agg, (\nodev)})}
+    \sum_{\nodeu \in \vertices} \Pi_{v, u}^{'} \entropy{\DCat(\bar{\p}^\text{ft, (\nodeu)})} \leq \entropy{\DCat(\bar{\p}^\text{agg, (\nodev)})}
 \end{align*}
 Second, we show the second part of the theorem. To this end, we suppose that, for a neighboring node $\nodeu \in \neighbors(\nodev)$, the probability of the winning class $\iclass^*$ decreases and the probability of another class $\iclass^{'}$ increases i.e. $\bar{p}_{\iclass^*}^\text{ft, (\nodeu)} - \eps$ and $\bar{p}_{\iclass^{'}}^\text{ft, (\nodeu)} + \eps$. We define the following univariate function:
 \begin{align*}
-    f(\eps) = \Entropy{\DCat(\bar{\p}_{\eps}^\text{agg, (\nodev)})}
+    f(\eps) = \entropy{\DCat(\bar{\p}_{\eps}^\text{agg, (\nodev)})}
 \end{align*}
 where $\bar{\p}_{\eps}^\text{agg, (\nodev)}$ is the new aggregated probability vector of the node $\nodev$ after the epsilon change of the probability vector for node $\nodeu$. Note that $\bar{p}_{\eps, \iclass^*}^\text{agg, (\nodev)} = \sum_{\nodew \in \vertices} \pprelem_{v, w} \bar{p}_{\iclass^*}^\text{ft, (\nodew)} - \pprelem_{v, u}\eps$ and $\bar{p}_{\eps, \iclass^{'}}^\text{agg, (\nodev)} = \sum_{\nodew \in \vertices} \pprelem_{v, w} \bar{p}_{\iclass^{'}}^\text{ft, (\nodew)} + \pprelem_{v, u}\eps$. We compute the derivative of $f(\eps)$:
 \begin{align*}
     \frac{\partial f(\eps)}{\partial \eps} &= \frac{\partial (\bar{p}_{\eps, \iclass^*}^\text{agg, (\nodev)} \log \bar{p}_{\eps, \iclass^*}^\text{agg, (\nodev)} + \bar{p}_{\eps, \iclass^{'}}^\text{agg, (\nodev)} \log \bar{p}_{\eps, \iclass^{'}}^\text{agg, (\nodev)})}{\partial \eps}\\
     & = \log\frac{\sum_{\nodew \in \vertices} \pprelem_{v, w} \bar{p}_{\iclass^*}^\text{ft, (\nodew)} - \pprelem_{v, u}\eps}{\sum_{\nodew \in \vertices} \pprelem_{v, w} \bar{p}_{\iclass^{'}}^\text{ft, (\nodew)} + \pprelem_{v, u}\eps}
 \end{align*}
-Hence, we note that as long as the class $\iclass^*$ is winning (i.e $\bar{p}_{\eps, \iclass^*}^\text{agg, (\nodev)} = \sum_{\nodew \in \vertices} \pprelem_{v, w} \bar{p}_{\iclass^*}^\text{ft, (\nodew)} - \pprelem_{v, u}\eps \geq \sum_{\nodew \in \vertices} \pprelem_{v, w} \bar{p}_{\iclass^{'}}^\text{ft, (\nodew)} + \pprelem_{v, u}\eps = \bar{p}_{\eps, \iclass^{'}}^\text{agg, (\nodev)}$), the function $f(\eps)$ is increasing. It means that the entropy \smash{$\Entropy{\DCat(\bar{\p}^\text{agg, (\nodev)})}$} increases when a neighboring node disagree more with the winning class $\iclass^*$. In particular, note that the conclusion holds if the epsilon decrease of the winning class is compensated by the probability increase of $K$ different classes. It would correspond to composing $K$ decreasing functions $f_k(\eps_k)$ where $k \in \{0,...,K\}$ and $\sum_k \eps_k = \eps$.
+Hence, we note that as long as the class $\iclass^*$ is winning (i.e $\bar{p}_{\eps, \iclass^*}^\text{agg, (\nodev)} = \sum_{\nodew \in \vertices} \pprelem_{v, w} \bar{p}_{\iclass^*}^\text{ft, (\nodew)} - \pprelem_{v, u}\eps \geq \sum_{\nodew \in \vertices} \pprelem_{v, w} \bar{p}_{\iclass^{'}}^\text{ft, (\nodew)} + \pprelem_{v, u}\eps = \bar{p}_{\eps, \iclass^{'}}^\text{agg, (\nodev)}$), the function $f(\eps)$ is increasing. It means that the entropy \smash{$\entropy{\DCat(\bar{\p}^\text{agg, (\nodev)})}$} increases when a neighboring node disagree more with the winning class $\iclass^*$. In particular, note that the conclusion holds if the epsilon decrease of the winning class is compensated by the probability increase of $K$ different classes. It would correspond to composing $K$ decreasing functions $f_k(\eps_k)$ where $k \in \{0,...,K\}$ and $\sum_k \eps_k = \eps$.
 \end{proof}
 
 \clearpage
@@ -71,7 +71,7 @@ Hence, we note that as long as the class $\iclass^*$ is winning (i.e $\bar{p}_{\
 We consider the citation network datasets \emph{CoraML} \citep{Mccallum2000, Giles1998, Getoor2005, Sen2008a, Bojchevski2017}, \emph{CiteSeer} \citep{Giles1998, Getoor2005, Sen2008a}, \emph{PubMed} \citep{Namata2012}, \emph{CoauthorPhysics} and \emph{CoauthorCS} (based on the \emph{Microsoft Academic Graph} from the \emph{KDD Cup 2016} challenge) \citep{Shchur2018}
 as well as two co-purchase datasets, \emph{AmazonPhotos} and \emph{AmazonComputers} \citep{Mcauley2015, Shchur2018}. Details are presented in the Table \ref{tab:dataset-summary}. For all those datasets, we consider a train/val/test split of $5/15/80$ using stratified sampling. For \emph{CoraML}, this corresponds to the default split of $20$ training samples per class with the difference of representing larger classes with more and smaller ones with less. We also note that this is significantly closer to the default split than approaches like \citep{Wang2020, Huang2020} introducing a $60/20/20$ split. For all those datasets, we average the results over individual predictions from 10 random splits together with 10 random model initializations per split, i.e. 100 runs for each dataset and model. Those dataset are part of \emph{PyTorch-Geometric} and under a MIT license. Besides those datasets, we also report results for the large dataset \emph{OGBN Arxiv} dataset \citep{ogb-dataset} which is based on the \emph{Microsoft Academic Graph} \citep{microsoft-academic-graph} with the public split based on publication years. Since this makes random splits unnecessary, we report results as averages over 10 runs. This dataset is also available under a MIT license.
 
-\input{tables/dataset-summary}
+\input{sections/009_neurips2021/tables/dataset-summary}
 
 \section{Metrics} \label{sec:app_metrics}
 \textbf{ACC - } Accuracy is simply the fraction of predictions $\hat{y}^{(u)}$ that correspond to the ground-truth targets $y^{(u)}$ out of a set of all predictions of size $N$, i.e. $acc = \frac{1}{N}\sum_{u\in \vertices} 1_{y^{(u)} = \hat{y}^{(u)}}$.
@@ -83,7 +83,7 @@ as well as two co-purchase datasets, \emph{AmazonPhotos} and \emph{AmazonCompute
     ECE = \sum_m^M \frac{|B_m|}{n} |acc(B_m) - conf(B_m)|
 \end{equation}
 
-\textbf{OOD -} Furthermore, we use \textbf{AUC-ROC} and \textbf{AUC-PR} scores for OOD-detection experiments. This problem is considered as a binary classification problem with the positive targets being the OOD-nodes and the negative targets being ID-data points. We use the same aleatoric and epistemic uncertainty measures used in \citep{Charpentier2020}. For aleatoric uncertainty measures, we use $u_\text{alea}\nodeidxv = - \max_c \bar{\mathbf{p}}_c^{(u)}$. For epistemic uncertainty, we use $u_\text{epist}\nodeidxv = - \alpha_0\nodeidxv$ for Dirichlet-based methods and $u_\text{epist}\nodeidxv = \frac{1}{\sum_\iclass \variance \bar{\mathbf{p}}_{c}^{(u)}}$ for other methods. For Dirichlet-based methods and GPs, the corresponding quantities are predicted directly. For ensemble and dropout baselines, these quantities are computed based on the empirical mean and empirical variance.
+\textbf{OOD -} Furthermore, we use \textbf{AUC-ROC} and \textbf{AUC-PR} scores for OOD-detection experiments. This problem is considered as a binary classification problem with the positive targets being the OOD-nodes and the negative targets being ID-data points. We use the same aleatoric and epistemic uncertainty measures used in \citep{charpentier2020}. For aleatoric uncertainty measures, we use $u_\text{alea}\nodeidxv = - \max_c \bar{\mathbf{p}}_c^{(u)}$. For epistemic uncertainty, we use $u_\text{epist}\nodeidxv = - \alpha_0\nodeidxv$ for Dirichlet-based methods and $u_\text{epist}\nodeidxv = \frac{1}{\sum_\iclass \variance \bar{\mathbf{p}}_{c}^{(u)}}$ for other methods. For Dirichlet-based methods and GPs, the corresponding quantities are predicted directly. For ensemble and dropout baselines, these quantities are computed based on the empirical mean and empirical variance.
 
 Note that the \emph{vacuity} uncertainty measure proposed in \citep{Zhao2020} and motivated from work on \emph{subjective logic} is just the inverse transformation of $\alpha_0$ given by $u_\text{vacuity} = \frac{C}{\alpha_0}$. Hence, the AUC-ROC and AUC-PR scores which evaluate the ranking of the examples lead to the \emph{exact} same final scores using $u_\text{vacuity}$ or $u_\text{epist}$.
 
@@ -97,9 +97,9 @@ Note that the \emph{vacuity} uncertainty measure proposed in \citep{Zhao2020} an
 
 We follow \citep{Shchur2018, Klicpera2019, Zhao2020} and baselines from the OGBN leaderboard\footnote{\url{https://ogb.stanford.edu/docs/leader_nodeprop/\#ogbn-arxiv}} for the choice of the architectures. By default, we use a hidden dimension of $h = 64$ and $l=2$ layers for parametric models on all datasets except for \emph{OGBN Arxiv}. In this case, we use early stopping with a patience of $50$ and a maximum of $100,000$ epochs. For \emph{OGBN Arxiv}, we use a hidden dimension of $h = 256$ with $l=3$ layers and use batch-norm. In this case, we use early stopping with a patience of $200$, a maximum number of $1,000$ epochs and no weight-decay for all models. For Gaussian Processes, we implement our experiment pipelines and models in \emph{PyTorch} \citep{pytorch} and rely on \emph{PyTorch-Geometric} \citep{pytorch-geometric}. For all models, we use the Adam optimizer \citep{Kingma2014} with its default parameters and a learning rate of $0.01$. For further details, we provide the code in the supplementary material.
 
-\textbf{GPN - } We use a similar backbone architecture as for APPNP \citep{Klicpera2018}.\footnote{Code available at \url{https://www.daml.in.tum.de/graph-postnet}} We report all the used hyper-parameters in Tab.~\ref{tab:gpn-hyper-parameters}. Similarly to \citep{NatPN2021}, we use a certainty budget $N$ which scales exponentially w.r.t. the latent dimension (i.e. $N_H=\sqrt{4 \pi}^H$) and $5$ warm-up epochs maximizing the log likelihood of the normalizing flows. Furthermore, we use $K=10$ power-iterations steps to approximate PPR scores. We do not use weight decay for the Normalizing Flows. Those parameters have been obtained after conducting an ablation and a hyper-parameter study on the \emph{CoraML} and \emph{OGBN Arxiv} datasets (see Sec.\ref{sec:ablation-study} and Sec.\ref{sec:hyperparameter-study}). Finally, we recall for completeness the closed-form of the Bayesian loss introduced in \citep{Charpentier2020} when $\prior\namednodeidxv{post}=\DDir(\bm{\alpha}\nodeidxv)$ and $\prob(\y\nodeidxv \condition \p\nodeidxv) = \DCat(\y\nodeidxv \condition \p\nodeidxv)$:
+\textbf{GPN - } We use a similar backbone architecture as for APPNP \citep{Klicpera2018}.\footnote{Code available at \url{https://www.daml.in.tum.de/graph-postnet}} We report all the used hyper-parameters in Tab.~\ref{tab:gpn-hyper-parameters}. Similarly to \citep{NatPN2021}, we use a certainty budget $N$ which scales exponentially w.r.t. the latent dimension (i.e. $N_H=\sqrt{4 \pi}^H$) and $5$ warm-up epochs maximizing the log likelihood of the normalizing flows. Furthermore, we use $K=10$ power-iterations steps to approximate PPR scores. We do not use weight decay for the Normalizing Flows. Those parameters have been obtained after conducting an ablation and a hyper-parameter study on the \emph{CoraML} and \emph{OGBN Arxiv} datasets (see Sec.\ref{sec:ablation-study} and Sec.\ref{sec:hyperparameter-study}). Finally, we recall for completeness the closed-form of the Bayesian loss introduced in \citep{charpentier2020} when $\prior\namednodeidxv{post}=\DDir(\bm{\alpha}\nodeidxv)$ and $\prob(\y\nodeidxv \condition \p\nodeidxv) = \DCat(\y\nodeidxv \condition \p\nodeidxv)$:
 \begin{equation}
-    \loss\nodeidxv = -\ExpecationArgs{\p\nodeidxv\sim \prior\namednodeidxv{post}}{\log \prob(\y\nodeidxv \condition \p\nodeidxv)} - \lambda \Entropy{\prior\namednodeidxv{post}}
+    \loss\nodeidxv = -\ExpecationArgs{\p\nodeidxv\sim \prior\namednodeidxv{post}}{\log \prob(\y\nodeidxv \condition \p\nodeidxv)} - \lambda \entropy{\prior\namednodeidxv{post}}
 \end{equation}
 The expected likelihood term is equal to:
 \begin{align}\label{eq:expected-likelihood-cat-dir}
@@ -110,7 +110,7 @@ The entropy term is equal to:
         \entropy[\DDir(\bm{\alpha})] = \log B(\bm{\alpha}) + (\alpha_0 - \nclass) \psi(\alpha_0) - \sum_\iclass (\alpha_\iclass - 1) \psi(\alpha_\iclass)
 \end{align}
 
-\input{tables/gpn-hyper-parameters}
+\input{sections/009_neurips2021/tables/gpn-hyper-parameters}
 
 \textbf{GKDE - } We adopt the Graph Kernel Dirichlet Estimate from \citep{Zhao2020} as a standalone and parameterless baseline. With $d_{v,u}$ being the shortest path between nodes $v$ and $u$ and the Gaussian 
 transformation $g(d_{v,u}) = \nicefrac{1}{\sigma \sqrt{2\pi}} \exp \left(\nicefrac{-d_{v,u}^2}{2\sigma^2}\right)$, a Dirichlet estimate is obtained in the following way
@@ -137,26 +137,26 @@ where $\sL_c$ is the set of labeled nodes for class $c$. The diffused density $\
 
 \textbf{VGCN - } We use ReLU activations, dropout with $p=0.8$, and a weight decay of $\lambda = 0.0001$. For the larger dataset \emph{OGBN Arxiv}, we use a dropout of $p=0.5$. \textbf{DropEdge} is similar to the Vanilla GCN model with an additional dropout on the edges with a dropout probability of $p=0.5$ on both features and edges. For evaluation of dropout models, i.e. \textbf{DropEdge} and \textbf{VGCN-Dropout}, we use $S = 10$ Monte-Carlo samples having shown a reasonable estimate with more samples not leading to a visible improvement. For ensembles, i.e. \textbf{VGCN-Ensemble}, we use an ensemble of models of $10$ different random initializations. For \textbf{VGCN-Energy}, we follow \citep{Liu2020a} and use a temperature of $T = 1.0$.
 
-\textbf{VGCN-BNN - } We follow \emph{Bayes by Backprop} \citep{Blundell2015} and adopt a Bayesian GNN with uncertain weights. We use a hidden dimension of $h=32$. This is equivalent to $h=64$ for other models as each weight is represented by one mean parameter $\mu$ and one variance parameter $\Sigma$. We use $10$ bayesian samples in our experiments. We follow the grid search suggested in the original paper \citep{Blundell2015}. We finally adopt $\pi = 0.75$, $\sigma_1 = 1.0$, and $\sigma_2 = 1.0e-6$. Since this models assumes uncertain weights, we do not apply any weight decay during training. Note that we do not report results for the larger dataset \emph{OGBN Arxiv} for this baseline. 
+\textbf{VGCN-BNN - } We follow \emph{Bayes by Backprop} \citep{blundell2015} and adopt a Bayesian GNN with uncertain weights. We use a hidden dimension of $h=32$. This is equivalent to $h=64$ for other models as each weight is represented by one mean parameter $\mu$ and one variance parameter $\Sigma$. We use $10$ bayesian samples in our experiments. We follow the grid search suggested in the original paper \citep{blundell2015}. We finally adopt $\pi = 0.75$, $\sigma_1 = 1.0$, and $\sigma_2 = 1.0e-6$. Since this models assumes uncertain weights, we do not apply any weight decay during training. Note that we do not report results for the larger dataset \emph{OGBN Arxiv} for this baseline. 
 
 \textbf{RGCN - } We follow \citep{Zhu2019} for the hyper-parameter selection. We use a hidden size of $h=32$. Again this is equivalent to $h=64$ since RGCN models a mean parameter $\mu$ and a variance parameter $\Sigma$ per layer. We further use dropout $p=0.5$ on the features, $\gamma=1$, $\beta_{KL}=5.04-4$ and $\beta_{reg} = 5.0e-4$. As the latter is already a weight regularization in the loss, we do not apply weight decay.
 
 \section{Additional Experiments}
 \subsection{Additional Experiments - Ablation Study} \label{sec:ablation-study}
 
-In this section, we evaluate the contribution of each component of \oursacro{}. To this end, we use \textbf{PostNet} which first trains the feature encoder and the normalizing flows without diffusion and \textbf{PostNet-Diff} which diffuses the ablation-counts only at test time. Further, we also compare to \textbf{APPNP} \citep{Klicpera2018} which does not model the epistemic uncertainty with density estimation and \textbf{GPN-LOG} which diffuse the parameters $\log(\beta_\iclass^{\text{ft}, (\nodev)})$ instead of $\beta_\iclass^{\text{ft}, (\nodev)}$. We observed that training with diffusion is beneficial for all metrics. Further, we noted that diffusing $\log(\beta_\iclass^{\text{ft}, (\nodev)})$ improves accuracy and calibration to the cost of a lower Left-Out classes detection scores. Similarly, APPNP also showed better accuracy when diffusing logits instead of softmax outputs in the original paper \citep{Klicpera2018}. Finally, APPNP achieves significantly worse results for all OOD detection tasks showing the benefit of modelling the epistemic uncertainty.
+In this section, we evaluate the contribution of each component of \GPNacro{}. To this end, we use \textbf{PostNet} which first trains the feature encoder and the normalizing flows without diffusion and \textbf{PostNet-Diff} which diffuses the ablation-counts only at test time. Further, we also compare to \textbf{APPNP} \citep{Klicpera2018} which does not model the epistemic uncertainty with density estimation and \textbf{GPN-LOG} which diffuse the parameters $\log(\beta_\iclass^{\text{ft}, (\nodev)})$ instead of $\beta_\iclass^{\text{ft}, (\nodev)}$. We observed that training with diffusion is beneficial for all metrics. Further, we noted that diffusing $\log(\beta_\iclass^{\text{ft}, (\nodev)})$ improves accuracy and calibration to the cost of a lower Left-Out classes detection scores. Similarly, APPNP also showed better accuracy when diffusing logits instead of softmax outputs in the original paper \citep{Klicpera2018}. Finally, APPNP achieves significantly worse results for all OOD detection tasks showing the benefit of modelling the epistemic uncertainty.
 %
-\input{tables/ablation-study}
+\input{sections/009_neurips2021/tables/ablation-study}
 %
 \subsection{Additional Experiments - Hyper-parameter study} \label{sec:hyperparameter-study}
 Besides the previously mentioned ablation study, we also performed a study on the influences of hyperparameters. We show findings for the \emph{CoraML} dataset averaging runs with $3$ different random dataset splits and $2$ different random initializations. We analyzed the influence of the latent dimension, the number of radial layers, the teleport probability, the certainty budget, weight decay, and entropy regularization. 
 %
-\input{tables/grid-search}
+\input{sections/009_neurips2021/tables/grid-search}
 %
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{resources/grid_search.pdf}
-    \caption{Accuracy, Calibration, and OOD-detection results of \oursacro{} on CoraML for the entropy regularization factor and the weight decay.}
+    \includegraphics[width=\textwidth]{sections/009_neurips2021/resources/grid_search.pdf}
+    \caption{Accuracy, Calibration, and OOD-detection results of \GPNacro{} on CoraML for the entropy regularization factor and the weight decay.}
     \label{fig:gs-regularization}
 \end{figure}
 %
@@ -164,29 +164,29 @@ Besides the previously mentioned ablation study, we also performed a study on th
 \subsection{Additional Experiments - Misclassification}
 \label{sec:add-exp-misclassification}
 
-Work like \citep{Zhao2020} found that measures of aleatoric uncertainty are well suited for detecting inputs which are not classified correctly. Epistemic measures of uncertainty are found to be better suited for detecting OOD samples. Orthogonal work like \citep{Guo2017, Ovadia2019} uses calibration to determine how reliable predictions are. We adopt this point of view while reporting results for the task of OOD detection using epistemic measures. We also present aleatoric measures as a reference because simple baselines without any intrinsic uncertainty estimates solely can quantify uncertainty through simple aleatoric uncertainty measures. To facilitate an easy comparison to work like \citep{Zhao2020}, we also present results for misclassification experiments in Tab.~\ref{tab:misclassification-one} and in Tab.~\ref{tab:misclassification-two}. As in \citep{Zhan2020}, we can observe that aleatoric uncertainty mostly is better for detecting misclassified samples for all models than epistemic uncertainty. \oursacro{} achieves a similar performance in this task while also showing that for some datasets measures not accounting for network effects can detect misclassified samples better than measures which account for network effects. 
+Work like \citep{Zhao2020} found that measures of aleatoric uncertainty are well suited for detecting inputs which are not classified correctly. Epistemic measures of uncertainty are found to be better suited for detecting OOD samples. Orthogonal work like \citep{Guo2017, Ovadia2019} uses calibration to determine how reliable predictions are. We adopt this point of view while reporting results for the task of OOD detection using epistemic measures. We also present aleatoric measures as a reference because simple baselines without any intrinsic uncertainty estimates solely can quantify uncertainty through simple aleatoric uncertainty measures. To facilitate an easy comparison to work like \citep{Zhao2020}, we also present results for misclassification experiments in Tab.~\ref{tab:misclassification-one} and in Tab.~\ref{tab:misclassification-two}. As in \citep{Zhan2020}, we can observe that aleatoric uncertainty mostly is better for detecting misclassified samples for all models than epistemic uncertainty. \GPNacro{} achieves a similar performance in this task while also showing that for some datasets measures not accounting for network effects can detect misclassified samples better than measures which account for network effects. 
 
-\input{tables/misclassification}
+\input{sections/009_neurips2021/tables/misclassification}
 
 \subsection{Additional Experiments - OOD Detection}
 
-In this section, we provide additional results for the OOD detection experiments for the 8 datasets and the 13 baselines. We show the results for feature perturbations experiments using AUC-ROC and AUC-APR scores in Tab.~\ref{tab:isolated_auroc} and Tab.~\ref{tab:isolated_apr}. We show results for clean accuracy and calibration on the unperturbed graphs, and Left-Out classes using AUC-ROC and AUC-APR scores in Tab.~\ref{tab:clean_loc_auroc_one} and Tab.~\ref{tab:clean_loc_auroc_two}. Similarly to Tab.~\ref{tab:ood_short}, we observe that \oursacro{} achieves the best results for the detection of feature perturbations with uncertainty without network effects by a significant margin while still maintaining a high accuracy. Further, \oursacro{} also performs favourably on Left-Out classes experiments using the uncertainty measures with network effects. All these observations show that \oursacro{} disentangles well between uncertainty without and with network effects while being robust against feature perturbations.
+In this section, we provide additional results for the OOD detection experiments for the 8 datasets and the 13 baselines. We show the results for feature perturbations experiments using AUC-ROC and AUC-APR scores in Tab.~\ref{tab:isolated_auroc} and Tab.~\ref{tab:isolated_apr}. We show results for clean accuracy and calibration on the unperturbed graphs, and Left-Out classes using AUC-ROC and AUC-APR scores in Tab.~\ref{tab:clean_loc_auroc_one} and Tab.~\ref{tab:clean_loc_auroc_two}. Similarly to Tab.~\ref{tab:ood_short}, we observe that \GPNacro{} achieves the best results for the detection of feature perturbations with uncertainty without network effects by a significant margin while still maintaining a high accuracy. Further, \GPNacro{} also performs favourably on Left-Out classes experiments using the uncertainty measures with network effects. All these observations show that \GPNacro{} disentangles well between uncertainty without and with network effects while being robust against feature perturbations.
 %%
-\input{tables/isolated}
-\input{tables/loc}
+\input{sections/009_neurips2021/tables/isolated}
+\input{sections/009_neurips2021/tables/loc}
 
 \subsection{Additional Experiments - Attributed Graph Shifts}
 
-In this section, we provide additional results for the attributed graph shifts experiments. We show the results of the feature shifts and the results of the edge shifts in Figures \ref{fig:shift-cora} to \ref{fig:shift-ogbn-arxiv}. The feature shifts include Bernoulli and Normal shifts (i.e. $\x\nodeidxv \sim \DBer(0.5)$ and $\x\nodeidxv \sim \DNormal(\veczero, \vecone)$) with up to $99\%$ of the nodes being perturbed. The edge shifts include randomly moved edges and DICE attacks \citep{Waniek2018} where we perturb up to $99\%$ of the edges in the graph. The results are consistent with the observations made in Sec.~\ref{sec:experiments}. For feature shifts, we observe that \oursacro{} is more robust to feature perturbations than competitors for accuracy and calibration similarly to results Tab.~\ref{fig:shifts-normal-cora}. \oursacro{} is particularly robust against unit Gaussians perturbations. Further, as desired, \oursacro{} is more epistemically uncertain when features of a larger fraction of nodes are perturbed. For edge shifts, all models including \oursacro{} become more aleatorically uncertain. This aligns with Ax.~\ref{ax:certainty_network_aleatoric}. Furthermore, the average epistemic uncertainty of \oursacro{} remains constant which is reasonable since the average evidence of a node's neighborhood remains constant. We observed that the exponential activation in the last layer of GKDE-GCN leads to numerical instabilities under perturbations.
+In this section, we provide additional results for the attributed graph shifts experiments. We show the results of the feature shifts and the results of the edge shifts in Figures \ref{fig:shift-cora} to \ref{fig:shift-ogbn-arxiv}. The feature shifts include Bernoulli and Normal shifts (i.e. $\x\nodeidxv \sim \DBer(0.5)$ and $\x\nodeidxv \sim \DNormal(\veczero, \vecone)$) with up to $99\%$ of the nodes being perturbed. The edge shifts include randomly moved edges and DICE attacks \citep{Waniek2018} where we perturb up to $99\%$ of the edges in the graph. The results are consistent with the observations made in Sec.~\ref{sec:experiments}. For feature shifts, we observe that \GPNacro{} is more robust to feature perturbations than competitors for accuracy and calibration similarly to results Tab.~\ref{fig:shifts-normal-cora}. \GPNacro{} is particularly robust against unit Gaussians perturbations. Further, as desired, \GPNacro{} is more epistemically uncertain when features of a larger fraction of nodes are perturbed. For edge shifts, all models including \GPNacro{} become more aleatorically uncertain. This aligns with Ax.~\ref{ax:certainty_network_aleatoric}. Furthermore, the average epistemic uncertainty of \GPNacro{} remains constant which is reasonable since the average evidence of a node's neighborhood remains constant. We observed that the exponential activation in the last layer of GKDE-GCN leads to numerical instabilities under perturbations.
 %
-\input{tables/shifts-cora}
-\input{tables/shifts-citeseer}
-\input{tables/shifts-pubmed}
-\input{tables/shifts-amazon-computers}
-\input{tables/shifts-amazon-photos}
-\input{tables/shifts-coauthor-cs}
-\input{tables/shifts-coauthor-physics}
-\input{tables/shifts-ogbn-arxiv}
+\input{sections/009_neurips2021/tables/shifts-cora}
+\input{sections/009_neurips2021/tables/shifts-citeseer}
+\input{sections/009_neurips2021/tables/shifts-pubmed}
+\input{sections/009_neurips2021/tables/shifts-amazon-computers}
+\input{sections/009_neurips2021/tables/shifts-amazon-photos}
+\input{sections/009_neurips2021/tables/shifts-coauthor-cs}
+\input{sections/009_neurips2021/tables/shifts-coauthor-physics}
+\input{sections/009_neurips2021/tables/shifts-ogbn-arxiv}
 %
 
 \subsection{Additional Experiments - Qualitative Evaluation}
@@ -194,21 +194,21 @@ In this section, we provide additional results for the attributed graph shifts e
 
 In this section, we provide additional qualitative evaluations. Therefore, we present the abstracts of the most epistemically uncertain papers and the most epistemically certain papers in CoraML in Tab.~\ref{tab:lowest_evidence_abstracts} and Tab.~\ref{tab:highest_evidence_abstracts}. Most epistemically certain papers shows significantly more reasonable abstracts compared to most epistemically uncertain papers.
 
-Additionally, we provide visualizations of the latent space of \oursacro{} on the clean CoraML graph in Fig.~\ref{fig:latent-space-clean}, and on the CoraML graph where $10\%$ of the nodes are perturbed with  the unit Gaussian perturbation in Fig.~\ref{fig:latent-space-clean}, and on Left-Out classes experiments in Fig.~\ref{fig:loc-space-gaussian}. We used T-SNE projections for 2D visualizations. We observed that the latent representations correlate with the class assignment. Further, \oursacro{} is capable to separate nodes with perturbed features in the latent space. The nodes with perturbed features are assigned high uncertainty without network effects but low uncertainty with network effects. This stresses the capacity of \oursacro{} to recover from feature perturbations. 
+Additionally, we provide visualizations of the latent space of \GPNacro{} on the clean CoraML graph in Fig.~\ref{fig:latent-space-clean}, and on the CoraML graph where $10\%$ of the nodes are perturbed with  the unit Gaussian perturbation in Fig.~\ref{fig:latent-space-clean}, and on Left-Out classes experiments in Fig.~\ref{fig:loc-space-gaussian}. We used T-SNE projections for 2D visualizations. We observed that the latent representations correlate with the class assignment. Further, \GPNacro{} is capable to separate nodes with perturbed features in the latent space. The nodes with perturbed features are assigned high uncertainty without network effects but low uncertainty with network effects. This stresses the capacity of \GPNacro{} to recover from feature perturbations. 
 %
-\input{tables/lowest-evidence-abstracts}
+\input{sections/009_neurips2021/tables/lowest-evidence-abstracts}
 %
-\input{tables/highest-evidence-abstracts}
+\input{sections/009_neurips2021/tables/highest-evidence-abstracts}
 %
-\input{tables/latent-space}
+\input{sections/009_neurips2021/tables/latent-space}
 
 \subsection{Additional Experiments - Inference \& Training Time}
 \label{sec:add-exp-time}
 
-We provide a comparison of inference times for most of the datasets and models under consideration in Tab.~\ref{tab:inference-times} and a comparison of training times in Tab.~\ref{tab:training-times}. \oursacro{} needs a single pass for uncertainty estimation but requires the additional evaluation of one normalizing flow per class compared to APPNP. Hence, \oursacro{} brings a small computational overhead for uncertainty estimation during inference but is significantly faster than ensemble or dropout approaches. Furthermore, \oursacro{} is usually converging relatively fast during training and does not require a pre-computing kernel values. In contrast, GKDE-GCN requires the computation of the underlying Graph Kernel with a complexity of $\mathcal{O}(\nnodes^2)$ where $\nnodes$ is the number of nodes in the graph (see Sec.~\ref{sec:app_model_details}). Finally, \oursacro{} is significantly more efficient than dropout or ensemble approaches as it does not require training or evaluation of multiple models.
+We provide a comparison of inference times for most of the datasets and models under consideration in Tab.~\ref{tab:inference-times} and a comparison of training times in Tab.~\ref{tab:training-times}. \GPNacro{} needs a single pass for uncertainty estimation but requires the additional evaluation of one normalizing flow per class compared to APPNP. Hence, \GPNacro{} brings a small computational overhead for uncertainty estimation during inference but is significantly faster than ensemble or dropout approaches. Furthermore, \GPNacro{} is usually converging relatively fast during training and does not require a pre-computing kernel values. In contrast, GKDE-GCN requires the computation of the underlying Graph Kernel with a complexity of $\mathcal{O}(\nnodes^2)$ where $\nnodes$ is the number of nodes in the graph (see Sec.~\ref{sec:app_model_details}). Finally, \GPNacro{} is significantly more efficient than dropout or ensemble approaches as it does not require training or evaluation of multiple models.
 
-\input{tables/inference_times}
-\input{tables/training_times}
+\input{sections/009_neurips2021/tables/inference_times}
+\input{sections/009_neurips2021/tables/training_times}
 
 \section{Axioms Diagram}
 
@@ -218,25 +218,25 @@ We provide a larger version of Figure \ref{fig:uncertainty_types_small} to visua
 \centering
 	\begin{subfigure}[t]{0.495\textwidth}
 	    \centering
-		\includegraphics[width=\textwidth]{resources/no-network-aleatoric.pdf}
+		\includegraphics[width=\textwidth]{sections/009_neurips2021/resources/no-network-aleatoric.pdf}
 		\caption{AU without network effects} 
 		\label{subfig:au_without_network_large}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.495\textwidth}
 	    \centering
-		\includegraphics[width=\textwidth]{resources/network-aleatoric.pdf}
+		\includegraphics[width=\textwidth]{sections/009_neurips2021/resources/network-aleatoric.pdf}
 		\caption{AU with network effects} 
 		\label{subfig:au_with_network_large}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.495\textwidth}
 	    \centering
-		\includegraphics[width=\textwidth]{resources/no-network-epistemic.pdf}
+		\includegraphics[width=\textwidth]{sections/009_neurips2021/resources/no-network-epistemic.pdf}
 		\caption{EU without network effects}
 		\label{subfig:eu_without_network_large}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.495\textwidth}
 	    \centering
-		\includegraphics[width=\textwidth]{resources/network-epistemic.pdf}
+		\includegraphics[width=\textwidth]{sections/009_neurips2021/resources/network-epistemic.pdf}
 		\caption{EU with network effects}
 		\label{subfig:eu_with_network_large}
 	\end{subfigure}
