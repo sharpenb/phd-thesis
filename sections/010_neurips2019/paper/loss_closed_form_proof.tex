@@ -26,7 +26,7 @@ expansion around the mean $\mu$:
 \end{equation}
 Using \ref{eq:cross-entropy-expectation-taylor} together with \ref{eq:log-normal-moments} and plugging into \ref{eq:cross-entropy-expectation} we get a closed-form solution for the loss for event $\IndexEvent$:
 \small
-\begin{equation} \label{eq:gp_loss}
+\begin{equation}
     \mathcal{L}_\IndexEvent^{\text{UCE}}
     \approx \mu_{\IndexClass_\IndexEvent}(\DeltaTime_\IndexEvent^*) - \log \Big( \sum_\IndexClass^\NbClasses \exp(\mu_\IndexClass(\DeltaTime_\IndexEvent^*) + \sigma_\IndexClass^2(\DeltaTime_\IndexEvent^*) / 2) \Big) +
         \frac{\sum_\IndexClass^\NbClasses (\exp(\sigma_\IndexClass^2(\DeltaTime_\IndexEvent^*)) - 1) \exp(2 \mu_\IndexClass(\DeltaTime_\IndexEvent^*) + \sigma_\IndexClass^2(\DeltaTime_\IndexEvent^*))}

@@ -1,4 +1,5 @@
-\section{Model Description}\label{model_description}
+\section{Model Description}
+\label{sec:model_010}
 
 We consider a sequence $[e_1,\ldots, e_n]$ of events $\Event_\IndexEvent = (\Class_\IndexEvent, \Timestamp_\IndexEvent)$, where $\Class_\IndexEvent\in \{1,\ldots,\NbClasses\}$ denotes the class of the $\IndexEvent$th event and $\Timestamp_\IndexEvent\in \mathbb{R}$ is its time of occurrence. We assume the events arrive over time, i.e.\ $t_{\IndexEvent}>t_{\IndexEvent-1}$, and we introduce $\DeltaTime^*_\IndexEvent = \Timestamp_\IndexEvent - \Timestamp_{\IndexEvent-1}$ as the observed time gap between the $\IndexEvent$th and the $(\IndexEvent-1)$th event. The history preceding the $\IndexEvent$th event is denoted by $\History_{\IndexEvent}$.
 Let $\Simplex=\{\bm{p} \in [0,1]^\NbClasses, \sum_\IndexClass p_\IndexClass = 1\}$ denote the set of probability vectors that form the $(\NbClasses-1)$-dimensional simplex, and $P(\theta)$ be a family of probability distributions on this simplex parametrized by parameters $\theta$. Every sample $\bm p \sim P(\theta)$ corresponds to a (categorical) class distribution.

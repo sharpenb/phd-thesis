@@ -1,4 +1,5 @@
-\section{Proofs} \label{sec:proofs}
+\section{Proofs} 
+\label{sec:proofs_009}
 
 \begin{lemma}
 \label{lem:relu-encoder-density}
@@ -97,16 +98,16 @@ Note that the \emph{vacuity} uncertainty measure proposed in \citep{Zhao2020} an
 
 We follow \citep{Shchur2018, Klicpera2019, Zhao2020} and baselines from the OGBN leaderboard\footnote{\url{https://ogb.stanford.edu/docs/leader_nodeprop/\#ogbn-arxiv}} for the choice of the architectures. By default, we use a hidden dimension of $h = 64$ and $l=2$ layers for parametric models on all datasets except for \emph{OGBN Arxiv}. In this case, we use early stopping with a patience of $50$ and a maximum of $100,000$ epochs. For \emph{OGBN Arxiv}, we use a hidden dimension of $h = 256$ with $l=3$ layers and use batch-norm. In this case, we use early stopping with a patience of $200$, a maximum number of $1,000$ epochs and no weight-decay for all models. For Gaussian Processes, we implement our experiment pipelines and models in \emph{PyTorch} \citep{pytorch} and rely on \emph{PyTorch-Geometric} \citep{pytorch-geometric}. For all models, we use the Adam optimizer \citep{Kingma2014} with its default parameters and a learning rate of $0.01$. For further details, we provide the code in the supplementary material.
 
-\textbf{GPN - } We use a similar backbone architecture as for APPNP \citep{Klicpera2018}.\footnote{Code available at \url{https://www.daml.in.tum.de/graph-postnet}} We report all the used hyper-parameters in Tab.~\ref{tab:gpn-hyper-parameters}. Similarly to \citep{NatPN2021}, we use a certainty budget $N$ which scales exponentially w.r.t. the latent dimension (i.e. $N_H=\sqrt{4 \pi}^H$) and $5$ warm-up epochs maximizing the log likelihood of the normalizing flows. Furthermore, we use $K=10$ power-iterations steps to approximate PPR scores. We do not use weight decay for the Normalizing Flows. Those parameters have been obtained after conducting an ablation and a hyper-parameter study on the \emph{CoraML} and \emph{OGBN Arxiv} datasets (see Sec.\ref{sec:ablation-study} and Sec.\ref{sec:hyperparameter-study}). Finally, we recall for completeness the closed-form of the Bayesian loss introduced in \citep{charpentier2020} when $\prior\namednodeidxv{post}=\DDir(\bm{\alpha}\nodeidxv)$ and $\prob(\y\nodeidxv \condition \p\nodeidxv) = \DCat(\y\nodeidxv \condition \p\nodeidxv)$:
+\textbf{GPN - } We use a similar backbone architecture as for APPNP \citep{Klicpera2018}.\footnote{Code available at \url{https://www.daml.in.tum.de/graph-postnet}} We report all the used hyper-parameters in Tab.~\ref{tab:gpn-hyper-parameters}. Similarly to \citep{NatPN2021}, we use a certainty budget $N$ which scales exponentially w.r.t. the latent dimension (i.e. $N_H=\sqrt{4 \pi}^H$) and $5$ warm-up epochs maximizing the log likelihood of the normalizing flows. Furthermore, we use $K=10$ power-iterations steps to approximate PPR scores. We do not use weight decay for the Normalizing Flows. Those parameters have been obtained after conducting an ablation and a hyper-parameter study on the \emph{CoraML} and \emph{OGBN Arxiv} datasets (see Sec.\ref{sec:ablation-study_009} and Sec.\ref{sec:hyperparameter-study}). Finally, we recall for completeness the closed-form of the Bayesian loss introduced in \citep{charpentier2020} when $\prior\namednodeidxv{post}=\DDir(\bm{\alpha}\nodeidxv)$ and $\prob(\y\nodeidxv \condition \p\nodeidxv) = \DCat(\y\nodeidxv \condition \p\nodeidxv)$:
 \begin{equation}
     \loss\nodeidxv = -\ExpecationArgs{\p\nodeidxv\sim \prior\namednodeidxv{post}}{\log \prob(\y\nodeidxv \condition \p\nodeidxv)} - \lambda \entropy{\prior\namednodeidxv{post}}
 \end{equation}
 The expected likelihood term is equal to:
-\begin{align}\label{eq:expected-likelihood-cat-dir}
+\begin{align}\label{eq:expected-likelihood-cat-dir_009}
     \expectation_{\bm{p} \sim \DDir(\bm{\alpha})}[\log \DCat(\y \condition \bm{p})] = \psi(\alpha_{\y}) - \psi(\alpha_0)
 \end{align}
 The entropy term is equal to:
-\begin{align}\label{eq:density-entropy-dirichlet}
+\begin{align}\label{eq:density-entropy-dirichlet_009}
         \entropy[\DDir(\bm{\alpha})] = \log B(\bm{\alpha}) + (\alpha_0 - \nclass) \psi(\alpha_0) - \sum_\iclass (\alpha_\iclass - 1) \psi(\alpha_\iclass)
 \end{align}
 
@@ -142,7 +143,7 @@ where $\sL_c$ is the set of labeled nodes for class $c$. The diffused density $\
 \textbf{RGCN - } We follow \citep{Zhu2019} for the hyper-parameter selection. We use a hidden size of $h=32$. Again this is equivalent to $h=64$ since RGCN models a mean parameter $\mu$ and a variance parameter $\Sigma$ per layer. We further use dropout $p=0.5$ on the features, $\gamma=1$, $\beta_{KL}=5.04-4$ and $\beta_{reg} = 5.0e-4$. As the latter is already a weight regularization in the loss, we do not apply weight decay.
 
 \section{Additional Experiments}
-\subsection{Additional Experiments - Ablation Study} \label{sec:ablation-study}
+\subsection{Additional Experiments - Ablation Study} \label{sec:ablation-study_009}
 
 In this section, we evaluate the contribution of each component of \GPNacro{}. To this end, we use \textbf{PostNet} which first trains the feature encoder and the normalizing flows without diffusion and \textbf{PostNet-Diff} which diffuses the ablation-counts only at test time. Further, we also compare to \textbf{APPNP} \citep{Klicpera2018} which does not model the epistemic uncertainty with density estimation and \textbf{GPN-LOG} which diffuse the parameters $\log(\beta_\iclass^{\text{ft}, (\nodev)})$ instead of $\beta_\iclass^{\text{ft}, (\nodev)}$. We observed that training with diffusion is beneficial for all metrics. Further, we noted that diffusing $\log(\beta_\iclass^{\text{ft}, (\nodev)})$ improves accuracy and calibration to the cost of a lower Left-Out classes detection scores. Similarly, APPNP also showed better accuracy when diffusing logits instead of softmax outputs in the original paper \citep{Klicpera2018}. Finally, APPNP achieves significantly worse results for all OOD detection tasks showing the benefit of modelling the epistemic uncertainty.
 %
@@ -177,7 +178,7 @@ In this section, we provide additional results for the OOD detection experiments
 
 \subsection{Additional Experiments - Attributed Graph Shifts}
 
-In this section, we provide additional results for the attributed graph shifts experiments. We show the results of the feature shifts and the results of the edge shifts in Figures \ref{fig:shift-cora} to \ref{fig:shift-ogbn-arxiv}. The feature shifts include Bernoulli and Normal shifts (i.e. $\x\nodeidxv \sim \DBer(0.5)$ and $\x\nodeidxv \sim \DNormal(\veczero, \vecone)$) with up to $99\%$ of the nodes being perturbed. The edge shifts include randomly moved edges and DICE attacks \citep{Waniek2018} where we perturb up to $99\%$ of the edges in the graph. The results are consistent with the observations made in Sec.~\ref{sec:experiments}. For feature shifts, we observe that \GPNacro{} is more robust to feature perturbations than competitors for accuracy and calibration similarly to results Tab.~\ref{fig:shifts-normal-cora}. \GPNacro{} is particularly robust against unit Gaussians perturbations. Further, as desired, \GPNacro{} is more epistemically uncertain when features of a larger fraction of nodes are perturbed. For edge shifts, all models including \GPNacro{} become more aleatorically uncertain. This aligns with Ax.~\ref{ax:certainty_network_aleatoric}. Furthermore, the average epistemic uncertainty of \GPNacro{} remains constant which is reasonable since the average evidence of a node's neighborhood remains constant. We observed that the exponential activation in the last layer of GKDE-GCN leads to numerical instabilities under perturbations.
+In this section, we provide additional results for the attributed graph shifts experiments. We show the results of the feature shifts and the results of the edge shifts in Figures \ref{fig:shift-cora} to \ref{fig:shift-ogbn-arxiv}. The feature shifts include Bernoulli and Normal shifts (i.e. $\x\nodeidxv \sim \DBer(0.5)$ and $\x\nodeidxv \sim \DNormal(\veczero, \vecone)$) with up to $99\%$ of the nodes being perturbed. The edge shifts include randomly moved edges and DICE attacks \citep{Waniek2018} where we perturb up to $99\%$ of the edges in the graph. The results are consistent with the observations made in Sec.~\ref{sec:experiments_009}. For feature shifts, we observe that \GPNacro{} is more robust to feature perturbations than competitors for accuracy and calibration similarly to results Tab.~\ref{fig:shifts-normal-cora}. \GPNacro{} is particularly robust against unit Gaussians perturbations. Further, as desired, \GPNacro{} is more epistemically uncertain when features of a larger fraction of nodes are perturbed. For edge shifts, all models including \GPNacro{} become more aleatorically uncertain. This aligns with Ax.~\ref{ax:certainty_network_aleatoric}. Furthermore, the average epistemic uncertainty of \GPNacro{} remains constant which is reasonable since the average evidence of a node's neighborhood remains constant. We observed that the exponential activation in the last layer of GKDE-GCN leads to numerical instabilities under perturbations.
 %
 \input{sections/009_neurips2021/tables/shifts-cora}
 \input{sections/009_neurips2021/tables/shifts-citeseer}
@@ -212,7 +213,7 @@ We provide a comparison of inference times for most of the datasets and models u
 
 \section{Axioms Diagram}
 
-We provide a larger version of Figure \ref{fig:uncertainty_types_small} to visualize the distinction between aleatoric and epistemic uncertainty and the distinction between uncertainty without and with network effects in Fig.~\ref{fig:uncertainty_types_large}. These two distinctions are used in the axioms in Sec.~\ref{sec:axioms}.
+We provide a larger version of Figure \ref{fig:uncertainty_types_small} to visualize the distinction between aleatoric and epistemic uncertainty and the distinction between uncertainty without and with network effects in Fig.~\ref{fig:uncertainty_types_large}. These two distinctions are used in the axioms in Sec.~\ref{sec:axioms_009}.
 
 \begin{figure}[!h]
 \centering

@@ -1,5 +1,5 @@
 \section{Dirichlet-based uncertainty models}
-\label{sec:dirichlet_models}
+\label{sec:dirichlet_models_008}
 %
 Standard (softmax) neural networks predict the parameters of a categorical distribution \smash{$\vp\dataix = [p\dataix_1, \ldots, p\dataix_\nclass]$} for a given input \smash{$\x\dataix \in \mathbb{R}^{d}$}, where $\nclass$ is the number of classes. 
 Given the parameters of a categorical distribution, the \emph{ aleatoric uncertainty} can be evaluated. The aleatoric uncertainty is the uncertainty on the class label prediction \smash{$y\dataix \in \{1, \ldots, \nclass\}$}. For example if we predict the outcome of an unbiased coin flip, the model is expected to have high aleatoric uncertainty and predict $p(\text{head})=0.5$.

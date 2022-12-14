@@ -1,6 +1,7 @@
-\subsection{Uncertainty Estimation Guarantees} \label{sec:guarantees}
+\subsection{Uncertainty Estimation Guarantees} 
+\label{sec:guarantees_009}
 
-In this section, we provide theoretical guarantees showing that \GPNacro{} fulfills the three axioms under mild assumptions given the specific definitions of concepts of aleatoric/epistemic uncertainty and with/without network effects presented in Sec.~\ref{subsec:ours}. Throughout this section, we consider a \GPNacro{} model parameterized with a (feature) encoder $f_{\phi}$ with piecewise ReLU activations, a PPR diffusion, and a density estimator \smash{$\prob(\z^{\text{ft}, (\nodev)} \condition \omega)$} with bounded derivatives. We present detailed proofs in appendix. 
+In this section, we provide theoretical guarantees showing that \GPNacro{} fulfills the three axioms under mild assumptions given the specific definitions of concepts of aleatoric/epistemic uncertainty and with/without network effects presented in Sec.~\ref{subsec:model_009}. Throughout this section, we consider a \GPNacro{} model parameterized with a (feature) encoder $f_{\phi}$ with piecewise ReLU activations, a PPR diffusion, and a density estimator \smash{$\prob(\z^{\text{ft}, (\nodev)} \condition \omega)$} with bounded derivatives. We present detailed proofs in appendix. 
 
 The first theorem shows that \GPNacro{} follows Ax.~\ref{ax:certainty_features} and guarantees that \GPNacro{} achieves reasonable uncertainty estimation on extreme node features without network effects:
 \begin{theorem}

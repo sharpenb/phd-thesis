@@ -1,10 +1,10 @@
 \section{Theorem \ref{thm:oodom-guarantee}}
-\label{sec:proofs}
+\label{sec:proofs_007}
 
-We prove theorem \ref{thm:oodom-guarantee} based on Lemmas \ref{lem:relu-regions} and \ref{lem:limit-not-density}. Lemma \ref{lem:relu-regions} states that the input space can be divided in a finite number of linear regions \citep{understanding-nn-relu}. Lemma \ref{lem:limit-not-density} states that a probability density with bounded derivatives has to converge to $0$ at infinity \citep{limit-existence-infinity}. We additionally recall Lemma \ref{lem:limit-density} which provide a similar convergence guarantee without the bounded derivative constraint \citep{integrable-infinity}. Finally, Lemma \ref{lem:limit-gmm-radial} particularly shows that the guarantee of theorem 1 can be obtained with Gaussian Mixtures which are commonly used for density estimation or radial flows which are used in the experiments.
+We prove theorem \ref{thm:oodom-guarantee} based on Lemmas \ref{lem:relu-regions_007} and \ref{lem:limit-not-density}. Lemma \ref{lem:relu-regions_007} states that the input space can be divided in a finite number of linear regions \citep{understanding-nn-relu}. Lemma \ref{lem:limit-not-density} states that a probability density with bounded derivatives has to converge to $0$ at infinity \citep{limit-existence-infinity}. We additionally recall Lemma \ref{lem:limit-density} which provide a similar convergence guarantee without the bounded derivative constraint \citep{integrable-infinity}. Finally, Lemma \ref{lem:limit-gmm-radial} particularly shows that the guarantee of theorem 1 can be obtained with Gaussian Mixtures which are commonly used for density estimation or radial flows which are used in the experiments.
 
 \begin{lemma}
-\label{lem:relu-regions}
+\label{lem:relu-regions_007}
 \citep{understanding-nn-relu} Let $\{Q_l\}_l^{R}$ be the set of linear regions associated to the piecewise ReLU network $f_{\phi}(\x)$. For any $\x \in \real^\inputdim$, there exists $\delta^* \in \real^{+}$ and $l^*\in {1,..., R}$ such that $\delta \x \in Q_{l^*}$ for all $\delta > \delta^*$.
 \end{lemma}
 
@@ -42,7 +42,7 @@ Let a \NatPNacro{} model parametrized with a (deep) encoder $f_{\phi}$ with piec
 \end{theorem*}
 
 \begin{proof}
-We prove now thm.~\ref{thm:oodom-guarantee}. Let $\x \in \real^\inputdim $ be a non-zero input and $f_{\phi}$ be a ReLU network. Lem.~\ref{lem:relu-regions} implies that there exists $\delta^* \in \real^{+}$ and $l \in \{1,..., R\}$ such that $\delta \cdot \x \in Q^{(l)}$ for all $\delta > \delta^*$. Thus, $\z_{\delta} = f_{\phi}(\delta \cdot \x) = \delta \cdot (V^{(l)} \x) + a^{(l)}$ for all $\delta > \delta^*$. Note that for $\delta\in [\delta^*, +\infty]$,  $\z_{\delta}$ follows an affine half line $S_{\x} = \{\z \condition \z = \delta \cdot (V^{(l)} \x) + a^{(l)}, \delta > \delta^* \}$ in the latent space. Further, note that $V^{(l)}\x \neq 0$ and $|| \z_\delta|| \underset{\delta \rightarrow \infty}{\rightarrow} + \infty$ since $\x \neq 0$ and $V^{(l)}$ has independent rows.
+We prove now thm.~\ref{thm:oodom-guarantee}. Let $\x \in \real^\inputdim $ be a non-zero input and $f_{\phi}$ be a ReLU network. Lem.~\ref{lem:relu-regions_007} implies that there exists $\delta^* \in \real^{+}$ and $l \in \{1,..., R\}$ such that $\delta \cdot \x \in Q^{(l)}$ for all $\delta > \delta^*$. Thus, $\z_{\delta} = f_{\phi}(\delta \cdot \x) = \delta \cdot (V^{(l)} \x) + a^{(l)}$ for all $\delta > \delta^*$. Note that for $\delta\in [\delta^*, +\infty]$,  $\z_{\delta}$ follows an affine half line $S_{\x} = \{\z \condition \z = \delta \cdot (V^{(l)} \x) + a^{(l)}, \delta > \delta^* \}$ in the latent space. Further, note that $V^{(l)}\x \neq 0$ and $|| \z_\delta|| \underset{\delta \rightarrow \infty}{\rightarrow} + \infty$ since $\x \neq 0$ and $V^{(l)}$ has independent rows.
 
 We now define the function $p(\delta)=\prob(\z_{\delta} \condition \bm{\omega})$ which is the density function $\prob(\z \condition \bm{\omega})$ restricted on the affine half line $S_{\x}$. Since $\prob(\z \condition \bm{\omega})$ is a normalized probability density, then the function $\delta \mapsto p(\delta - \delta^*)$ is integrable on $[0, +\infty]$. Indeed we have:
 \begin{align*}
@@ -136,7 +136,7 @@ The Dirichlet distribution $\bm{p} \sim \DDir(\bm{\alpha})$ is the conjugate pri
 
 \textbf{Conjugate Prior Distribution.} The density and the entropy of the Dirichlet distribution are:
 %
-\begin{align}\label{eq:density-entropy-dirichlet}
+\begin{align}\label{eq:density-entropy-dirichlet_007}
         &\DDir(\bm{p} \condition \bm{\alpha}) = \frac{\Gamma\left(\sum_{\iclass=1}^\nclass{\alpha_\iclass}\right)}{\prod_{\iclass=1}^K{\Gamma(\alpha_\iclass)}} \prod_{\iclass=1}^\nclass{p_\iclass^{\alpha_\iclass-1}}\\
         &\entropy[\DDir(\bm{\alpha})] = \log B(\bm{\alpha}) + (\alpha_0 - \nclass) \psi(\alpha_0) - \sum_\iclass (\alpha_\iclass - 1) \psi(\alpha_\iclass)
 \end{align}
@@ -145,7 +145,7 @@ where $\psi(\alpha)$ and $B(\bm{\alpha})$ denote Digamma and Beta functions, res
 
 \textbf{Expected Log-Likelihood.} The expected likelihood of the categorical distribution $\DCat(\bm{p})$ under the Dirichlet distribution $\DDir(\bm{\alpha})$ is
 %
-\begin{align}\label{eq:expected-likelihood-cat-dir}
+\begin{align}\label{eq:expected-likelihood-cat-dir_007}
     \expectation_{\bm{p} \sim \DDir(\bm{\alpha})}[\log \DCat(\y \condition \bm{p})] = \psi(\alpha_{\y}) - \psi(\alpha_0)
 \end{align}
 %
@@ -488,7 +488,7 @@ We visualize the prediction and the predictive uncertainty per pixel for the NYU
 
 
 \subsection{Hyper-Parameter Study}
-\label{sec:ablation-study}
+\label{sec:ablation-study_007}
 
 As a ablation study, we also report the results of the grid search on the latent dimension, normalizing flow types and number of normalizing flow layers for MNIST, CIFAR-10 and Bike Sharing datasets in Tab.~\ref{tab:ablation-mnist}, \ref{tab:ablation-cifar10}, \ref{tab:ablation-bikesharing-normal}, \ref{tab:ablation-bikesharing-poisson}. While most models converge to fairly good uncertainty estimates, we notice that 16 layers of simple radial flows on latent spaces of 16 dimensions were achieving very good results in practice. 
 

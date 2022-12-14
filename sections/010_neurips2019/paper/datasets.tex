@@ -2,14 +2,14 @@
 
 In this section we describe the datasets in more detail. The time gap between two events $\DeltaTime^*_\IndexEvent = \Timestamp_\IndexEvent - \Timestamp_{\IndexEvent-1}$ is first log-transformed before applying min-max normalization: $\hat{\DeltaTime_\IndexEvent}^* = \frac{\DeltaTime_\IndexEvent' - \min(\DeltaTime_\IndexEvent^{*'})}{(\max(\DeltaTime_\IndexEvent^{*'}) - \min(\DeltaTime_\IndexEvent^{*'})}$ with $\DeltaTime_\IndexEvent^{*'} = \log(\DeltaTime_\IndexEvent^* + \epsilon)$, $\epsilon > 0$.
 
-\paragraph{3-G.} We use $\NbClasses=3$ and draw from a normal distribution  $P(\DeltaTime | \IndexClass_\IndexEvent) = \mathcal{N}(i + 1, 1.)$. This dataset tries to imitate the setting from Fig.\ \ref{fig:car_categorical} as explained in \ref{introduction}. We generate 1000 events. Probability density is shown in figure \ref{fig:k-gaussians-density}. Models that are not taking time into account cannot solve this problem. Below is the code. We create the \textbf{Multi-G} dataset similarly.\vfill
+\paragraph{3-G.} We use $\NbClasses=3$ and draw from a normal distribution  $P(\DeltaTime | \IndexClass_\IndexEvent) = \mathcal{N}(i + 1, 1.)$. This dataset tries to imitate the setting from Fig.\ \ref{fig:car_categorical} as explained in \ref{sec:introduction_010}. We generate 1000 events. Probability density is shown in figure \ref{fig:k-gaussians-density}. Models that are not taking time into account cannot solve this problem. Below is the code. We create the \textbf{Multi-G} dataset similarly.\vfill
 
 \begin{figure}[H]
 \centering
     \begin{subfigure}{.45\textwidth}
         \centering
     	\includegraphics[width=.8\linewidth]{sections/010_neurips2019/paper/images/categorical_evolution.pdf}
-        \caption{Car example explained in section \ref{introduction} where probabilities of events to occur change over time}
+        \caption{Car example explained in section \ref{sec:introduction_010} where probabilities of events to occur change over time}
     \label{fig:car_categorical}
     \end{subfigure}%
     \hspace*{10.mm}
