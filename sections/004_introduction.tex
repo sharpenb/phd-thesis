@@ -48,7 +48,7 @@ This thesis study the usage of uncertainty estimation for ML methods.
     \item \bc{Cite works which look at some of these reasons.}
 \end{itemize}
 
-\section{Why do we Need independent and non-independent data ?}
+\section{Why do we need independent and non-independent data ?}
 
 In this thesis, we consdier ML models which process input data to accurately predict output targets. 
 More specifically, we expect ML models to be able to process \emph{any type of input data} (e.g. tabular, images, graph or time series) to predict \emph{any type of output data} (e.g. classes, continuous values, counts).
@@ -82,30 +82,47 @@ To this end, this thesis studies the application of uncertainty estimation to in
 
 This thesis studies the application of uncertainty estimation for independent and non-independent data via three main components:
 \begin{itemize}
-    \item Explicit \emph{desiderata} that captures the desired behavior of uncertainty estimation.
+    \item Explicit \emph{desiderata} capturing the desired behavior of uncertainty estimation.
     \item Accurate \emph{models} for uncertainty estimation with low practical overhead.
-    \item Practical \emph{experimental setup} evaluating uncertainty estimation in worst-case scenarios and real-world applications.
+    \item Practical \emph{experimental setup} evaluating uncertainty estimation in real-world applications including worst-case scenarios.
 \end{itemize} 
 
 To this end, we start by establishing the background knowledge about uncertainty estimation in Chapter~\ref{chap:background}.
-In Part~\ref{part:independent_data}, we present a study of uncertainty estimation for indepedent data: 
-In Chapter~\ref{chap:classification}, we construct a Bayesian model for uncertainty estimation for classification called Posterior Network (PostNet). PostNet requires a single-forward pass and does not need OOD data during training.
-In Chapter~\ref{chap:regression}, we construct a Bayesian model for uncertaintye estimation for regression (and classification) called Natural Posterior Network (NatPN).
-In Chapter~\ref{chap:robustness}, we present the first study of the robustness of uncertainty models under adversarial attacks. 
 
-In Part~\ref{part:non_independent_data}, we present a study of uncertainty estimation for non-independent data:
+In Part~\ref{part:independent_data}, we present a study of uncertainty estimation for \emph{indepedent data}: 
+In Chapter~\ref{chap:classification}, we construct a new Bayesian model for uncertainty estimation for classification called \PostNet{} (\PostNetacro{}). \PostNetacro{} requires a \emph{single-forward pass}, does need \emph{no OOD data during training}, and adapt to \emph{many core architectures}.
+In Chapter~\ref{chap:regression}, we construct a new Bayesian model for uncertainty estimation for regression called \NatPN{} (\NatPNacro{}). Beyond regression, \NatPNacro{} applies to a \emph{large variety of supervised tasks} (incl. classification and count prediction) with \emph{very low computational overhead}.
+In Chapter~\ref{chap:robustness}, we present the first study of the robustness of uncertainty models in the worst-case scenario of adversarial attacks. We show that uncertainty estimates of an important family of single-forward pass models are \emph{not robust} for many important real-world tasks (incl. correct/wrong prediction detection, adversarial examples detection, and ID/OOD detection). Further, we explore first approaches methods to improve uncertainty robustness by using \emph{adversarial training} and \emph{randomized smoothing}. 
 
+In Part~\ref{part:non_independent_data}, we present a study of uncertainty estimation for \emph{non-independent data}:
+In Chapter~\ref{chap:graph_data}, we present the first framework for uncertainty estimation for node classification on graph data. This framework proposes explicit desiderata, a new Bayesian model, and an exhaustive evaluation setup which cover aleatoric and epistemic uncertainty estimation \emph{without} and \emph{with network effects}.
+In Chapter~\ref{chap:sequential_data}, we present new models for uncertainty estimation in sequential data with asynchronous time events. The two proposed models are able of accurate \emph{event types} and \emph{event time} predictions while capturing \emph{uncertainty with rich temporal evolution}.
+In Chapter~\ref{chap:reinforcement_learning}, we present the first framework to disentangle aleatoric and epistemic uncertainty estimation in reinforcment learning. This framework proposes explicit desiderata, four models inspired from supervised learning, and a detailed experimental setup which cover aleatoric and epistemic uncertainty estimation at both \emph{training time} and \emph{testing time}.
 
-\begin{itemize}
-    \item IID: different output
-    \item Non-IID: different input
-\end{itemize}
+In Part~\ref{part:conclusion}, we present a retrospective on the evolution of the research field since our first study (see Chapter~\ref{chap:retrospective}) and a conlusiong including open questions as suggestion to future research directions (see Chapter~\ref{chap:conclusion}).
+
+\begin{table}
+    \caption{List of own publications that this thesis is based on. Code and datasets for the respective publications are available at \texttt{www.cs.cit.tum.de/daml/[project]}.}
+    \vspace{2mm}
+    \label{tab:publications}
+    \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{lllll}
+      {Ch.} & {Ref.} & {Title} & {Conference} & {Repository}\\
+      \midrule
+      \ref{chap:classification} & \cite{charpentier2020} & \makecell[l]{Posterior network: Uncertainty estimation without\\ ood samples via density-based pseudo-counts} & NeurIPS 2020 & \texttt{/postnet/}\\
+      \ref{chap:regression} & \cite{NatPN2021} & \makecell[l]{Natural posterior network: Deep bayesian predictive\\ uncertainty for exponential family distributions.} & ICLR 2021 & \texttt{/natpn/}\\
+      \ref{chap:robustness} & \cite{robustness-uncertainty-dirichlet} & \makecell[l]{Evaluating robustness of predictive uncertainty estimation:\\ Are dirichlet-based models reliable?} & ICML 2020 & \texttt{/dbu-robustness/}\\
+      \ref{chap:graph_data} & \cite{graph-postnet} & \makecell[l]{Graph posterior network: Bayesian predictive uncertainty\\ for node classification.} & NeurIPS 2021 & \texttt{/graph-postnet/}\\
+      \ref{chap:sequential_data} & \cite{uceloss} & \makecell[l]{Uncertainty on asynchronous time event prediction} & NeurIPS 2019 & \texttt{/uncertainty-event-prediction/}\\
+      \ref{chap:reinforcement_learning} & \cite{charpentier2022uncertainty-rl} & \makecell[l]{Disentangling epistemic and aleatoric uncertainty\\ in reinforcement learning} & DFUQ - ICML 2022 & \texttt{/aleatoric-epistemic-uncertainty-rl/}\\
+    \end{tabular}
+    \end{adjustbox}
+\end{table}
 
 \section{Own publications}
 
-The publications devides in three topics:
-\begin{itemize}
-\item Uncertainty estimation (incl. sparse NN and Energy-based models)
-\item Structure learning (incl. hierarhical, scikit-network and DAG learning)
-\item Efficient models (incl. pruning)
-\end{itemize}
+The content of Chapters \ref{chap:classification} to \ref{chap:reinforcement_learning} is mostly based on papers previously published at international peer-reviewed conferences. We list these papers in Table~\ref{tab:publications}.
+We also provide the full list of publications that the author was involved in during the PhD studies below. These publications focus on three main topics: \emph{uncertainty estimation} (incl. bayesian models, energy-based models and robustness), \emph{structure learning} (incl. hierarchical and directed acyclic graphs), and \emph{efficient ML} (incl. pruning methods and sparse neural networks).
+
+\renewcommand{\bibsection}{}
+\input{sections/own_publications/own_publications.bbl}

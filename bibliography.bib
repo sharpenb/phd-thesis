@@ -38,6 +38,55 @@ URL = {https://www.aeaweb.org/articles?id=10.1257/jep.28.2.153}}
   Note                     = {\url{http://www.deeplearningbook.org}}
 }
 
+@inproceedings{charpentier2019tsd,
+  title     = {Tree Sampling Divergence: An Information-Theoretic Metric for Hierarchical Graph Clustering},
+  author    = {Charpentier, Bertrand and Bonald, Thomas},
+  booktitle = {International Joint Conference on Artificial Intelligence, {IJCAI}},
+  year      = {2019}
+}
+
+@article{bonald2020scikitnetwork,
+  author  = {Thomas Bonald and Nathan de Lara and Quentin Lutz and Bertrand Charpentier},
+  title   = {Scikit-network: Graph Analysis in Python},
+  journal = {Journal of Machine Learning Research, {JMLR}},
+  year    = {2020},
+}
+
+@inproceedings{charpentier2022dpdag,
+title={Differentiable DAG Sampling},
+author={Bertrand Charpentier and Simon Kibler and Stephan G{\"u}nnemann},
+booktitle={International Conference on Learning Representations, {ICLR}},
+year={2022}
+}
+
+@inproceedings{zugner2022endtoend,
+title={End-to-End Learning of Probabilistic Hierarchies on Graphs},
+author={Daniel Z{\"u}gner and Bertrand Charpentier and Morgane Ayle and Sascha Geringer and Stephan G{\"u}nnemann},
+booktitle={International Conference on Learning Representations, {ICLR}},
+year={2022},
+}
+
+@InProceedings{rachwan2022earlycrop,
+  title = 	 {Winning the Lottery Ahead of Time: Efficient Early Network Pruning},
+  author =       {Rachwan, John and Z{\"u}gner, Daniel and Charpentier, Bertrand and Geisler, Simon and Ayle, Morgane and G{\"u}nnemann, Stephan},
+  booktitle = 	 {International Conference on Machine Learning, {ICML}},
+  year = 	 {2022},
+}
+
+@inproceedings{ayle2022robustness-sparse,
+title	= {On the Robustness and Anomaly Detection of Sparse Neural Networks},
+author	= {Morgane Ayle and Bertrand Charpentier and John Rachwan and Daniel Zügner and Simon Geisler and Stephan Günnemann},
+year	= {2022},
+booktitle	= {Sparsity in Neural Networks Workshop, {SNN}}
+}
+
+@inproceedings{charpentier2022uncertainty-rl,
+title	= {Disentangling Epistemic and Aleatoric Uncertainty in Reinforcement Learning},
+author	= {Bertrand Charpentier and Ransalu Senanayake and Mykel Kochenderfer and Stephan Günnemann},
+year	= {2022},
+booktitle	= {ICML Workshop on Distribution-Free Uncertainty Quantification, {ICML - DFUQ}}
+}
+
 % 006
 
 @article{barham2003xen,
@@ -565,9 +614,9 @@ year = {2019},
 }
 @article{uceloss,
 	title        = {Uncertainty on Asynchronous Time Event Prediction},
-	author       = {Bilo\v{s}, Marin and Charpentier, Bertrand and Günnemann, Stephan},
+	author       = {Charpentier, Bertrand and Bilo\v{s}, Marin and Günnemann, Stephan},
 	year         = 2019,
-	journal    = {NeurIPS}
+	journal    = {Neural Information Processing Systems, {NeurIPS}}
 }
 @article{exponential-entropy,
 	title        = {Entropies and Cross-Entropies of Exponential Families},
@@ -842,15 +891,14 @@ year = {2019},
 	year         = 2020,
 	journal    = {NeurIPS}
 }
-@article{ood_ebm,
+@inproceedings{ood_ebm,
   author    = {Sven Elflein and
                Bertrand Charpentier and
                Daniel Z{\"{u}}gner and
                Stephan G{\"{u}}nnemann},
   title     = {On Out-of-distribution Detection with Energy-based Models},
-  journal   = {CoRR},
-  year      = {2021},
-  eprinttype = {arXiv},
+  booktitle   = {ICML workshop on Uncertainty and Robustness in Deep Learning Workshop, {UDL - ICML}},
+  year      = {2021}
 }
 @inproceedings{jem_ebm,
     title={Your classifier is secretly an energy based model and you should treat it like one},
@@ -1289,7 +1337,7 @@ year = {2014}
 	title={Posterior Network: Uncertainty Estimation without OOD Samples via Density-Based Pseudo-Counts},
 	author={Bertrand Charpentier and Daniel Z\"ugner and Stephan G\"unnemann},
 	year={2020},
-	journal={Neural Information Processing Systems},
+	journal={Neural Information Processing Systems, {NeurIPS}},
 }
 
 @article{sensoy2018,
@@ -2674,12 +2722,11 @@ year = {2016}
   year={2020}
 }
 
-@misc{NatPN2021,
+@inproceedings{NatPN2021,
       title={Natural Posterior Network: Deep Bayesian Predictive Uncertainty for Exponential Family Distributions}, 
-      author={Bertrand Charpentier and Oliver Borchert and Daniel Zügner and Simon Geisler and Stephan Günnemann},
+      author={Bertrand Charpentier and Oliver Borchert and Daniel Zügner and Simon Geisler and Stephan G{\"{u}}nnemann},
+      booktitle={International Conference on Learning Representations, {ICLR}},
       year={2021},
-      journal={arXiv preprint arXiv:2105.04471},
-      primaryClass={cs.LG}
 }
 
 @inproceedings{Naeini2015,
@@ -2704,15 +2751,15 @@ year = {2016}
   year={2020}
 }
 
-@article{robustness-uncertainty-dirichlet,
-  author    = {Anna{-}Kathrin Kopetzki and
-               Bertrand Charpentier and
+@InProceedings{robustness-uncertainty-dirichlet,
+  author    = {Bertrand Charpentier and
+               Anna{-}Kathrin Kopetzki and
                Daniel Z{\"{u}}gner and
                Sandhya Giri and
                Stephan G{\"{u}}nnemann},
   title     = {Evaluating Robustness of Predictive Uncertainty Estimation: Are Dirichlet-based
                Models Reliable?},
-  journal   = {Computing Research Repository},
+  booktitle   = {International Conference on Machine Learning, {ICML}},
   year      = {2020}
 }
 
@@ -2720,7 +2767,7 @@ year = {2016}
       title={Being Bayesian, Even Just a Bit, Fixes Overconfidence in ReLU Networks}, 
       author={Agustinus Kristiadi and Matthias Hein and Philipp Hennig},
       year={2020},
-      journal={International Conference on Machine Learning}
+      journal={International Conference on Machine Learning, {ICML}}
 }
 
 @misc{sufficient-conditions-no-adversarial,
@@ -3699,7 +3746,7 @@ year = {2010},
 }
 @inproceedings{graph-postnet,
 	title        = {Graph Posterior Network: Bayesian Predictive Uncertainty for Node Classification},
-	author       = {Stadler, Maximilian and Charpentier, Bertrand and Geisler, Simon and Z\"{u}gner, Daniel and G\"{u}nnemann, Stephan},
+	author       = {Charpentier, Bertrand and Stadler, Maximilian and Geisler, Simon and Z\"{u}gner, Daniel and G\"{u}nnemann, Stephan},
 	year         = 2021,
 	booktitle    = {Advances in Neural Information Processing Systems}
 }

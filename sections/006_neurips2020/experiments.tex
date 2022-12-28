@@ -54,27 +54,27 @@ dimensionality 18 and 49 and with 7 and 11 classes, respectively. We rescale all
 \end{table}
 
 \textbf{Results.} 
-Results for the Sensorles Drive dataset are shown in Tab.~\ref{fig:unc_sensorless_drive}. Tables for other datasets are in the appendix. Even without requiring expensive sampling, \oursacro performs on par for accuracy and confidence scores with other models, brings a significant improvement for calibration within the Dirichlet-based models, and outperforms all other models by a large margin (more than $+30\%$ abs. improvement) for OOD detection. Radial flow and IAF variants both achieve strong performance for all datasets (see app.). We use the smaller model (i.e. Radial flow) for comparison in the following. In our experiments, note that using one Radial flow per class represents a small overhead of only $80$ parameters per class, which is negligible compared to the encoder architectures (e.g. VGG16 has 138M parameters).
+Results for the Sensorles Drive dataset are shown in Tab.~\ref{fig:unc_sensorless_drive}. Tables for other datasets are in the appendix. Even without requiring expensive sampling, \PostNetacro performs on par for accuracy and confidence scores with other models, brings a significant improvement for calibration within the Dirichlet-based models, and outperforms all other models by a large margin (more than $+30\%$ abs. improvement) for OOD detection. Radial flow and IAF variants both achieve strong performance for all datasets (see app.). We use the smaller model (i.e. Radial flow) for comparison in the following. In our experiments, note that using one Radial flow per class represents a small overhead of only $80$ parameters per class, which is negligible compared to the encoder architectures (e.g. VGG16 has 138M parameters).
 
 \begin{figure}
     \centering
     \begin{subfigure}[t]{0.33 \textwidth}
         \centering
         \includegraphics[width=0.5 \textwidth]{sections/006_neurips2020/figures/three_gaussians_no_flow-crop.pdf}
-        \caption{\oursacro: \NoFlow}
+        \caption{\PostNetacro: \NoFlow}
     \end{subfigure}%   
     \begin{subfigure}[t]{0.33 \textwidth}
         \centering
         \includegraphics[width=0.5 \textwidth]{sections/006_neurips2020/figures/three_gaussians_no_UCE-crop.pdf}
-        \caption{\oursacro: \NoUCE}
+        \caption{\PostNetacro: \NoUCE}
     \end{subfigure}%   
     \begin{subfigure}[t]{0.33 \textwidth}
         \centering
         \includegraphics[width=0.5 \textwidth]{sections/006_neurips2020/figures/three_gaussians_normal-crop.pdf}
-        \caption{\oursacro: Complete}
+        \caption{\PostNetacro: Complete}
     \end{subfigure}%
 
-    \caption{Uncertainty visualization for a 2D 3-Gaussians dataset. Red dots indicate the Gaussians means. Darker regions indicate high epistemic uncertainty for a class prediction. Ablated models fail even a simple dataset while \oursacro shows high certainty around gaussians means only.}
+    \caption{Uncertainty visualization for a 2D 3-Gaussians dataset. Red dots indicate the Gaussians means. Darker regions indicate high epistemic uncertainty for a class prediction. Ablated models fail even a simple dataset while \PostNetacro shows high certainty around gaussians means only.}
     \label{fig:toy_ablation}
 	%\vspace{-.0cm}
 \end{figure}
@@ -94,12 +94,12 @@ Results for the Sensorles Drive dataset are shown in Tab.~\ref{fig:unc_sensorles
 \end{tabular}
 
     }
-    \caption{Ablation study results on Sensorless Drive dataset. Gray cells indicate significant drops in scores compared to complete \oursacro Rad. in Tab.~\ref{fig:unc_sensorless_drive}.}
+    \caption{Ablation study results on Sensorless Drive dataset. Gray cells indicate significant drops in scores compared to complete \PostNetacro Rad. in Tab.~\ref{fig:unc_sensorless_drive}.}
         \label{fig:ablation_sensorless_drive}
     \vspace{-.5cm}
 \end{table}
 
-We performed an ablation study on each component of \oursacro to evaluate their individual contributions. We were especially interested in comparing stability and uncertainty estimates. Thus, we removed independently the normalizing flow component (\NoFlow) and the novel Bayesian loss (\NoUCE) replaced by the classic cross-entropy loss. Furthermore, we used pre-trained models and subsequently only trained the normalizing flow component, with or without a batch normalization layer (\SeqBn and \SeqNoBn). We report results in Tab.~\ref{fig:ablation_sensorless_drive}. \NoFlow has a significant drop in OOD detection scores similarly to Prior Networks; not surprising since they mainly differ by their loss. This underlines the importance of using normalized density estimation to differentiate ID and OOD data. The lower performance of \NoUCE compared to the original model indicates the benefit of using our Bayesian loss.
+We performed an ablation study on each component of \PostNetacro to evaluate their individual contributions. We were especially interested in comparing stability and uncertainty estimates. Thus, we removed independently the normalizing flow component (\NoFlow) and the novel Bayesian loss (\NoUCE) replaced by the classic cross-entropy loss. Furthermore, we used pre-trained models and subsequently only trained the normalizing flow component, with or without a batch normalization layer (\SeqBn and \SeqNoBn). We report results in Tab.~\ref{fig:ablation_sensorless_drive}. \NoFlow has a significant drop in OOD detection scores similarly to Prior Networks; not surprising since they mainly differ by their loss. This underlines the importance of using normalized density estimation to differentiate ID and OOD data. The lower performance of \NoUCE compared to the original model indicates the benefit of using our Bayesian loss.
  \SeqBn obtains good performance for some of the metrics, which as a by-product, allows to estimate uncertainty on pre-trained models. Though, we noticed better performance for joint training in general. As shown by \SeqNoBn scores, the batch normalization layer brings stability. It intuitively facilitates predicted latent positions to lie on non-zero density regions. Similar conclusions can be drawn on the toy dataset (see Fig.~\ref{fig:toy_ablation}) and the Segment dataset (see app.). We further compare various density types and latent dimensions in appendix. We noticed that a too high latent dimension leads to a performance decrease. We also observed that flow-based density estimation generally achieves better scores.
 
 \begin{table}[H]
@@ -117,12 +117,12 @@ We performed an ablation study on each component of \oursacro to evaluate their 
 \end{tabular}
 
     }
-    \caption{Results on MNIST for OOD detection against KMNIST (K.) and FashionMNIST (F.). We trained Rev. KL divergence PriorNets with uniform noise (RKL-PN) and Fashion MNIST (RKL-PN w/ F.) as OOD. \oursacro requires no OOD data. Larger numbers are better.}
+    \caption{Results on MNIST for OOD detection against KMNIST (K.) and FashionMNIST (F.). We trained Rev. KL divergence PriorNets with uniform noise (RKL-PN) and Fashion MNIST (RKL-PN w/ F.) as OOD. \PostNetacro requires no OOD data. Larger numbers are better.}
     \label{fig:unc_MNIST}
     \vspace{-.5cm}
 \end{table}
 
-Results of the comparison between RKL-PN, RKL-PN w/ F and \oursacro for OOD detection on MNIST are shown in Tab.~ \ref{fig:unc_MNIST}. Not surprisingly, the usage of FashionMNIST as OOD data for training helped RKL-PN to detect other FashionMNIST data. Except for FashionMNIST OOD, \oursacro still outperforms RKL-PN w/ F. in OOD detection for other datasets. We noticed that tabular datasets, defined on an unbounded input domain, are more difficult for baselines. One explanation is that due to the $\min$/$\max$ normalization it can happen that test samples lie outside the interval $[0,1]$ observed during training. For images, the input domain is compact, which allows to define a valid distribution for OOD data (e.g. uniform) which makes OODom data challenging (see OOD vs OODom in Tab.~\ref{fig:unc_MNIST}).
+Results of the comparison between RKL-PN, RKL-PN w/ F and \PostNetacro for OOD detection on MNIST are shown in Tab.~ \ref{fig:unc_MNIST}. Not surprisingly, the usage of FashionMNIST as OOD data for training helped RKL-PN to detect other FashionMNIST data. Except for FashionMNIST OOD, \PostNetacro still outperforms RKL-PN w/ F. in OOD detection for other datasets. We noticed that tabular datasets, defined on an unbounded input domain, are more difficult for baselines. One explanation is that due to the $\min$/$\max$ normalization it can happen that test samples lie outside the interval $[0,1]$ observed during training. For images, the input domain is compact, which allows to define a valid distribution for OOD data (e.g. uniform) which makes OODom data challenging (see OOD vs OODom in Tab.~\ref{fig:unc_MNIST}).
 
 \begin{table}[H]
     \resizebox{1 \textwidth}{!}{%
@@ -149,7 +149,7 @@ Results of the comparison between RKL-PN, RKL-PN w/ F and \oursacro for OOD dete
     \vspace{-.5cm}
 \end{table}
 
-Uncertainty estimation should be good regardless of the model accuracy. It is even more important for less accurate models since they actually \emph{do not know} (i.e.\ they do more mistakes). Thus, we compared the models that use a single network for training (using a convolutional architecture and VGG16) in Tab.~\ref{fig:unc_CIFAR10}. Without the knowledge of true OOD data (SVHN) during training, Prior Networks struggle to achieve good performance. In contrast, \oursacro outputs high quality uncertainty estimates regardless of the architecture used for the encoder. We report additional results for PostNet using other encoder architectures (convolutional architecture, AlexNet \cite{alexnet}, VGG \cite{vgg} and ResNet \cite{resnet}) in  Table~\ref{tab:architecture_CIFAR10}. Deep generative models as Glow \cite{glow} using density estimation on input space are unable to distinguish between CIFAR10 and SVHN \cite{deep_generative_do_not_know}. In contrast, \oursacro clearly distinguishes between in-distribution data (CIFAR10) with low entropy, out-of-distribution (OOD SVHN) with high entropy, and close to the maximum possible entropy for out-of-domain data (OODom SVHN) (see Fig.~\ref{cifar_shifts}a). Similar conclusions hold for MNIST and FashionMNIST (see app.). Furthermore, results for the image perturbations on CIFAR10 introduced by \cite{benchmarking_corruptions} are presented in Fig.~\ref{cifar_shifts}.  We define the average change in confidence as the ratio between the average confidence \smash{$\frac{1}{N}\sum_i^{N}\alpha_0\dataix$} at severity 1 vs other severity levels. As larger shifts correspond to larger differences in the underlying distributions, we expect uncertainty-aware models to become less certain for more severe perturbations. \ours exhibits, as desired, the largest decrease in confidence with stronger corruptions (see Fig.~\ref{cifar_shifts}b) while maintaining a high accuracy (see Fig.~\ref{cifar_shifts}c).
+Uncertainty estimation should be good regardless of the model accuracy. It is even more important for less accurate models since they actually \emph{do not know} (i.e.\ they do more mistakes). Thus, we compared the models that use a single network for training (using a convolutional architecture and VGG16) in Tab.~\ref{fig:unc_CIFAR10}. Without the knowledge of true OOD data (SVHN) during training, Prior Networks struggle to achieve good performance. In contrast, \PostNetacro outputs high quality uncertainty estimates regardless of the architecture used for the encoder. We report additional results for PostNet using other encoder architectures (convolutional architecture, AlexNet \cite{alexnet}, VGG \cite{vgg} and ResNet \cite{resnet}) in  Table~\ref{tab:architecture_CIFAR10}. Deep generative models as Glow \cite{glow} using density estimation on input space are unable to distinguish between CIFAR10 and SVHN \cite{deep_generative_do_not_know}. In contrast, \PostNetacro clearly distinguishes between in-distribution data (CIFAR10) with low entropy, out-of-distribution (OOD SVHN) with high entropy, and close to the maximum possible entropy for out-of-domain data (OODom SVHN) (see Fig.~\ref{cifar_shifts}a). Similar conclusions hold for MNIST and FashionMNIST (see app.). Furthermore, results for the image perturbations on CIFAR10 introduced by \cite{benchmarking_corruptions} are presented in Fig.~\ref{cifar_shifts}.  We define the average change in confidence as the ratio between the average confidence \smash{$\frac{1}{N}\sum_i^{N}\alpha_0\dataix$} at severity 1 vs other severity levels. As larger shifts correspond to larger differences in the underlying distributions, we expect uncertainty-aware models to become less certain for more severe perturbations. \PostNet exhibits, as desired, the largest decrease in confidence with stronger corruptions (see Fig.~\ref{cifar_shifts}b) while maintaining a high accuracy (see Fig.~\ref{cifar_shifts}c).
 
 \begin{table}[ht]
     \resizebox{1 \textwidth}{!}{%
@@ -157,15 +157,15 @@ Uncertainty estimation should be good regardless of the model accuracy. It is ev
 \toprule
 {} &  \textbf{Acc.} & \textbf{Alea. Conf.} & \textbf{Epist. Conf.}  & \textbf{Brier} & \textbf{OOD Alea.} & \textbf{OOD Epist.} & \textbf{OODom Alea.} & \textbf{OODom Epist.} \\
 \midrule
-\textbf{\oursacro: Conv.  } &  78.58$\pm$0.1 &        95.45$\pm$0.0 &          93.36$\pm$0.0 &  33.84$\pm$0.2 &      72.21$\pm$0.1 &       57.72$\pm$0.7 &        100.0$\pm$0.0 &         100.0$\pm$0.0 \\
-\textbf{\oursacro: Alexnet} &  80.81$\pm$0.2 &        96.33$\pm$0.1 &          95.35$\pm$0.1 &  29.99$\pm$0.3 &       73.4$\pm$0.7 &       67.05$\pm$0.6 &        97.64$\pm$0.4 &         99.64$\pm$0.1 \\
-\textbf{\oursacro: VGG    } &  84.85$\pm$0.0 &        97.76$\pm$0.0 &          97.25$\pm$0.0 & 22.84$\pm$0.0 &      80.21$\pm$0.2 &       77.71$\pm$0.3 &        91.35$\pm$0.5 &         99.25$\pm$0.1 \\
-\textbf{\oursacro: Resnet } &  87.86$\pm$0.2 &        98.35$\pm$0.0 &          97.13$\pm$0.0 &  19.33$\pm$0.3 &      79.92$\pm$0.4 &       72.25$\pm$0.6 &        99.94$\pm$0.0 &         99.94$\pm$0.0 \\
+\textbf{\PostNetacro: Conv.  } &  78.58$\pm$0.1 &        95.45$\pm$0.0 &          93.36$\pm$0.0 &  33.84$\pm$0.2 &      72.21$\pm$0.1 &       57.72$\pm$0.7 &        100.0$\pm$0.0 &         100.0$\pm$0.0 \\
+\textbf{\PostNetacro: Alexnet} &  80.81$\pm$0.2 &        96.33$\pm$0.1 &          95.35$\pm$0.1 &  29.99$\pm$0.3 &       73.4$\pm$0.7 &       67.05$\pm$0.6 &        97.64$\pm$0.4 &         99.64$\pm$0.1 \\
+\textbf{\PostNetacro: VGG    } &  84.85$\pm$0.0 &        97.76$\pm$0.0 &          97.25$\pm$0.0 & 22.84$\pm$0.0 &      80.21$\pm$0.2 &       77.71$\pm$0.3 &        91.35$\pm$0.5 &         99.25$\pm$0.1 \\
+\textbf{\PostNetacro: Resnet } &  87.86$\pm$0.2 &        98.35$\pm$0.0 &          97.13$\pm$0.0 &  19.33$\pm$0.3 &      79.92$\pm$0.4 &       72.25$\pm$0.6 &        99.94$\pm$0.0 &         99.94$\pm$0.0 \\
 \bottomrule
 \end{tabular}
 
     }
-    \caption{Results of \oursacro with different encoder architectures. It shows good uncertainty estimation regardless of the architecture complexity.}
+    \caption{Results of \PostNetacro with different encoder architectures. It shows good uncertainty estimation regardless of the architecture complexity.}
     \label{tab:architecture_CIFAR10}
 \end{table}
 
@@ -187,7 +187,7 @@ Uncertainty estimation should be good regardless of the model accuracy. It is ev
         \includegraphics[width=.98 \textwidth]{sections/006_neurips2020/figures/shifts_CIFAR10_acc.png}
         \caption{Accuracy under data shifts}
     \end{subfigure}%   
-    \caption{(a) shows entropy of the aleatoric distributions predicted by \oursacro on CIFAR10 (ID) and SVHN (OOD, OODom). The value $2.3026^*$ denotes the highest achievable entropy for 10 classes. \oursacro can easily distinguish between the three data types. (b) and (c) present averaged confidence and accuracy under 15 dataset shifts introduced by \cite{benchmarking_corruptions} on CIFAR10 with conv. architecture. On more severe perturbations (i.e. data further away from data distribution), \oursacro assigns higher epistemic uncertainty as desired. Baselines keeps same confidence even for less accurate predictions.}
+    \caption{(a) shows entropy of the aleatoric distributions predicted by \PostNetacro on CIFAR10 (ID) and SVHN (OOD, OODom). The value $2.3026^*$ denotes the highest achievable entropy for 10 classes. \PostNetacro can easily distinguish between the three data types. (b) and (c) present averaged confidence and accuracy under 15 dataset shifts introduced by \cite{benchmarking_corruptions} on CIFAR10 with conv. architecture. On more severe perturbations (i.e. data further away from data distribution), \PostNetacro assigns higher epistemic uncertainty as desired. Baselines keeps same confidence even for less accurate predictions.}
     \label{cifar_shifts}
     %\vspace{-.5cm}
 \end{figure}

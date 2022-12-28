@@ -30,10 +30,10 @@ H(q\dataix) = \log B(\bm{\alpha}\dataix) + (\alpha_0\dataix - \nclass) \Psi(\alp
 \end{equation}
 where $B$ denotes the beta function.
 
-\subsection{Epistemic covariance for in-distribution samples in \oursacro.}
+\subsection{Epistemic covariance for in-distribution samples in \PostNetacro.}
 \label{epistemic_variance_proof}
 
-The epistemic distribution in \oursacro is a Dirichlet distribution Dir$(\bm{\alpha}\dataix)$ with the following concentration parameters $\alpha_\iclass\dataix = \beta_\iclass^\text{prior} + N \cdot \prob(\iclass | \latent\dataix; \phi) \cdot \prob(\latent\dataix; \phi)$ and $\alpha_0\dataix = \sum_\iclass \beta_\iclass^\text{prior} + N \cdot \prob(\latent\dataix; \phi)$. We can write the variance:
+The epistemic distribution in \PostNetacro is a Dirichlet distribution Dir$(\bm{\alpha}\dataix)$ with the following concentration parameters $\alpha_\iclass\dataix = \beta_\iclass^\text{prior} + N \cdot \prob(\iclass | \latent\dataix; \phi) \cdot \prob(\latent\dataix; \phi)$ and $\alpha_0\dataix = \sum_\iclass \beta_\iclass^\text{prior} + N \cdot \prob(\latent\dataix; \phi)$. We can write the variance:
 \begin{equation}
 \begin{aligned}
 \text{Var}_{\vect{p}\sim \Dir(\boldsymbol{\alpha}\dataix)}(p_\iclass) & = \frac{\alpha_\iclass (\alpha_0 - \alpha_\iclass)}{\alpha_0^2 (\alpha_0 + 1)}; \; \text{Cov}_{\vect{p}\sim \Dir(\boldsymbol{\alpha}\dataix)}(p_\iclass, p_{\iclass'}) & = \frac{-\alpha_\iclass\alpha_{\iclass'}}{\alpha_0^2 (\alpha_0 + 1)}
@@ -48,7 +48,7 @@ For vector datasets, all models share an architecture of 3 linear layers with Re
 
 For the dropout models, we used $p_{\text{drop}} = .25$ after a grid search in $[.25, .5, .75]$ and sampled $10$ times for uncertainty estimation. As an indicator, the original paper \cite{drop_out}, uses a dropout probability of $.5$ for MNIST. It also states that $10$ samples already lead to reasonable uncertainty estimates. For the ensemble models, we used $m=10$ networks after a grid search in $[2, 5, 10, 20]$. A greater number of networks was also found to give no great improvements in the original paper \cite{ensemble_simple}. To be fair with these models, we distilled the knowledge of $10$ neural networks for Distribution Distillation. We also trained Prior Networks where target parameters $\beta_\text{in}=1e^2$ as suggested in original papers \cite{prior_net, rev_kl_prior_net}.
 
-For \oursacro, we used a 1D batch normalization after the encoder. Experiments on latent dimensions and density types are presented in following sections. If not explicitley mentioned otherwise, we used by default radial flow with a flow length of $6$ and a latent dimension of $6$. This leads to only $80$ parameters. Comparison with IAF are done with two layers of size $256$. In general, we found out that a latent dimension smaller or equal to the number of classes is sufficient. It enables classes to be orthogonal in the latent space if necessary.
+For \PostNetacro, we used a 1D batch normalization after the encoder. Experiments on latent dimensions and density types are presented in following sections. If not explicitley mentioned otherwise, we used by default radial flow with a flow length of $6$ and a latent dimension of $6$. This leads to only $80$ parameters. Comparison with IAF are done with two layers of size $256$. In general, we found out that a latent dimension smaller or equal to the number of classes is sufficient. It enables classes to be orthogonal in the latent space if necessary.
 
 All metrics have been scaled by $100$. We obtain numbers in $[0, 100]$  for all scores instead of $[0, 1]$.
 
@@ -70,15 +70,15 @@ Finally, we use the CIFAR10 image dataset \cite{cifar10} where the goal is to cl
 \section{Additional Experimental Results}
 \label{sec:app_additional_results}
 
-In this section, we present additional results for uncertainty estimation on other datasets. Tables \ref{fig:unc_segment_full}, \ref{fig:unc_sensorless_drive_full}, \ref{fig:unc_MNIST_full}, \ref{fig:ood_MNIST_full}, \ref{fig:unc_CIFAR10_full} show the performance of all models on the Segment, Sensorless Drive, MNIST, and CIFAR10 datasets. In the same way as for the other datasets, \oursacro is competitive for all metrics and show a significant improvement on calibration among Dirichlet parametrized models and on OOD detection tasks among all models. We evaluated the performances of all models on MNIST using different uncertainty measures and observed very correlated results (see Table~\ref{tab:MNIST++}). We compared different encoder architectures on CIFAR10 (see Fig.~\ref{tab:architecture_CIFAR10}). Without further parameter tuning, \oursacro adapted well to the convolutional architecture, AlexNet \cite{alexnet}, VGG \cite{vgg} and ResNet \cite{resnet}. For easier comparison, we also trained models on the classic CIFAR10 split (79\%, 5\%, 16\%) with VGG architecture. We noticed that a larger training set leads to better accuracy for all models.
+In this section, we present additional results for uncertainty estimation on other datasets. Tables \ref{fig:unc_segment_full}, \ref{fig:unc_sensorless_drive_full}, \ref{fig:unc_MNIST_full}, \ref{fig:ood_MNIST_full}, \ref{fig:unc_CIFAR10_full} show the performance of all models on the Segment, Sensorless Drive, MNIST, and CIFAR10 datasets. In the same way as for the other datasets, \PostNetacro is competitive for all metrics and show a significant improvement on calibration among Dirichlet parametrized models and on OOD detection tasks among all models. We evaluated the performances of all models on MNIST using different uncertainty measures and observed very correlated results (see Table~\ref{tab:MNIST++}). We compared different encoder architectures on CIFAR10 (see Fig.~\ref{tab:architecture_CIFAR10}). Without further parameter tuning, \PostNetacro adapted well to the convolutional architecture, AlexNet \cite{alexnet}, VGG \cite{vgg} and ResNet \cite{resnet}. For easier comparison, we also trained models on the classic CIFAR10 split (79\%, 5\%, 16\%) with VGG architecture. We noticed that a larger training set leads to better accuracy for all models.
 
-We also show results of experiments with different latent dimensions (see Fig.~\ref{fig:latent_dim_segment}; \ref{fig:latent_dim_sensorless_drive}; \ref{fig:latent_dim_MNIST}; \ref{fig:latent_dim_CIFAR10}) and density types (MoG, radial, IAF) (see Tab.~\ref{fig:unc_segment_full}; \ref{fig:unc_sensorless_drive_full}; \ref{fig:unc_MNIST_full}; \ref{fig:ood_MNIST_full}; \ref{fig:unc_CIFAR10_full}) for all datasets. We remarked that \oursacro works with various type of densities even if using mixture of Gaussians presented more instability in practice. We observed no clear winner between Radial flow and IAF. We observed a bit lower performances for MoG which could be explained by its lack of expressiveness. Furthermore, we observed that a too high latent dimension would affect the performance.
+We also show results of experiments with different latent dimensions (see Fig.~\ref{fig:latent_dim_segment}; \ref{fig:latent_dim_sensorless_drive}; \ref{fig:latent_dim_MNIST}; \ref{fig:latent_dim_CIFAR10}) and density types (MoG, radial, IAF) (see Tab.~\ref{fig:unc_segment_full}; \ref{fig:unc_sensorless_drive_full}; \ref{fig:unc_MNIST_full}; \ref{fig:ood_MNIST_full}; \ref{fig:unc_CIFAR10_full}) for all datasets. We remarked that \PostNetacro works with various type of densities even if using mixture of Gaussians presented more instability in practice. We observed no clear winner between Radial flow and IAF. We observed a bit lower performances for MoG which could be explained by its lack of expressiveness. Furthermore, we observed that a too high latent dimension would affect the performance.
 
-Beside tables and figures with detailed metrics, we report additional visualizations. We present the uncertainty visualization on the input space for a 2D toy dataset (see Fig.~\ref{fig:visualization_grid}). We show this visualization for all models parametrizing Dirichlet distributions. \oursacro is the only model which is not overconfident for OOD data. In particular, it demonstrates the best fit of the true in-distribution data shown in figure \ref{visualization_gaussians}. Other models show overconfident prediction for OOD regions and fail even on this simple dataset. 
+Beside tables and figures with detailed metrics, we report additional visualizations. We present the uncertainty visualization on the input space for a 2D toy dataset (see Fig.~\ref{fig:visualization_grid}). We show this visualization for all models parametrizing Dirichlet distributions. \PostNetacro is the only model which is not overconfident for OOD data. In particular, it demonstrates the best fit of the true in-distribution data shown in figure \ref{visualization_gaussians}. Other models show overconfident prediction for OOD regions and fail even on this simple dataset. 
 
-Furthermore, we plotted histograms of entropy of ID, OOD, OODom data for MNIST and CIFAR10 (see Fig~\ref{entropy_MNIST} and \ref{cifar_shifts}). For both datasets, \oursacro can easily distinguish between the three data types.
+Furthermore, we plotted histograms of entropy of ID, OOD, OODom data for MNIST and CIFAR10 (see Fig~\ref{entropy_MNIST} and \ref{cifar_shifts}). For both datasets, \PostNetacro can easily distinguish between the three data types.
 
-Finally, We also included the evolution of the uncertainty while interpolating linearly between images of MNIST (see Fig.~\ref{aleatoric_interpolation} and \ref{epistemic_interpolation}). It corresponds to a smooth walk in latent space. As shown in Figure \ref{aleatoric_interpolation}, \oursacro predicts correctly on clean images and outputs more balanced class predictions for mixed images. Additionally the Figure \ref{epistemic_interpolation} shows the evolution of the concentration parameters and consequently the epistemic uncertainty. We observe that the epistemic uncertainty (i.e. low $\alpha_\iclass$) is higher on mixed images which do not correspond to proper digits.
+Finally, We also included the evolution of the uncertainty while interpolating linearly between images of MNIST (see Fig.~\ref{aleatoric_interpolation} and \ref{epistemic_interpolation}). It corresponds to a smooth walk in latent space. As shown in Figure \ref{aleatoric_interpolation}, \PostNetacro predicts correctly on clean images and outputs more balanced class predictions for mixed images. Additionally the Figure \ref{epistemic_interpolation} shows the evolution of the concentration parameters and consequently the epistemic uncertainty. We observe that the epistemic uncertainty (i.e. low $\alpha_\iclass$) is higher on mixed images which do not correspond to proper digits.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -96,7 +96,7 @@ Finally, We also included the evolution of the uncertainty while interpolating l
     \centering
         \includegraphics[width=1. \textwidth]{sections/006_neurips2020/figures/visualization-grid.png}
         
-    \caption{Visualization of the concentration parameters predicted by Distribution Distillation, Prior Networks trained with KL and reverse KL divergence and \ours on a 3-Gaussians toy dataset over 5 runs. Red dots indicate the mean of the 3 Gaussians. Colours indicate class labels predicted by the models, dark regions correspond to high epistemic uncertainty. \oursacro consistently predicts low uncertainty around the training data and high uncertainty for OOD data.}
+    \caption{Visualization of the concentration parameters predicted by Distribution Distillation, Prior Networks trained with KL and reverse KL divergence and \PostNet on a 3-Gaussians toy dataset over 5 runs. Red dots indicate the mean of the 3 Gaussians. Colours indicate class labels predicted by the models, dark regions correspond to high epistemic uncertainty. \PostNetacro consistently predicts low uncertainty around the training data and high uncertainty for OOD data.}
     \label{fig:visualization_grid}
 \end{figure}
 
@@ -149,7 +149,7 @@ Finally, We also included the evolution of the uncertainty while interpolating l
 \end{tabular}
 
     }
-    \caption{Ablation study results on Segment dataset. Gray cells indicate significant drops in scores compare to the complete \oursacro Rad. (6) model in Table \ref{fig:unc_segment_full}.}
+    \caption{Ablation study results on Segment dataset. Gray cells indicate significant drops in scores compare to the complete \PostNetacro Rad. (6) model in Table \ref{fig:unc_segment_full}.}
     \label{fig:ablation_segment}
 \end{table}
 
@@ -173,7 +173,7 @@ Finally, We also included the evolution of the uncertainty while interpolating l
         \includegraphics[width=1. \textwidth]{sections/006_neurips2020/figures/lat_dim_seg_ood.png}
     \end{subfigure}%
 
-    \caption{Accuracy and uncertainty scores of \oursacro with latent dimension in $[2, 6, 10, 32]$ on the Segment dataset. We observed that the performances remains high for small dimensions (i.e. $2$, $6$, $10$) and drop for a too high dimension (i.e. $32$).}
+    \caption{Accuracy and uncertainty scores of \PostNetacro with latent dimension in $[2, 6, 10, 32]$ on the Segment dataset. We observed that the performances remains high for small dimensions (i.e. $2$, $6$, $10$) and drop for a too high dimension (i.e. $32$).}
     \label{fig:latent_dim_segment}
 \end{figure}
 
@@ -231,7 +231,7 @@ Finally, We also included the evolution of the uncertainty while interpolating l
         \includegraphics[width=1. \textwidth]{sections/006_neurips2020/figures/lat_dim_sen_ood.png}
     \end{subfigure}%
 
-    \caption{Accuracy and uncertainty scores of \oursacro with latent dimension in $[2, 6, 10, 32]$ on the Sensorless Drive dataset. OOD scores are computed against the left out sky class. We observed that the performances remains high for medium dimensions (i.e. $6$, $10$) and drop for a too high dimension (i.e. $32$).}
+    \caption{Accuracy and uncertainty scores of \PostNetacro with latent dimension in $[2, 6, 10, 32]$ on the Sensorless Drive dataset. OOD scores are computed against the left out sky class. We observed that the performances remains high for medium dimensions (i.e. $6$, $10$) and drop for a too high dimension (i.e. $32$).}
     \label{fig:latent_dim_sensorless_drive}
 \end{figure}
 
@@ -249,9 +249,9 @@ Finally, We also included the evolution of the uncertainty while interpolating l
     \begin{subfigure}[t]{0.46 \columnwidth}
         \centering
         \includegraphics[width=0.5 \textwidth]{sections/006_neurips2020/figures/2D_latent_ours_bn_3.png}
-         \caption{ID/OOD data (\oursacro)}
+         \caption{ID/OOD data (\PostNetacro)}
     \end{subfigure}%
-    \caption{This figure should be seen in perspective with Fig.~\ref{fig:mnist_2D_latent_space}. We plot FashionMNIST OODom data with black crosses to show where these data would land. OODom data were not used for training the models, A comparison of Fig.~\ref{fig:mnist_2D_latent_space_2}(a) with Fig.~\ref{fig:mnist_2D_latent_space}(b) show that Prior Network assigns high certainty to OODom data. In contrast, a comparison of Fig.~\ref{fig:mnist_2D_latent_space_2}(b) and Fig.~\ref{fig:mnist_2D_latent_space}(c) shows that \ours assigns low uncertainty to OODom data as desired.}
+    \caption{This figure should be seen in perspective with Fig.~\ref{fig:mnist_2D_latent_space}. We plot FashionMNIST OODom data with black crosses to show where these data would land. OODom data were not used for training the models, A comparison of Fig.~\ref{fig:mnist_2D_latent_space_2}(a) with Fig.~\ref{fig:mnist_2D_latent_space}(b) show that Prior Network assigns high certainty to OODom data. In contrast, a comparison of Fig.~\ref{fig:mnist_2D_latent_space_2}(b) and Fig.~\ref{fig:mnist_2D_latent_space}(c) shows that \PostNet assigns low uncertainty to OODom data as desired.}
     \label{fig:mnist_2D_latent_space_2}
 \end{figure}
 
@@ -262,7 +262,7 @@ Finally, We also included the evolution of the uncertainty while interpolating l
         \includegraphics[width=1 \textwidth]{sections/006_neurips2020/figures/entropy_MNIST.png}
         \caption{MNIST}    
         \end{subfigure}%   
-    \caption{Histograms of the entropy of the predicted categorical distributions for in-distribution (green), out-of-distribution (yellow) and out-of-domain (red) data. The value $2.3026^*$ denotes the maximal entropy achievable for a categorical distribution with 10 classes. We use MNIST, FashionMNIST and the unscaled version of FashionMNIST as in-distribution, out-of-distribution and out-of-domain data. \oursacro clearly distinguishes between the three types of data with low entropy for in-distribution data and high entropy for out-of-distribution, and close to the maximum possible entropy for out-of-domain data.}
+    \caption{Histograms of the entropy of the predicted categorical distributions for in-distribution (green), out-of-distribution (yellow) and out-of-domain (red) data. The value $2.3026^*$ denotes the maximal entropy achievable for a categorical distribution with 10 classes. We use MNIST, FashionMNIST and the unscaled version of FashionMNIST as in-distribution, out-of-distribution and out-of-domain data. \PostNetacro clearly distinguishes between the three types of data with low entropy for in-distribution data and high entropy for out-of-distribution, and close to the maximum possible entropy for out-of-domain data.}
     \label{entropy_MNIST}
 \end{figure}
 
@@ -401,7 +401,7 @@ Finally, We also included the evolution of the uncertainty while interpolating l
         \includegraphics[width=1. \textwidth]{sections/006_neurips2020/figures/lat_dim_minst_ood_4.png}
     \end{subfigure}%
 
-    \caption{Accuracy and uncertainty scores of \oursacro with latent dimension in $[2, 6, 10, 32]$ on the MNIST dataset. OOD and OODom scores are computed against scaled and unscaled KMNIST and FashionMNIST datasets. We observed that the performances remains high for medium dimensions (i.e. $6$, $10$) and drop for a too high dimension (i.e. $32$).}
+    \caption{Accuracy and uncertainty scores of \PostNetacro with latent dimension in $[2, 6, 10, 32]$ on the MNIST dataset. OOD and OODom scores are computed against scaled and unscaled KMNIST and FashionMNIST datasets. We observed that the performances remains high for medium dimensions (i.e. $6$, $10$) and drop for a too high dimension (i.e. $32$).}
     \label{fig:latent_dim_MNIST}
 \end{figure}
 
@@ -487,6 +487,6 @@ Finally, We also included the evolution of the uncertainty while interpolating l
         \includegraphics[width=1. \textwidth]{sections/006_neurips2020/figures/lat_dim_cifar10_ood_2.png}
     \end{subfigure}%
 
-    \caption{Accuracy and uncertainty scores of \oursacro with latent dimension in $[2, 6, 10, 32]$ on the CIFAR10 dataset. OOD and OODom scores are computed against scaled and unscaled SVHN dataset. We observed that the performances remains high for medium dimensions (i.e. $6$, $10$) and drop for a too high dimension (i.e. $32$).}
+    \caption{Accuracy and uncertainty scores of \PostNetacro with latent dimension in $[2, 6, 10, 32]$ on the CIFAR10 dataset. OOD and OODom scores are computed against scaled and unscaled SVHN dataset. We observed that the performances remains high for medium dimensions (i.e. $6$, $10$) and drop for a too high dimension (i.e. $32$).}
     \label{fig:latent_dim_CIFAR10}
 \end{figure}

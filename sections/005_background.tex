@@ -1,8 +1,128 @@
 \chapter{Background}
 \label{chap:background}
 
-\begin{itemize}
-\item Desiderata: Epistemic and aleatoric uncertainty (and all their other names), uncertain when it does not know, efficient, architecture-agnostic, robustness.
-\item Models: Sampling-based (Ensemble, DropOut, BNN) vs Sampling-free (GP, Posterior, Conformal). 
-\item Evaluations: Calibration, OOD detection, OOD generalization, Shifts, Benchmarks.
-\end{itemize}
+\section{Desiderata}
+
+\subsection{Bayes Formula} We recall the Bayes formula since it iss a core concept in many uncertainty estimation approaches \bc{CITE}.
+We define the distribution $\prob(\y \condition \bm{\theta})$ over the target variable $\y \in \real$ given the paremeter $\bm{\theta}$.
+Given a dataset $\data=\{\y^{(1)}, ..., \y^{(\ndata)}\}$, the Bayes formula is:
+\begin{equation}
+    \prior(\bm{\theta} \condition \data) = \frac{\prob(\data \condition \bm{\theta}) \times \prior(\bm{\theta})}{\prob(\data)}
+\end{equation}
+where $\prob(\data \condition \bm{\theta})$ is the \emph{likelihood}, $\prior(\bm{\theta})$ is the \emph{prior}, $\prior(\bm{\theta} \condition \data)$ si the \emph{posterior}, and $\prob(\data)$ is the \emph{evidence}.
+Intuitively, the Bayesian formula updates the prior belief represented by $\prior(\bm{\theta})$ into the posterior belief represented by $\prior(\bm{\theta} \condition \data)$ after oberving a dataset $\data$.
+The choice of prior is crucial. According to the \emph{principle of maximum entropy} \citep{maximum-entropy-principle}, a practical choice for the prior is to enforce high entropy for the prior distribution which is usually considered less informative. \bc{However, note that the entropy is sensitive to a reparametrization of the prior distibution.}
+The evidence term corresponds to a normalization constant which can often be ignored.
+
+After observing a dataset $\data$, we can update the distribution over the target variable $\y$ in two ways.
+A first option is to use a point-wise estimate of the target distribution parameter, i.e.:
+\begin{equation}
+    \prob(\y \condition \bm{\theta}^*)
+\end{equation}
+where $\bm{\theta}^*=\prior(\y \condition \bm{\theta})$ would use the maximum likelihood estimate or $\bm{\theta}^*=\prior(\bm{\theta} \condition \data)$ would use the maximum a posteriori estimate.
+A second option is to integrate over all possible values for the target distribution parameter, i.e.:
+\begin{equation}
+    \label{eq:posterior_predictive}
+    \prob(\y \condition \data) = \int \prob(\y \condition \bm{\theta}) \prior(\bm{\theta} \condition \data) d\bm{\theta}
+\end{equation}
+where $\prob(\y \condition \data)$ is called the posterior predictive distribution. 
+This second approach is often considered to be more Bayesian since it depends on the full posterior distribution $\prior(\bm{\theta} \condition \data)$.
+However, it might be costly to compute the posterior distribution since it requires integration.
+
+In supervised learning, the goal is to predict the value of a target output variable $\y$ given an input $\x$ after obsering a dataset $\data=\{(\x^{(1)}, \y^{(1)}), ..., (\x^{(\ndata)}, \y^{(\ndata)})\}$..
+In this case the posterior predictive requires to be adapted with two main options. The first option is:
+\begin{equation}
+    \prob(\y \condition \data, \x) = \int \prob(\y \condition \bm{\theta}, \x) \prior(\bm{\theta} \condition \data) d\bm{\theta}
+\end{equation}
+In this case, the parameter distribution $\prior(\bm{\theta} \condition \data)$ is not conditioned on the input $\x$. It only accounts for an uncertainty dependent on the dataset $\data$ .
+The second option is:
+\begin{equation}
+    \prob(\y \condition \data, \x) = \int \prob(\y \condition \bm{\theta}) \prior(\bm{\theta} \condition \data, \x) d\bm{\theta}
+\end{equation}
+In this case, the parameter distribution $\prior(\bm{\theta} \condition \data, \x)$ is conditioned on the input $\x$. It also accounts for an uncertainty dependent on the input $\x$.
+
+\subsection{Aleatoric, Epistemic \& Predictive Uncertainty}
+
+The Equation~\ref{eq:posterior_predictive} involves three types of distribution (i.e. $\prob(\y \condition \bm{\theta})$, $\prior(\bm{\theta} \condition \data)$, and $\prob(\y \condition \data)$) which cover the three main sources of uncertainty (i.e. aleatoric, epistemic, and predictive).
+In practice, each uncertainty type can be measured by computing the spread of its respective distribution with the (differential) entropy which represented its variability, i.e.:
+\begin{align}
+    & u_\text{alea} = \entropy[\prob(\y \condition \bm{\theta})]\\
+    & u_\text{epist} = \entropy[\prior(\bm{\theta} \condition \data)]\\
+    & u_\text{pred} = \entropy[\prob(\y \condition \data)]
+\end{align}
+Apart from the entropy, other uncertainty metrics commonly use the variance of the distributions to indicate their variability.
+
+The \emph{aleatoric uncertainty} is sometimes also called data uncertainty, stochastic uncertainty or risk \bc{cite}. 
+The aleatoric uncertainty is represented by the distribution $\prob(\y \condition \bm{\theta})$.
+Beyond entropy computation, it can also be computed using max probability for classification \cite{malini2018}.
+The aleatoric uncertainty should be high when \emph{the model does not know because of inherent noise in a given context} (e.g. noisy environment, noisy sensors, low computation resources, model mispecification) \bc{CITE computation uncertianty and Eyke}.
+Given a specific context, the aleatoric uncertainty is \emph{irreducible} since additional observations cannot resolve the information loss due noisy measurements or misspecifications. 
+However, aleatoric uncertainty can be reduced by using higher measurment resolution or improving the model specification. 
+
+The \emph{epistemic uncertainty} is sometimes also called knowledge uncertainty, systematic uncertainty, knightian uncertainty  \bc{cite}.
+The epistemic uncertainty is represented by the distribution $\prior(\bm{\theta} \condition \data)$.
+The epistemic uncertainty should be high when \emph{the model does not know because of a lack of observed data} in the dataset $\data$.
+Hence, the epistemic uncertainty is \emph{reducible} since it should decrease when collecting additional data.
+
+The \emph{predictive uncertainty} is sometimes also called total uncertainty \bc{cite}.
+The predictive uncertainty is represented by the distribution $\prob(\y \condition \data)$.
+Intuitively, the predictive unceratinty aggreagates the effect of the aleatoric and epistemic uncertainty by integrating jointly the distributions $\prob(\y \condition \bm{\theta})$ and $\prior(\bm{\theta} \condition \data)$.
+
+\subsection{Efficiency, Flexibility \& Robustness}
+
+Uncertainty methods are also expected to have practical characteristics. 
+
+First, an uncertainty method is expected to be \emph{efficient} at both training and testing time. 
+A first aspect is \emph{time efficency} meaning that the method should be fast with low computational overhead.
+As second aspect is \emph{data efficiency} meaning that the method should require as few data as possible to train.
+
+Second, an unceratinty method is expected to be \emph{flexible}.
+A first aspect is \emph{architecture flexibility} meaning that the method should easily adapt to any architectures in order to easily adatp to different input types (e.g. tabular, images, graphs, and sequential data) and output types (e.g. classification and regression).
+A second aspect is \emph{optimization flexibility} meaning that the method should easily adapt to different training schemes including end-to-end training or fine-tuning based on pretrained models.
+
+Finally, an uncertainty method is expected to be \emph{robust}.
+A first aspect is \emph{natural robustness} meaning that the method should be performant even if there is some natural drift in the data. Natural drifts could be due to time evolutiion or location variability \bc{cite}.
+A second aspect is \emph{adversarial robustness} meaning that the method should be performant even against adversarial pertubations which are specifically designed to fool the model. Adversarial pertrubations can be viewed as the worst-case scenario for the model. Differen method to compute adversarial pertubrations including white box attacks which do not have information about the model \bc{cite} and black box attacks which have full access to the model information \bc{cite}.
+
+\section{Models}
+
+\subsection{Sampling-based models}
+
+Sampling-based models estimate uncertainty by aggregating statistics (e.g. mean and variance) from different samples from a given distribution. The sampling process generally follows a three step process:
+\textbf{(1)} we sample $K$ model weights $\bm{\phi}_k$ from a distribution over the weights $\prior(\bm{\phi} \condition \data)$, i.e. $\bm{\phi}_k \sim \prior(\bm{\phi} \condition \data)$. The type of the weight distribuyion $\prior(\bm{\phi} \condition \data)$ is a key design choice. E.g. ensemble proposes to train independent model weights \cite{ensemble_simple}, MC dropout randomly drop weights with given dropout rate \cite{drop_out}, and other bayesina neural networks learn explicit distributions like Gaussians over the model weights \cite{bayesian-networks}. \textbf{(2)} We perform $K$ forward passes with the sampled model weights, i.e. $\bm{\theta}_k = f_{\bm{\phi}_k}(\x) \text{ for } k=1,..K$. This allows to implicitly sample the parameters $\bm{\theta}_k$ from the posterior distribution $\prior(\bm{\theta} \condition \data)$, i.e. $\bm{\theta}_k \sim \prior(\bm{\theta} \condition \data)$. In this case, the parameters $\bm{\theta}_k$ can be the parameters of a categorical distribution for classification or the paremeters of a gaussian distribution for regression. \textbf{(3)} We aggregate the $bm{\theta}_k$ parameters to form a point estimate $bm{\theta}*$, e.g. $bm{\theta}*=\frac{1}{K}\sum_k bm{\theta}_k$. This allows to define the target distribution $\prob(\y \condition \bm{\theta}^*)$.
+
+\subsection{Sampling-free models}
+GP
+Prior
+Conformal
+
+\bc{Idea: make a table with references which analyzes each desideratum}
+
+\section{Experimental setup}
+
+In this section, we present an exhausitve summary of the main metrics used to evaluate the quality of uncertainty estimation. 
+It covers calibration, correct/wrong predictions detection, OOD \& dataset shifts detection.
+Beyond these tasks, uncertainty is also sometimes used in exploration/exploitation like in reinforcment learning (see Chapter~\ref{chap:reinforcement_learning}) or active learning \bc{CITE}.
+We provide a collection of benchmarks which cover the different tasks in Table.~\bc{Do table}
+
+\bc{We summarize important becnhmarks for each metric type in a Table}
+
+\subsection{Correct \& Wrong Predictions}
+
+Question: Can we detect errors ?
+Motivation: Trust
+
+\subsection{Out-Of-Distribution \& Dataset Shifts}
+
+Question: Can we detect anomalies ?
+Motivation: safety
+OOD dataset is unrelated to the original task (clear anomaly). Expectation: High OOD detection.
+
+Question: Can we detect drifts ?
+Motivation: maintenance
+OOD dataset is related to the original task i.e. the OOD dataset is some dataset shifts of the ID dataset. Note than different magnitude of dataset shifts are possible (natural adn adversarial perturbations are possible). Expectation: High OOD generalization, good calibration, good correct/Wrong detections, and High OOD detection.
+
+\subsection{Calibration}
+
+Question: Are probability meaningful ?
+Motivation: trust and fairness
