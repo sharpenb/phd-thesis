@@ -3,33 +3,52 @@
 
 In this section we do a retrospective on the previous chapters by discussing the limitations and the related works published at posteriori.
 
-\section{Uncertainty estimation for independent data}
+\section{Uncertainty estimation for classification and regression} 
 
-\begin{itemize}
-    \item Limitations: feature collapse, reducing the number of hyper-parameters, component analysis.
-    \item Other related works: (efficient) ensembles, deep GP, (Partially) Bayesian NN, and single-pass methods, OOD detection approaches.
-    \item Status: many works, progress is still possible to improve on desiderata
-\end{itemize}
+\paragraph{Potential improvments.} The proposed methods \PostNetacro{} (see Chapter~\ref{chap:classification}) and \NatPNacro{} (see Chapter~\ref{chap:regression}) for uncertainty estimation for classification and regression are composed of several components (e.g. encoder/decoder, density estimator, prior, loss, optimizer) with potential improvments, First, more expressive density estimator like recent normalizing flows \cite{nf-review} and diffusion models \cite{variationaldiffussion2022kingma} could improve uncertainty estimation. Second, it would be interesting to exlore better choices of prior which have been shown to have a significant impact in other bayesian neural networks \cite{bayesposterior2020wenzel, coldaleatoric2020adlam}. Further, the design of Bayesian loss have shown up to be an important choice for uncertainty estimation \cite{bengs2022pitfalls}. Finally, it would be interesting to explore the effect of feature collapse \cite{due} which have still an unclear effect on the predictive and uncertainty performances.
 
-\begin{itemize}
-    \item Limitations: limited to dirichlet models
-    \item Other related works: other works on uncertainty robustness
-    \item Status: still unsolved, pretty new topic
-\end{itemize}
+\paragraph{Recent related works.} Recently, the approaches presented in this thesis have been  at the core of a survey on evidential deep learning \cite{survey_evidential_uncertainty} and implemented in google uncertainty benchmark \cite{nado2021uncertainty}. Similar to our approach, other works have also subsequently explored bayesian neural networks which are not fully stochastic \cite{bnnfullystochastic2022sharma} and uncertainty estimation methods with density estimation \cite{du2022vos, postels2020hiddenuncertainty, sensoy2020uncertainty}. Some other works explored efficient uncertainty estimation by proposing to train an ensemble of subnetworks \cite{mimo-independent-subnetworks}, training enegry-based models \cite{ood_ebm}, or pruning neural networks \cite{ayle2022robustness-sparse}. Further, multiple methods porposed to use conformal predictions to provide uncertainty estimates for any trained model by using an additional calibration set \cite{conformal-survey, Park2020PAC}. Finally, other recent work \cite{tran2022plex} had a close look at the evaluation of uncertainty estimation for large pretrained models.
 
-\section{Uncertainty estimation for dependent data}
+\paragraph{Current Field status.} We believe that the field of uncertainty estimation for classification and regression is very active and has solved many issues conerning the flexibility, the efficieny, and the scalability of uncertainty methods.
 
-\begin{itemize}
-    \item Limitations: limited to homophilic graphs, benchmarking
-    \item Other related works: other works on uncerainty on graphs
-    \item Status: still unsolved, pretty new topic
-\end{itemize}
+\section{Robustness of uncertainty estimation} 
+
+\paragraph{Potential improvments.} The proposed methods and evaluations for the robustness of uncertainty estimation (see Chapter~\ref{chap:robustness}) has two main directions of improvments. First, it would be interesting to extend the benchmark to other recent uncertainty methods and datasets. This would allow to give a more extensive view on the weaknesses of existing uncertainty methods. Second, no approaches have shown significant gain in uncertainty robustness. Indeed adversrarial training and smoothing approaches detailed in Chapter~\ref{chap:robustness} have shown only small improvment.
+
+\paragraph{Recent related works.} Recently, \cite{galil2021disrupting} and \cite{huimin2022attackingOOD} proposed attacks on uncertainty estimations which are very similar to our approach without proposing solutions for robust uncertainty estimation. Only \cite{meinke2021provably} has proposed another method for certifiable uncertainty estimation. On a different direction, \cite{dia2021localizeduncertainty} proposed to use input unceratinty to design less perceptible adversarial attacks. Finally, \cite{alarab2021attackucertainty} proposed to provide uncertainty estimates based on adversarial attacks.
+
+\paragraph{Current Field status.} We believe that the field of adversarial robustnes for uncertainty estimation has achieve fast porgress on the regarding unceratinty attacks. Nonetheless, it is still a very new field and adversarial robustness is still unsolved. 
+
+\section{Uncertainty for graph data.}
+
+\paragraph{Potential improvments.} The porposed method \GPNacro{} method (see Chapter~\ref{chap:graph_data}) has two main directions of improvments. First, \GPNacro{} focuses on homophilic graphs. Recent works have proposed methods \cite{bodnar2022sheaf, giovanni2022graff} working on both homophilic and heterophilic graphs but do not provide uncertainty estimates. Second, it would be interesting to extend our porposed bechmark for unceratinty estimation on more datasets including very large scale datasets. Recently, \cite{gui2022good} has proposed to extend OOD detection benchmarks for graph datasets.
+
+
+\paragraph{Recent related works.} Recent works \cite{texeira2019GNNmiscalibrated, hsu2022GNNmiscalibrated, wang2021confident} had had a deeper focused on on calibration for GNNs. They observed that GNNS are miscalibrated and can be recalibrated temperature rescaling. Other works \cite{zhou2022OODlink, hsu2022structure} have extended our approach by proposing uncertainty on edges for calibration and OOD detection. Finally, other approaches \cite{soleimany2021evidential} focused on unceratinty estimation for graph-level tasks like molecular property prediction.
+
+\paragraph{Current Field status.} Even if this topic is still very recent, We believe that the field of uncertainty estimation for graph is evolving fast with many new models and evaluations for uncertainty estimation at node level, edge level, and graph level. 
+
+\section{Uncertainty for sequential data.}
+
+\paragraph{Potential improvments.}
+
+\paragraph{Recent related works.}
+
+\paragraph{Current Field status.}
 
 \begin{itemize}
     \item Limitations: no unceratinty/distribution over time
-    \item Other related works: Marin and Oleks works
+    \item Other related works: Marin and Oleks works works on NLP
     \item Status: good progress achieved
 \end{itemize}
+
+\section{Uncertainty for reinforcment learning.}
+
+\paragraph{Potential improvments.}
+
+\paragraph{Recent related works.}
+
+\paragraph{Current Field status.}
 
 \begin{itemize}
     \item Limitations: limited to small benchmarks, limited to model-free, benchmark
