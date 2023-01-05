@@ -30,7 +30,7 @@ In the following section we describe how \PostNet solves these drawbacks.
 
 \subsection{An input-dependent Bayesian posterior}
 
-First, recall the Bayesian update of a single categorical distribution \smash{$y \sim \text{Cat}(\vect{p})$}. It consists in (1) introducing a prior Dirichlet distribution over its parameters i.e. \smash{$\prob(\vect{p}) = \text{Dir}(\bm{\beta^\text{prior}})$} where \smash{$\bm{\beta^\text{prior}} \in \mathbb{R}_+^\nclass$}, and (2) using $N$ given observations \smash{$y^{(1)},..., y^{(N)}$} to form the posterior distribution $\prob(\vect{p}|\{y^{(j)}\}_{j =1}^N)= \text{Dir}(\bm{\beta^\text{prior}} + \bm{\beta^\text{data}})$ where \smash{$\beta^\text{data}_\iclass = \sum_j \mathbb{1}_{y^{(j)}=\iclass}$} are the class counts. That is, the Bayesian update is
+First, recall the Bayesian update of a single categorical distribution \smash{$y \sim \text{Cat}(\vect{p})$}. It consists in (1) introducing a prior Dirichlet distribution over its parameters i.e. $\prob(\vect{p}) = \text{Dir}(\bm{\beta^\text{prior}})$ where \smash{$\bm{\beta^\text{prior}} \in \mathbb{R}_+^\nclass$}, and (2) using $N$ given observations \smash{$y^{(1)},..., y^{(N)}$} to form the posterior distribution $\prob(\vect{p}|\{y^{(j)}\}_{j =1}^N)= \text{Dir}(\bm{\beta^\text{prior}} + \bm{\beta^\text{data}})$ where \smash{$\beta^\text{data}_\iclass = \sum_j \mathbb{1}_{y^{(j)}=\iclass}$} are the class counts. That is, the Bayesian update is
 \begin{equation}
     \begin{aligned}
     \prob(\vect{p}|\{y^{(j)}\}_{j =1}^n) \propto \prob(\{y^{(j)}\}_{j =1}^n|\vect{p}) \times \prob(\vect{p}).
