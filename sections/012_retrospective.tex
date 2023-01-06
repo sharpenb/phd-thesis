@@ -7,7 +7,7 @@ In this section we do a retrospective on the previous chapters by discussing the
 
 \paragraph{Potential improvments.} The proposed methods \PostNetacro{} (see Chapter~\ref{chap:classification}) and \NatPNacro{} (see Chapter~\ref{chap:regression}) for uncertainty estimation for classification and regression are composed of several components (e.g. encoder/decoder, density estimator, prior, loss, optimizer) with potential improvments, First, more expressive density estimator like recent normalizing flows \cite{nf-review} and diffusion models \cite{variationaldiffussion2022kingma} could improve uncertainty estimation. Second, it would be interesting to exlore better choices of prior which have been shown to have a significant impact in other bayesian neural networks \cite{bayesposterior2020wenzel, coldaleatoric2020adlam}. Further, the design of Bayesian loss have shown up to be an important choice for uncertainty estimation \cite{bengs2022pitfalls}. Finally, it would be interesting to explore the effect of feature collapse \cite{due} which have still an unclear effect on the predictive and uncertainty performances.
 
-\paragraph{Recent related works.} Recently, the approaches presented in this thesis have been  at the core of a survey on evidential deep learning \cite{survey_evidential_uncertainty} and implemented in google uncertainty benchmark \cite{nado2021uncertainty}. Similar to our approach, other works have also subsequently explored bayesian neural networks which are not fully stochastic \cite{bnnfullystochastic2022sharma} and uncertainty estimation methods with density estimation \cite{du2022vos, postels2020hiddenuncertainty, sensoy2020uncertainty}. Some other works explored efficient uncertainty estimation by proposing to train an ensemble of subnetworks \cite{mimo-independent-subnetworks}, training enegry-based models \cite{ood_ebm}, or pruning neural networks \cite{ayle2022robustness-sparse}. Further, multiple methods porposed to use conformal predictions to provide uncertainty estimates for any trained model by using an additional calibration set \cite{conformal-survey, Park2020PAC}. Finally, other recent work \cite{tran2022plex} had a close look at the evaluation of uncertainty estimation for large pretrained models.
+\paragraph{Recent related works.} Recently, the approaches presented in this thesis have been  at the core of a survey on evidential deep learning \cite{survey_evidential_uncertainty} and implemented in google uncertainty benchmark \cite{nado2021uncertainty}. Similar to our approach, other works have also subsequently explored bayesian neural networks which are not fully stochastic \cite{bnnfullystochastic2022sharma} and uncertainty estimation methods with density estimation \cite{du2022vos, postels2020hiddenuncertainty, sensoy2020uncertainty}. Some other works explored efficient uncertainty estimation by proposing to train an ensemble of subnetworks \cite{mimo-independent-subnetworks}, training enegry-based models \cite{ood_ebm}, or pruning neural networks \cite{ayle2022robustness-sparse}. Further, multiple methods porposed to use conformal predictions to provide uncertainty estimates for any trained model by using an additional calibration set \cite{conformal-survey, Park2020PAC}. Finally, other recent work \cite{minderer2021revisiting, tran2022plex} had a close look at the evaluation of uncertainty estimation for modern and large pretrained models.
 
 \paragraph{Current Field status.} We believe that the field of uncertainty estimation for classification and regression is very active and has solved many issues conerning the flexibility, the efficieny, and the scalability of uncertainty methods.
 
@@ -21,7 +21,7 @@ In this section we do a retrospective on the previous chapters by discussing the
 
 \section{Uncertainty for graph data.}
 
-\paragraph{Potential improvments.} The porposed method \GPNacro{} method (see Chapter~\ref{chap:graph_data}) has two main directions of improvments. First, \GPNacro{} focuses on homophilic graphs. Recent works have proposed methods \cite{bodnar2022sheaf, giovanni2022graff} working on both homophilic and heterophilic graphs but do not provide uncertainty estimates. Second, it would be interesting to extend our porposed bechmark for unceratinty estimation on more datasets including very large scale datasets. Recently, \cite{gui2022good} has proposed to extend OOD detection benchmarks for graph datasets.
+\paragraph{Potential improvments.} The porposed method \GPNacro{} (see Chapter~\ref{chap:graph_data}) has two main directions of improvments. First, \GPNacro{} focuses on homophilic graphs. Recent works have proposed methods \cite{bodnar2022sheaf, giovanni2022graff} working on both homophilic and heterophilic graphs but do not provide uncertainty estimates. Second, it would be interesting to extend our porposed bechmark for unceratinty estimation on more datasets including very large scale datasets. Recently, \cite{gui2022good} has proposed to extend OOD detection benchmarks for graph datasets.
 
 
 \paragraph{Recent related works.} Recent works \cite{texeira2019GNNmiscalibrated, hsu2022GNNmiscalibrated, wang2021confident} had had a deeper focused on on calibration for GNNs. They observed that GNNS are miscalibrated and can be recalibrated temperature rescaling. Other works \cite{zhou2022OODlink, hsu2022structure} have extended our approach by proposing uncertainty on edges for calibration and OOD detection. Finally, other approaches \cite{soleimany2021evidential} focused on unceratinty estimation for graph-level tasks like molecular property prediction.
@@ -30,28 +30,16 @@ In this section we do a retrospective on the previous chapters by discussing the
 
 \section{Uncertainty for sequential data.}
 
-\paragraph{Potential improvments.}
+\paragraph{Potential improvments.} The approaches proposed in Chapter~\ref{chap:sequential} for uncertainty estimation has two main directions of improvment. First, while the uncertainty on the event type is represented via explicit and expressive categorical distributions, the uncertainty on the event time is represented via implicit temporal point processes ditributions with contrained intensity functions. To solve this issue, \cite{shchur2020intensity} and \cite{shchur2020fast} extended our work by modelling expressive point processes which are intensity free and point processes where likelihood computation, sampling, and prediction can all be done efficiently in closed form. Second, it would be interesting to extend the benchmark for uncertainty estimation for event sequences. Recently, \cite{shchur2021detecting} had a closer look at anomalous event detection in both simluated and real-worl data and \cite{shchur2021review} provided an overview of application areas for temporal point processes. 
 
-\paragraph{Recent related works.}
+\paragraph{Recent related works.} Beyond sequential data with time events, other works have recently looked at uncertainty estimation for sequential data with text. For example, \cite{malinin2021uncertainty} models uncertainty at token and sequence level with applications to translation datasets. Further, \cite{he2020toward, hu2021uncertainty} proposed uncertainty methods for text classification.
 
-\paragraph{Current Field status.}
-
-\begin{itemize}
-    \item Limitations: no unceratinty/distribution over time
-    \item Other related works: Marin and Oleks works works on NLP
-    \item Status: good progress achieved
-\end{itemize}
+\paragraph{Current Field status.} We believe that the field of uncertainty estimation for sequential data has achieved fast progress for both time event data and text data. Nonetheless, the emergence of powerful large language models have demonstrated unreliable behaviors which urges further development of uncertainty methods. 
 
 \section{Uncertainty for reinforcment learning.}
 
-\paragraph{Potential improvments.}
+\paragraph{Potential improvments.} The uncertainty framework proposed in Chapter~\ref{chap:reinforcement_learning} has several directions of improvments. First, similarly to generalization benchmarks for RL \cite{generalization-rl-survey, assessing-generalization-rl, qyantifying-generalization-rl, procgen}, it would be interesting to extend this uncertainty benchmark for RL to more complex environments. Second, our uncertainty framework is limite to model-free RL methods and could be extended to model-based RL methods. 
 
-\paragraph{Recent related works.}
+\paragraph{Recent related works.} Recently, \cite{tennenholtz2022plan} proposed a new uncertainty methods for model-based RL based on Riemanian model dynamics, while \cite{wu2022plan} proposed a new uncertainty methods for model-based RL to forsee multiple steps uncertainty.
 
-\paragraph{Current Field status.}
-
-\begin{itemize}
-    \item Limitations: limited to small benchmarks, limited to model-free, benchmark
-    \item Other related works: other works on uncertainty on graphs
-    \item Status: pretty old topic, there is still no clear agreement on desiderata and benchmarks
-\end{itemize}
+\paragraph{Current Field status.} We believe that although uncertainty estimation for RL has already a long history, the benefit of uncertainty estimation in RL is still under-explored without well-established desiderata and large-scale benchmarks.

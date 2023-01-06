@@ -1,16 +1,23 @@
 \chapter{Conclusion}
 \label{chap:conclusion}
 
-\section{Reliable ML beyond Uncertainty Estimation}
+\section{Reliable ML beyond uncertainty estimation}
 
-\begin{itemize}
-\item (Adversarial) Robustness
-\item Interpretable ML
-\item Green AI
-\item AI alignmement
-\end{itemize}
+\paragraph{Robustness.} Robustness is important in ML to guanrantee that model predictions do not change when imperceptible perturbations are applied to the input data. This covers empirical robustness and certifiable robustness against both natural and adversarial perturbations \cite{tu2020empirical, chun2020empirical, cohen2019smoothing, zugner2020certifiable}. Robustness is a very actuve field of research with many studies on robustness for independent data \cite{silva2020opportunies} but also for dependent data like graph data \cite{GNNBook-ch8-gunnemann} or sequential data \cite{cheng2018sequential}.
+
+\paragraph{Interpretabilty.} Interpretability is important in ML to explain the reasons for model predictions. It insure impartial decision-making and indicate if meaningful variables are used to infer the prediction output. It covers different types of explanations like text explanations, visual explanations, local explanations or explanations by example. Interpratability and explanaiblilty are also very active fields with many existing studies \cite{arrieta2019explainable, murdoch2019interpretable}
+
+\paragraph{Privacy.} Privacy consists in preventing an attacker to infer facts about members of a population, about data in the training set, or about the model parameters \cite{cristofaro2020privacy, cristofaro2021privacy}. Privacy is important to avoid data leakage in both centralized and federated learning. An important defense against privacy attackers is differential privacy \cite{buglesi2006privacy} which tried to leanr useful information from the whole training dataset without retaining specific information about individual samples.
+
+\paragraph{Green AI.} Green AI consists in models with low CO2 emissions and low energy consumptions which is key to propose sustainable AI. Green AI is particularly important since computations required for deep learning research have been doubling every few months \cite{schwartz2019greenAI}. Existing techniques to reduce required computations for ML models include quantization, distillation, and model pruning \cite{neill2020compression}. 
+
+\paragraph{AI alignment.} AI alignement aim to align the intended goals of the AI designers,  the specified goals to the AI system, and the emergent goals that the AI system actually advances \cite{bostrom2014superintelligence, gabriel2020AI}. This field is still at its infancy. Recent works involve large foundational models \cite{gpt, rombach2021highresolution, galactica} which might have misaligned behavior but can be (partially) realigned similarly to InstructGPT or ChatGPT \cite{instructgpt, chatgpt}.
 
 \section{Broader Impact}
+
+Accurate uncertainty estimation aims at improving trust in safety-critical domains subject to automation, and in a maintenance context where the underlying data distribution might slowly shift over time. In this regard, this thesis significantly improves the applicability of uncertainty estimation across a wide range of prediction domains (e.g. classification, regression, count prediction, etc) while maintaining a fast inference time. This could be particularly beneficial in industrial applications with time pressure and potential critical consequences (e.g. finance, medicine, policy decision making, etc).
+
+Nonetheless, while methods described in this thesis achieve high-quality uncertainty estimation, there is always a risk that they do not fully capture the real-world complexity e.g. for OOD data close to ID data. Furthermore, we raise awareness about two other risks of excessive trust related to the \emph{Dunning-Kruger effect} \citep{dunning-kruger}: human excessive trust in Machine Learning model capacity, and human excessive trust in its own interpretation capacity. Therefore, we encourage practitioners to proactively confront the model design and its uncertainty estimates to desired behaviors in real-world use cases.
 
 \section{Open Questions}
 
