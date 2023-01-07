@@ -1,0 +1,1 @@
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qrequires a single-forward pass, does need no OOD data during training, and adapt to many core architectures.\\E$"}

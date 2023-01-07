@@ -1,4 +1,9 @@
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{\protect Abstract}%
 
-This is the abstract.\\
+Uncertainty estimation is a crucial to build reliable machine learning models for both \emph{practical} and \emph{theoretical} reasons. While uncertainty estimation is expected to bring \emph{trust}, \emph{safety}, \emph{fairness} and facilitate \emph{maintenance} in real-world applications, uncertainty estimation is also highly required to represent the real physical world which is inherently \emph{non-deterministic} and \emph{partially observable}. 
+
+Further, machine learning models are confronted with various types of input data (e.g. tabular, images, graph data, sequential data) and output data (classes, real values, counts, time events) which are either \emph{independent} or \emph{non-independent}. While the independence assumption is convenient to represent many data types, the non-independence assumption is particularly useful to represent complex data types with network effect or time effect.
+
+In this thesis, we look at uncertainty estimation for both independent and non-independent data. To this end, we look at three main points: \textbf{(1)} We propose \emph{desiderata} capturing the desired behavior of uncertainty estimation. These desiderata cover both aleatoric and epistemic uncertainty in the presence of (adversarial) perturbations, network effects, or time effects. \textbf{(2)} We propose a large family of new Bayesian \emph{models} which provide uncertainty estimates at a low practical cost. These models demonstrate strong empirical performance and have theoretical guarantees. \textbf{(3)} We propose extensive \emph{experimental setups} to evaluate uncertainty estimates for practical tasks. These experimental setups cover correct/wrong prediction, detection, OOD detection, dataset shifts, and calibration metrics in the presence of (adversarial) perturbations, network effects, or time effects.
+\\

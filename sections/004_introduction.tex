@@ -2,13 +2,13 @@
 \label{chap:introduction}
 
 Artificical Intelligence (AI) consists of the intelligence demonstrated by machines in contrast with intelligence demonstrated by humans or animals.
-AI includes both Machine Learning (ML) which consists in the study of computer programs which automatically learn from experience \citep{Mitchell97}, and Deep Learning (DL) wihch is a subfield of ML and can be defined as models which hierarchically learn complex representations based on simpler ones \citep{GoodBengCour16}.
+AI includes both Machine Learning (ML) which consists in the study of computer programs which automatically learn from experience \citep{Mitchell97}, and Deep Learning (DL) which is a subfield of ML and can be defined as models which hierarchically learn complex representations based on simpler ones \citep{GoodBengCour16}.
 AI is a very important technology with high potential economical and ethical impact. 
 
 Economically, AI has a high momentum. Indeed, 37\% of companies use AI \bc{CITE} and 83\% companies have AI is their priority \bc{CITE}. Overall, the market value of AI is \$136 billion in 2022 \bc{CITE} and had a Compound Annual Growth Rate (CAGR) of 38.5\% between 2022-2030 \bc{CITE}, thus indicating a very fast growth.
 Hence, AI has found many applications in science and industry. 
-Industry applications include e.g. agriculture with \bc{X}, manufactoring with Exotec \bc{X}, automotive industry with \bc{X}, medicine with radiology \bc{X}, construction with \bc{X}, finance with \bc{X}, education with duolingo \bc{X}, or even for art with \bc{X}.
-Scientific applications include e.g. physics with \bc{X}, chimie and biology with \bc{X}, or even math with \bc{X}.
+Industry applications include e.g. agriculture with \bc{X}, manufacturing with Exotec \bc{X}, automotive industry with \bc{X}, medicine with radiology \bc{X}, construction with \bc{X}, finance with \bc{X}, education with duolingo \bc{X}, or even for art with \bc{X}.
+Scientific applications include e.g. physics with \bc{X}, chemistry and biology with \bc{X}, or even math with \bc{X}.
 Hence, AI have shown to be applicable in various data types (e.g. images, tabular, text) and at various scales from very small (e.g. molecules) to very large systems (e.g. social networks).
 
 Ethically, AI systems demonstrate multiple important concerns.
@@ -16,15 +16,15 @@ It does not guarantee a safe behavior and can create accidents.
 It does not provide clear explanations for its predictions or provide unreliable explanations.
 It might be racist and discriminate minorities.
 It can partially replace human jobs by stealing human creations.
-Finally, it might have goals which are not aligned with human goals. This is particularly problematic when AI systems achieve a super-intelligence \bc{CITE Nick Bostrom}. In particular, this is realistic since some AI sustems are already better than human for many tasks including \bc{X} or human exams.
+Finally, it might have goals which are not aligned with human goals. This is particularly problematic when AI systems achieve a super-intelligence \bc{CITE Nick Bostrom}. In particular, this is realistic since some AI systems are already better than human for many tasks including \bc{X} or human exams.
 
-The fast AI economical growth and the multiple AI ethical concerns urge the development of reliable AI models which is the main subject of this thesis.
+The fast AI economic growth and the multiple AI ethical concerns urge the development of reliable AI models which is the main subject of this thesis.
 
 \section{Why do we need uncertainty ?}
 
 Uncertainty estimation (a.k.a. uncertainty quantification) consists in evaluating the confidence of model in its prediction. This task is crucial for both practical and theoretical reasons:
 
-\paragraph*{Practical reasons:} The Dunning-Kruger effect \bc{CITE} describes a psychological cognitive bias in which people lackingknowledge in a particular domain overestimate their abilities. Interestingly, this phenomenon also applies to machine learning models. Traditional neural networks show overconfident predictions, in particular on data that is different from the data seen during training \bc{CITE}. The illusion of knowledge of machine learning models highly impacts the reliability of such  models  in  safety-critical  domains. 
+\paragraph*{Practical reasons:} The Dunning-Kruger effect \bc{CITE} describes a psychological cognitive bias in which people lacking knowledge in a particular domain overestimate their abilities. Interestingly, this phenomenon also applies to machine learning models. Traditional neural networks show overconfident predictions, in particular on data that is different from the data seen during training \bc{CITE}. The illusion of knowledge of machine learning models highly impacts the reliability of such  models  in  safety-critical  domains. 
 First, it affects the \emph{trust} in ML model predictions. Ideally, we expect ML models to be confident when predicting correctly and uncertain when predicting wrongly. 
 Second, it affects the \emph{safety} of ML predictions in unfamiliar situations. Ideally, we expect ML models to flag predictions on unknown domains corresponding to anomaly detection.
 Third, it affects the \emph{maintenance} of ML models. Ideally, we expect ML models to become more uncertain when the testing data has drifted away from the training data, thus indicating the need of retraining the model. This is particularly important in application where ML models need to explore and learn all life-long.
@@ -32,13 +32,13 @@ Finally, it affects the \emph{fairness} of ML models. Ideally, we expect ML mode
 A summary of the practical reasons and their associated use cases is given in table \bc{Do table}.
 
 \paragraph*{Theoretical reasons:} ML models aim at precisely representing the flow of information in the world which is inherently uncertain.
-The world is \emph{non-deterministic at a large scale}. Indeed, uncertainty emerges when small individual events contribute to macro phenomena like GDP growth, micro phenomena like the growth rate of firms, and noneconomic events like war and climate change \cite{macro-micro-uncertainty}.
+The world is \emph{non-deterministic at a large scale}. Indeed, uncertainty emerges when small individual events contribute to macro phenomena like GDP growth, micro phenomena like the growth rate of firms, and non-economic events like war and climate change \cite{macro-micro-uncertainty}.
 The world is \emph{non-deterministic at a small scale}. Indeed, the uncertainty principle in (quantum) physics implies that it is in general not possible to predict the value of a particle quantity (like position and speed) with arbitrary certainty, even if all initial conditions are specified \bc{CITE}.
 The world is only \emph{partially observable}. Indeed, the speed of information is limited by the speed of light and restrict the accessible information to the observable world \bc{CITE}.
 A summary of the theoretical reasons is given in table \bc{table}.
 
 All these reasons underline the need of accurate uncertainty estimation methods in ML. 
-Specifically, a reliable ML model should provides high-quality estimates of \emph{aleatoric} and \emph{epistemic} uncertainty \citep{Gal2016a}.
+Specifically, a reliable ML model should provide high-quality estimates of \emph{aleatoric} and \emph{epistemic} uncertainty \citep{Gal2016a}.
 These two levels of uncertainty allow a model to account for both irreducible data uncertainty (e.g. the inherent sensor noise) and uncertainty due to the lack of knowledge about unseen data regions (e.g. testing data differs significantly from training data) respectively.
 Aleatoric and epistemic uncertainty levels can eventually be combined into an overall \emph{predictive} uncertainty \citep{Gal2016a}
 This thesis study the usage of uncertainty estimation for ML methods.
@@ -50,18 +50,18 @@ This thesis study the usage of uncertainty estimation for ML methods.
 
 \section{Why do we need independent and non-independent data ?}
 
-In this thesis, we consdier ML models which process input data to accurately predict output targets. 
+In this thesis, we consider ML models which process input data to accurately predict output targets. 
 More specifically, we expect ML models to be able to process \emph{any type of input data} (e.g. tabular, images, graph or time series) to predict \emph{any type of output data} (e.g. classes, continuous values, counts).
 To this end, \emph{independence} and \emph{non-independence} are key assumptions to create \emph{practical} and \emph{accurate} models which precisely describe the real-world. 
 
 \paragraph*{Independent Data:} The independence assumption means that different data samples are not connected in any way. In other words, the knowledge of one data sample does not bring any information on another data sample.
-The independence assumption is particularly useful when representing tabular data (e.g. a group of unrelated persons for a medicine trial, defects on multiple different devices) or image data (e.g. desease detection on medical images, object detection in self-driving cars or robots).
+The independence assumption is particularly useful when representing tabular data (e.g. a group of unrelated persons for a medicine trial, defects on multiple different devices) or image data (e.g. disease detection on medical images, object detection in self-driving cars or robots).
 In this case, representing the interaction between data samples does not bring much information to perform the predictions.
-Hence, the key advantage of the independence assumption is that it allows mathematical factorizations for practical modelling simplifications \citep{bishop} without an important information loss.
+Hence, the key advantage of the independence assumption is that it allows mathematical factorization for practical modelling simplifications \citep{bishop} without important information loss.
 
 \paragraph*{Non-Independent Data:} The non-independence assumption means that different data samples might be connected in some way. In other words, observing a data sample gives some information on the value of another data sample.
-The non-independence assumption is particularly useful when representing graph data (e.g. social networks, citation networks) or sequential data (e.g. financial time series, interaction history fo a user).
-In this case, neighboring nodes of a graph are expected to share important informations and past events are expected to give important information on future events.
+The non-independence assumption is particularly useful when representing graph data (e.g. social networks, citation networks) or sequential data (e.g. financial time series, interaction history of a user).
+In this case, neighboring nodes of a graph are expected to share important information and past events are expected to give important information on future events.
 Hence, the key advantage of the non-independence assumption is that it retains the information contained in graph and sequential interactions to model the world more precisely.
 
 \begin{itemize}
@@ -89,7 +89,7 @@ This thesis studies the application of uncertainty estimation for independent an
 
 To this end, we start by establishing the background knowledge about uncertainty estimation in Chapter~\ref{chap:background}.
 
-In Part~\ref{part:independent_data}, we present a study of uncertainty estimation for \emph{indepedent data}: 
+In Part~\ref{part:independent_data}, we present a study of uncertainty estimation for \emph{independent data}: 
 In Chapter~\ref{chap:classification}, we construct a new Bayesian model for uncertainty estimation for classification called \PostNet{} (\PostNetacro{}). \PostNetacro{} requires a \emph{single-forward pass}, does need \emph{no OOD data during training}, and adapt to \emph{many core architectures}.
 In Chapter~\ref{chap:regression}, we construct a new Bayesian model for uncertainty estimation for regression called \NatPN{} (\NatPNacro{}). Beyond regression, \NatPNacro{} applies to a \emph{large variety of supervised tasks} (incl. classification and count prediction) with \emph{very low computational overhead}.
 In Chapter~\ref{chap:robustness}, we present the first study of the robustness of uncertainty models in the worst-case scenario of adversarial attacks. We show that uncertainty estimates of an important family of single-forward pass models are \emph{not robust} for many important real-world tasks (incl. correct/wrong prediction detection, adversarial examples detection, and ID/OOD detection). Further, we explore first approaches methods to improve uncertainty robustness by using \emph{adversarial training} and \emph{randomized smoothing}. 
@@ -97,9 +97,9 @@ In Chapter~\ref{chap:robustness}, we present the first study of the robustness o
 In Part~\ref{part:non_independent_data}, we present a study of uncertainty estimation for \emph{non-independent data}:
 In Chapter~\ref{chap:graph_data}, we present the first framework for uncertainty estimation for node classification on graph data. This framework proposes explicit desiderata, a new Bayesian model, and an exhaustive evaluation setup which cover aleatoric and epistemic uncertainty estimation \emph{without} and \emph{with network effects}.
 In Chapter~\ref{chap:sequential_data}, we present new models for uncertainty estimation in sequential data with asynchronous time events. The two proposed models are able of accurate \emph{event types} and \emph{event time} predictions while capturing \emph{uncertainty with rich temporal evolution}.
-In Chapter~\ref{chap:reinforcement_learning}, we present the first framework to disentangle aleatoric and epistemic uncertainty estimation in reinforcment learning. This framework proposes explicit desiderata, four models inspired from supervised learning, and a detailed experimental setup which cover aleatoric and epistemic uncertainty estimation at both \emph{training time} and \emph{testing time}.
+In Chapter~\ref{chap:reinforcement_learning}, we present the first framework to disentangle aleatoric and epistemic uncertainty estimation in reinforcement learning. This framework proposes explicit desiderata, four models inspired from supervised learning, and a detailed experimental setup which cover aleatoric and epistemic uncertainty estimation at both \emph{training time} and \emph{testing time}.
 
-In Part~\ref{part:conclusion}, we present a retrospective on the evolution of the research field since our first study (see Chapter~\ref{chap:retrospective}) and a conlusiong including open questions as suggestion to future research directions (see Chapter~\ref{chap:conclusion}).
+In Part~\ref{part:conclusion}, we present a retrospective on the evolution of the research field since our first study (see Chapter~\ref{chap:retrospective}) and a conlusion including open questions as suggestion to future research directions (see Chapter~\ref{chap:conclusion}).
 
 \begin{table}
     \caption{List of own publications that this thesis is based on. Code and datasets for the respective publications are available at \texttt{www.cs.cit.tum.de/daml/[project]}.}
