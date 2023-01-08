@@ -4,8 +4,6 @@
 
 \begin{table*}[ht!]
 	\centering
-	\caption{Distinguishing between correctly and wrongly predicted labels based on differential entropy under PGD label attacks. Smoothed DBU models on CIFAR10. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
-	\label{tab:cifar10_smooth_confidence_2}
 	%\begin{tiny}
 	\resizebox{\textwidth}{!}{ %0.866
 %    \begin{tabular}{lccccccc}
@@ -37,12 +35,12 @@
     \bottomrule
     \end{tabular}}
 	%\end{tiny}
+	\caption{Distinguishing between correctly and wrongly predicted labels based on differential entropy under PGD label attacks. Smoothed DBU models on CIFAR10. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:cifar10_smooth_confidence_2}
 \end{table*}
 
 \begin{table*}[ht!]
 	\centering
-	\caption{Attack detection (PGD label attacks) based on differential entropy. Smoothed DBU models on CIFAR10. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
-	\label{tab:cifar10_smooth_attackdetection_2}
 	%\begin{tiny}
 	\resizebox{\textwidth}{!}{
 		\begin{tabular}{clcccccc}
@@ -60,6 +58,8 @@
 			\bottomrule
 		\end{tabular}}
 	%\end{tiny}
+	\caption{Attack detection (PGD label attacks) based on differential entropy. Smoothed DBU models on CIFAR10. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:cifar10_smooth_attackdetection_2}
 \end{table*}
 
 
@@ -68,8 +68,6 @@
 
 \begin{table*}[ht!]
 	\centering
-	\caption{OOD detection based on differential entropy under PGD uncertainty attacks against differential entropy on ID data and OOD data. Smoothed DBU models on CIFAR10. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
-	\label{tab:cifar10_smooth_ooddetection_2}
 	%\begin{tiny}
 	\resizebox{\textwidth}{!}{
 		\begin{tabular}{clccccccc}
@@ -97,6 +95,8 @@
 			\bottomrule
 		\end{tabular}}
 	%\end{tiny}
+	\caption{OOD detection based on differential entropy under PGD uncertainty attacks against differential entropy on ID data and OOD data. Smoothed DBU models on CIFAR10. Column format: guaranteed lowest performance $\cdot$ empirical performance $\cdot$ guaranteed highest performance (blue: normally/adversarially trained smooth classifier is more robust than the base model).}
+	\label{tab:cifar10_smooth_ooddetection_2}
 %\vspace*{0.5cm} % hack so that we do not have text at the bottom of page!!
 \end{table*}
 
@@ -115,7 +115,7 @@
 
 Our robustness analysis based on label attacks and uncertainty attacks shows that predictions, uncertainty estimation and the differentiation between ID and OOD data are not robust. Next, we explore approaches to improve robustness properties of DBU models w.r.t.\ these tasks based on randomized smoothing and adversarial training. 
 
-\textbf{Randomized smoothing} was originally proposed for certification of classifiers \cite{cohen2019}.
+\paragraph{Randomized smoothing} was originally proposed for certification of classifiers \cite{cohen2019}.
 The core idea is to draw multiple samples $\x\dataix_s \sim \DNormal(\x\dataix, \sigma)$ around the input data $\x\dataix$, to feed all these samples through the neural network, and to aggregate the resulting set of predictions (e.g. by taking their mean), to get a smoothed prediction. Besides allowing certification, as a side effect, the smoothed model is more robust. Our idea is to use randomized smoothing to improve robustness of DBU models, particularly w.r.t.\ uncertainty estimation. In contrast to discrete class predictions, however, certifying uncertainty estimates such as differential entropy scores requires a smoothing approach that is able to handle continuous values as in regression tasks. So far, only few works for randomized smoothing for regression models have been proposed \citep{confidence_certificate_rs,median_smoothing}. We choose median smoothing \citep{median_smoothing}, because it is applicable to unbounded domains as required for the uncertainty estimates covered in this work. In simple words: The set of uncertainty scores obtained from the $\x\dataix_s \sim \DNormal(\x\dataix, \sigma)$ is aggregated by taking their median. 
 
 In the following experiments we focus on differential entropy as the uncertainty score. We denote the resulting smoothed differential entropy, i.e. the median output, as $m(\x\dataix)$.
@@ -127,7 +127,7 @@ OOD detection under strong PGD attacks (attack radius $\geq 0.5$) performs compa
 %Under strong attack (attack radius $\geq 50\%$ OOD detection performance decreases until it becomes similar to random guessing, which results in an  AUC-PR scores of $50\%$ (for 50~\% ID and 50~\% OOD data). 
 In attack detection and distinguishing between correctly and wrongly predicted labels the smoothed DBU model are mostly more robust than the base models for attack radii $\geq 0.5$.
 
-\textbf{Certified performance.} Using the median based on smoothing improves the empirical robustness, but it does not provide formal guarantees how low/high the performance might actually get under perturbed data (since any attack is only a heuristic). 
+\paragraph{Certified performance.} Using the median based on smoothing improves the empirical robustness, but it does not provide formal guarantees how low/high the performance might actually get under perturbed data (since any attack is only a heuristic). 
 Here, we propose novel guarantees by exploiting the individual certificates we obtain via randomized smoothing.
  Note that the certification procedure \citep{median_smoothing} enables us to derive lower and upper bounds $\underline{m}(\x\dataix) \leq m(\x\dataix) \leq \overline{m}(\x\dataix)$ which hold with high probability and indicate how much the median might change in the worst-case when $\x\dataix$ gets perturbed subject to a specific (attack) radius.
  
@@ -141,7 +141,7 @@ Our results show that the difference between guaranteed highest and guaranteed l
 %
 
 
-\textbf{Adversarial training.}
+\paragraph{Adversarial training.}
 Randomized smoothing improves robustness of DBU models and allows us to compute performance guarantees. However, an open question is whether it is possible to increase robustness even further by combining it with adversarial training. To obtain adversarially trained models we augment the data set using perturbed samples that are computed by PGD attacks against the cross-entropy loss (label attacks) or the differential entropy (uncertainty attacks). These perturbed samples $\tilde{\x}\dataix$ are computed during each epoch of the training based on inputs $\x\dataix$ and added to the training data (with the label $y\dataix$ of the original input). 
 Tables~\ref{tab:cifar10_smooth_confidence_2}, \ref{tab:cifar10_smooth_attackdetection_2}, and~\ref{tab:cifar10_smooth_ooddetection_2} illustrate the results. We choose the attack radius used during training and the $\sigma$ used for smoothing to be equal. %(i.e. the entry in row \PostNet, adversarially trained using label attacks at Att. Rad. 0.1 corresponds to a \PostNet model trained using label attacks with radius 0.1 and certified with radius 0.1). 
 To facilitate comparison, we highlight the empirical performance of the adversarially trained models in blue if it is better than the performance of the base model. Our results show that the additional use of adversarial training has a minor effect on the robustness and does not result in a significant further increase of the robustness. 

@@ -34,7 +34,6 @@ From now on, we switch to the core focus of this work and analyze robustness pro
 
 \begin{table*}[ht]
 	\centering
-	\caption{Distinguishing between correctly predicted and wrongly predicted labels based on the differential entropy under PGD label attacks (metric: AUC-PR).}
 	%\begin{small}
 	\resizebox{0.8\textwidth}{!}{
 		\begin{tabular}{@{}rrrrrrrc|crrrrrr@{}}
@@ -44,7 +43,7 @@ From now on, we switch to the core focus of this work and analyze robustness pro
 			Att. Rad. & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & & & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0  \\
 			\midrule
 			%& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{CIFAR10} \\
-			\PostNet  &  \bf{98.7} &  88.6 &  56.2 &   7.8 &   1.2 &   0.4 &  & %0.3 & & 
+			\PostNetacro{}  &  \bf{98.7} &  88.6 &  56.2 &   7.8 &   1.2 &   0.4 &  & %0.3 & & 
 			&  99.7 &   8.3 &   3.9 &  3.6 &  \bf{7.0} &  \bf{9.8} \\%&  \bf{11.3} \\
 			\PriorNet &  92.9 &  77.7 &  60.5 &  \bf{37.6} &  \bf{24.9} &  \bf{11.3} &  & %\bf{3.0} & & 
 			&  99.8 &  10.5 &   3.2 &  0.7 &  0.2 &  0.2 \\%&   2.2 \\ 
@@ -55,6 +54,7 @@ From now on, we switch to the core focus of this work and analyze robustness pro
 			\bottomrule
 		\end{tabular}}
 	%\end{small}
+	\caption{Distinguishing between correctly predicted and wrongly predicted labels based on the differential entropy under PGD label attacks (metric: AUC-PR).}
 	\label{tab:conf_label_attack}
 \end{table*}
 
@@ -64,8 +64,9 @@ From now on, we switch to the core focus of this work and analyze robustness pro
 
 
 
-\textbf{Is low uncertainty a reliable indicator of correct predictions?} \\
-%
+\begin{center}
+	\textbf{Is low uncertainty a reliable indicator of correct predictions?}
+\end{center}
 \underline{\emph{Expected behavior:}}  Predictions with low uncertainty are more likely to be correct than high uncertainty predictions. 
 \underline{\emph{Assessment metric:}} We distinguish between correctly classified samples (label 0) and wrongly classified ones (label 1) based on the differential entropy scores produced by the DBU models \citep{malini2018}. Correctly classified samples are expected to have low differential entropy, reflecting the model's confidence, and analogously wrongly predicted samples are expected to have higher differential entropy. 
 %\dz{State that the metric is AUC-PR?} 
@@ -78,7 +79,6 @@ From now on, we switch to the core focus of this work and analyze robustness pro
 \vspace{1em}
 \begin{table*}[ht]
 	\centering
-	\caption{Label Attack-Detection by normally trained DBU models based on differential entropy under PGD label attacks (AUC-PR).}
 	%\begin{small}
 	\resizebox{0.8\textwidth}{!}{
 		\begin{tabular}{@{}rrrrrrc|crrrrr@{}}
@@ -87,7 +87,7 @@ From now on, we switch to the core focus of this work and analyze robustness pro
 			\cmidrule{2-6}  \cmidrule{9-13}
 			Att. Rad. & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & & & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 \\
 			\midrule
-			\PostNet  &  \bf{63.4} &  \bf{66.9} &  42.1 &  32.9 &  31.6 &  &%31.2 & & 
+			\PostNetacro{}  &  \bf{63.4} &  \bf{66.9} &  42.1 &  32.9 &  31.6 &  &%31.2 & & 
 			&  47.7 &  42.3 &  36.9 &  \bf{48.5} &  \bf{85.0} \\%&  \bf{99.0} \\ 
 			\PriorNet &  53.3 &  56.0 &  55.6 &  \bf{49.2} &  42.2 & &%  35.4 & & 
 			&  38.8 &  33.6 &  31.4 &  33.1 &  40.9 \\%&  53.5 \\ 
@@ -98,6 +98,7 @@ From now on, we switch to the core focus of this work and analyze robustness pro
 			\bottomrule 			
 		\end{tabular}}
 	%\end{small}
+	\caption{Label Attack-Detection by normally trained DBU models based on differential entropy under PGD label attacks (AUC-PR).}
 	\label{tab:label_attack_detect}
 \end{table*}
 
@@ -109,8 +110,9 @@ From now on, we switch to the core focus of this work and analyze robustness pro
 
 
 %\vspace{-0.5em}
-\textbf{Can uncertainty estimates be used to detect label attacks against the class prediction?}\\
-%
+\begin{center}
+	\textbf{Can uncertainty estimates be used to detect label attacks against the class prediction?}	
+\end{center}
 \underline{\emph{Expected behavior:}} Adversarial examples are not from the natural data distribution. Therefore, DBU models are expected to detect them as OOD data by assigning them a higher uncertainty. We expect that perturbations computed based on a bigger attack radius~$r$ are easier to detect as their distance from the data distribution is larger. 
 \underline{\emph{Assessment metric:}} The goal of attack-detection is to distinguish between unperturbed samples (label 0) and perturbed samples (label 1). Uncertainty on samples is quantified by the differential uncertainty \citep{malini2018}. Unperturbed samples are expected to have low differential entropy, because they are from the same distribution as the training data, while perturbed samples are expected to have a high differential entropy. 
 %Further results based on other uncertainty measures are provided in the appendix. 
@@ -146,7 +148,7 @@ Under the less powerful FGSM and Noise attacks (see Appendix), DBU models achiev
 \end{figure}
 
 
-On tabular data sets, \PostNet shows a better label attack detection rate for large perturbations. This observation might be explained by the fact that the density estimation of the ID samples has been shown to work better for tabular data sets \citep{charpentier2020}. 
+On tabular data sets, \PostNetacro{} shows a better label attack detection rate for large perturbations. This observation might be explained by the fact that the density estimation of the ID samples has been shown to work better for tabular data sets \citep{charpentier2020}. 
 %
 Overall, none of the DBU models provides a reliable indicator for adversarial inputs that target the class prediction. 
 
@@ -157,7 +159,6 @@ Overall, none of the DBU models provides a reliable indicator for adversarial in
 \vspace{.4mm}
 \begin{table*}[ht]
 	\centering
-	\caption{OOD detection based on differential entropy under PGD uncertainty attacks against differential entropy computed on ID data and OOD data (metric: AUC-PR).}
 %	\begin{small}
 	\resizebox{\textwidth}{!}{
 		\begin{tabular}{@{}rrrrrrrc|crrrrrr@{}}
@@ -168,7 +169,7 @@ Overall, none of the DBU models provides a reliable indicator for adversarial in
 			0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0  \\
 			\midrule
 			& \multicolumn{14}{c}{\textbf{CIFAR10 -- SVHN}} \\
-			\PostNet  &  81.8 &  64.3 &  47.2 &  22.4 &  17.6 &  \bf{16.9} &  &%\bf{16.4} & &
+			\PostNetacro{}  &  81.8 &  64.3 &  47.2 &  22.4 &  17.6 &  \bf{16.9} &  &%\bf{16.4} & &
 			&  81.8 &  60.5 &  40.7 &  23.3 &  21.8 &  19.8 \\%&  18.1 \\ 
 			\PriorNet &  54.4 &  40.1 &  30.0 &  17.9 &  15.6 &  15.4 &  &%15.4 & &
 			&  54.4 &  40.7 &  30.7 &  19.5 &  16.5 &  15.7 \\%&  15.4 \\
@@ -178,7 +179,7 @@ Overall, none of the DBU models provides a reliable indicator for adversarial in
 			&  80.3 &  58.2 &  46.5 &  \bf{34.6} &  \bf{28.0} &  \bf{23.9} \\%&  \bf{21.0} \\
 			\midrule
 			& \multicolumn{14}{c}{\textbf{Sens. -- Sens. class 10, 11}} \\
-			\PostNet  &  \bf{74.5} &  \bf{39.8} &  \bf{36.1} &  \bf{36.0} &  \bf{45.9} &  \bf{46.0} & &% \bf{46.0} & &
+			\PostNetacro{}  &  \bf{74.5} &  \bf{39.8} &  \bf{36.1} &  \bf{36.0} &  \bf{45.9} &  \bf{46.0} & &% \bf{46.0} & &
 			&  \bf{74.5} &  \bf{43.3} &  \bf{42.0} &  \bf{32.1} &  \bf{35.1} &  \bf{82.6} \\%&  \bf{99.4} \\
 			\PriorNet &  32.3 &  26.6 &  26.5 &  26.5 &  26.6 &  28.3 & &% 38.6 & &
 			&  32.3 &  26.7 &  26.6 &  26.6 &  27.0 &  30.4 \\%&  36.8 \\ 
@@ -189,6 +190,7 @@ Overall, none of the DBU models provides a reliable indicator for adversarial in
 			\bottomrule
 		\end{tabular}}
 %	\end{small}
+	\caption{OOD detection based on differential entropy under PGD uncertainty attacks against differential entropy computed on ID data and OOD data (metric: AUC-PR).}
 	\label{tab:id_ood_attacks}
 \end{table*}
 
@@ -271,9 +273,9 @@ We analyze the performance of DBU models under uncertainty attacks w.r.t.\ two t
 
 
 
-
-\textbf{Are uncertainty estimates a robust feature for OOD detection?}\\
-%
+\begin{center}
+	\textbf{Are uncertainty estimates a robust feature for OOD detection?}	
+\end{center}
 \underline{\emph{Expected behavior:}} We expect DBU models to be able to distinguish between ID and OOD data by providing reliable uncertainty estimates, even under small perturbations. Thus, we expect uncertainty estimates of DBU models to be robust under attacks. 
 %
 \underline{\emph{Assessment metric:}} We distinguish between ID data (label 0) and OOD data (label 1) based on the differential entropy as uncertainty scoring function \citep{malini2018}. Differential entropy is expected to be small on ID samples and high on OOD samples. Experiments on further uncertainty measure and results on the AUROC metric are provided in the appendix. 

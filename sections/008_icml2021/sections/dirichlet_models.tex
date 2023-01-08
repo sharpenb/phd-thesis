@@ -6,8 +6,6 @@ Given the parameters of a categorical distribution, the \emph{ aleatoric uncerta
 
 \begin{table*}[ht]
 	\centering
-	\caption{Summary of DBU models. Further details on the loss functions are provided in the appendix.}
-	\label{tab:dirichlet_models}
 	\resizebox{.9 \textwidth}{!}{%
 		\begin{tabular}{lllllll}
 			\toprule
@@ -21,6 +19,8 @@ Given the parameters of a categorical distribution, the \emph{ aleatoric uncerta
 		\end{tabular}
 	}
 	%\vspace{-.5cm}
+	\caption{Summary of DBU models. Further details on the loss functions are provided in the appendix.}
+	\label{tab:dirichlet_models}
 \end{table*}
 
 
@@ -76,7 +76,7 @@ Then, the soft-labels \smash{$\{\vp_{m}\dataix\}_{m=1}^{M}$} provided by the ens
 \end{equation}
 where $\pi^{im}$ denotes the soft-label of $m$th neural network. 
 
-Posterior Network \textbf{(\PostNet)} \citep{charpentier2020} performs density estimation for ID data with normalizing flows and uses a Bayesian loss formulation: %composed of the Uncertain Cross-Entropy loss \citep{uncertainty_time} and an entropy regularizer inspired by Bayesian theory.
+Posterior Network \textbf{(\PostNetacro{})} \citep{charpentier2020} performs density estimation for ID data with normalizing flows and uses a Bayesian loss formulation: %composed of the Uncertain Cross-Entropy loss \citep{uncertainty_time} and an entropy regularizer inspired by Bayesian theory.
 \begin{equation}
 \begin{aligned}
     L_{\mathrm{\PostNet}} &= \frac{1}{N} \sum_i \E_{q(p\dataix)}  [\mathrm{CE} (p\dataix, y\dataix)] - H(q\dataix)

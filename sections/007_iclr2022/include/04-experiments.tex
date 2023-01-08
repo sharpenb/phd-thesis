@@ -5,11 +5,11 @@ In this section, we compare \NatPNacro{} to existing methods on extensive experi
 
 \begin{table*}[ht]
     \centering
-    \vspace{-1mm}
+    % \vspace{-1mm}
    % \scriptsize
    \caption{Classification results on Sensorless Drive with Categorical target distribution. Best scores among all single-pass models are in bold. Best scores among all models are starred.}
     \label{tab:sensorless-drive}
-    \vspace{-3mm}
+    % \vspace{-3mm}
     \resizebox{0.8 \textwidth}{!}{
     \begin{tabular}{lcccccc}
         \toprule
@@ -26,7 +26,7 @@ In this section, we compare \NatPNacro{} to existing methods on extensive experi
         \bottomrule
     \end{tabular}
     }
-            \vspace{-0mm}
+            % \vspace{-0mm}
 \end{table*}
 
 %\begin{table*}[ht]
@@ -78,10 +78,10 @@ In this section, we compare \NatPNacro{} to existing methods on extensive experi
 
 \begin{table*}[ht]
     \centering
-    	\vspace{-4mm}
+    	% \vspace{-4mm}
     %\scriptsize
     \caption{Classification results on CIFAR-10 with Categorical target distribution. Best scores among all single-pass models are in bold. Best scores among all models are starred. Gray numbers indicate that R-PriorNet has seen samples from the SVHN dataset during training.}
-    \vspace{-3mm}
+    % \vspace{-3mm}
     \resizebox{.9\textwidth}{!}{
     \begin{tabular}{lcccccccc}
         \toprule
@@ -100,7 +100,7 @@ In this section, we compare \NatPNacro{} to existing methods on extensive experi
     \end{tabular}
     }
     \label{tab:cifar10}
-            \vspace{-4mm}
+            % \vspace{-4mm}
 \end{table*}
 
 \begin{table*}[ht]
@@ -108,7 +108,7 @@ In this section, we compare \NatPNacro{} to existing methods on extensive experi
     %\scriptsize
         \caption{Results on the Bike Sharing Dataset with Normal $\DNormal$ and Poison $\DPoi$ target distributions. Best scores among all single-pass models are in bold. Best scores among all models are starred.}
     \label{tab:bike-sharing}
-    \vspace{-3mm}
+    % \vspace{-3mm}
     \resizebox{0.9\textwidth}{!}{
     \begin{tabular}{lcccccc}
         \toprule
@@ -128,7 +128,7 @@ In this section, we compare \NatPNacro{} to existing methods on extensive experi
         \bottomrule
     \end{tabular}
     }
-            \vspace{-3mm}
+            % \vspace{-3mm}
 \end{table*}
 
 \begin{table*}[t]
@@ -136,7 +136,7 @@ In this section, we compare \NatPNacro{} to existing methods on extensive experi
    % \scriptsize
    \caption{Regression results on models trained on different UCI datasets with Normal target distribution. The upper half displays models trained on Kin8nm, the lower half shows models trained on Concrete Compressive Strength.}
     \label{tab:uci}
-    \vspace{-3mm}
+    % \vspace{-3mm}
     \resizebox{1.\textwidth}{!}{
     \begin{tabular}{lcccccccc}
         \toprule
@@ -158,7 +158,7 @@ In this section, we compare \NatPNacro{} to existing methods on extensive experi
         \textbf{\NatPNacro{}} & \textbf{5.83 $\pm$ 0.23} & \textbf{5.41 $\pm$ 1.33} & \textbf{*100.00 $\pm$ 0.00} & \textbf{*100.00 $\pm$ 0.00} & & & \textbf{*100.00 $\pm$ 0.00} & \textbf{*100.00 $\pm$ 0.00} \\
         \bottomrule
     \end{tabular}}
-    \vspace{-4mm}
+    % \vspace{-4mm}
 \end{table*}
 
 \begin{table*}[t]
@@ -183,20 +183,22 @@ In this section, we compare \NatPNacro{} to existing methods on extensive experi
 
 \subsection{Setup}
 
-\begin{wrapfigure}{r}{0.5\textwidth}
+% \begin{wrapfigure}{r}{0.5\textwidth}
+\begin{figure*}[t]
 \vspace{-4mm}
 	\centering
-    \includegraphics[width=\linewidth]{sections/007_iclr2022/resources/corruptions-final-crop.pdf}
+    \includegraphics[width=.8\linewidth]{sections/007_iclr2022/resources/corruptions-final-crop.pdf}
     \caption{Averaged accuracy and confidence under 15 dataset shifts on CIFAR-10 \citep{benchmarking-corruptions}. 
     On more severe perturbations (i.e. data further away from data distribution), \NatPNacro{} maintains a competitive accuracy while assigning higher epistemic uncertainty as desired. Baselines provide a slower relative confidence decay.
     }
     \label{fig:data-corruption}
 \vspace{-4mm}
-\end{wrapfigure}
+\end{figure*}
+% \end{wrapfigure}
 
 In our experiments, we change the encoder architecture of \NatPNacro{} to match the dataset needs. We perform a grid search over normalizing flows types (i.e. radial flows \citep{radialflow} and MAF \citep{made,maf}) and latent dimensions. We show further experiments on architecture, latent dimension, normalizing flow choices and certainty budget choice in the appendix. Furthermore, we use approximations of the log-Gamma $\log\Gamma(x)$ and the Digamma $\psi(x)$ functions for large input values to avoid unstable floating computations (see app.). As prior parameters, we set ${\bm{\chi}^\text{prior}=\bm{1}_{\nclass}/C}, {\evidence^\text{prior}=\nclass}$ for classification, ${\priorparam^\text{prior}=(0, 100)^T}, \evidence^\text{prior}=1$ for regression and $\chi^\text{prior}=1, \evidence^\text{prior}=1$ for count prediction enforcing high entropy for prior distributions.
 
-\textbf{Baselines.} We focus on recent models parametrizing prior distributions over the target distribution. For classification, we compare \NatPNacro{} to Reverse KL divergence Prior Networks (R-PriorNet) \citep{reverse-kl}, Ensemble Distribution Distillation (EnD$^2$) \citep{distribution-distillation} and Posterior Networks (PostNet) \citep{postnet}. Note that Prior Networks require OOD training data --- we use an auxiliary dataset when available and Gaussian noise otherwise. For regression, we compare to Evidential Regression (EvReg) \citep{evidential-regression}. Beyond baselines parametrizing conjugate prior distributions, we also compare to dropout (Dropout) \citep{dropout} and ensemble (Ensemble) \citep{ensembles} models for all tasks. These sampling baselines require multiple forward passes for uncertainty estimation. 
+\paragraph{Baselines.} We focus on recent models parametrizing prior distributions over the target distribution. For classification, we compare \NatPNacro{} to Reverse KL divergence Prior Networks (R-PriorNet) \citep{reverse-kl}, Ensemble Distribution Distillation (EnD$^2$) \citep{distribution-distillation} and Posterior Networks (PostNet) \citep{postnet}. Note that Prior Networks require OOD training data --- we use an auxiliary dataset when available and Gaussian noise otherwise. For regression, we compare to Evidential Regression (EvReg) \citep{evidential-regression}. Beyond baselines parametrizing conjugate prior distributions, we also compare to dropout (Dropout) \citep{dropout} and ensemble (Ensemble) \citep{ensembles} models for all tasks. These sampling baselines require multiple forward passes for uncertainty estimation. 
 Further details are given in the appendix.
 %As suggested in \citep{dataset-shift}, we use $5$ samples for the two sampling baselines. Note that, unlike the other baselines or \NatPNacro{}, the sampling baselines require multiple forward passes for uncertainty estimation. 
 %In all experiments, all models share the same backbone architecture (MLP, Conv. \citep{conv-net}, DenseDepth \citep{dense-depth}). We use early stopping and perform a grid search on the hyperparameters of all models including learning rate, dropout rate and regularizing factor when applicable. We report average results over $5$ initialization seeds with standard error of the mean (except for the larger dataset NYU Depth v2 dataset). Further model details are given in the appendix.
@@ -205,17 +207,23 @@ Further details are given in the appendix.
 %\textbf{Baselines.} We focus on recent models parametrizing prior distributions over the target distribution. For classification, we compare \NatPNacro{} to Reverse KL divergence Prior Networks \textbf{(R-PriorNet)} \citep{reverse-kl}, Ensemble Distribution Distillation \textbf{(EnD$^2$)} \citep{distribution-distillation} and Posterior Networks \textbf{(PostNet)} \citep{postnet}. Note that Prior Networks require OOD training data --- we use an auxiliary dataset when available and Gaussian noise otherwise. For regression, we compare to Evidential Regression \textbf{(EvReg)} \citep{evidential-regression}. Beyond baselines parametrizing conjugate prior distributions, we also compare to dropout \textbf{(Dropout)} \citep{dropout} and ensemble \textbf{(Ensemble)} \citep{ensembles} models for all tasks. As suggested in \citep{dataset-shift}, we use $5$ samples for the two sampling baselines. Note that, unlike the other baselines or \NatPNacro{}, the sampling baselines require multiple forward passes for uncertainty estimation. 
 %In all experiments, all models share the same backbone architecture (MLP, Conv. \citep{conv-net}, DenseDepth \citep{dense-depth}). We use early stopping and perform a grid search on the hyperparameters of all models including learning rate, dropout rate and regularizing factor when applicable. We report average results over $5$ initialization seeds with standard error of the mean (except for the larger dataset NYU Depth v2 dataset). Further model details are given in the appendix.
 
-\textbf{Datasets.} We split all datasets into train, validation and test sets. For classification, we use one tabular dataset (Sensorless Drive \citep{uci}) and three image datasets (MNIST \citep{mnist}, FMNIST \citep{fashion-mnist} and CIFAR-10 \citep{cifar10}). For count prediction, we use the Bike Sharing dataset \citep{bike-sharing} to predict the number of bike rentals within an hour. For regression, we also use the Bike Sharing dataset where the target is viewed as continuous, real-world UCI datasets used in \citet{evidential-regression, probabilistic-backprop-scalable-bnn} and the image NYU Depth v2 dataset \citep{nyu-depth} where the goal is to predict the image depth per pixel. All inputs are rescaled with zero mean and unit variance. We also scale the output target for regression. Further details are given in the appendix.
+\paragraph{Datasets.} We split all datasets into train, validation and test sets. For classification, we use one tabular dataset (Sensorless Drive \citep{uci}) and three image datasets (MNIST \citep{mnist}, FMNIST \citep{fashion-mnist} and CIFAR-10 \citep{cifar10}). For count prediction, we use the Bike Sharing dataset \citep{bike-sharing} to predict the number of bike rentals within an hour. For regression, we also use the Bike Sharing dataset where the target is viewed as continuous, real-world UCI datasets used in \citep{evidential-regression, probabilistic-backprop-scalable-bnn} and the image NYU Depth v2 dataset \citep{nyu-depth} where the goal is to predict the image depth per pixel. All inputs are rescaled with zero mean and unit variance. We also scale the output target for regression. Further details are given in the appendix.
 
-\textbf{Metrics.} Beyond the target prediction error, we evaluate model uncertainty estimation using calibration and OOD detection scores. Furthermore, we report the inference speed. Further results including histograms with uncertainty estimates or latent space visualization are presented in appendix. \textit{\underline{Target error:}} We use the accuracy (Accuracy) for classification and the Root Mean Squared Error (RMSE) for regression and count prediction. \textit{\underline{Calibration:}} For classification, we use the Brier score (Brier) \citep{scoring-rules}. For regression and count prediction, we use the quantile calibration score (Calibration) \citep{accurate-uncertainties-deep-learning-regression}. \textit{\underline{OOD detection:}} We evaluate how the uncertainty scores enable to detect OOD data using the area under the precision-recall curve (AUC-PR) the area under the receiver operating characteristic curve (AUC-ROC) in the appendix. We use two different uncertainty measures: the negative entropy of the predicted target distribution accounting for the aleatoric uncertainty (Alea. OOD) and the predicted evidence or variance of the predicted mean (Epist. OOD). Similarly to \citep{dataset-shift, postnet}, we use four different types of clear OOD samples: Unseen datasets (KMNIST \cite{kmnist}, Fashion-MNIST \citep{fashion-mnist}, SVHN \citep{svhn}, LSUN \citep{lsun}, CelebA \citep{celeba}, KITTI \citep{kitti}), left-out data (classes 9/10 for Sensorless Drive, winter/spring/autumn seasons for Bike Sharing), out-of-domain data not normalized in $[0, 1]$ (OODom) and dataset shifts (corrupted CIFAR-10 \citep{benchmarking-corruptions}). Further details are given in the appendix.
+\paragraph{Metrics.} Beyond the target prediction error, we evaluate model uncertainty estimation using calibration and OOD detection scores. Furthermore, we report the inference speed. Further results including histograms with uncertainty estimates or latent space visualization are presented in appendix. 
+
+\textit{\underline{Target error:}} We use the accuracy (Accuracy) for classification and the Root Mean Squared Error (RMSE) for regression and count prediction. 
+
+\textit{\underline{Calibration:}} For classification, we use the Brier score (Brier) \citep{scoring-rules}. For regression and count prediction, we use the quantile calibration score (Calibration) \citep{accurate-uncertainties-deep-learning-regression}. 
+
+\textit{\underline{OOD detection:}} We evaluate how the uncertainty scores enable to detect OOD data using the area under the precision-recall curve (AUC-PR) the area under the receiver operating characteristic curve (AUC-ROC) in the appendix. We use two different uncertainty measures: the negative entropy of the predicted target distribution accounting for the aleatoric uncertainty (Alea. OOD) and the predicted evidence or variance of the predicted mean (Epist. OOD). Similarly to \citep{dataset-shift, postnet}, we use four different types of clear OOD samples: Unseen datasets (KMNIST \cite{kmnist}, Fashion-MNIST \citep{fashion-mnist}, SVHN \citep{svhn}, LSUN \citep{lsun}, CelebA \citep{celeba}, KITTI \citep{kitti}), left-out data (classes 9/10 for Sensorless Drive, winter/spring/autumn seasons for Bike Sharing), out-of-domain data not normalized in $[0, 1]$ (OODom) and dataset shifts (corrupted CIFAR-10 \citep{benchmarking-corruptions}). Further details are given in the appendix.
 
 %\textbf{Metrics.} Beyond the target prediction error, we evaluate model uncertainty estimation using calibration and OOD detection scores. Furthermore, we report the inference speed. Further results including histograms with uncertainty estimates or latent space visualization are presented in appendix. \textit{\underline{Target error:}} We use the accuracy \textbf{(Accuracy)} for classification and the Root Mean Squared Error \textbf{(RMSE)} for regression and count prediction. \textit{\underline{Calibration:}} Calibration scores aim at evaluating if the error from the predicted target distribution corresponds to the empirical error achieved by the model (e.g. is a class prediction with a predicted confidence $p_\iclass=80\%$ correct $80\%$ of the time?). For classification, we use the Brier score \textbf{(Brier)} \citep{scoring-rules}. For regression and count prediction, we use the absolute difference between the percentile $p$ and the percentage $p_\text{pred}$ of target lying in the confidence interval $I_p=[0,\frac{p}{2}]\cup[1-\frac{p}{2},1]$ under the predicted target distribution. We compute a single calibration score by summing the square difference for $p \in \{0.1, \ldots, 0.9\}$ i.e.  \smash{$\sqrt{\sum_p (p - p_\text{pred})^2}$} \textbf{(Calibration)} \citep{accurate-uncertainties-deep-learning-regression}. \textit{\underline{OOD detection:}} We evaluate how the uncertainty scores enable to detect OOD data using the area under the precision-recall curve (AUC-PR). We show further results using the area under the receiver operating characteristic curve (AUC-ROC) in appendix. We use two different uncertainty measures: the negative entropy of the predicted target distribution accounting for the aleatoric uncertainty \textbf{(Alea. OOD)} and the predicted evidence \textbf{(Epist. OOD)}. Similarly to \citep{dataset-shift, postnet, reverse-kl}, we use four different types of clear OOD samples: Unseen datasets (KMNIST \cite{kmnist}, Fashion-MNIST \citep{fashion-mnist}, SVHN \citep{svhn}, LSUN \citep{lsun}, CelebA \citep{celeba}, KITTI \citep{kitti}), left-out data (classes 9/10 for Sensorless Drive, winter/spring/autumn seasons for Bike Sharing), out-of-domain data not normalized in $[0, 1]$ (\textbf{OODom}) and dataset shifts (corrupted CIFAR-10 \citep{benchmarking-corruptions}).
 
 \subsection{Results}
 
-\textbf{Classification.} We show results for the tabular dataset Sensorless Drive with unbounded input domain in Tab.~\ref{tab:sensorless-drive}, and the image datasets MNIST, FMNIST and CIFAR-10 with bounded input domain in Tab.~\ref{tab:cifar10} and appendix. Overall, for classification \NatPNacro{} performs on par with best single-pass baselines (i.e. $12/30$ top-1 scores, $25/30$ top-2 scores) and NatPE performs the best among multiple-pass models (i.e. $28/30$ top-1 scores). A single \NatPNacro{} achieves accuracy and calibration performance on par with the most calibrated baselines, namely PostNet and R-PriorNet which requires one normalizing flow per class or training OOD data. Further, NatPE consistently improves accuracy and calibration performance of a single \NatPNacro{} which underlines the benefit of aggregating multiple models predictions for accuracy and calibration \citep{ensembles}. Without requiring OOD data during training, both \NatPNacro{} and NatPE achieve excellent OOD detection scores w.r.t. all OOD types. This strongly suggests that \NatPNacro{} does \emph{not} suffer from the flaws in \cite{anomaly-detection,deep-generative,typicality_OOD_generative}. In particular, \NatPNacro{} and NatPE achieve almost perfect OODom scores contrary to all other baselines except PostNet. This observation aligns well with the theoretical guarantee of \NatPNacro{} far from training data (see Thm.~\ref{thm:oodom-guarantee}) which also applies to each NatPE member. The similar performance of \NatPNacro{} and PostNet for classification is intuitively explained by their akin design: both models perform density estimation on a low-dimensional latent space. Similarly to \cite{postnet}, we compute the average confidence \smash{$\text{avg-conf}=\frac{1}{N}\sum_i^{N}\evidence\dataix=\frac{1}{N}\sum_i^{N}\alpha_0\dataix$} and then compare the average confidence change. The average confidence change is computed by taking the ratio of the average confidence of $N$ corrupted data at severity $s$ and the average confidence of $N$ clean data (i.e. the corrupted data at severity $0$) i.e. \smash{$\frac{\text{avg-conf}_s}{ \text{avg-conf}_0}$} for $s \in [\![ 1, 5 ]\!]$. \NatPNacro{} maintains a competitive accuracy (Fig.~\ref{fig:data-corruption}, left) while assigning higher epistemic uncertainty as desired (Fig.~\ref{fig:data-corruption}, right). Baselines provide a slower relative confidence decay.
+\paragraph{Classification.} We show results for the tabular dataset Sensorless Drive with unbounded input domain in Tab.~\ref{tab:sensorless-drive}, and the image datasets MNIST, FMNIST and CIFAR-10 with bounded input domain in Tab.~\ref{tab:cifar10} and appendix. Overall, for classification \NatPNacro{} performs on par with best single-pass baselines (i.e. $12/30$ top-1 scores, $25/30$ top-2 scores) and NatPE performs the best among multiple-pass models (i.e. $28/30$ top-1 scores). A single \NatPNacro{} achieves accuracy and calibration performance on par with the most calibrated baselines, namely PostNet and R-PriorNet which requires one normalizing flow per class or training OOD data. Further, NatPE consistently improves accuracy and calibration performance of a single \NatPNacro{} which underlines the benefit of aggregating multiple models predictions for accuracy and calibration \citep{ensembles}. Without requiring OOD data during training, both \NatPNacro{} and NatPE achieve excellent OOD detection scores w.r.t. all OOD types. This strongly suggests that \NatPNacro{} does \emph{not} suffer from the flaws in \cite{anomaly-detection,deep-generative,typicality_OOD_generative}. In particular, \NatPNacro{} and NatPE achieve almost perfect OODom scores contrary to all other baselines except PostNet. This observation aligns well with the theoretical guarantee of \NatPNacro{} far from training data (see Thm.~\ref{thm:oodom-guarantee}) which also applies to each NatPE member. The similar performance of \NatPNacro{} and PostNet for classification is intuitively explained by their akin design: both models perform density estimation on a low-dimensional latent space. Similarly to \cite{postnet}, we compute the average confidence \smash{$\text{avg-conf}=\frac{1}{N}\sum_i^{N}\evidence\dataix=\frac{1}{N}\sum_i^{N}\alpha_0\dataix$} and then compare the average confidence change. The average confidence change is computed by taking the ratio of the average confidence of $N$ corrupted data at severity $s$ and the average confidence of $N$ clean data (i.e. the corrupted data at severity $0$) i.e. \smash{$\frac{\text{avg-conf}_s}{ \text{avg-conf}_0}$} for $s \in [\![ 1, 5 ]\!]$. \NatPNacro{} maintains a competitive accuracy (Fig.~\ref{fig:data-corruption}, left) while assigning higher epistemic uncertainty as desired (Fig.~\ref{fig:data-corruption}, right). Baselines provide a slower relative confidence decay.
 
-\textbf{Regression \& Count Prediction.} We show the results for the Bike Sharing, the tabular UCI datasets and the image NYU Depth v2 datasets in Tab.~\ref{tab:bike-sharing}, \ref{tab:uci}, \ref{tab:nyu}. For the large NYU dataset, we compare against all baselines which require only a single model to be trained. Overall, \NatPNacro{} outperforms other single-pass models for $23/26$ scores for regression, thus significantly improving calibration and OOD detection scores. Further, \NatPNacro{} shows a strong improvement for calibration and OOD detection for count prediction with Poisson distributions among all models. Interestingly, all the models are less calibrated on the Bike Sharing dataset using a target Poisson distribution rather than a target Normal distribution. This suggests a mismatch of the Poisson distribution for this particular task. The almost perfect OODom scores of \NatPNacro{} validate again Thm.~\ref{thm:oodom-guarantee} which also holds for regression.
+\paragraph{Regression \& Count Prediction.} We show the results for the Bike Sharing, the tabular UCI datasets and the image NYU Depth v2 datasets in Tab.~\ref{tab:bike-sharing}, \ref{tab:uci}, \ref{tab:nyu}. For the large NYU dataset, we compare against all baselines which require only a single model to be trained. Overall, \NatPNacro{} outperforms other single-pass models for $23/26$ scores for regression, thus significantly improving calibration and OOD detection scores. Further, \NatPNacro{} shows a strong improvement for calibration and OOD detection for count prediction with Poisson distributions among all models. Interestingly, all the models are less calibrated on the Bike Sharing dataset using a target Poisson distribution rather than a target Normal distribution. This suggests a mismatch of the Poisson distribution for this particular task. The almost perfect OODom scores of \NatPNacro{} validate again Thm.~\ref{thm:oodom-guarantee} which also holds for regression.
 
 \begin{wraptable}{r}{0.45\textwidth}
 \vspace{-0mm}
@@ -243,7 +251,7 @@ Further details are given in the appendix.
 \vspace{-0mm}
 \end{wraptable}
 
-\textbf{Inference Speed.} We show the average inference time per batch for all models on CIFAR-10 for classification and the NYU Depth v2 dataset for regression in Tab.~\ref{tab:inference-time}. \NatPNacro{} shows a significant improvement over Dropout and Ensemble which are both approximately five times slower since they require five forward passes for prediction. Notably, the \NatPNacro{} speedup does not deteriorate target error and uncertainty scores. \NatPNacro{} is slightly slower than R-PriorNet, EnD$^2$ and EvReg as they do not evaluate an additional normalizing flow. However, \NatPNacro{} -- which uses a single normalizing flow -- is faster than PostNet -- which scales linearly w.r.t. the number of classes since it evaluates one normalizing flow per class. Lastly, \NatPNacro{} is the only single-pass model that can be used for \emph{both} tasks.
+\paragraph{Inference Speed.} We show the average inference time per batch for all models on CIFAR-10 for classification and the NYU Depth v2 dataset for regression in Tab.~\ref{tab:inference-time}. \NatPNacro{} shows a significant improvement over Dropout and Ensemble which are both approximately five times slower since they require five forward passes for prediction. Notably, the \NatPNacro{} speedup does not deteriorate target error and uncertainty scores. \NatPNacro{} is slightly slower than R-PriorNet, EnD$^2$ and EvReg as they do not evaluate an additional normalizing flow. However, \NatPNacro{} -- which uses a single normalizing flow -- is faster than PostNet -- which scales linearly w.r.t. the number of classes since it evaluates one normalizing flow per class. Lastly, \NatPNacro{} is the only single-pass model that can be used for \emph{both} tasks.
 
 %\begin{minipage}{0.59\textwidth}
 %    \centering

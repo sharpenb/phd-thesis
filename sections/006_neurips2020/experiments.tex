@@ -3,30 +3,28 @@
 
 In this section we compare our model to previous methods on a rich set of experiments. The code and further supplementary material is available online (\url{www.daml.in.tum.de/postnet}).
 
-\textbf{Baselines.} We have special focus on comparing with other models parametrizing Dirichlet distributions. We use Prior Networks (PN) trained with KL divergence (\textbf{KL-PN}) \cite{prior_net} and Reverse KL divergence (\textbf{RKL-PN}) \cite{rev_kl_prior_net}. These methods assume the knowledge of in- and out-of-distribution samples. For fair evaluation, the actual OOD test data cannot be used; instead, we used uniform noise on the valid domain as OOD training data. Additionally we trained RKL-PN with FashionMNIST as OOD data for MNIST (\textbf{RKL-PN w/ F.}). We also compare to Distribution Distillation (\textbf{Distill.}) \cite{distribution_distillation}, which learns Dirichlet distributions with maximum likelihood by using soft-labels from an ensemble of networks. 
+\paragraph{Baselines.} We have special focus on comparing with other models parametrizing Dirichlet distributions. We use Prior Networks (PN) trained with KL divergence (\textbf{KL-PN}) \cite{prior_net} and Reverse KL divergence (\textbf{RKL-PN}) \cite{rev_kl_prior_net}. These methods assume the knowledge of in- and out-of-distribution samples. For fair evaluation, the actual OOD test data cannot be used; instead, we used uniform noise on the valid domain as OOD training data. Additionally we trained RKL-PN with FashionMNIST as OOD data for MNIST (\textbf{RKL-PN w/ F.}). We also compare to Distribution Distillation (\textbf{Distill.}) \cite{distribution_distillation}, which learns Dirichlet distributions with maximum likelihood by using soft-labels from an ensemble of networks. 
 As further baselines, we compare to dropout models (\textbf{Dropout Net}) \cite{drop_out} and ensemble methods (\textbf{Ensemble Net}) \cite{ensemble_simple}, which are state of the art in many tasks involving uncertainty estimation \cite{uncertainty_survey}. Empirical estimates of the mean and variance of \smash{$q\dataix$} are computed based on the neuron drop probability $p_{\text{drop}}$, and $m$ individually trained networks for ensemble.
 
 All models share the same core architecture using 3 dense layers for tabular data, and 3 conv. + 3 dense layers for image data. Similarly to \cite{prior_net, rev_kl_prior_net}, we also used the VGG16 architecture \cite{vgg} on CIFAR10. We performed a grid search on $p_{\text{drop}}$, $m$, learning rate and hidden dimensions, and report results for the best configurations. Results are obtained from 5 trained models with different initializations.
 Moreoever, for all experiments, we split the data into train, validation and test set  ($60\%$, $20\%$, $20\%$) and train/evaluate all models on $5$ different splits. Besides the mean we also report the standard error of the mean. Further details are given in the appendix.
 
-\textbf{Datasets.} We evaluate on the following real-world datasets: \textbf{Segment} \cite{uci_datasets}, \textbf{Sensorless Drive} \cite{uci_datasets}, \textbf{MNIST} \cite{mnist} and \textbf{CIFAR10} \cite{cifar10}. The former two datasets (Segment and Sensorless Drive) are tabular datasets with %unbounded input domain of 
+\paragraph{Datasets.} We evaluate on the following real-world datasets: \textbf{Segment} \cite{uci_datasets}, \textbf{Sensorless Drive} \cite{uci_datasets}, \textbf{MNIST} \cite{mnist} and \textbf{CIFAR10} \cite{cifar10}. The former two datasets (Segment and Sensorless Drive) are tabular datasets with %unbounded input domain of 
 dimensionality 18 and 49 and with 7 and 11 classes, respectively. We rescale all inputs between $[0, 1]$ by using the $\min$ and $\max$ value of each dimension from the training set. Additionally, we compare all models on 2D synthetic data composed of three Gaussians each. Datasets are presented in  more detail in the appendix.
 
-\textbf{Uncertainty Metrics.} We follow the method proposed in \cite{uncertainty_survey} and evaluate the coherence of confidence, uncertainty calibration and OOD detection. Note that our goal is not to improve accuracy; still we report the numbers in the experiments.
+\paragraph{Uncertainty Metrics.} We follow the method proposed in \cite{uncertainty_survey} and evaluate the coherence of confidence, uncertainty calibration and OOD detection. Note that our goal is not to improve accuracy; still we report the numbers in the experiments.
 
 \underline{Confidence calibration:} We aim to answer `\textit{Are more confident (i.e. less uncertain) predictions more likely to be correct?}'. We use the area under the precision-recall curve (AUC-PR) to measure confidence calibration. For aleatoric confidence calibration (\textbf{Alea. Conf.}) we use \smash{$\underset{\iclass}{\max} \; \bar{\vect{p}}_\iclass\dataix$} as the scores with labels 1 for correct and 0 for incorrect predictions. For epistemic confidence calibration (\textbf{Epist. Conf.}), we distinguish Dirichlet-based models, and dropout and ensemble models. For the former we use \smash{$\underset{\iclass}{\max}\; \bm{\alpha}_\iclass\dataix$} as scores, and for the latter we use the (inverse) empirical variance \smash{$\tilde{\vect{p}}_c\dataix$} of the predicted class, estimated from 10 samples.
 
 \underline{Uncertainty calibration:} We used Brier score (\textbf{Brier}), which is computed as $\frac{1}{N}\sum_{i}^N \|\bar{\vect{p}}\dataix - \vect{y}\dataix\|_2$, where $\vect{y}\dataix$ is the one-hot encoded ground-truth class of data point $i$. For Brier score, lower is better.
 
-\underline{OOD detection:} Our main focus lies on the models' ability to detect out-of-distribution samples. We used AUC-PR to measure performance. For aleatoric OOD detection (\textbf{Alea. OOD}), the scores are \smash{$\underset{\iclass}{\max} \; \bar{\vect{p}}_\iclass\dataix$} with labels 1 for ID data and 0 for OOD data. Fo epistemic OOD detection (\textbf{Epist. OOD}), the scores for Dirichlet-based models are given by \smash{$\alpha_0\dataix = \sum_\iclass \alpha_\iclass\dataix$}, while we use the (inverse) empirical variance \smash{$\tilde{\vect{p}}\dataix$} for ensemble and dropout models. To provide a comprehensive overview of OOD detection results we use different types of OOD data as described below. 
-
-\textit{Unseen datasets.} We use data from other datasets as OOD data for the image-based models. We use data from FashionMNIST \cite{fashionmnist} and K-MNIST \cite{kmnist}  as OOD data for models trained on MNIST, and data from SVHN \cite{svhn} as OOD for CIFAR10.
-
-\textit{Left-out classes.} For the tabular datasets (Segment and Sensorless Drive) there are no other datasets that are from the same domain. To simulate OOD data we remove one or more classes from the training data and instead consider them as OOD data. We removed one class (class sky) from the Segment dataset and two classes from Sensorless Drive (class 10 and 11).
-
-\textit{Out-of-domain.} In this novel evaluation we consider an extreme case of OOD data for which the data comes from different value ranges (\textbf{OODom}). E.g., for images we feed unscaled versions in the range $[0, 255]$ instead of scaled versions in $[0,1]$. We argue that models should easily be able to detect data that is extremely far from the data distribution. However, as it turns out, this is surprisingly difficult for many baseline models.
-
-\textit{Dataset shifts.} Finally, for CIFAR10, we use 15 different image corruptions at 5 different severity levels \cite{benchmarking_corruptions}. This setting evaluates the models' ability to detect low-quality data (Fig.~\ref{cifar_shifts}b,c).
+\underline{OOD detection:} Our main focus lies on the models' ability to detect out-of-distribution samples. We used AUC-PR to measure performance. For aleatoric OOD detection (\textbf{Alea. OOD}), the scores are \smash{$\underset{\iclass}{\max} \; \bar{\vect{p}}_\iclass\dataix$} with labels 1 for ID data and 0 for OOD data. Fo epistemic OOD detection (\textbf{Epist. OOD}), the scores for Dirichlet-based models are given by \smash{$\alpha_0\dataix = \sum_\iclass \alpha_\iclass\dataix$}, while we use the (inverse) empirical variance \smash{$\tilde{\vect{p}}\dataix$} for ensemble and dropout models. To provide a comprehensive overview of OOD detection results we use different types of OOD data as described in the following: 
+\begin{itemize}
+    \item \textit{Unseen datasets.} We use data from other datasets as OOD data for the image-based models. We use data from FashionMNIST \cite{fashionmnist} and K-MNIST \cite{kmnist}  as OOD data for models trained on MNIST, and data from SVHN \cite{svhn} as OOD for CIFAR10.
+    \item \textit{Left-out classes.} For the tabular datasets (Segment and Sensorless Drive) there are no other datasets that are from the same domain. To simulate OOD data we remove one or more classes from the training data and instead consider them as OOD data. We removed one class (class sky) from the Segment dataset and two classes from Sensorless Drive (class 10 and 11).
+    \item \textit{Out-of-domain.} In this novel evaluation we consider an extreme case of OOD data for which the data comes from different value ranges (\textbf{OODom}). E.g., for images we feed unscaled versions in the range $[0, 255]$ instead of scaled versions in $[0,1]$. We argue that models should easily be able to detect data that is extremely far from the data distribution. However, as it turns out, this is surprisingly difficult for many baseline models.
+    \item \textit{Dataset shifts.} Finally, for CIFAR10, we use 15 different image corruptions at 5 different severity levels \cite{benchmarking_corruptions}. This setting evaluates the models' ability to detect low-quality data (Fig.~\ref{cifar_shifts}b,c). 
+\end{itemize}
 
 \begin{table}
     \centering
@@ -96,7 +94,7 @@ Results for the Sensorles Drive dataset are shown in Tab.~\ref{fig:unc_sensorles
     }
     \caption{Ablation study results on Sensorless Drive dataset. Gray cells indicate significant drops in scores compared to complete \PostNetacro Rad. in Tab.~\ref{fig:unc_sensorless_drive}.}
         \label{fig:ablation_sensorless_drive}
-    \vspace{-.5cm}
+    % \vspace{-.5cm}
 \end{table}
 
 We performed an ablation study on each component of \PostNetacro to evaluate their individual contributions. We were especially interested in comparing stability and uncertainty estimates. Thus, we removed independently the normalizing flow component (\NoFlow) and the novel Bayesian loss (\NoUCE) replaced by the classic cross-entropy loss. Furthermore, we used pre-trained models and subsequently only trained the normalizing flow component, with or without a batch normalization layer (\SeqBn and \SeqNoBn). We report results in Tab.~\ref{fig:ablation_sensorless_drive}. \NoFlow has a significant drop in OOD detection scores similarly to Prior Networks; not surprising since they mainly differ by their loss. This underlines the importance of using normalized density estimation to differentiate ID and OOD data. The lower performance of \NoUCE compared to the original model indicates the benefit of using our Bayesian loss.
@@ -119,7 +117,7 @@ We performed an ablation study on each component of \PostNetacro to evaluate the
     }
     \caption{Results on MNIST for OOD detection against KMNIST (K.) and FashionMNIST (F.). We trained Rev. KL divergence PriorNets with uniform noise (RKL-PN) and Fashion MNIST (RKL-PN w/ F.) as OOD. \PostNetacro requires no OOD data. Larger numbers are better.}
     \label{fig:unc_MNIST}
-    \vspace{-.5cm}
+    % \vspace{-.5cm}
 \end{table}
 
 Results of the comparison between RKL-PN, RKL-PN w/ F and \PostNetacro for OOD detection on MNIST are shown in Tab.~ \ref{fig:unc_MNIST}. Not surprisingly, the usage of FashionMNIST as OOD data for training helped RKL-PN to detect other FashionMNIST data. Except for FashionMNIST OOD, \PostNetacro still outperforms RKL-PN w/ F. in OOD detection for other datasets. We noticed that tabular datasets, defined on an unbounded input domain, are more difficult for baselines. One explanation is that due to the $\min$/$\max$ normalization it can happen that test samples lie outside the interval $[0,1]$ observed during training. For images, the input domain is compact, which allows to define a valid distribution for OOD data (e.g. uniform) which makes OODom data challenging (see OOD vs OODom in Tab.~\ref{fig:unc_MNIST}).
@@ -146,7 +144,7 @@ Results of the comparison between RKL-PN, RKL-PN w/ F and \PostNetacro for OOD d
     }
     \caption{Results on CIFAR10 with simple convolutional architectures (C.) and VGG16 (V.). Bold numbers indicate best score among one architecture type.}
     \label{fig:unc_CIFAR10}
-    \vspace{-.5cm}
+    % \vspace{-.5cm}
 \end{table}
 
 Uncertainty estimation should be good regardless of the model accuracy. It is even more important for less accurate models since they actually \emph{do not know} (i.e.\ they do more mistakes). Thus, we compared the models that use a single network for training (using a convolutional architecture and VGG16) in Tab.~\ref{fig:unc_CIFAR10}. Without the knowledge of true OOD data (SVHN) during training, Prior Networks struggle to achieve good performance. In contrast, \PostNetacro outputs high quality uncertainty estimates regardless of the architecture used for the encoder. We report additional results for PostNet using other encoder architectures (convolutional architecture, AlexNet \cite{alexnet}, VGG \cite{vgg} and ResNet \cite{resnet}) in  Table~\ref{tab:architecture_CIFAR10}. Deep generative models as Glow \cite{glow} using density estimation on input space are unable to distinguish between CIFAR10 and SVHN \cite{deep_generative_do_not_know}. In contrast, \PostNetacro clearly distinguishes between in-distribution data (CIFAR10) with low entropy, out-of-distribution (OOD SVHN) with high entropy, and close to the maximum possible entropy for out-of-domain data (OODom SVHN) (see Fig.~\ref{cifar_shifts}a). Similar conclusions hold for MNIST and FashionMNIST (see app.). Furthermore, results for the image perturbations on CIFAR10 introduced by \cite{benchmarking_corruptions} are presented in Fig.~\ref{cifar_shifts}.  We define the average change in confidence as the ratio between the average confidence \smash{$\frac{1}{N}\sum_i^{N}\alpha_0\dataix$} at severity 1 vs other severity levels. As larger shifts correspond to larger differences in the underlying distributions, we expect uncertainty-aware models to become less certain for more severe perturbations. \PostNet exhibits, as desired, the largest decrease in confidence with stronger corruptions (see Fig.~\ref{cifar_shifts}b) while maintaining a high accuracy (see Fig.~\ref{cifar_shifts}c).
@@ -170,7 +168,7 @@ Uncertainty estimation should be good regardless of the model accuracy. It is ev
 \end{table}
 
 \begin{figure}[H]
-    \vspace{-.5cm}
+    % \vspace{-.5cm}
     \centering
     \begin{subfigure}[t]{0.33 \textwidth}
         \centering
