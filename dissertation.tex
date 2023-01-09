@@ -378,7 +378,7 @@
 %\backmatter
 % unsrturl-custom works only with hyperref loaded
 % use other styles like unsrt when hyperref is not loaded
-\newpage
+\renewcommand\bibsection{\chapter*{Bibliography}\addcontentsline{toc}{chapter}{\protect Bibliography}}
 %\bibliographystyle{unsrturl-custom}
 \bibliographystyle{plainnat}
 \bibliography{bibliography}
@@ -389,7 +389,6 @@
 % Appendix
 %-------------------------------------------------------------------------------
 \appendix
-\chapter{Data and Code}
 
 \chapter{Uncertainty Estimation for Classification}
 \input{sections/006_neurips2020/appendix.tex}
