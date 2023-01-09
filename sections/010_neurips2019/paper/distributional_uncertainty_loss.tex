@@ -19,7 +19,7 @@ $. Consequently, a low value of the \UncertaintyLoss guarantees a low value for 
 In practice the true distribution $\bm{p}_{\IndexEvent}^*$ is often a one hot-encoded representation of the observed class $\IndexClass_{\IndexEvent}$ which simplifies the computations. During training, the models compute $P_{\IndexEvent}(\theta(\DeltaTime))$ and evaluate it at the true time of the next event $\DeltaTime_{\IndexEvent}^*$ given the past event $\Event_{\IndexEvent-1}$ and the history $\History_{\IndexEvent-1}$. The final loss for a sequence of events is simply obtained by summing up the loss for each event
 $\mathcal{L}=\sum_\IndexEvent \E_{\bm{p}_{\IndexEvent} \sim P_{\IndexEvent}(\theta(\DeltaTime_{\IndexEvent}^*))}[\CrossEntropy[\bm{p}_{\IndexEvent}^*, \bm{p}_{\IndexEvent}]]$.
 
-\textbf{Fast computation.}  In order to have an efficient computation of the \UncertaintyLoss, we propose closed-form expressions.
+\paragraph{Fast computation.}  In order to have an efficient computation of the \UncertaintyLoss, we propose closed-form expressions.
 \textit{(1) Closed-form loss for Dirichlet.} Given that the observed class $\IndexClass_\IndexEvent$ is one hot-encoded by $\bm{p}_\IndexEvent^*$, the uncertain loss can be computed in closed form for the Dirichlet:
 \begin{equation} \label{eq:dir_loss}
 \mathcal{L}_\IndexEvent^{\text{UCE}} = \E_{\bm{p}_\IndexEvent(\DeltaTime_\IndexEvent^*) \sim \textbf{Dir}(\bm{\alpha}(\DeltaTime_\IndexEvent^*))}[\log p_{\IndexClass_\IndexEvent}(\DeltaTime_\IndexEvent^*)] = \Psi(\alpha_{\IndexClass_\IndexEvent}(\DeltaTime_\IndexEvent^*)) - \Psi(\alpha_0(\DeltaTime_\IndexEvent^*))
@@ -37,7 +37,7 @@ where $\Psi$ denotes the digamma function and $\alpha_0(\DeltaTime_\IndexEvent^*
 
 Note that we can now fully backpropagate through our loss (and through the models as well), enabling to train our methods efficiently with automatic differentiation frameworks and, e.g., gradient descent.
 
-\textbf{Regularization.} While the above loss much better incorporates uncertainty, it is still possible to generate pseudo points with high weight values outside of the observed data regime giving us predictions with high confidence. To eliminate this behaviour we introduce a regularization term $r_\IndexClass$:
+\paragraph{Regularization.} While the above loss much better incorporates uncertainty, it is still possible to generate pseudo points with high weight values outside of the observed data regime giving us predictions with high confidence. To eliminate this behaviour we introduce a regularization term $r_\IndexClass$:
 \begin{equation}\label{gp_regularization}
 r_\IndexClass = \alpha \underbrace{\int_0^T (\mu_\IndexClass(\DeltaTime))^2 \,d\DeltaTime}_{\text{Pushes mean to 0}} +
 \beta  \underbrace{\int_0^T (\nu - \sigma_\IndexClass^2(\DeltaTime))^2 \,d\DeltaTime}_{\text{Pushes variance to $\nu$}}

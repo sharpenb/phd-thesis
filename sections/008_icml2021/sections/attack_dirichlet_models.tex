@@ -43,14 +43,14 @@ From now on, we switch to the core focus of this work and analyze robustness pro
 			Att. Rad. & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & & & 0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0  \\
 			\midrule
 			%& \multicolumn{7}{c}{MNIST} & & & \multicolumn{7}{c}{CIFAR10} \\
-			\PostNetacro{}  &  \bf{98.7} &  88.6 &  56.2 &   7.8 &   1.2 &   0.4 &  & %0.3 & & 
-			&  99.7 &   8.3 &   3.9 &  3.6 &  \bf{7.0} &  \bf{9.8} \\%&  \bf{11.3} \\
-			\PriorNet &  92.9 &  77.7 &  60.5 &  \bf{37.6} &  \bf{24.9} &  \bf{11.3} &  & %\bf{3.0} & & 
+			\PostNetacro{}  &  \textbf{98.7} &  88.6 &  56.2 &   7.8 &   1.2 &   0.4 &  & %0.3 & & 
+			&  99.7 &   8.3 &   3.9 &  3.6 &  \textbf{7.0} &  \textbf{9.8} \\%&  \textbf{11.3} \\
+			\PriorNet &  92.9 &  77.7 &  60.5 &  \textbf{37.6} &  \textbf{24.9} &  \textbf{11.3} &  & %\textbf{3.0} & & 
 			&  99.8 &  10.5 &   3.2 &  0.7 &  0.2 &  0.2 \\%&   2.2 \\ 
-			\DDNet    &  97.6 &  \bf{91.8} &  \bf{78.3} &  18.1 &   0.8 &   0.0 &  &%0.0 & &
+			\DDNet    &  97.6 &  \textbf{91.8} &  \textbf{78.3} &  18.1 &   0.8 &   0.0 &  &%0.0 & &
 			&  99.7 &  11.9 &   1.6 &  0.4 &  0.2 &  0.1 \\%&   0.2 \\ 
 			\EvNet    &  97.9 &  85.9 &  57.2 &  10.2 &   4.0 &   2.4 &  &%0.3 & & 
-			&  \bf{99.9} &  \bf{22.9} &  \bf{13.0} &  \bf{6.0} &  3.7 &  3.2 \\%&   3.1 \\
+			&  \textbf{99.9} &  \textbf{22.9} &  \textbf{13.0} &  \textbf{6.0} &  3.7 &  3.2 \\%&   3.1 \\
 			\bottomrule
 		\end{tabular}}
 	%\end{small}
@@ -87,14 +87,14 @@ From now on, we switch to the core focus of this work and analyze robustness pro
 			\cmidrule{2-6}  \cmidrule{9-13}
 			Att. Rad. & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 & & & 0.1 & 0.2 & 0.5 & 1.0 & 2.0 \\
 			\midrule
-			\PostNetacro{}  &  \bf{63.4} &  \bf{66.9} &  42.1 &  32.9 &  31.6 &  &%31.2 & & 
-			&  47.7 &  42.3 &  36.9 &  \bf{48.5} &  \bf{85.0} \\%&  \bf{99.0} \\ 
-			\PriorNet &  53.3 &  56.0 &  55.6 &  \bf{49.2} &  42.2 & &%  35.4 & & 
+			\PostNetacro{}  &  \textbf{63.4} &  \textbf{66.9} &  42.1 &  32.9 &  31.6 &  &%31.2 & & 
+			&  47.7 &  42.3 &  36.9 &  \textbf{48.5} &  \textbf{85.0} \\%&  \textbf{99.0} \\ 
+			\PriorNet &  53.3 &  56.0 &  55.6 &  \textbf{49.2} &  42.2 & &%  35.4 & & 
 			&  38.8 &  33.6 &  31.4 &  33.1 &  40.9 \\%&  53.5 \\ 
-			\DDNet    &  55.8 &  60.5 &  \bf{57.3} &  38.7 &  32.3 & &% 31.4 & & 
-			&  \bf{53.5} &  42.2 &  35.0 &  32.8 &  32.6 \\%&  33.9 \\ 
-			\EvNet    &  48.4 &  46.9 &  46.3 &  46.3 &  \bf{44.5} & &% \bf{42.5} & &
-			&  48.2 &  \bf{42.6} &  \bf{38.2} &  36.0 &  37.2 \\%&  41.7 \\
+			\DDNet    &  55.8 &  60.5 &  \textbf{57.3} &  38.7 &  32.3 & &% 31.4 & & 
+			&  \textbf{53.5} &  42.2 &  35.0 &  32.8 &  32.6 \\%&  33.9 \\ 
+			\EvNet    &  48.4 &  46.9 &  46.3 &  46.3 &  \textbf{44.5} & &% \textbf{42.5} & &
+			&  48.2 &  \textbf{42.6} &  \textbf{38.2} &  36.0 &  37.2 \\%&  41.7 \\
 			\bottomrule 			
 		\end{tabular}}
 	%\end{small}
@@ -132,8 +132,9 @@ Under the less powerful FGSM and Noise attacks (see Appendix), DBU models achiev
 %
 \begin{figure}[ht]
 	\centering
-	\resizebox{0.42\textwidth}{!}{\includegraphics[width=\textwidth]{sections/008_icml2021/eval/ddnet_label_id_cifar10_alphas.png}}%
-	\resizebox{0.42\textwidth}{!}{\includegraphics[width=\textwidth]{sections/008_icml2021/eval/ddnet_label_id_cifar10_images.png}}
+	\includegraphics[width=.49\textwidth]{sections/008_icml2021/eval/ddnet_label_id_cifar10_alphas.png}
+	
+	\includegraphics[width=.49\textwidth]{sections/008_icml2021/eval/ddnet_label_id_cifar10_images.png}
 	\caption{Input and predicted Dirichlet-parameters under label attacks (dotted line: threshold to distinguish ID and OOD data). % based on the precision~$\alpha_0$.
 		%-14.2216765174
 		%0.0 [-17.875761]
@@ -169,18 +170,18 @@ Overall, none of the DBU models provides a reliable indicator for adversarial in
 			0.0 & 0.1 & 0.2 & 0.5 & 1.0 & 2.0  \\
 			\midrule
 			& \multicolumn{14}{c}{\textbf{CIFAR10 -- SVHN}} \\
-			\PostNetacro{}  &  81.8 &  64.3 &  47.2 &  22.4 &  17.6 &  \bf{16.9} &  &%\bf{16.4} & &
+			\PostNetacro{}  &  81.8 &  64.3 &  47.2 &  22.4 &  17.6 &  \textbf{16.9} &  &%\textbf{16.4} & &
 			&  81.8 &  60.5 &  40.7 &  23.3 &  21.8 &  19.8 \\%&  18.1 \\ 
 			\PriorNet &  54.4 &  40.1 &  30.0 &  17.9 &  15.6 &  15.4 &  &%15.4 & &
 			&  54.4 &  40.7 &  30.7 &  19.5 &  16.5 &  15.7 \\%&  15.4 \\
-			\DDNet    &  \bf{82.8} &  \bf{71.4} &  \bf{59.2} &  \bf{28.9} &  16.0 &  15.4 & &% 15.4 & &
-			&  \bf{82.8} &  \bf{72.0} &  \bf{57.2} &  20.8 &  15.6 &  15.4 \\%&  15.4 \\
-			\EvNet    &  80.3 &  62.4 &  45.4 &  21.7 &  \bf{17.9} &  16.5 &  &%15.6 & &
-			&  80.3 &  58.2 &  46.5 &  \bf{34.6} &  \bf{28.0} &  \bf{23.9} \\%&  \bf{21.0} \\
+			\DDNet    &  \textbf{82.8} &  \textbf{71.4} &  \textbf{59.2} &  \textbf{28.9} &  16.0 &  15.4 & &% 15.4 & &
+			&  \textbf{82.8} &  \textbf{72.0} &  \textbf{57.2} &  20.8 &  15.6 &  15.4 \\%&  15.4 \\
+			\EvNet    &  80.3 &  62.4 &  45.4 &  21.7 &  \textbf{17.9} &  16.5 &  &%15.6 & &
+			&  80.3 &  58.2 &  46.5 &  \textbf{34.6} &  \textbf{28.0} &  \textbf{23.9} \\%&  \textbf{21.0} \\
 			\midrule
 			& \multicolumn{14}{c}{\textbf{Sens. -- Sens. class 10, 11}} \\
-			\PostNetacro{}  &  \bf{74.5} &  \bf{39.8} &  \bf{36.1} &  \bf{36.0} &  \bf{45.9} &  \bf{46.0} & &% \bf{46.0} & &
-			&  \bf{74.5} &  \bf{43.3} &  \bf{42.0} &  \bf{32.1} &  \bf{35.1} &  \bf{82.6} \\%&  \bf{99.4} \\
+			\PostNetacro{}  &  \textbf{74.5} &  \textbf{39.8} &  \textbf{36.1} &  \textbf{36.0} &  \textbf{45.9} &  \textbf{46.0} & &% \textbf{46.0} & &
+			&  \textbf{74.5} &  \textbf{43.3} &  \textbf{42.0} &  \textbf{32.1} &  \textbf{35.1} &  \textbf{82.6} \\%&  \textbf{99.4} \\
 			\PriorNet &  32.3 &  26.6 &  26.5 &  26.5 &  26.6 &  28.3 & &% 38.6 & &
 			&  32.3 &  26.7 &  26.6 &  26.6 &  27.0 &  30.4 \\%&  36.8 \\ 
 			\DDNet    &  31.7 &  26.8 &  26.6 &  26.5 &  26.6 &  27.1 & &% 30.5 & &

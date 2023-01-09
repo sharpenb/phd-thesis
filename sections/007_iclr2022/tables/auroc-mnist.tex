@@ -3,6 +3,7 @@
     \caption{MNIST - OOD detection with AUC-ROC scores. Bold numbers indicate best score among single-pass models. Starred numbers indicate best scores among all models. Gray numbers indicate that R-PriorNet has seen samples from the Fashion-MNIST dataset during training.}
     \label{tab:auroc-mnist}
     \scriptsize
+    \resizebox{\textwidth}{!}{
     \begin{tabular}{lcccccc}
         \toprule
         & \textbf{K. Alea.} & \textbf{K. Epist.} & \textbf{F. Alea.} & \textbf{F. Epist.} & \textbf{OODom Alea.} & \textbf{OODom Epist.} \\
@@ -17,6 +18,7 @@
         \textbf{\NatPNacro{}} & 99.11 $\pm$ 0.17 & 99.25 $\pm$ 0.09 & \textbf{99.13 $\pm$ 0.24} & \textbf{99.45 $\pm$ 0.11} & 99.98 $\pm$ 0.01 & \textbf{*100.00 $\pm$ 0.00} \\
         \bottomrule
     \end{tabular}
+    }
 \end{table*}
 
 % \begin{table*}[ht]

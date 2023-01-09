@@ -36,7 +36,7 @@ In this work, we solve these problems by directly predicting the entire evolutio
         \end{subfigure}
         \vspace{-0.2cm}
         \caption{(a) An event can be expected multiple times in the future. (b) At some times we should be uncertain in the prediction. Yellow denotes higher probability density.}
-        \vspace*{-0.6cm}
+        % \vspace*{-0.6cm}
 \end{wrapfigure}
 While Fig.\ \ref{fig:kitchen_categorical} illustrates the evolution of the categorical distribution (corresponding to the probability of a specific event class to happen), an issue still arises outside of the observed data distribution. {E.g.\ in some time intervals we can be \textit{certain} that two classes are \textit{equiprobable}, having observed many similar examples. However,} if the model has not seen any examples at specific time intervals during training, we do not want to give a confident prediction. Thus, we incorporate \textit{uncertainty} in a prediction directly in our model. In places where we expect events, the confidence will be higher, and outside of these areas the uncertainty in a prediction will grow as illustrated in Fig.\ \ref{fig:kitchen_uncertainty}. Technically, instead of modeling the evolution of a categorical distribution, we model the \textit{evolution of a distribution on the probability simplex}.
 %

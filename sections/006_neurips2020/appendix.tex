@@ -17,12 +17,12 @@ where $\Gamma$ is a gamma function:
 
 The novel Bayesian loss described in formula \ref{dirichlet_bayesian_loss} can be computed in closed form. For the sample $\vect{x}\dataix$, it is given by:
 \begin{equation}
-       \mathcal{L}\dataix = \underbrace{\E_{q(\bold{p}\dataix)}[\text{CE}(\bold{p}\dataix, \vect{y}\dataix)]}_{\text{(1)}} - \underbrace{H(q\dataix)}_{\text{(2)}}
+       \mathcal{L}\dataix = \underbrace{\E_{q(\mathbf{p}\dataix)}[\text{CE}(\mathbf{p}\dataix, \vect{y}\dataix)]}_{\text{(1)}} - \underbrace{H(q\dataix)}_{\text{(2)}}
 \end{equation}
 
 where the distribution $q$ belongs to the family of the Dirichlet distributions Dir$(\bm{\alpha}\dataix)$. The term (1) is the UCE loss \cite{uceloss}. Given that the observed class one-hot encoded by $\vect{y}\dataix$ is denoted by $\iclass*$, the term (1) is equal to:
 \begin{equation}
-\E_{q(\bold{p}\dataix)}[\text{CE}(\bold{p}\dataix, \vect{y}\dataix)] = \Psi(\alpha_{\iclass*}\dataix) - \Psi(\alpha_0\dataix)
+\E_{q(\mathbf{p}\dataix)}[\text{CE}(\mathbf{p}\dataix, \vect{y}\dataix)] = \Psi(\alpha_{\iclass*}\dataix) - \Psi(\alpha_0\dataix)
 \end{equation}
 where $\Psi$ denotes the digamma function. The term (2) is the entropy of a Dirichlet distribution and is given by:
 \begin{equation}

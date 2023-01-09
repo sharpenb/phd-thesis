@@ -8,7 +8,7 @@ In this section, we \emph{explicitly} define four intuitive and general desidera
 The second distinction differentiates between training and testing time relevant to sample efficiency and generalization in RL. In contrast, SL mostly focuses on testing time performance.
 
 \looseness=-1
-\textbf{Training Time.} We describe the desired behavior of uncertainty estimates at training time. First, we describe the desired uncertainty behavior when observing more samples of the training environment.
+\paragraph{Training Time.} We describe the desired behavior of uncertainty estimates at training time. First, we describe the desired uncertainty behavior when observing more samples of the training environment.
 \begin{desiderata}
     \label{ax:training_state}
     An agent interacting longer with one specific environment at training time should become more epistemically confident when predicting actions on this same specific environment.
@@ -23,7 +23,7 @@ Intuitively, an agent observing more samples from the same environment distribut
 Intuitively, an agent exploring states with more (irreducible) aleatoric uncertainty would gain less knowledge about the environment dynamic than an agent exploring states with high epistemic uncertainty where the agent lacks knowledge. However, there is an important trade-off between over- or under-exploring epistemically uncertain actions which could lead to lower sample efficiency. The sampling-epistemic strategy, which corresponds to Thompson sampling \cite{thompson-sampling}, mitigates this exploration-exploitation problem by sampling action w.r.t. the epistemic distribution. Thompson sampling has already \emph{empirically} demonstrated high sample efficiency in deep RL problems \cite{dropout} and provably achieve low regret in many decision-making problems like multi-arms Bandit \cite{thompson-sampling-mab, thompson-sampling-information}. In practice, des.~\ref{ax:training_strategy} suggests that an agent should use the sampling-epistemic strategy for a better exploration-exploitation trade-off. We test des.~\ref{ax:training_strategy} in the experiments by comparing the sample efficiency of the sampling-aleatoric and the sampling-epistemic strategies during training (see sec.~\ref{sec:experiments_011}).
 
 \looseness=-1
-\textbf{Testing Time.} We describe the desired behavior of uncertainty estimates at testing time. First, we describe the desired uncertainty behavior when observing samples from an environment different from the training environment.
+\paragraph{Testing Time.} We describe the desired behavior of uncertainty estimates at testing time. First, we describe the desired uncertainty behavior when observing samples from an environment different from the training environment.
 \begin{desiderata}
     \label{ax:testing_state}
     At testing time, epistemic uncertainty should be greater when the agent interact with environments that are very different from the original training environments.
