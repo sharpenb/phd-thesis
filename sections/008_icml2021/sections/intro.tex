@@ -2,13 +2,13 @@
 \label{sec:introduction_008}
 
 Neural networks achieve high predictive accuracy in many tasks, but they are known to have two substantial weaknesses: First, neural networks are not robust against adversarial perturbations, i.e., semantically meaningless input changes that lead to wrong predictions \citep{szegedy2014, goodfellow2014}. 
-Second, standard neural networks are unable to identify samples that are different from the ones they were trained on and tend to make over-confident predictions at test time \citep{ensemble_simple}. These weaknesses make them impracticable in sensitive domains like financial, autonomous driving or medical areas which require trust in predictions.
+Second, standard neural networks are unable to identify samples that are different from the ones they were trained on and tend to make over-confident predictions at test time \citep{ensembles}. These weaknesses make them impracticable in sensitive domains like financial, autonomous driving or medical areas which require trust in predictions.
 
 
 
 To increase trust in neural networks, models that provide predictions along with the corresponding uncertainty have been proposed. 
-An important, quickly growing family of models is the Dirichlet-based uncertainty (DBU) family \citep{malini2018, malinin2019, sensoy2018, malinin2019ensemble, charpentier2020, graph_uncertainty, max_gap_id_ood, multifaceted_uncertainty, uncertainty-generative-classifier}. 
-Contrary to other approaches such as Bayesian Neural Networks \citep{blundell2015, osawa2019, wesley2019}, drop out \citep{drop_out} or ensembles \citep{ensemble_simple}, DBU models provide efficient uncertainty estimates at test time in a single forward pass by directly predicting the parameters of a Dirichlet distribution over categorical probability distributions.
+An important, quickly growing family of models is the Dirichlet-based uncertainty (DBU) family \citep{malini2018, distribution-distillation, sensoy2018, reverse-kl, charpentier2020, graph_uncertainty, max_gap_id_ood, multifaceted_uncertainty, uncertainty-generative-classifier}. 
+Contrary to other approaches such as Bayesian Neural Networks \citep{bayesian-networks, osawa2019, simple-baseline-uncertainty}, drop out \citep{dropout} or ensembles \citep{ensembles}, DBU models provide efficient uncertainty estimates at test time in a single forward pass by directly predicting the parameters of a Dirichlet distribution over categorical probability distributions.
 %
 %\begin{wrapfigure}{r}{0.4\textwidth}%[16]{r}{0cm}
 \begin{figure}[t]
@@ -19,7 +19,7 @@ Contrary to other approaches such as Bayesian Neural Networks \citep{blundell201
 \label{fig:uncertainty_attack_diagram}
 \end{figure}
 %
-DBU models have the advantage that they provide both, aleatoric uncertainty estimates resulting from irreducible uncertainty (e.g. class overlap or noise) and epistemic uncertainty estimates resulting from the lack of knowledge about unseen data (e.g. an unknown object is presented to the model). Both uncertainty types can be quantified from Dirichlet distributions using different uncertainty measures such as differential entropy, mutual information, or pseudo-counts. These uncertainty measures show outstanding performance in, e.g., the detection of OOD samples and thus are superior to softmax based confidence \citep{malini2018, malinin2019, charpentier2020}.
+DBU models have the advantage that they provide both, aleatoric uncertainty estimates resulting from irreducible uncertainty (e.g. class overlap or noise) and epistemic uncertainty estimates resulting from the lack of knowledge about unseen data (e.g. an unknown object is presented to the model). Both uncertainty types can be quantified from Dirichlet distributions using different uncertainty measures such as differential entropy, mutual information, or pseudo-counts. These uncertainty measures show outstanding performance in, e.g., the detection of OOD samples and thus are superior to softmax based confidence \citep{malini2018, reverse-kl, charpentier2020}.
 
 Neural networks from the families outlined above are expected to \emph{know what they don't know}, i.e. they are supposed to notice when they are unsure about a prediction. 
 This raises questions with regards to adversarial examples: should uncertainty estimation methods \emph{detect} these corrupted samples by indicating a high uncertainty on them and abstain from making a prediction? Or should uncertainty estimation be \emph{robust} to adversarial examples and assign the correct label even under perturbations? We argue that being robust to adversarial perturbations is the best option (see Figure~\ref{fig:uncertainty_attack_diagram}) for two reasons. First, in image classification a human is usually not able to observe any difference between an adversarial example and an unperturbed image. Second, the size of the perturbation corresponding to a good adversarial example is typically small w.r.t.\ the $L_p$-norm and thus assumed to be semantically meaningless. 

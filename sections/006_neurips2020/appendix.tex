@@ -46,7 +46,7 @@ For in-distribution data (i.e. $\prob(\latent\dataix; \phi) \rightarrow \infty$)
 
 For vector datasets, all models share an architecture of 3 linear layers with Relu activation. A grid search in $[32, 64, 128]$ led to no significant changes in the performances. Therefore, we decided to use $64$ hidden units for each layer. For image datasets, we used LeakyRelu activation and add on the top 3 convolutional layers with kernel size of $5$, followed by a Max-pooling of size $2$. Alternatively, we used the VGG16 architecture with batch normalization \cite{vgg} adapted from PyTorch implementation \cite{pytorch}. All models are trained after a grid search for learning rate in $[1e^{-3}, 1e^{-5}]$. All models were optimized with Adam optimizer without further learning rate scheduling. We performed early stopping by checking loss improvement every $2$ epochs and a patience equal to $10$. We trained all models on GPUs (1TB SSD).
 
-For the dropout models, we used $p_{\text{drop}} = .25$ after a grid search in $[.25, .5, .75]$ and sampled $10$ times for uncertainty estimation. As an indicator, the original paper \cite{drop_out}, uses a dropout probability of $.5$ for MNIST. It also states that $10$ samples already lead to reasonable uncertainty estimates. For the ensemble models, we used $m=10$ networks after a grid search in $[2, 5, 10, 20]$. A greater number of networks was also found to give no great improvements in the original paper \cite{ensemble_simple}. To be fair with these models, we distilled the knowledge of $10$ neural networks for Distribution Distillation. We also trained Prior Networks where target parameters $\beta_\text{in}=1e^2$ as suggested in original papers \cite{prior_net, rev_kl_prior_net}.
+For the dropout models, we used $p_{\text{drop}} = .25$ after a grid search in $[.25, .5, .75]$ and sampled $10$ times for uncertainty estimation. As an indicator, the original paper \cite{dropout}, uses a dropout probability of $.5$ for MNIST. It also states that $10$ samples already lead to reasonable uncertainty estimates. For the ensemble models, we used $m=10$ networks after a grid search in $[2, 5, 10, 20]$. A greater number of networks was also found to give no great improvements in the original paper \cite{ensembles}. To be fair with these models, we distilled the knowledge of $10$ neural networks for Distribution Distillation. We also trained Prior Networks where target parameters $\beta_\text{in}=1e^2$ as suggested in original papers \cite{PriorNetworks, reverse-kl}.
 
 For \PostNetacro, we used a 1D batch normalization after the encoder. Experiments on latent dimensions and density types are presented in following sections. If not explicitley mentioned otherwise, we used by default radial flow with a flow length of $6$ and a latent dimension of $6$. This leads to only $80$ parameters. Comparison with IAF are done with two layers of size $256$. In general, we found out that a latent dimension smaller or equal to the number of classes is sufficient. It enables classes to be orthogonal in the latent space if necessary.
 
@@ -244,7 +244,7 @@ Finally, We also included the evolution of the uncertainty while interpolating l
     \begin{subfigure}[t]{0.46 \columnwidth}
         \centering
         \includegraphics[width=0.5 \textwidth]{sections/006_neurips2020/figures/2D_latent_klpn_3.png}
-         \caption{ID/OOD data (PriorNet)}
+         \caption{ID/OOD data (PriorNetworks)}
     \end{subfigure}%
     \begin{subfigure}[t]{0.46 \columnwidth}
         \centering
@@ -363,7 +363,7 @@ Finally, We also included the evolution of the uncertainty while interpolating l
 
     }
     \vspace{-0.2cm}
-    \caption{\footnotesize{OOD detection on MNIST with other uncertainty measures. Mutual Information \cite{prior_net} and $\alpha_0$ (Dirichlet) / variance (Ensemble) results are highly correlated.}}
+    \caption{\footnotesize{OOD detection on MNIST with other uncertainty measures. Mutual Information \cite{PriorNetworks} and $\alpha_0$ (Dirichlet) / variance (Ensemble) results are highly correlated.}}
     \label{tab:MNIST++}
     \vspace{-.0cm}
 \end{table}

@@ -45,7 +45,7 @@ Hence, these measure can efficiently be used to assign high uncertainty to unkno
 Several recently proposed models for uncertainty estimations belong to the family of DBU models, such as \PriorNet, \EvNet, \DDNet and \PostNet. These models differ in terms of their parametrization of the Dirichlet distribution, the training, and density estimation. An overview of theses differences is provided in Table \ref{tab:dirichlet_models}. In our study we evaluate all recent versions of these models.
 
 
-Contrary to the other models, Prior Networks \textbf{(\PriorNet)} \citep{malini2018, malinin2019}  require OOD data for training to ``teach'' the neural network the difference between ID and OOD data. \PriorNet is trained with a loss function consisting of two KL-divergence terms. The fist term is designed to learn Dirichlet parameters for ID data, while the second one is used to learn a flat Dirichlet distribution %($\boldsymbol{\alpha} = \boldsymbol{1}$) 
+Contrary to the other models, Prior Networks \textbf{(\PriorNet)} \citep{malini2018, reverse-kl}  require OOD data for training to ``teach'' the neural network the difference between ID and OOD data. \PriorNet is trained with a loss function consisting of two KL-divergence terms. The fist term is designed to learn Dirichlet parameters for ID data, while the second one is used to learn a flat Dirichlet distribution %($\boldsymbol{\alpha} = \boldsymbol{1}$) 
 for OOD data: 
 %
 \begin{equation}
@@ -57,7 +57,7 @@ for OOD data:
 %
 where $\alpha^{\mathrm{ID}}$ and $\alpha^{\mathrm{OOD}}$ are hyper-parameters. Usually $\alpha^{\mathrm{ID}}$ is set to $1e^{1}$ for the correct class and $1$ for all other classes, while $\alpha^{\mathrm{OOD}}$ is set to $\mathbf{1}$ for all classes.
 %
-There a two variants of \PriorNet. The first one is trained based on reverse KL-divergence \citep{malinin2019}, while the second one is trained with KL-divergence \citep{malini2018}. In our experiments, we include the most recent reverse version of \PriorNet, as it shows superior performance \citep{malinin2019}. 
+There a two variants of \PriorNet. The first one is trained based on reverse KL-divergence \citep{reverse-kl}, while the second one is trained with KL-divergence \citep{malini2018}. In our experiments, we include the most recent reverse version of \PriorNet, as it shows superior performance \citep{distribution-distillation}. 
 
 Evidential Networks \textbf{(\EvNet)} \citep{sensoy2018} are trained with a loss that computes the sum of squares between the on-hot encoded true label $\vy*\dataix$ and the predicted categorical $\vp\dataix$ under the Dirichlet distribution:
 %
@@ -67,7 +67,7 @@ Evidential Networks \textbf{(\EvNet)} \citep{sensoy2018} are trained with a loss
 \end{aligned}
 \end{equation}
 
-Ensemble Distribution Distillation \textbf{(\DDNet)} \citep{malinin2019ensemble} is trained in two steps. First, an ensemble of $M$ classic neural networks needs to be trained. 
+Ensemble Distribution Distillation \textbf{(\DDNet)} \citep{distribution-distillation} is trained in two steps. First, an ensemble of $M$ classic neural networks needs to be trained. 
 Then, the soft-labels \smash{$\{\vp_{m}\dataix\}_{m=1}^{M}$} provided by the ensemble of networks are distilled into a Dirichlet-based network by fitting them with the maximum likelihood under the Dirichlet distribution: 
 \begin{equation}
 \begin{aligned}
@@ -84,7 +84,7 @@ Posterior Network \textbf{(\PostNetacro{})} \citep{charpentier2020} performs den
 \end{equation}
 where $\mathrm{CE}$ denotes the cross-entropy.
 %
-All loss functions can be computed in closed-form. For more details please have a look at the original paper on \PriorNet \citep{malini2018}, \PostNet \citep{charpentier2020}, \DDNet \citep{malinin2019} and \EvNet \citep{sensoy2018}.
+All loss functions can be computed in closed-form. For more details please have a look at the original paper on \PriorNet \citep{malini2018}, \PostNet \citep{charpentier2020}, \DDNet \citep{distribution-distillation} and \EvNet \citep{sensoy2018}.
 Note that \EvNet and \PostNet model the Dirichlet parameters as \smash{$f_{\theta}(\x\dataix) = 1 + \bm{\alpha}\dataix$} while \PriorNet, \RevPriorNet and \DDNet compute them as \smash{$f_{\theta}(\x\dataix) = \bm{\alpha}\dataix$}. 
 
 

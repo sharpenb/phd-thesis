@@ -5,7 +5,7 @@ A crucial design choice for neural network learning is the loss function. \PostN
 %\begin{equation}
     $q(\vect{p}\dataix) \simeq \prob(\vect{p}\dataix | \vect{x}\dataix)$.
 %\end{equation}
-One way to approximate the posterior is the following Bayesian loss function \cite{update_belief_propagation,PAC_bayesian_estimator,opt_info_processing_bayes}, which has the nice property of being optimal when $q\dataix$ is equal to the true posterior distribution:
+One way to approximate the posterior is the following Bayesian loss function \cite{update-belief-propagation,PAC-bayesian_estimator,opt_info_processing_bayes}, which has the nice property of being optimal when $q\dataix$ is equal to the true posterior distribution:
 \begin{equation}
 \label{general_bayesian_loss}
     q^* = \underset{q\dataix \in \mathcal{P}}{\arg \min}\; \E_{\psi\dataix \sim q(\psi\dataix)}[l(\psi\dataix, \vect{x}\dataix)] - H(q\dataix),
