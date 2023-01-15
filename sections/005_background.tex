@@ -3,16 +3,16 @@
 
 \section{Desiderata}
 
-\subsection{Bayes Formula} We recall the Bayes formula since it iss a core concept in many uncertainty estimation approaches \bc{CITE}.
-We define the distribution $\prob(\y \condition \bm{\theta})$ over the target variable $\y \in \real$ given the paremeter $\bm{\theta}$.
+\subsection{Bayes Formula} We recall the Bayes formula since it is a core concept in many uncertainty estimation approaches.
+We define the distribution $\prob(\y \condition \bm{\theta})$ over the target variable $\y \in \real$ given the parameter $\bm{\theta}$.
 Given a dataset $\data=\{\y^{(1)}, ..., \y^{(\ndata)}\}$, the Bayes formula is:
 \begin{equation}
     \prior(\bm{\theta} \condition \data) = \frac{\prob(\data \condition \bm{\theta}) \times \prior(\bm{\theta})}{\prob(\data)}
 \end{equation}
-where $\prob(\data \condition \bm{\theta})$ is the \emph{likelihood}, $\prior(\bm{\theta})$ is the \emph{prior}, $\prior(\bm{\theta} \condition \data)$ si the \emph{posterior}, and $\prob(\data)$ is the \emph{evidence}.
-Intuitively, the Bayesian formula updates the prior belief represented by $\prior(\bm{\theta})$ into the posterior belief represented by $\prior(\bm{\theta} \condition \data)$ after oberving a dataset $\data$.
-The choice of prior is crucial. According to the \emph{principle of maximum entropy} \citep{maximum-entropy-principle}, a practical choice for the prior is to enforce high entropy for the prior distribution which is usually considered less informative. \bc{However, note that the entropy is sensitive to a reparametrization of the prior distibution.}
-The evidence term corresponds to a normalization constant which can often be ignored.
+where $\prob(\data \condition \bm{\theta})$ is the \emph{likelihood}, $\prior(\bm{\theta})$ is the \emph{prior}, $\prior(\bm{\theta} \condition \data)$ is the \emph{posterior}, and $\prob(\data)$ is the \emph{evidence}.
+Intuitively, the Bayesian formula updates the prior belief represented by $\prior(\bm{\theta})$ into the posterior belief represented by $\prior(\bm{\theta} \condition \data)$ after observing a dataset $\data$ \cite{bishop}.
+The choice of prior is crucial. According to the \emph{principle of maximum entropy} \citep{maximum-entropy-principle}, a practical choice for the prior is to enforce high entropy for the prior distribution which is usually considered less informative. However, note that many works studied different choices of priors \cite{jeffreys1946prior, silvestro2020prior}.
+The evidence term corresponds to a normalization constant which can often be ignored \cite{bishop}.
 
 After observing a dataset $\data$, we can update the distribution over the target variable $\y$ in two ways.
 A first option is to use a point-wise estimate of the target distribution parameter, i.e.:
@@ -29,26 +29,26 @@ where $\prob(\y \condition \data)$ is called the posterior predictive distributi
 This second approach is often considered to be more Bayesian since it depends on the full posterior distribution $\prior(\bm{\theta} \condition \data)$.
 However, it might be costly to compute the posterior distribution since it requires integration.
 
-In supervised learning, the goal is to predict the value of a target output variable $\y$ given an input $\x$ after obsering a dataset $\data=\{(\x^{(1)}, \y^{(1)}), ..., (\x^{(\ndata)}, \y^{(\ndata)})\}$..
+In supervised learning, the goal is to predict the value of a target output variable $\y$ given an input $\x$ after observing a dataset $\data=\{(\x^{(1)}, \y^{(1)}), ..., (\x^{(\ndata)}, \y^{(\ndata)})\}$..
 In this case the posterior predictive requires to be adapted with two main options. The first option is:
 \begin{equation}
     \prob(\y \condition \data, \x) = \int \prob(\y \condition \bm{\theta}, \x) \prior(\bm{\theta} \condition \data) d\bm{\theta}
 \end{equation}
-In this case, the parameter distribution $\prior(\bm{\theta} \condition \data)$ is not conditioned on the input $\x$. It only accounts for an uncertainty dependent on the dataset $\data$ .
+In this case, the parameter distribution $\prior(\bm{\theta} \condition \data)$ is not conditioned on the input $\x$ and only accounts for an uncertainty dependent on the dataset $\data$.
 The second option is:
 \begin{equation}
     \prob(\y \condition \data, \x) = \int \prob(\y \condition \bm{\theta}) \prior(\bm{\theta} \condition \data, \x) d\bm{\theta}
 \end{equation}
-In this case, the parameter distribution $\prior(\bm{\theta} \condition \data, \x)$ is conditioned on the input $\x$. It also accounts for an uncertainty dependent on the input $\x$.
+In this case, the parameter distribution $\prior(\bm{\theta} \condition \data, \x)$ is conditioned on the new input $\x$ and also accounts for an uncertainty dependent on the input $\x$.
 
 \subsection{Aleatoric, Epistemic \& Predictive Uncertainty}
 
 The Equation~\ref{eq:posterior_predictive} involves three types of distribution (i.e. $\prob(\y \condition \bm{\theta})$, $\prior(\bm{\theta} \condition \data)$, and $\prob(\y \condition \data)$) which cover the three main sources of uncertainty (i.e. aleatoric, epistemic, and predictive).
 In practice, each uncertainty type can be measured by computing the spread of its respective distribution with the (differential) entropy which represented its variability, i.e.:
 \begin{align}
-    & u_\text{alea} = \entropy[\prob(\y \condition \bm{\theta})]\\
-    & u_\text{epist} = \entropy[\prior(\bm{\theta} \condition \data)]\\
-    & u_\text{pred} = \entropy[\prob(\y \condition \data)]
+     u_\text{alea} = \entropy[\prob(\y \condition \bm{\theta})], \hspace{2mm}
+     u_\text{epist} = \entropy[\prior(\bm{\theta} \condition \data)], \hspace{2mm}
+     u_\text{pred} = \entropy[\prob(\y \condition \data)]
 \end{align}
 Apart from the entropy, other uncertainty metrics commonly use the variance of the distributions to indicate their variability.
 

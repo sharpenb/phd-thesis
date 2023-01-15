@@ -22,31 +22,26 @@ The fast AI economic growth and the multiple AI ethical concerns urge the develo
 
 \section{Why do we need uncertainty ?}
 
-Uncertainty estimation (a.k.a. uncertainty quantification) consists in evaluating the confidence of model in its prediction. This task is crucial for both practical and theoretical reasons:
+Uncertainty estimation (a.k.a. uncertainty quantification) consists in evaluating the confidence of models in their predictions. This task is crucial for both practical and theoretical reasons:
 
-\paragraph*{Practical reasons:} The Dunning-Kruger effect \bc{CITE} describes a psychological cognitive bias in which people lacking knowledge in a particular domain overestimate their abilities. Interestingly, this phenomenon also applies to machine learning models. Traditional neural networks show overconfident predictions, in particular on data that is different from the data seen during training \bc{CITE}. The illusion of knowledge of machine learning models highly impacts the reliability of such  models  in  safety-critical  domains. 
+\paragraph*{Practical reasons.} The Dunning-Kruger effect \cite{dunning-kruger} describes a psychological cognitive bias in which people lacking knowledge in a particular domain overestimate their abilities. Interestingly, this phenomenon also applies to machine learning models. Traditional neural networks show overconfident predictions, in particular on data that is different from the data seen during training \cite{overconfident-relu}. The illusion of knowledge of machine learning models highly impacts the reliability of such  models  in  safety-critical  domains.
 First, it affects the \emph{trust} in ML model predictions. Ideally, we expect ML models to be confident when predicting correctly and uncertain when predicting wrongly. 
 Second, it affects the \emph{safety} of ML predictions in unfamiliar situations. Ideally, we expect ML models to flag predictions on unknown domains corresponding to anomaly detection.
 Third, it affects the \emph{maintenance} of ML models. Ideally, we expect ML models to become more uncertain when the testing data has drifted away from the training data, thus indicating the need of retraining the model. This is particularly important in application where ML models need to explore and learn all life-long.
 Finally, it affects the \emph{fairness} of ML models. Ideally, we expect ML models to provide calibrated predictions on all input regions including underrepresented data.
 A summary of the practical reasons and their associated use cases is given in table \bc{Do table}.
 
-\paragraph*{Theoretical reasons:} ML models aim at precisely representing the flow of information in the world which is inherently uncertain.
+\paragraph*{Theoretical reasons.} ML models aim at precisely representing the flow of information in the world which is inherently uncertain.
 The world is \emph{non-deterministic at a large scale}. Indeed, uncertainty emerges when small individual events contribute to macro phenomena like GDP growth, micro phenomena like the growth rate of firms, and non-economic events like war and climate change \cite{macro-micro-uncertainty}.
-The world is \emph{non-deterministic at a small scale}. Indeed, the uncertainty principle in (quantum) physics implies that it is in general not possible to predict the value of a particle quantity (like position and speed) with arbitrary certainty, even if all initial conditions are specified \bc{CITE}.
-The world is only \emph{partially observable}. Indeed, the speed of information is limited by the speed of light and restrict the accessible information to the observable world \bc{CITE}.
+The world is \emph{non-deterministic at a small scale}. Indeed, the uncertainty principle in (quantum) physics implies that it is in general not possible to predict the value of a particle quantity (like position and speed) with arbitrary certainty, even if all initial conditions are specified \cite{hilgevoord2016heisenberg}.
+The world is only \emph{partially observable}. Indeed, agents like humans or robots have to deal with incomplete information on the environment in which they evolve \cite{kaelbling1998pomdp}. At the extreme, since the speed of information is limited by the speed of light, accessible information is restricted to the observable world, thus making the world inherently uncertainty for any agent \cite{ord2021universe}.
 A summary of the theoretical reasons is given in table \bc{table}.
 
-All these reasons underline the need of accurate uncertainty estimation methods in ML. 
-Specifically, a reliable ML model should provide high-quality estimates of \emph{aleatoric} and \emph{epistemic} uncertainty \citep{dropout}.
-These two levels of uncertainty allow a model to account for both irreducible data uncertainty (e.g. the inherent sensor noise) and uncertainty due to the lack of knowledge about unseen data regions (e.g. testing data differs significantly from training data) respectively.
-Aleatoric and epistemic uncertainty levels can eventually be combined into an overall \emph{predictive} uncertainty \citep{dropout}
-This thesis study the usage of uncertainty estimation for ML methods.
-
-\begin{itemize}
-    \item \bc{Improve the description of the relation between uncertainty estimation and each reason}
-    \item \bc{Cite works which look at some of these reasons.}
-\end{itemize}
+\paragraph*{} All these reasons underline the need of accurate uncertainty estimation methods in ML. 
+Specifically, a reliable ML model should provide high-quality estimates of \emph{aleatoric} and \emph{epistemic} uncertainty \citep{uncertainty-deep-learning}.
+The aleatoric uncertainty allows a model to account for the irreducible data uncertainty (e.g. the inherent sensor noise, or the inherent environment stochasticity).
+The epistemic uncertainty allows a model to account for its lack of knowledge about unseen data regions (e.g. testing data differs significantly from training data).
+Aleatoric and epistemic uncertainty levels can eventually be combined into an overall \emph{predictive} uncertainty \citep{uncertainty-deep-learningout}. Hence, this thesis studies the usage of different types of uncertainty for ML methods.
 
 \section{Why do we need independent and non-independent data ?}
 
@@ -54,25 +49,24 @@ In this thesis, we consider ML models which process input data to accurately pre
 More specifically, we expect ML models to be able to process \emph{any type of input data} (e.g. tabular, images, graph or time series) to predict \emph{any type of output data} (e.g. classes, continuous values, counts).
 To this end, \emph{independence} and \emph{non-independence} are key assumptions to create \emph{practical} and \emph{accurate} models which precisely describe the real-world. 
 
-\paragraph*{Independent Data:} The independence assumption means that different data samples are not connected in any way. In other words, the knowledge of one data sample does not bring any information on another data sample.
-The independence assumption is particularly useful when representing tabular data (e.g. a group of unrelated persons for a medicine trial, defects on multiple different devices) or image data (e.g. disease detection on medical images, object detection in self-driving cars or robots).
+\paragraph*{Independent Data.} The independence assumption means that different data samples are not connected in any way. In other words, the knowledge of one data sample does not bring any information on another data sample.
+The independence assumption is particularly useful when representing tabular data \cite{raschka2022chronology} (e.g. a group of unrelated persons for a medicine trial, defects on multiple different devices) or image data \cite{lu2020survey, litjens2017survey} (e.g. disease detection on medical images of different patients, object detection in different self-driving cars or robots).
 In this case, representing the interaction between data samples does not bring much information to perform the predictions.
 Hence, the key advantage of the independence assumption is that it allows mathematical factorization for practical modelling simplifications \citep{bishop} without important information loss.
 
-\paragraph*{Non-Independent Data:} The non-independence assumption means that different data samples might be connected in some way. In other words, observing a data sample gives some information on the value of another data sample.
-The non-independence assumption is particularly useful when representing graph data (e.g. social networks, citation networks) or sequential data (e.g. financial time series, interaction history of a user).
+\paragraph*{Non-Independent Data.} The non-independence assumption means that different data samples might be connected in some way. In other words, observing a data sample gives some information on the value of another data sample.
+The non-independence assumption is particularly useful when representing graph data \cite{GNNBook2022} (e.g. social networks, citation networks) or sequential data \cite{shchur2021review, Dietterich2002Machine} (e.g. financial time series, interaction history of a user).
 In this case, neighboring nodes of a graph are expected to share important information and past events are expected to give important information on future events.
 Hence, the key advantage of the non-independence assumption is that it retains the information contained in graph and sequential interactions to model the world more precisely.
 
 \begin{itemize}
     \item \bc{Make figure with tabular data, image data, Graph, and Sequential data.}
-    \item \bc{Cite examples of papers for tabular, images, graph/molecules, sequential data.}
 \end{itemize}
 
-Beyond the \emph{(non-)independence assumption}, another common assumption in ML is that data are \emph{identically distributed}. 
+\paragraph*{} Beyond the \emph{(non-)independence assumption}, another common assumption in ML is that data are \emph{identically distributed}. 
 This assumption assumes that all input data comes from the same data distribution which also has strong limitations related to the reasons motivating the usage of uncertainty estimates for ML predictions.
-While the training data are assumed to come from the same data distribution, the testing data might come from different distributions might suffer from \emph{Distribution Shifts}. 
-Indeed, the testing data might come from the \emph{In-Distribution (ID)} similar to the training data, or a \emph{Out-Of-Distribution (OOD)} which could be any distribution different from the training distribution \bc{CITE}.
+While the training data are assumed to come from the same data distribution, the testing data might come from different distributions and suffer from \emph{Distribution Shifts} \cite{rabanser2019shift, dataset-shif}. 
+Indeed, the testing data might come from the \emph{In-Distribution (ID)} similar to the training data, or a \emph{Out-Of-Distribution (OOD)} which could be any distribution different from the training distribution \cite{ood-detection-survey, shen2021ood}.
 This scenario frequently happens in \emph{safety} and \emph{maintenance} use-cases where the data distribution observed by the model continuously drifts at testing time. 
 
 Hence, this thesis acknowledges the limitation of the standard \emph{independent and identically distributed (i.i.d.)} assumptions.
@@ -99,7 +93,7 @@ In Chapter~\ref{chap:graph_data}, we present the first framework for uncertainty
 In Chapter~\ref{chap:sequential_data}, we present new models for uncertainty estimation in sequential data with asynchronous time events. The two proposed models are able of accurate \emph{event types} and \emph{event time} predictions while capturing \emph{uncertainty with rich temporal evolution}.
 In Chapter~\ref{chap:reinforcement_learning}, we present the first framework to disentangle aleatoric and epistemic uncertainty estimation in reinforcement learning. This framework proposes explicit desiderata, four models inspired from supervised learning, and a detailed experimental setup which cover aleatoric and epistemic uncertainty estimation at both \emph{training time} and \emph{testing time}.
 
-In Part~\ref{part:conclusion}, we present a retrospective on the evolution of the research field since our first study (see Chapter~\ref{chap:retrospective}) and a conlusion including open questions as suggestion to future research directions (see Chapter~\ref{chap:conclusion}).
+In Part~\ref{part:conclusion}, we present a retrospective on the evolution of the research field since our first study (see Chapter~\ref{chap:retrospective}) and a conclusion including open questions as suggestion to future research directions (see Chapter~\ref{chap:conclusion}).
 
 \begin{table}
     \caption{List of own publications that this thesis is based on. Code and datasets for the respective publications are available at \texttt{www.cs.cit.tum.de/daml/[project]}.}
