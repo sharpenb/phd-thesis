@@ -49,19 +49,45 @@ In this thesis, we consider ML models which process input data to accurately pre
 More specifically, we expect ML models to be able to process \emph{any type of input data} (e.g. tabular, images, graph or time series) to predict \emph{any type of output data} (e.g. classes, continuous values, counts).
 To this end, \emph{independence} and \emph{non-independence} are key assumptions to create \emph{practical} and \emph{accurate} models which precisely describe the real-world. 
 
+\begin{figure}[ht!]
+    \centering
+    \begin{subfigure}[t]{0.245 \columnwidth}
+        \centering
+        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/tabular-cropped.pdf}}}$
+         \caption{Tabular data}
+         \label{fig:tabular_data}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.245\columnwidth}
+        \centering
+        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/image-cropped.pdf}}}$
+        \caption{Image data}
+        \label{fig:image_data}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.245 \columnwidth}
+        \centering
+        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/graph-cropped.pdf}}}$
+         \caption{Graph data}
+         \label{fig:graph_data}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.245\columnwidth}
+        \centering
+        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/sequential-cropped.pdf}}}$
+        \caption{Sequential data}
+        \label{fig:sequential_data}
+    \end{subfigure}%
+    \caption{Overview of different data types covering independent $\x_i$ inputs like tabular and image data, and dependent $\x_i$ inputs like graph node and sequential time events.}
+	% \vspace{-.5cm}
+\end{figure}
+
 \paragraph*{Independent Data.} The independence assumption means that different data samples are not connected in any way. In other words, the knowledge of one data sample does not bring any information on another data sample.
-The independence assumption is particularly useful when representing tabular data \cite{raschka2022chronology} (e.g. a group of unrelated persons for a medicine trial, defects on multiple different devices) or image data \cite{lu2020survey, litjens2017survey} (e.g. disease detection on medical images of different patients, object detection in different self-driving cars or robots).
+The independence assumption is particularly useful when representing tabular data \cite{raschka2022chronology} (e.g. a group of unrelated persons for a medicine trial, defects on multiple different devices) or image data \cite{lu2020survey, litjens2017survey} (e.g. disease detection on medical images of different patients, object detection in different self-driving cars or robots). Visualizations of such data are represented in Fig.~\ref{fig:tabular_data} and Fig.~\ref{fig:image_data}.
 In this case, representing the interaction between data samples does not bring much information to perform the predictions.
 Hence, the key advantage of the independence assumption is that it allows mathematical factorization for practical modelling simplifications \citep{bishop} without important information loss.
 
 \paragraph*{Non-Independent Data.} The non-independence assumption means that different data samples might be connected in some way. In other words, observing a data sample gives some information on the value of another data sample.
-The non-independence assumption is particularly useful when representing graph data \cite{GNNBook2022} (e.g. social networks, citation networks) or sequential data \cite{shchur2021review, Dietterich2002Machine} (e.g. financial time series, interaction history of a user).
+The non-independence assumption is particularly useful when representing graph data \cite{GNNBook2022} (e.g. social networks, citation networks) or sequential data \cite{shchur2021review, Dietterich2002Machine} (e.g. financial time series, interaction history of a user). Visualizations of such data are represented in Fig.~\ref{fig:graph_data} and Fig.~\ref{fig:sequential_data}.
 In this case, neighboring nodes of a graph are expected to share important information and past events are expected to give important information on future events.
 Hence, the key advantage of the non-independence assumption is that it retains the information contained in graph and sequential interactions to model the world more precisely.
-
-\begin{itemize}
-    \item \bc{Make figure with tabular data, image data, Graph, and Sequential data.}
-\end{itemize}
 
 \paragraph*{} Beyond the \emph{(non-)independence assumption}, another common assumption in ML is that data are \emph{identically distributed}. 
 This assumption assumes that all input data comes from the same data distribution which also has strong limitations related to the reasons motivating the usage of uncertainty estimates for ML predictions.
