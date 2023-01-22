@@ -31,17 +31,72 @@ Third, it affects the \emph{maintenance} of ML models. Ideally, we expect ML mod
 Finally, it affects the \emph{fairness} of ML models. Ideally, we expect ML models to provide calibrated predictions on all input regions including underrepresented data.
 A summary of the practical reasons and their associated use cases is given in table \bc{Do table}.
 
+\begin{figure}[ht!]
+    \centering
+    \begin{subfigure}[t]{0.245 \columnwidth}
+        \centering
+        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/tabular-cropped.pdf}}}$
+         \caption{Trust}
+         \label{fig:trust}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.245\columnwidth}
+        \centering
+        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/tabular-cropped.pdf}}}$
+        \caption{Safety}
+        \label{fig:safety}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.245 \columnwidth}
+        \centering
+        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/tabular-cropped.pdf}}}$
+         \caption{Maintenance}
+         \label{fig:maintenance}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.245\columnwidth}
+        \centering
+        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/tabular-cropped.pdf}}}$
+        \caption{Fairness}
+        \label{fig:fairness}
+   \end{subfigure}%
+    \caption{Overview of the practical reasons for uncertainty estimation.}
+	% \vspace{-.5cm}
+\end{figure}
+
 \paragraph*{Theoretical reasons.} ML models aim at precisely representing the flow of information in the world which is inherently uncertain.
 The world is \emph{non-deterministic at a large scale}. Indeed, uncertainty emerges when small individual events contribute to macro phenomena like GDP growth, micro phenomena like the growth rate of firms, and non-economic events like war and climate change \cite{macro-micro-uncertainty}.
 The world is \emph{non-deterministic at a small scale}. Indeed, the uncertainty principle in (quantum) physics implies that it is in general not possible to predict the value of a particle quantity (like position and speed) with arbitrary certainty, even if all initial conditions are specified \cite{hilgevoord2016heisenberg}.
 The world is only \emph{partially observable}. Indeed, agents like humans or robots have to deal with incomplete information on the environment in which they evolve \cite{kaelbling1998pomdp}. At the extreme, since the speed of information is limited by the speed of light, accessible information is restricted to the observable world, thus making the world inherently uncertainty for any agent \cite{ord2021universe}.
 A summary of the theoretical reasons is given in table \bc{table}.
 
+\begin{figure}[ht!]
+    \centering
+    \begin{subfigure}[t]{0.245 \columnwidth}
+        \centering
+        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/tabular-cropped.pdf}}}$
+         \caption{Non-deterministic world at large scale}
+         \label{fig:nondeterministic_large_scale}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.245\columnwidth}
+        \centering
+        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/tabular-cropped.pdf}}}$
+        \caption{Non-deterministic world at small scale}
+        \label{fig:nondeterministic_small_scale}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.245 \columnwidth}
+        \centering
+        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/tabular-cropped.pdf}}}$
+         \caption{Partially observable world}
+         \label{fig:partially_observable}
+    \end{subfigure}%
+    \caption{Overview of the theoretical reasons for uncertainty estimation.}
+	% \vspace{-.5cm}
+\end{figure}
+
+
 \paragraph*{} All these reasons underline the need of accurate uncertainty estimation methods in ML. 
 Specifically, a reliable ML model should provide high-quality estimates of \emph{aleatoric} and \emph{epistemic} uncertainty \citep{uncertainty-deep-learning}.
 The aleatoric uncertainty allows a model to account for the irreducible data uncertainty (e.g. the inherent sensor noise, or the inherent environment stochasticity).
 The epistemic uncertainty allows a model to account for its lack of knowledge about unseen data regions (e.g. testing data differs significantly from training data).
-Aleatoric and epistemic uncertainty levels can eventually be combined into an overall \emph{predictive} uncertainty \citep{uncertainty-deep-learningout}. Hence, this thesis studies the usage of different types of uncertainty for ML methods.
+Aleatoric and epistemic uncertainty levels can eventually be combined into an overall \emph{predictive} uncertainty \citep{uncertainty-deep-learning}. Hence, this thesis studies the usage of different types of uncertainty for ML methods.
 
 \section{Why do we need independent and non-independent data ?}
 
@@ -91,7 +146,7 @@ Hence, the key advantage of the non-independence assumption is that it retains t
 
 \paragraph*{} Beyond the \emph{(non-)independence assumption}, another common assumption in ML is that data are \emph{identically distributed}. 
 This assumption assumes that all input data comes from the same data distribution which also has strong limitations related to the reasons motivating the usage of uncertainty estimates for ML predictions.
-While the training data are assumed to come from the same data distribution, the testing data might come from different distributions and suffer from \emph{Distribution Shifts} \cite{rabanser2019shift, dataset-shif}. 
+While the training data are assumed to come from the same data distribution, the testing data might come from different distributions and suffer from \emph{Distribution Shifts} \cite{rabanser2019shift, dataset-shift}. 
 Indeed, the testing data might come from the \emph{In-Distribution (ID)} similar to the training data, or a \emph{Out-Of-Distribution (OOD)} which could be any distribution different from the training distribution \cite{ood-detection-survey, shen2021ood}.
 This scenario frequently happens in \emph{safety} and \emph{maintenance} use-cases where the data distribution observed by the model continuously drifts at testing time. 
 

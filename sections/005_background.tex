@@ -3,6 +3,27 @@
 
 \section{Desiderata}
 
+In this section, we review important desiderata for uncertainty estimation. We provide a summary of these desiderata in Tab.~\ref{tab:overview_desiderata}.
+
+\begin{table*}[ht]
+    \begin{center}
+    \resizebox{1.\textwidth}{!}{%
+    \begin{tabular}{ccc}
+    \toprule
+    \textbf{Bayesian distributions} & \textbf{Uncertainty types} & \textbf{Practical requirements} \\
+    \midrule
+    \midrule
+    $\prior(\bm{\phi} \condition \data)$ where $\bm{\phi}$ are model weights &  Aleatoric uncertainty & Efficiency: Data \& Time \\
+    $\prior(\bm{a} \condition \data, \x)$ where $\bm{a}$ are values of the activations &  Epistemic uncertainty & Flexibility: Architecture \& Optimization \\
+    $\prior(\bm{\theta} \condition \data, \x)$ where $\bm{\theta}$ are parameters of the target distribution &  Predictive uncertainty & Robustness: Natural \& Adversarial \\
+    \bottomrule
+    \end{tabular}%
+    }
+    \end{center}
+    \caption{Overview of desiderata for models for uncertainty estimation}
+    \label{tab:overview_desiderata}
+\end{table*}
+
 \subsection{Bayes Formula} We recall the Bayes formula since it is a core concept in many uncertainty estimation approaches.
 We define the distribution $\prob(\y \condition \bm{\theta})$ over the target variable $\y \in \real$ given the parameter $\bm{\theta}$.
 Given a dataset $\data=\{\y^{(1)}, ..., \y^{(\ndata)}\}$, the Bayes formula is:
@@ -29,17 +50,22 @@ where $\prob(\y \condition \data)$ is called the posterior predictive distributi
 This second approach is often considered to be more Bayesian since it depends on the full posterior distribution $\prior(\bm{\theta} \condition \data)$.
 However, it might be costly to compute the posterior distribution since it requires integration.
 
-In supervised learning, the goal is to predict the value of a target output variable $\y$ given an input $\x$ after observing a dataset $\data=\{(\x^{(1)}, \y^{(1)}), ..., (\x^{(\ndata)}, \y^{(\ndata)})\}$..
-In this case the posterior predictive requires to be adapted with two main options. The first option is:
+In supervised learning, the goal is to predict the value of a target output variable $\y$ given an input $\x$ after observing a dataset $\data=\{(\x^{(1)}, \y^{(1)}), ..., (\x^{(\ndata)}, \y^{(\ndata)})\}$.
+In this case the posterior predictive requires to be adapted with three main options. The first option is:
 \begin{equation}
-    \prob(\y \condition \data, \x) = \int \prob(\y \condition \bm{\theta}, \x) \prior(\bm{\theta} \condition \data) d\bm{\theta}
+    \prob(\y \condition \data, \x) = \int \prob(\y \condition \bm{\phi}, \x) \prior(\bm{\phi} \condition \data) d\bm{\phi}
 \end{equation}
-In this case, the parameter distribution $\prior(\bm{\theta} \condition \data)$ is not conditioned on the input $\x$ and only accounts for an uncertainty dependent on the dataset $\data$. Examples of such models are Bayesian neural networks which define distribution on the weights \cite{bayesian-networks}.
+In this case, the parameter distribution $\prior(\bm{\phi} \condition \data)$ is not conditioned on the input $\x$ and only accounts for an uncertainty dependent on the dataset $\data$. Examples of such models are Bayesian neural networks which learn Bayesian distribution $\prior(\bm{\phi} \condition \data)$ where $\bm{\phi}$ denote the model weights \cite{bayesian-networks}.
 The second option is:
+\begin{equation}
+    \prob(\y \condition \data, \x) = \int \prob(\y \condition \bm{a}) \prior(\bm{a} \condition \data, \x) d\bm{a}
+\end{equation}
+In this case, the parameter distribution $\prior(\bm{a} \condition \data, \x)$ is conditioned on the new input $\x$ and accounts for an uncertainty dependent on the input $\x$. Examples of such models are Bayesian neural networks which learn Bayesian distribution $\prior(\bm{a} \condition \data, \x)$ where $\bm{a}$ denote the values of the activations \cite{gp-uncertainty-activation,natural-parameter-network}.
+Alternatively, the third option is:
 \begin{equation}
     \prob(\y \condition \data, \x) = \int \prob(\y \condition \bm{\theta}) \prior(\bm{\theta} \condition \data, \x) d\bm{\theta}
 \end{equation}
-In this case, the parameter distribution $\prior(\bm{\theta} \condition \data, \x)$ is conditioned on the new input $\x$ and also accounts for an uncertainty dependent on the input $\x$. Examples of such models are the Bayesian neural networks proposed in this thesis \cite{charpentier2020,natpn, graph-postnet,charpentier2022uncertainty-rl,uceloss} which define distribution on the targets $\y$.
+In this case, the parameter distribution $\prior(\bm{\theta} \condition \data, \x)$ is conditioned on the new input $\x$ and also accounts for an uncertainty dependent on the input $\x$. Examples of such models are the Bayesian neural networks proposed in this thesis \cite{charpentier2020,natpn, graph-postnet,charpentier2022uncertainty-rl,uceloss} which learn Bayesian distributions $\prior(\bm{\theta} \condition \data, \x)$ where $\bm{\theta}$ denote the parameters of the distribution over the target labels $\y$. In this thesis, we focus on learning  Bayesian distributions on the (generally) low dimensional target parameters $\bm{\theta}$ in contrast to the (generally) high dimensional activation $\bm{a}$ or weights  $\bm{\theta}$ which can advantageously allows to reduce the approximation complexity.
 
 \subsection{Aleatoric, Epistemic \& Predictive Uncertainty}
 
@@ -50,7 +76,7 @@ In practice, each uncertainty type can be measured by computing the spread of it
      u_\text{epist} = \entropy[\prior(\bm{\theta} \condition \data)], \hspace{4mm}
      u_\text{pred} = \entropy[\prob(\y \condition \data)]
 \end{align}
-Apart from the entropy, other uncertainty metrics commonly use the variance of the distributions to indicate their variability.
+Apart from the entropy, other uncertainty metrics commonly use the variance of the distributions to indicate their variability. Finally, it is also to measure the variability of a distribution with their concentration parameters if they exist.
 
 The \emph{aleatoric uncertainty} is sometimes also called data uncertainty, stochastic uncertainty or risk \cite{hullermeier2021aleatoric,knight1921, malini2018}. 
 The aleatoric uncertainty is represented by the distribution $\prob(\y \condition \bm{\theta})$.
@@ -66,7 +92,9 @@ Hence, the epistemic uncertainty is \emph{reducible} since it should decrease wh
 
 The \emph{predictive uncertainty} is sometimes also called total uncertainty \cite{hullermeier2021aleatoric,malini2018}.
 The predictive uncertainty is represented by the distribution $\prob(\y \condition \data)$.
-Intuitively, the predictive uncertainty aggregates the effect of the aleatoric and epistemic uncertainty by integrating jointly the distributions $\prob(\y \condition \bm{\theta})$ and $\prior(\bm{\theta} \condition \data)$.
+Intuitively, the predictive uncertainty aggregates the effect of the aleatoric and epistemic uncertainty by integrating jointly the distributions $\prob(\y \condition \bm{\theta})$ and $\prior(\bm{\theta} \condition \data)$. 
+
+In this thesis, we focus on methods capable to estimates the three types of uncertainty types.
 
 \subsection{Efficiency, Flexibility \& Robustness}
 
@@ -81,18 +109,22 @@ A first aspect is \emph{architecture flexibility} meaning that the method should
 A second aspect is \emph{optimization flexibility} meaning that the method should easily adapt to different training schemes including end-to-end training or fine-tuning based on pretrained models.
 
 Finally, an uncertainty method is expected to be \emph{robust}.
-A first aspect is \emph{natural robustness} meaning that the method should be performant even if there is some natural drift in the data. Natural drifts could be due to time evolution or location variability \cite{shifts-dataset}.
+A first aspect is \emph{natural robustness} meaning that the method should be performant even if there is some natural drift in the data. Natural drifts could be due to time evolution or location variability \cite{wilds, neuhold201mapillary, shifts-dataset}.
 A second aspect is \emph{adversarial robustness} meaning that the method should be performant even against adversarial perturbations which are specifically designed to fool the model. Adversarial perturbations can be viewed as the worst-case scenario for the model. Different methods to compute adversarial perturbations including white box attacks which do not have information about the model, black box attacks which have full access to the model information, and gray box which have partial information about the model \cite{han2020adversarial}.
 
+In this thesis, we focus on proposing practical methods which are efficient in terms of data and time, flexible in terms of architecture and optimization schemes, and robust in terms of natural and adversarial perturbations.
+
 \section{Models}
+
+In this section, we review important family of models for uncertainty estimation. We provide a summary of these models in Tab.~\ref{tab:overview_desiderata}.
 
 \subsection{Sampling-based models}
 
 Sampling-based models estimate uncertainty by aggregating statistics (e.g. mean and variance) from different samples from a given distribution. The prediction generally follows a three steps process:
-\textbf{(1)} we sample $K$ model weights $\bm{\phi}_k$ from a distribution over the weights $\prior(\bm{\phi} \condition \data)$, i.e. $\bm{\phi}_k \sim \prior(\bm{\phi} \condition \data)$. The type of the weight distribution $\prior(\bm{\phi} \condition \data)$ is a key design choice. E.g. ensemble proposes to train independent model weights \cite{ensembles}, MC dropout randomly drop weights with given dropout rate \cite{dropout}, and other Bayesian neural networks learn explicit distributions like Gaussian over the model weights \cite{bayesian-networks}. \textbf{(2)} We perform $K$ forward passes with the sampled model weights, i.e. $\bm{\theta}_k = f_{\bm{\phi}_k}(\x) \text{ for } k=1,..K$. This allows to implicitly sample the parameters $\bm{\theta}_k$ from the posterior distribution $\prior(\bm{\theta} \condition \data)$, i.e. $\bm{\theta}_k \sim \prior(\bm{\theta} \condition \data, \x)$. In this case, the parameters $\bm{\theta}_k$ can be the parameters of a categorical distribution for classification or the parameters of a Gaussian distribution for regression. \textbf{(3)} We aggregate the $bm{\theta}_k$ parameters to form a point estimate $bm{\theta}*$, e.g. $bm{\theta}*=\frac{1}{K}\sum_k \bm{\theta}_k$. This allows to define the target distribution $\prob(\y \condition \bm{\theta}^*)$. These methods are flexible and allows to estimate all types of uncertainty while still being accurate. However, they often come to the cost of a higher computational cost due to the need of multiple forward passes.
+\textbf{(1)} we sample $K$ model weights $\bm{\phi}_k$ from a distribution over the weights $\prior(\bm{\phi} \condition \data)$, i.e. $\bm{\phi}_k \sim \prior(\bm{\phi} \condition \data)$. The type of the weight distribution $\prior(\bm{\phi} \condition \data)$ is a key design choice. E.g. ensemble proposes to train independent model weights \cite{ensembles}, MC dropout randomly drop weights with given dropout rate \cite{dropout}, and other Bayesian neural networks learn explicit distributions like Gaussian over the model weights \cite{bayesian-networks}. \textbf{(2)} We perform $K$ forward passes with the sampled model weights, i.e. $\bm{\theta}_k = f_{\bm{\phi}_k}(\x) \text{ for } k=1,..K$. This allows to implicitly sample the parameters $\bm{\theta}_k$ from the posterior distribution $\prior(\bm{\theta} \condition \data)$, i.e. $\bm{\theta}_k \sim \prior(\bm{\theta} \condition \data, \x)$. In this case, the parameters $\bm{\theta}_k$ can be the parameters of a categorical distribution for classification or the parameters of a Gaussian distribution for regression. \textbf{(3)} We aggregate the $bm{\theta}_k$ parameters to form a point estimate $\bm{\theta}*$, e.g. $\bm{\theta}*=\frac{1}{K}\sum_k \bm{\theta}_k$. This allows to define the target distribution $\prob(\y \condition \bm{\theta}^*)$. These methods are flexible and allows to estimate all types of uncertainty while still being accurate. However, they often come to the cost of a higher computational cost due to the need of multiple forward passes.
 
 \subsection{Sampling-free models}
-Sampling-free models are capable of estimating uncertainty in a single forward pass. A first family of models explicitly parametrizing the distribution $\prior(\bm{\theta} \condition \data, \x)$ \citep{survey_evidential_uncertainty,robustness-uncertainty-dirichlet,max_gap_id_ood,uncertainty-generative-classifier,multifaceted_uncertainty,graph-postnet, lightweight-prob-net}. A second family aims at learning deep Gaussian processes on a learned latent space \citep{uncertainty-distance-awareness, due, duq, uceloss}. A third family aims at learning deep energy-based models \citep{ood_ebm, jem_ebm}. The GP and energy-based approaches might sometimes not be able to disentangle the different uncertainty types. Finally, a last family of models propagate uncertainty across layers \citep{natural-parameter-network, sampling-free-variance-propagation, feed-forward-propagation, lightweight-prob-net, probabilistic-backprop-scalable-bnn}. They model uncertainty at the weight and/or activation levels and are generally constrained to specific transformations.
+Sampling-free models are capable of estimating uncertainty in a single forward pass. A first family of models explicitly parametrizing the distribution $\prior(\bm{\theta} \condition \data, \x)$ \citep{survey_evidential_uncertainty,robustness-uncertainty-dirichlet,max_gap_id_ood,uncertainty-generative-classifier,multifaceted_uncertainty,graph-postnet, lightweight-prob-net}. A second family aims at learning deep Gaussian processes on a learned latent space \citep{uncertainty-distance-awareness, due, duq, uceloss}. A third family aims at learning deep energy-based models \citep{ood_ebm, jem_ebm}. The GP and energy-based approaches might sometimes not be able to disentangle the different uncertainty types. Another family of models tries to recalibrate existing models by using temperature scaling \cite{calibration-network} or conformal predictions \cite{conformal-survey} which generally requires additional data to calibrate uncertainty estimates. Finally, a last family of models propagate uncertainty across layers \citep{natural-parameter-network, sampling-free-variance-propagation, feed-forward-propagation, lightweight-prob-net, probabilistic-backprop-scalable-bnn}. They model uncertainty at the weight and/or activation levels and are generally constrained to specific transformations.
 
 \bc{Idea: make a table with references which analyzes each desideratum}
 
@@ -100,10 +132,28 @@ Sampling-free models are capable of estimating uncertainty in a single forward p
 
 In this section, we present an exhausitve summary of the main metrics used to evaluate the quality of uncertainty estimation. 
 It covers calibration, correct/wrong predictions detection, OOD \& dataset shifts detection.
-Beyond these tasks, uncertainty is also sometimes used in exploration/exploitation like in reinforcment learning (see Chapter~\ref{chap:reinforcement_learning}) or active learning \bc{CITE}.
-We provide a collection of benchmarks which cover the different tasks in Table.~\bc{Do table}
+Beyond these tasks, uncertainty is also sometimes used in exploration/exploitation like in reinforcment learning (see Chapter~\ref{chap:reinforcement_learning}) or active learning (e.g. \cite{gal2017bald, kirsch2019batch}).
+We provide a collection of benchmarks which cover the different tasks in Tab.~\ref{tab:overview_evaluation}.
 
-\bc{We summarize important becnhmarks for each metric type in a Table}
+\begin{table*}[ht]
+    \begin{center}
+    \resizebox{1.\textwidth}{!}{%
+    \begin{tabular}{ccc}
+    \toprule
+    \textbf{Evaluation setup} & \textbf{Existing Benchmarks} & \textbf{Practical reason}\\
+    \midrule
+    \midrule
+    Correct/wrong pred. detection & \cite{Hendrycks2016, shifts-dataset} & \emph{Trust} \\
+    OOD detection & \cite{yang2022openood, cao2020ood, kirchheim2022pytorch, Hendrycks2016} & \emph{Safety}\\
+    Robustness to dataset shifts & \cite{wilds, neuhold201mapillary, shifts-dataset, benchmarking-corruptions, taori2020shift, dataset-shift, croce2021robustbench} & \emph{Maintenance} \\
+    Uncertainty calibration & \cite{dataset-shift, chung2021uncertainty,nado2021uncertainty} & \emph{Fairness}\\
+    \bottomrule
+    \end{tabular}%
+    }
+    \end{center}
+    \caption{Overview of evaluation methods for uncertainty estimation}
+    \label{tab:overview_evaluation}
+\end{table*}
 
 \subsection{Correct \& Wrong Predictions}
 
@@ -113,7 +163,7 @@ It is crucial to estimate when ML models are likely to provide correct or wrong 
     \textbf{Can we detect prediction errors of ML models?}
 \end{center}
 
-In practice, each application would require to set a threshold on the uncertainty estimates. Ideally, while predictions associated with uncertainty estimates below this threshold should be correct, the predictions associated with uncertainty estimates above this threshold should be wrong. Hence, we can use evaluation metrics which compare scores (i.e. uncertainty estimates) with binary classes (i.e. correct/wrong predictions). Common metrics are based on false and true positive and negative rates given a specific threshold like precision and recall \bc{cite}. However, these metrics have the important limitation to depend on a specific choice of threshold. Instead, there exist other evaluations like receiving operator curves (ROC) and precision-recall curves (PR) which can compare the prediction correctness and the predicted uncertainty scores for any choice of threshold. In particular, the area under the ROC curve (AUC-ROC) and the area under the PR curve (AUC-PR) are appropriate metrics to evaluate the overall performance of the uncertainty scores independently of the choice of threshold \cite{apr_auroc}. All the data used for the evaluation of the correct and wrong predictions should be relevant to the task (i.e. every input has a corresponding output label) since they should have some labels.
+This question is tightly related to the \emph{Trust} reason for uncertainty estimation. In practice, each application would require to set a threshold on the uncertainty estimates. Ideally, while predictions associated with uncertainty estimates below this threshold should be correct, the predictions associated with uncertainty estimates above this threshold should be wrong. Hence, we can use evaluation metrics which compare scores (i.e. uncertainty estimates) with binary classes (i.e. correct/wrong predictions). Common metrics are based on false and true positive and negative rates given a specific threshold like precision, recall, or F1 score \cite{powers2011evaluation}. However, these metrics have the important limitation to depend on a specific choice of threshold. Instead, there exist other evaluations like receiving operator curves (ROC) and precision-recall curves (PR) which can compare the prediction correctness and the predicted uncertainty scores for any choice of threshold. In particular, the area under the ROC curve (AUC-ROC) and the area under the PR curve (AUC-PR) are appropriate metrics to evaluate the overall performance of the uncertainty scores independently of the choice of threshold \cite{apr_auroc}. All the data used for the evaluation of the correct and wrong predictions should be relevant to the task (i.e. every input has a corresponding output label) since they should have some labels.
 
 \subsection{Out-Of-Distribution}
 
@@ -123,24 +173,24 @@ It is crucial to detect when incoming data are anomalous to increase the \emph{s
     \textbf{Can we detect anomalous data?}
 \end{center}
 
-Similarly to the detection of correct and wrong predictions, the detection of anomalous data would also require to set a threshold on the uncertainty estimates. In this case, while predictions associated with uncertainty estimates below this threshold should be normal ID data, predictions associated with uncertainty estimates above this threshold should ideally be abnormal OOD data. Hence, we can also use evaluation metrics like precision, recall, AUC-ROC, and AUC-PR which compare scores (i.e. uncertainty estimates) with binary classes (i.e. ID/OOD data). While ID data should be relevant to the task (i.e. ID inputs have output labels), the OOD data should be clear anomalies (e.g. OOD data come from a different dataset) and might not be relevant to the task (e.g. OOD data are noisy inputs without output labels).
+This question is tightly related to the \emph{Safety} reason for uncertainty estimation. Similarly to the detection of correct and wrong predictions, the detection of anomalous data would also require to set a threshold on the uncertainty estimates. In this case, while predictions associated with uncertainty estimates below this threshold should be normal ID data, predictions associated with uncertainty estimates above this threshold should ideally be abnormal OOD data. Hence, we can also use evaluation metrics like precision, recall, AUC-ROC, and AUC-PR which compare scores (i.e. uncertainty estimates) with binary classes (i.e. ID/OOD data). While ID data should be relevant to the task (i.e. ID inputs have output labels), the OOD data should be clear anomalies (e.g. OOD data come from a different dataset) and might not be relevant to the task (e.g. OOD data are noisy inputs without output labels).
 
 \subsection{Dataset Shifts}
 
 It is crucial to detect and be robust against shifts in the data to increase the ease of \emph{maintenance} of ML models. Intuively, while the predictions should be robust to dataset shifts, the uncertainty estimates should increase under dataset shifts. Hence, uncertainty estimates are able to indicate when the incoming data drifts away from the training data before that the model breaks. Hence, uncertainty estimates are important to answer the following practical question:
 
 \begin{center}
-    \textbf{Can we be robust and detect data drift?}
+    \textbf{Can we be robust to data drift?}
 \end{center}
 
-In practice, the model would require to \emph{jointly} look at the evolution of the accuracy and the unceratinty estimates under different magnitudes of perturbations. Ideally, while the model should maintain high accuracy on shifted data (a.k.a. OOD generalization performance \bc{cite}), the uncertainty estimates of the model should increase on shifted data (a.k.a. OOD detection performance \bc{cite}). Further, other expectations on the predictions under dataset shifts involve maintaining good calibration \cite{dataset-shift}, high correct/wrong prediction detection performance, and high OOD detection performances (see Chapter~\ref{chap:robustness}). In this case, the shifted dataset is still relevant to the original task (i.e. inputs in the shifted dataset have output labels) but differ from the orginal ID dataset. We distinguish between natural and adversarial dataset shifts. Natural shifts correspond to natural pertubations which could occur in real world scenarios like time shifts \bc{cite}, location shifts \bc{cite}, or corrupted data \bc{cite}. In contrast, adversarial pertub shifts actions correspond to the worst-case scenario where the perturbations are designed to fool the model \bc{cite}.
+This question is tightly related to the \emph{Maintenance} reason for uncertainty estimation. In practice, the model would require to \emph{jointly} look at the evolution of the accuracy and the uncertainty estimates under different magnitudes of perturbations. Ideally, while the model should maintain high accuracy on shifted data (a.k.a. OOD generalization performance \cite{ood-generalization-survey}), the uncertainty estimates of the model should increase on shifted data (a.k.a. OOD detection performance \cite{ood-detection-survey}). Further, other expectations on the predictions under dataset shifts involve maintaining good calibration \cite{dataset-shift}, high correct/wrong prediction detection performance (see Chapter~\ref{chap:robustness}), and high OOD detection performances (see Chapter~\ref{chap:robustness}). In this case, the shifted dataset is still relevant to the original task (i.e. inputs in the shifted dataset have output labels) but differ from the original ID dataset. We distinguish between natural and adversarial dataset shifts. Natural shifts correspond to natural perturbations which could occur in real world scenarios like time shifts \cite{wilds, neuhold201mapillary, shifts-dataset}, location shifts \cite{wilds, neuhold201mapillary, shifts-dataset}, or corrupted data \cite{benchmarking-corruptions, taori2020shift}. In contrast, adversarial perturbations shifts actions correspond to the worst-case scenario where the perturbations are designed to fool the model.
 
 \subsection{Calibration}
 
 It is crucial to provide confidence intervals accurately reflecting the true chance of an event to happen. This allows to increase \emph{trust} and \emph{fairness} of the ML prediction even on under-represented data regions. Intuitively, if the model predict $80\%$ chance for a class to be the correct one, we would expect the model to be $80\%$ of the time correct. Hence, uncertainty estimates are important to answer the following practical question:
 
 \begin{center}
-    \textbf{Do the predicted confidence intervals correspond to the reality?}
+    \textbf{Are predicted $X\%$-confidence intervals correct $X\%$ of the time?}
 \end{center}
 
-In practice, the confidence intervales provided by the models can be used to estimate risks when making decisions. Appropriate metrics to evaluate calibration involve (stricly) proper scoring rules like Brier scores for classification and \bc{XXX} for regression \bc{cite}.
+This question is tightly related to the \emph{Fairness} reason for uncertainty estimation. In practice, the confidence intervals provided by the models can be used to estimate risks when making decisions. Appropriate metrics to evaluate calibration involve (strictly) proper scoring rules like Brier scores for classification and quantiles scores for regression \cite{scoring-rules}.
