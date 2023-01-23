@@ -22,7 +22,18 @@ The fast AI economic growth and the multiple AI ethical concerns urge the develo
 
 \section{Why do we need uncertainty ?}
 
-Uncertainty estimation (a.k.a. uncertainty quantification) consists in evaluating the confidence of models in their predictions. This task is crucial for both practical and theoretical reasons:
+Uncertainty estimation (a.k.a. uncertainty quantification) consists in evaluating the confidence of models in their predictions. This task is crucial for both practical and theoretical reasons summarized in Fig.~\ref{fig:uncertainty_reasons}.
+
+\begin{figure}[ht!]
+    \centering
+    \begin{subfigure}[t]{1. \columnwidth}
+        \centering
+        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/uncertainty_reasons.pdf}}}$
+    \end{subfigure}%
+    \caption{Overview of the \emph{practical} and \emph{theoretical} reasons for uncertainty estimation.}
+    \label{fig:uncertainty_reasons}
+	% \vspace{-.5cm}
+\end{figure}
 
 \paragraph*{Practical reasons.} The Dunning-Kruger effect \cite{dunning-kruger} describes a psychological cognitive bias in which people lacking knowledge in a particular domain overestimate their abilities. Interestingly, this phenomenon also applies to machine learning models. Traditional neural networks show overconfident predictions, in particular on data that is different from the data seen during training \cite{overconfident-relu}. The illusion of knowledge of machine learning models highly impacts the reliability of such  models  in  safety-critical  domains.
 First, it affects the \emph{trust} in ML model predictions. Ideally, we expect ML models to be confident when predicting correctly and uncertain when predicting wrongly. 
@@ -31,65 +42,11 @@ Third, it affects the \emph{maintenance} of ML models. Ideally, we expect ML mod
 Finally, it affects the \emph{fairness} of ML models. Ideally, we expect ML models to provide calibrated predictions on all input regions including underrepresented data.
 A summary of the practical reasons and their associated use cases is given in table \bc{Do table}.
 
-\begin{figure}[ht!]
-    \centering
-    \begin{subfigure}[t]{0.245 \columnwidth}
-        \centering
-        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/tabular-cropped.pdf}}}$
-         \caption{Trust}
-         \label{fig:trust}
-    \end{subfigure}%
-    \begin{subfigure}[t]{0.245\columnwidth}
-        \centering
-        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/tabular-cropped.pdf}}}$
-        \caption{Safety}
-        \label{fig:safety}
-    \end{subfigure}%
-    \begin{subfigure}[t]{0.245 \columnwidth}
-        \centering
-        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/tabular-cropped.pdf}}}$
-         \caption{Maintenance}
-         \label{fig:maintenance}
-    \end{subfigure}%
-    \begin{subfigure}[t]{0.245\columnwidth}
-        \centering
-        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/tabular-cropped.pdf}}}$
-        \caption{Fairness}
-        \label{fig:fairness}
-   \end{subfigure}%
-    \caption{Overview of the practical reasons for uncertainty estimation.}
-	% \vspace{-.5cm}
-\end{figure}
-
 \paragraph*{Theoretical reasons.} ML models aim at precisely representing the flow of information in the world which is inherently uncertain.
 The world is \emph{non-deterministic at a large scale}. Indeed, uncertainty emerges when small individual events contribute to macro phenomena like GDP growth, micro phenomena like the growth rate of firms, and non-economic events like war and climate change \cite{macro-micro-uncertainty}.
 The world is \emph{non-deterministic at a small scale}. Indeed, the uncertainty principle in (quantum) physics implies that it is in general not possible to predict the value of a particle quantity (like position and speed) with arbitrary certainty, even if all initial conditions are specified \cite{hilgevoord2016heisenberg}.
 The world is only \emph{partially observable}. Indeed, agents like humans or robots have to deal with incomplete information on the environment in which they evolve \cite{kaelbling1998pomdp}. At the extreme, since the speed of information is limited by the speed of light, accessible information is restricted to the observable world, thus making the world inherently uncertainty for any agent \cite{ord2021universe}.
 A summary of the theoretical reasons is given in table \bc{table}.
-
-\begin{figure}[ht!]
-    \centering
-    \begin{subfigure}[t]{0.245 \columnwidth}
-        \centering
-        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/tabular-cropped.pdf}}}$
-         \caption{Non-deterministic world at large scale}
-         \label{fig:nondeterministic_large_scale}
-    \end{subfigure}%
-    \begin{subfigure}[t]{0.245\columnwidth}
-        \centering
-        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/tabular-cropped.pdf}}}$
-        \caption{Non-deterministic world at small scale}
-        \label{fig:nondeterministic_small_scale}
-    \end{subfigure}%
-    \begin{subfigure}[t]{0.245 \columnwidth}
-        \centering
-        $\vcenter{\hbox{\includegraphics[width=0.9 \textwidth]{resources/tabular-cropped.pdf}}}$
-         \caption{Partially observable world}
-         \label{fig:partially_observable}
-    \end{subfigure}%
-    \caption{Overview of the theoretical reasons for uncertainty estimation.}
-	% \vspace{-.5cm}
-\end{figure}
 
 
 \paragraph*{} All these reasons underline the need of accurate uncertainty estimation methods in ML. 
