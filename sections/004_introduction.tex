@@ -40,14 +40,11 @@ First, it affects the \emph{trust} in ML model predictions. Ideally, we expect M
 Second, it affects the \emph{safety} of ML predictions in unfamiliar situations. Ideally, we expect ML models to flag predictions on unknown domains corresponding to anomaly detection.
 Third, it affects the \emph{maintenance} of ML models. Ideally, we expect ML models to become more uncertain when the testing data has drifted away from the training data, thus indicating the need of retraining the model. This is particularly important in application where ML models need to explore and learn all life-long.
 Finally, it affects the \emph{fairness} of ML models. Ideally, we expect ML models to provide calibrated predictions on all input regions including underrepresented data.
-A summary of the practical reasons and their associated use cases is given in table \bc{Do table}.
 
 \paragraph*{Theoretical reasons.} ML models aim at precisely representing the flow of information in the world which is inherently uncertain.
 The world is \emph{non-deterministic at a large scale}. Indeed, uncertainty emerges when small individual events contribute to macro phenomena like GDP growth, micro phenomena like the growth rate of firms, and non-economic events like war and climate change \cite{macro-micro-uncertainty}.
 The world is \emph{non-deterministic at a small scale}. Indeed, the uncertainty principle in (quantum) physics implies that it is in general not possible to predict the value of a particle quantity (like position and speed) with arbitrary certainty, even if all initial conditions are specified \cite{hilgevoord2016heisenberg}.
 The world is only \emph{partially observable}. Indeed, agents like humans or robots have to deal with incomplete information on the environment in which they evolve \cite{kaelbling1998pomdp}. At the extreme, since the speed of information is limited by the speed of light, accessible information is restricted to the observable world, thus making the world inherently uncertainty for any agent \cite{ord2021universe}.
-A summary of the theoretical reasons is given in table \bc{table}.
-
 
 \paragraph*{} All these reasons underline the need of accurate uncertainty estimation methods in ML. 
 Specifically, a reliable ML model should provide high-quality estimates of \emph{aleatoric} and \emph{epistemic} uncertainty \citep{uncertainty-deep-learning}.
