@@ -9,7 +9,7 @@ An ad-hoc solution to this problem would be to discretize time. However, if the 
 
 In this work, we solve these problems by directly predicting the entire evolution of the events over (continuous) time. Given a past asynchronous sequence as input, we can predict and evaluate for \textit{any} future timepoint what the next event will likely be (under the assumption that no other event happens in between which would lead to an update of our model). Crucially, the likelihood of the events might change and one event can be more likely than others multiple times in the future. This periodicity exists in many event sequences. For instance, given that a person is currently at home, a smart home would predict a high probability that the kitchen will be used at lunch and/or dinner time (see Fig.\ \ref{fig:kitchen_categorical} for an illustration). We require that our model captures such multimodality.
 
-\begin{wrapfigure}[11]{r}{5cm}
+\begin{wrapfigure}[13]{r}{7cm}
         \vspace{-0.5cm}
         \centering
         % \begin{subfigure}{.25 \linewidth}
@@ -34,7 +34,7 @@ In this work, we solve these problems by directly predicting the entire evolutio
                 \caption{}
                 \label{fig:kitchen_uncertainty}
         \end{subfigure}
-        \vspace{-0.2cm}
+        %\vspace{-0.2cm}
         \caption{(a) An event can be expected multiple times in the future. (b) At some times we should be uncertain in the prediction. Yellow denotes higher probability density.}
         % \vspace*{-0.6cm}
 \end{wrapfigure}

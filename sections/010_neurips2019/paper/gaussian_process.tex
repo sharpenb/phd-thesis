@@ -32,30 +32,30 @@ Using a GP enables us to describe complex functions. Furthermore, since a GP mod
 %
 However, uncertainty is always low around the $M$ pseudo points. Thus $\NbPoints$ should be carefully picked since there is a trade-off between having high certainty at (too) many time points and the ability to capture complex behavior. Thus, in the following we present an extended version solving this problem.
 
-\begin{wrapfigure}{r}{7cm}
-\vspace*{-0.5cm}
+%\begin{wrapfigure}{r}{7cm}
+\begin{figure}
+	%\vspace*{-0.5cm}
     \centering
-    \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/weighted_gaussian_process.pdf}
+    \includegraphics[width=0.8\linewidth]{sections/010_neurips2019/paper/images/weighted_gaussian_process.pdf}
 	\caption{WGP on toy data with different weights. (a) All weights are 1 -- classic GP. (b) Zero weights discard points. (c) Mixed weight assignment.}
 	\label{fig:weighted_gaussian_process}
-\vspace*{-0.5cm}
-\end{wrapfigure}
+%\vspace*{-0.5cm}
+\end{figure}
+%\end{wrapfigure}
 
-\paragraph{Weighted GP.} We would like to pick $\NbPoints$ large enough to express rich multimodal functions and allow the model to discard unnecessary points. To do this we generate an additional weight vector $\smash{\bm{w}^{(\IndexClass)} \in [0,1]^\NbPoints}$ that assigns the weight $\smash{w_\IndexPoint^{(\IndexClass)}}$ to a point $\smash{\DeltaTime^{(\IndexClass)}_\IndexPoint}$. Giving a zero weight to a point should discard it, and giving $1$ will return the same result as with a classic GP. To achieve this goal, we introduce a new kernel function:
-\vspace*{0.2cm}
 \input{sections/010_neurips2019/paper/model_diagram}
+\paragraph{Weighted GP.} We would like to pick $\NbPoints$ large enough to express rich multimodal functions and allow the model to discard unnecessary points.
+To do this we generate an additional weight vector $\smash{\bm{w}^{(\IndexClass)} \in [0,1]^\NbPoints}$ that assigns the weight $\smash{w_\IndexPoint^{(\IndexClass)}}$ to a point $\smash{\DeltaTime^{(\IndexClass)}_\IndexPoint}$. Giving a zero weight to a point should discard it, and giving $1$ will return the same result as with a classic GP. To achieve this goal, we introduce a new kernel function:
 \begin{equation}
 \begin{aligned}\label{eq:weighted_kernel}
     k'(\DeltaTime_1, \DeltaTime_2) &= f(w_1, w_2) k(\DeltaTime_1, \DeltaTime_2)
 \end{aligned}
 \end{equation}
-
 %\parskip 0pt
 where $k$ is the same as above. The function $f$ weights the kernel $k$ according to the weigths for $\DeltaTime_1$ and $\DeltaTime_2$.
 We require $f$ to have the following properties: (1) $f$ should be a valid kernel over the weights, since then the function $k'$ is a valid kernel as well; (2) the importance of pseudo points should not increase, giving $f(w_1, w_2) \leq \min(w_1,w_2)$; this fact implies that a point with zero weight will be discarded since $f(w_1, 0)=0$ as desired. The function $f(w_1,w_2)=\min(w_1,w_2)$  is a simple choice that fulfills these properties.
 In Fig. \ref{fig:weighted_gaussian_process}  we show the effect of different weights when fitting of a GP (see Appendix \ref{gp_min_kernel} for a more detailed discussion of the behavior of the $\min$ kernel).
 %\parskip 5pt
-
 To predict $\mu$ and $\sigma^2$ for a new time $\DeltaTime$, we can now simply apply Eq. \ref{eq:gp_prediction} based on the new kernel $k'$, where the weight for the \textit{query} point $\DeltaTime$ is $1$.
 
 To summarize: From a hidden state $\smash{h_\IndexEvent = \text{RNN}(\Event_{\IndexEvent-1}, \History_{\IndexEvent-1})}$ we use a a neural network to generate $\NbPoints$ weighted pseudo points $(w_\IndexPoint^{(\IndexClass)}, \DeltaTime_\IndexPoint^{(\IndexClass)}, x_\IndexPoint^{(\IndexClass)})$ per class $\IndexClass$.
