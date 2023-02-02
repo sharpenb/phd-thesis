@@ -35,14 +35,14 @@ An advantage of DBU models is that one pass through the neural network is suffic
 \end{aligned}
 \end{equation}
 %
-where $\alpha_0\dataix = \sum^{\nclass}_{\iclass=1} \alpha_\iclass\dataix$. This parametrization allows to compute classic uncertainty measures in closed-form such as the total pseudo-count $m\dataix_{\alpha_0} = \sum_\iclass \alpha\dataix_\iclass$, the differential entropy of the Dirichlet distribution $m\dataix_\text{diffE} = h(\text{Dir}(\bm{\alpha}\dataix))$ or the mutual information $m\dataix_\text{MI} = I(y\dataix, \vp\dataix)$ (App. \ref{subsec:appendix_measurecomp}, \citep{malini2018}). 
+where $\alpha_0\dataix = \sum^{\nclass}_{\iclass=1} \alpha_\iclass\dataix$. This parametrization allows to compute classic uncertainty measures in closed-form such as the total pseudo-count $m\dataix_{\alpha_0} = \sum_\iclass \alpha\dataix_\iclass$, the differential entropy of the Dirichlet distribution $m\dataix_\text{diffE} = h(\text{Dir}(\bm{\alpha}\dataix))$ or the mutual information $m\dataix_\text{MI} = I(y\dataix, \vp\dataix)$ (\cref{subsec:appendix_measurecomp}, \citep{malini2018}). 
 Hence, these measure can efficiently be used to assign high uncertainty to unknown data, which makes DBU models specifically suited for detection of OOD samples. 
 
 
 
 
 
-Several recently proposed models for uncertainty estimations belong to the family of DBU models, such as \PriorNet, \EvNet, \DDNet and \PostNet. These models differ in terms of their parametrization of the Dirichlet distribution, the training, and density estimation. An overview of theses differences is provided in Table \ref{tab:dirichlet_models}. In our study we evaluate all recent versions of these models.
+Several recently proposed models for uncertainty estimations belong to the family of DBU models, such as \PriorNet, \EvNet, \DDNet and \PostNet. These models differ in terms of their parametrization of the Dirichlet distribution, the training, and density estimation. An overview of theses differences is provided in \cref{tab:dirichlet_models}. In our study we evaluate all recent versions of these models.
 
 
 Contrary to the other models, Prior Networks \textbf{(\PriorNet)} \citep{malini2018, reverse-kl}  require OOD data for training to ``teach'' the neural network the difference between ID and OOD data. \PriorNet is trained with a loss function consisting of two KL-divergence terms. The fist term is designed to learn Dirichlet parameters for ID data, while the second one is used to learn a flat Dirichlet distribution %($\boldsymbol{\alpha} = \boldsymbol{1}$) 

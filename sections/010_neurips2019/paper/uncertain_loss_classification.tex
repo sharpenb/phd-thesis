@@ -13,9 +13,9 @@ In this section, we do not consider temporal data. The goal of this experiment i
 \end{equation}
 where $x_i$ is the input 2-D vector and $N_w(x_i) = \{x', ||x' - x_i||_2^2 < w\}$ is its euclidean neighbourhood of size $w$. We set $w=10^{-5}$ for the non-overlapping Gaussians and $w=10^{-2}$ for the overlapping Gaussians.
 
-\textit{Results.} The categorical entropy $-\sum_\IndexClass p_\IndexClass(x_i) \log p_\IndexClass(x_i)$ is a good indicator to know how certain is the categorical distribution $\bm{p}(x_i)$ at point $x_i$. A high entropy meaning that the categorical distribution is uncertain. For non overlapping Gaussians (Fig.\ \ref{classic-narrow-cat_entropy} and \ref{new-narrow-cat_entropy}), we remark that both losses learn uncertain categorical distribution only on thin borders. However, for overlapping Gaussians (See Fig.\ \ref{classic-spread-cat_entropy} and \ref{new-spread-cat_entropy}),the \UncertaintyLoss loss learns more uncertain categorical distributions because of the thicker borders.
+\textit{Results.} The categorical entropy $-\sum_\IndexClass p_\IndexClass(x_i) \log p_\IndexClass(x_i)$ is a good indicator to know how certain is the categorical distribution $\bm{p}(x_i)$ at point $x_i$. A high entropy meaning that the categorical distribution is uncertain. For non overlapping Gaussians (\cref{classic-narrow-cat_entropy,new-narrow-cat_entropy}), we remark that both losses learn uncertain categorical distribution only on thin borders. However, for overlapping Gaussians (See \cref{classic-spread-cat_entropynew-spread-cat_entropy}),the \UncertaintyLoss loss learns more uncertain categorical distributions because of the thicker borders.
 
-Other interesting results are the concentration parameters learned by the two models (Fig. \ref{fig:alpha_classification}, Fig. \ref{fig:alpha_classification2}). The classic cross-entropy loss learns very high value for $\alpha_1(x_i), \alpha_2(x_i), \alpha_3(x_i)$ which does match with the true distribution of the data. In contrast, the \UncertaintyLoss learn meaningful alpha values for both datasets (delimiting the in-distribution areas for $\alpha_0$ and centred around the classes for the others).
+Other interesting results are the concentration parameters learned by the two models (\cref{fig:alpha_classification,fig:alpha_classification2}). The classic cross-entropy loss learns very high value for $\alpha_1(x_i), \alpha_2(x_i), \alpha_3(x_i)$ which does match with the true distribution of the data. In contrast, the \UncertaintyLoss learn meaningful alpha values for both datasets (delimiting the in-distribution areas for $\alpha_0$ and centred around the classes for the others).
 
 \begin{figure}[H]
 \centering
@@ -43,7 +43,7 @@ Other interesting results are the concentration parameters learned by the two mo
         \caption{OG - UCE - Cat. Ent.}
         \label{new-spread-cat_entropy}
     \end{subfigure}
-    \caption{The Figures \ref{classic-narrow-cat_entropy} and \ref{new-narrow-cat_entropy} plot the entropy of the categorical distribution learned on a classification task with three non-overlapping Gaussians. They show categorical entropy learned with the classic cross-entropy and learned with the \UncertaintyLoss. The Figures \ref{classic-spread-cat_entropy} and \ref{new-spread-cat_entropy} plot the entropy of the categorical distribution learned  on a classification task with three overlapping Gaussians. They show categorical entropy learned with the classic cross-entropy and learned with the \UncertaintyLoss.}
+    \caption{The \cref{classic-narrow-cat_entropy,new-narrow-cat_entropy} plot the entropy of the categorical distribution learned on a classification task with three non-overlapping Gaussians. They show categorical entropy learned with the classic cross-entropy and learned with the \UncertaintyLoss. The \cref{classic-spread-cat_entropy,new-spread-cat_entropy} plot the entropy of the categorical distribution learned  on a classification task with three overlapping Gaussians. They show categorical entropy learned with the classic cross-entropy and learned with the \UncertaintyLoss.}
     \label{fig:entropy_classification}
 \end{figure}
 
@@ -106,7 +106,7 @@ Other interesting results are the concentration parameters learned by the two mo
         \caption{UCE - $\alpha_3$}
         \label{new-narrow-alpha3}
     \end{subfigure}
-    \caption{Concentration parameters of the Dirichlet distribution on a classification task with three non-overlapping Gaussians. The figures \ref{classic-narrow-alpha0}, \ref{classic-narrow-alpha1}, \ref{classic-narrow-alpha2}, \ref{classic-narrow-alpha3} are $\alpha_0$, $\alpha_1$, $\alpha_2$, $\alpha_3$ learned with the classic cross-entropy. The figures \ref{classic-narrow-alpha0}, \ref{classic-narrow-alpha1}, \ref{classic-narrow-alpha2}, \ref{classic-narrow-alpha3} are $\alpha_0$, $\alpha_1$, $\alpha_2$, $\alpha_3$ learned with the \UncertaintyLoss.}
+    \caption{Concentration parameters of the Dirichlet distribution on a classification task with three non-overlapping Gaussians. The \cref{classic-narrow-alpha0,classic-narrow-alpha1,classic-narrow-alpha2,classic-narrow-alpha3} are $\alpha_0$, $\alpha_1$, $\alpha_2$, $\alpha_3$ learned with the classic cross-entropy. The \cref{classic-narrow-alpha0,classic-narrow-alpha1,classic-narrow-alpha2,classic-narrow-alpha3} are $\alpha_0$, $\alpha_1$, $\alpha_2$, $\alpha_3$ learned with the \UncertaintyLoss.}
     \label{fig:alpha_classification}
 \end{figure}
 
@@ -167,7 +167,7 @@ Other interesting results are the concentration parameters learned by the two mo
         \caption{UCE - $\alpha_3$}
         \label{new-spread-alpha3}
     \end{subfigure}
-    \caption{Concentration parameters of the Dirichlet distribution on a classification task with three non-overlapping Gaussians. The figures \ref{classic-spread-alpha0}, \ref{classic-spread-alpha1}, \ref{classic-narrow-alpha2}, \ref{classic-spread-alpha3} are $\alpha_0$, $\alpha_1$, $\alpha_2$, $\alpha_3$ learned with the classic cross-entropy. The figures \ref{classic-spread-alpha0}, \ref{classic-spread-alpha1}, \ref{classic-narrow-alpha2}, \ref{classic-spread-alpha3} are $\alpha_0$, $\alpha_1$, $\alpha_2$, $\alpha_3$ learned with the \UncertaintyLoss.}
+    \caption{Concentration parameters of the Dirichlet distribution on a classification task with three non-overlapping Gaussians. The \cref{classic-spread-alpha0,classic-spread-alpha1,classic-narrow-alpha2,classic-spread-alpha3} are $\alpha_0$, $\alpha_1$, $\alpha_2$, $\alpha_3$ learned with the classic cross-entropy. The \cref{classic-spread-alpha0,classic-spread-alpha1,classic-narrow-alpha2,classic-spread-alpha3} are $\alpha_0$, $\alpha_1$, $\alpha_2$, $\alpha_3$ learned with the \UncertaintyLoss.}
     \label{fig:alpha_classification2}
 \end{figure}
 
@@ -175,7 +175,7 @@ Other interesting results are the concentration parameters learned by the two mo
 
 In this section, we consider temporal data. The goal of this experiment is again to show the benefit of the \UncertaintyLoss compared to the classical cross-entropy in the case of asynchronous event prediction.
 
-\textit{Set-up.} For this purpose, we use the same set-up describe in the experiment Anomaly detection \& Uncertainty. We trained the model \DirModel with three different type of losses: (1) The classical cross-entropy (CE), (2) The classical cross-entropy with regularization described in section \ref{uncertainty_loss} (CE + reg) and (3) The classical \UncertaintyLoss with regularization described in section \ref{uncertainty_loss} (UCE + reg).
+\textit{Set-up.} For this purpose, we use the same set-up describe in the experiment Anomaly detection \& Uncertainty. We trained the model \DirModel with three different type of losses: (1) The classical cross-entropy (CE), (2) The classical cross-entropy with regularization described in \cref{uncertainty_loss} (CE + reg) and (3) The classical \UncertaintyLoss with regularization described in \cref{uncertainty_loss} (UCE + reg).
 
 \begin{figure}[H]
 \centering
@@ -192,4 +192,4 @@ In this section, we consider temporal data. The goal of this experiment is again
     \vspace{-0.5cm}
 \end{figure}
 
-\textit{Results.} The results are shown in Fig. \ref{fig:loss_comparison}. The loss UCE + reg consistently improves the anomaly detection based on the distribution uncertainty.
+\textit{Results.} The results are shown in \cref{fig:loss_comparison}. The loss UCE + reg consistently improves the anomaly detection based on the distribution uncertainty.

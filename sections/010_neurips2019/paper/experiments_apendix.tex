@@ -5,11 +5,11 @@ We test on real world (\textbf{Stack Exchange}, \textbf{Car Indicators} and \tex
 
 \subsection{Model selection}\label{model-selection}
 
-We apply the same tuning technique to all models. We split all datasets into train--validation--test sets ($60\%-20\%-20\%$), use the validation set to select a model and the test set to get final scores. For Stack Exchange dataset we split on users. In all other datasets we split the trace based on time. We search over dimension of a hidden state $\{32,64,128,256\}$, batch size $\{16,32,64\}$ and $L_2$ regularization parameter $\{0, 10^{-3}, 10^{-2}, 10^{-1}\}$. We use the same learning rate $0.001$ for all models and an Adam optimizer \cite{Adam}, run each of them $5$ times for maximum of $100$ epochs with early stopping after $5$ consecutive epochs without improvement in the validation loss. For the number of points $\NbPoints$ we pick $3$ for \GPModel and $20$ for \DirModel. \GPModel and \DirModel have additional regularization (Eq. \ref{gp_regularization}) with hyperparameters $\alpha$ and $\beta$. For both models we choose $\alpha = \beta = 10^{-3}$. Model with the highest mean accuracy on the validation set is selected. We use GRU cell \cite{GRU} for both of our models. We trained all models on GPUs (1TB SSD).
+We apply the same tuning technique to all models. We split all datasets into train--validation--test sets ($60\%-20\%-20\%$), use the validation set to select a model and the test set to get final scores. For Stack Exchange dataset we split on users. In all other datasets we split the trace based on time. We search over dimension of a hidden state $\{32,64,128,256\}$, batch size $\{16,32,64\}$ and $L_2$ regularization parameter $\{0, 10^{-3}, 10^{-2}, 10^{-1}\}$. We use the same learning rate $0.001$ for all models and an Adam optimizer \cite{Adam}, run each of them $5$ times for maximum of $100$ epochs with early stopping after $5$ consecutive epochs without improvement in the validation loss. For the number of points $\NbPoints$ we pick $3$ for \GPModel and $20$ for \DirModel. \GPModel and \DirModel have additional regularization (\cref{gp_regularization}) with hyperparameters $\alpha$ and $\beta$. For both models we choose $\alpha = \beta = 10^{-3}$. Model with the highest mean accuracy on the validation set is selected. We use GRU cell \cite{GRU} for both of our models. We trained all models on GPUs (1TB SSD).
 
 \subsection{Results}\label{detail-results}
 
-Tables \ref{table:accuracy} and \ref{table:time_error}, together with Fig.\ \ref{fig:all_results}
+\cref{table:accuracy,table:time_error}, together with \cref{fig:all_results}
 show test results for \textit{all} models on \textit{all} datasets for Class accuracy and \TimeScore.
 
 \begin{figure}[H]

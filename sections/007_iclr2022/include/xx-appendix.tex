@@ -1,7 +1,7 @@
 \section{Theorem \ref{thm:oodom-guarantee}}
 \label{sec:proofs_007}
 
-We prove theorem \ref{thm:oodom-guarantee} based on Lemmas \ref{lem:relu-regions_007} and \ref{lem:limit-not-density}. Lemma \ref{lem:relu-regions_007} states that the input space can be divided in a finite number of linear regions \citep{understanding-nn-relu}. Lemma \ref{lem:limit-not-density} states that a probability density with bounded derivatives has to converge to $0$ at infinity \citep{limit-existence-infinity}. We additionally recall Lemma \ref{lem:limit-density} which provide a similar convergence guarantee without the bounded derivative constraint \citep{integrable-infinity}. Finally, Lemma \ref{lem:limit-gmm-radial} particularly shows that the guarantee of theorem 1 can be obtained with Gaussian Mixtures which are commonly used for density estimation or radial flows which are used in the experiments.
+We prove \cref{thm:oodom-guarantee} based on \cref{lem:relu-regions_007} and \cref{lem:limit-not-density}. \cref{lem:relu-regions_007} states that the input space can be divided in a finite number of linear regions \citep{understanding-nn-relu}. \cref{lem:limit-not-density} states that a probability density with bounded derivatives has to converge to $0$ at infinity \citep{limit-existence-infinity}. We additionally recall \cref{lem:limit-density} which provide a similar convergence guarantee without the bounded derivative constraint \citep{integrable-infinity}. Finally, \cref{lem:limit-gmm-radial} particularly shows that the guarantee of theorem 1 can be obtained with Gaussian Mixtures which are commonly used for density estimation or radial flows which are used in the experiments.
 
 \begin{lemma}
 \label{lem:relu-regions_007}
@@ -10,7 +10,7 @@ We prove theorem \ref{thm:oodom-guarantee} based on Lemmas \ref{lem:relu-regions
 
 \begin{lemma}
 \label{lem:limit-not-density}
-\citep{limit-existence-infinity} Let $p \in L^1(0, \infty)$ with bounded first derivative $p'$, then $p(\delta)\underset{\delta \rightarrow \infty}{\rightarrow} 0$. This convergence is stronger than in Lem.~\ref{lem:limit-density} as the limit is not in density but with standard limit notation.
+\citep{limit-existence-infinity} Let $p \in L^1(0, \infty)$ with bounded first derivative $p'$, then $p(\delta)\underset{\delta \rightarrow \infty}{\rightarrow} 0$. This convergence is stronger than in \cref{lem:limit-density} as the limit is not in density but with standard limit notation.
 \end{lemma}
 
 \begin{lemma}
@@ -23,7 +23,7 @@ We prove theorem \ref{thm:oodom-guarantee} based on Lemmas \ref{lem:relu-regions
 Let $\prob(\z \condition \bm{\omega})$ be parametrized with a Gaussian Mixture Model (GMM) or a radial flow, then $\prob(\z \condition \bm{\omega})\underset{||\z|| \rightarrow \infty}{\rightarrow} 0$.
 \end{lemma}
 \begin{proof}
-We prove now lem.~\ref{lem:limit-gmm-radial} for GMM and radial flow. The proof is straightforward for the GMM parametrization since every Gaussian component of the mixture has $0$ limit when $||\z|| \rightarrow \infty$.
+We prove now \cref{lem:limit-gmm-radial} for GMM and radial flow. The proof is straightforward for the GMM parametrization since every Gaussian component of the mixture has $0$ limit when $||\z|| \rightarrow \infty$.
 
 Let denote now $p_1(z) = \prob(\z \condition \bm{\omega})$ be parametrized with a radial flow transformation $g(\z)$ and a base unit Gaussian distribution $p_0$ i.e.:
 \begin{align*}
@@ -42,7 +42,7 @@ Let a \NatPNacro{} model parametrized with a (deep) encoder $f_{\phi}$ with piec
 \end{theorem*}
 
 \begin{proof}
-We prove now thm.~\ref{thm:oodom-guarantee}. Let $\x \in \real^\inputdim $ be a non-zero input and $f_{\phi}$ be a ReLU network. Lem.~\ref{lem:relu-regions_007} implies that there exists $\delta^* \in \real^{+}$ and $l \in \{1,..., R\}$ such that $\delta \cdot \x \in Q^{(l)}$ for all $\delta > \delta^*$. Thus, $\z_{\delta} = f_{\phi}(\delta \cdot \x) = \delta \cdot (V^{(l)} \x) + a^{(l)}$ for all $\delta > \delta^*$. Note that for $\delta\in [\delta^*, +\infty]$,  $\z_{\delta}$ follows an affine half line $S_{\x} = \{\z \condition \z = \delta \cdot (V^{(l)} \x) + a^{(l)}, \delta > \delta^* \}$ in the latent space. Further, note that $V^{(l)}\x \neq 0$ and $|| \z_\delta|| \underset{\delta \rightarrow \infty}{\rightarrow} + \infty$ since $\x \neq 0$ and $V^{(l)}$ has independent rows.
+We prove now \cref{thm:oodom-guarantee}. Let $\x \in \real^\inputdim $ be a non-zero input and $f_{\phi}$ be a ReLU network. \cref{lem:relu-regions_007} implies that there exists $\delta^* \in \real^{+}$ and $l \in \{1,..., R\}$ such that $\delta \cdot \x \in Q^{(l)}$ for all $\delta > \delta^*$. Thus, $\z_{\delta} = f_{\phi}(\delta \cdot \x) = \delta \cdot (V^{(l)} \x) + a^{(l)}$ for all $\delta > \delta^*$. Note that for $\delta\in [\delta^*, +\infty]$,  $\z_{\delta}$ follows an affine half line $S_{\x} = \{\z \condition \z = \delta \cdot (V^{(l)} \x) + a^{(l)}, \delta > \delta^* \}$ in the latent space. Further, note that $V^{(l)}\x \neq 0$ and $|| \z_\delta|| \underset{\delta \rightarrow \infty}{\rightarrow} + \infty$ since $\x \neq 0$ and $V^{(l)}$ has independent rows.
 
 We now define the function $p(\delta)=\prob(\z_{\delta} \condition \bm{\omega})$ which is the density function $\prob(\z \condition \bm{\omega})$ restricted on the affine half line $S_{\x}$. Since $\prob(\z \condition \bm{\omega})$ is a normalized probability density, then the function $\delta \mapsto p(\delta - \delta^*)$ is integrable on $[0, +\infty]$. Indeed we have:
 \begin{align*}
@@ -50,16 +50,16 @@ We now define the function $p(\delta)=\prob(\z_{\delta} \condition \bm{\omega})$
     &= \int_{\delta^*}^{+\infty} \prob(\delta \cdot (V^{(l)} \x) + a^{(l)} \condition \bm{\omega}) d\delta\\
     &= \int^{S_{\x}} \prob(\z \condition \bm{\omega}) d\z < +\infty
 \end{align*}
-Further since the function $\prob(\z \condition \bm{\omega})$ has bounded derivatives, we can apply  Lem.~\ref{lem:limit-not-density} to the function $\delta \mapsto p(\delta - \delta^*)$ to get the expected result i.e.
+Further since the function $\prob(\z \condition \bm{\omega})$ has bounded derivatives, we can apply  \cref{lem:limit-not-density} to the function $\delta \mapsto p(\delta - \delta^*)$ to get the expected result i.e.
 \begin{align*}
     \prob(f_{\phi}(\delta \cdot \x) \condition \bm{\omega}) = p(\delta) = p((\delta + \delta^*) - \delta^*) \underset{\delta \rightarrow \infty}{\rightarrow} 0
 \end{align*}
 which ends the proof.
 
-Alternatively a slightly weaker conclusion also holds if the density function does not have bounded derivatives using lem.~\ref{lem:limit-density} (instead of lem.~\ref{lem:limit-not-density}) with the notion of limit in density. The stronger conclusion is valid if we parametrize $\prob(\z \condition \bm{\omega})$ with a Gaussian Mixture Model or a radial flow density according to lem.~\ref{lem:limit-gmm-radial} since $|| \z_\delta|| \underset{\delta \rightarrow \infty}{\rightarrow} + \infty$.
+Alternatively a slightly weaker conclusion also holds if the density function does not have bounded derivatives using \cref{lem:limit-density} (instead of \cref{lem:limit-not-density}) with the notion of limit in density. The stronger conclusion is valid if we parametrize $\prob(\z \condition \bm{\omega})$ with a Gaussian Mixture Model or a radial flow density according to \cref{lem:limit-gmm-radial} since $|| \z_\delta|| \underset{\delta \rightarrow \infty}{\rightarrow} + \infty$.
 \end{proof}
 
-Further, we provide additional comments on the assumption that a trained network converges to linear transformation with exactly two or more dependent rows in Thm.~\ref{thm:oodom-guarantee}. Under this realistic condition \cite{overconfident-relu}, the null space is reduced to $0$ according to the rank-nullity theorem meaning that there should be no dead input feature/pixel. If this condition does not hold, this would mean that this specific input feature/pixel is not informative for the prediction task. Thus it could be desired in practice that it does not affect the uncertainty on the prediction. This latter aspect is discussed in the “Task-Specific OOD” paragraph in Sec.~\ref{sec:limitations}.
+Further, we provide additional comments on the assumption that a trained network converges to linear transformation with exactly two or more dependent rows in \cref{thm:oodom-guarantee}. Under this realistic condition \cite{overconfident-relu}, the null space is reduced to $0$ according to the rank-nullity theorem meaning that there should be no dead input feature/pixel. If this condition does not hold, this would mean that this specific input feature/pixel is not informative for the prediction task. Thus it could be desired in practice that it does not affect the uncertainty on the prediction. This latter aspect is discussed in the “Task-Specific OOD” paragraph in \cref{sec:limitations}.
 
 \section{Bayesian Loss} 
 \label{sec:loss}
@@ -91,7 +91,7 @@ where ${h: \real \rightarrow \real}$ is the carrier measure, ${A: \real^\suffsta
     \prior(\expparam \condition \priorparam, \evidence) = \eta(\priorparam, \evidence) \exp\left( \evidence \, \bm{\theta}^T\priorparam  - \evidence A(\expparam) \right)
 \end{equation}
 %
-where $\eta : \real^L \times \real \rightarrow \real$ is a normalization factor and $A$ the log-normalizer of the distribution $\prob$ as in Eq.~\ref{eq:exp-family}).
+where $\eta : \real^L \times \real \rightarrow \real$ is a normalization factor and $A$ the log-normalizer of the distribution $\prob$ as in \cref{eq:exp-family}).
 
 \textbf{Posterior Predictive Distribution.} The posterior predictive distribution is given as $\int \prob(\y\dataix|\expparam)\prior(\expparam|\priorparam^{\text{post}, (i)}, \evidence^{\text{post}, (i)}) d\expparam$ where the parameter $\expparam$ is marginalized out  \citep{uncertainty-deep-learning}. This distribution can always be computed in closed form for exponential family distributions:
 %
@@ -99,7 +99,7 @@ where $\eta : \real^L \times \real \rightarrow \real$ is a normalization factor 
 \prob(\y \condition \priorparam, \evidence) = h(\y) \frac{\eta(\priorparam, \evidence)}{\eta\left(\frac{\evidence \priorparam + \bm{u}(\y)}{\evidence +1}, \evidence + 1 \right)}
 \end{align}
 %
-where $h$ is the carrier measure defined in Eq.~\ref{eq:exp-family} and $\eta$ is the normalization factor defined in Eq.~\ref{eq:conj-prior}. In particular, the posterior predictive distributions for Categorical, Normal and Poisson target distributions are Categorical, Student and Negative Binomial distributions, respectively.
+where $h$ is the carrier measure defined in \cref{eq:exp-family} and $\eta$ is the normalization factor defined in \cref{eq:conj-prior}. In particular, the posterior predictive distributions for Categorical, Normal and Poisson target distributions are Categorical, Student and Negative Binomial distributions, respectively.
 
 \textbf{Likelihood.} The log-likelihood of an exponential family distribution can be written as follows:
 %
@@ -230,7 +230,7 @@ The computation of a distribution's entropy often requires subtracting huge numb
     \psi(x) = \log{x} - \frac{1}{2x} + \mathcal{O}\left( \frac{1}{x^2} \right)
 \end{equation}
 %
-We note that Eq.~\ref{eq:approx-digamma} especially implies $\psi(x) \approx \log{x}$ and $x \, \psi(x) \approx x \log{x} - \frac{1}{2}$ for large $x$.
+We note that \cref{eq:approx-digamma} especially implies $\psi(x) \approx \log{x}$ and $x \, \psi(x) \approx x \log{x} - \frac{1}{2}$ for large $x$.
 
 \subsection{Dirichlet Distribution}
 
@@ -290,7 +290,7 @@ We train all models using $5$ seeds except for the large NYU dataset where we us
 
 \textbf{Baselines.} For the dropout models, we use the best drop out rate $p_{\text{drop}}$ per dataset after a grid search in $\{0.1, 0.25, 0.4\}$ and sample $5$ times for uncertainty estimation. Similarly, we use $m=5$ for the ensemble baseline and the distribution distillation. Note that \citet{dataset-shift} found that a relative small ensemble size (e.g. $m=5$) may indeed be sufficient in practice. We also train Prior Networks where we set $\beta_\text{in}=1e^2$ as suggested in the original papers \citep{PriorNetworks, reverse-kl}. Prior Networks use Fashion-MNIST and SVHN as training OOD datasets for MNIST and CIFAR-10, respectively. As there is no available OOD dataset for the Sensorless Drive dataset, we use Gaussian noise as training OOD data. 
 
-\textbf{\NatPN{}.} We perform a grid search for the entropy regularizer $\lambda$ in the range $[1e^{-5}, 0]$, for the latent dimension $\latentdim$ in $\{4, 8, 16, 32\}$, for the certainty budget $N_\latentdim$ in $\{e^{\frac{1}{2}\latentdim}, e^{\latentdim}, e^{\log(\sqrt{4\pi})\latentdim}\}$, and for normalizing flow type between radial flows \citep{radialflow} with $8$, $16$ layers and Masked Autoregressive flows \citep{maf, made} with $4$, $8$, $16$ layers. Further results on latent dimensions, density types, number of normalizing flow layers and certainty budget are presented in Sec.~\ref{sec:ablation-study_007}. We use ``warm-up'' training for the normalizing flows for all datasets except for the simple Concrete and Kin8nm datasets, and the NYU Depth v2 dataset which starts from a pretrained encoder. We use ``fine-tuning'' for the normalizing flows for all datasets except for the simple Concrete and Kin8nm datasets. As prior parameters, we set ${\bm{\chi}^\text{prior}=\bm{1}_{\nclass}/C}, {\evidence^\text{prior}=\nclass}$ for classification, ${\priorparam^\text{prior}=(0, 100)^T}, \evidence^\text{prior}=1$ for regression and $\chi^\text{prior}=1, \evidence^\text{prior}=1$ for count prediction. Note that the mean of these prior distributions correspond to an equiprobable Categorical distribution $\DCat(\bm{1}_{\nclass}/C)$, a Normal distribution with large variance $\DNormal(0, 10)$ and a Poisson distribution with a unitary mean $\DPoi(1)$. Those prior target distributions represent the safe default prediction when no evidence is predicted.
+\textbf{\NatPN{}.} We perform a grid search for the entropy regularizer $\lambda$ in the range $[1e^{-5}, 0]$, for the latent dimension $\latentdim$ in $\{4, 8, 16, 32\}$, for the certainty budget $N_\latentdim$ in $\{e^{\frac{1}{2}\latentdim}, e^{\latentdim}, e^{\log(\sqrt{4\pi})\latentdim}\}$, and for normalizing flow type between radial flows \citep{radialflow} with $8$, $16$ layers and Masked Autoregressive flows \citep{maf, made} with $4$, $8$, $16$ layers. Further results on latent dimensions, density types, number of normalizing flow layers and certainty budget are presented in \cref{sec:ablation-study_007}. We use ``warm-up'' training for the normalizing flows for all datasets except for the simple Concrete and Kin8nm datasets, and the NYU Depth v2 dataset which starts from a pretrained encoder. We use ``fine-tuning'' for the normalizing flows for all datasets except for the simple Concrete and Kin8nm datasets. As prior parameters, we set ${\bm{\chi}^\text{prior}=\bm{1}_{\nclass}/C}, {\evidence^\text{prior}=\nclass}$ for classification, ${\priorparam^\text{prior}=(0, 100)^T}, \evidence^\text{prior}=1$ for regression and $\chi^\text{prior}=1, \evidence^\text{prior}=1$ for count prediction. Note that the mean of these prior distributions correspond to an equiprobable Categorical distribution $\DCat(\bm{1}_{\nclass}/C)$, a Normal distribution with large variance $\DNormal(0, 10)$ and a Poisson distribution with a unitary mean $\DPoi(1)$. Those prior target distributions represent the safe default prediction when no evidence is predicted.
 
 \section{Experiment Details}
 \label{sec:experiment}
@@ -299,7 +299,7 @@ We train all models using $5$ seeds except for the large NYU dataset where we us
 
 \paragraph{Calibration Metric.} For classification, we use the Brier score which is computed as $\frac{1}{\nclass}\sum^{\ndata}_\idata ||\bm{p}\dataix - \bm{\y}\dataix||_2$ where $\bm{p}\dataix$ is the predicted softmax probability and $\bm{\y}\dataix$ is the one-hot encoded ground-truth label. For regression and count prediction, we use the absolute difference between the percentile $p$ and the percentage of target lying in the confidence interval $I_p=[0,\frac{p}{2}]\cup[1-\frac{p}{2},1]$ under the predicted target distribution. Formally, we compute $p_\text{pred} = \frac{1}{\ndata}\sum_\idata \mathbb{I}[F_{\expparam\dataix}( \y^{*, (\idata)})) \in I_p]$ where $F_{\expparam\dataix}(\y^{*, (\idata)})=\prob(\y \leq \y^{*, (\idata)} \condition \expparam\dataix)$ is the cumulative function of the predicted target distribution evaluated at the true target. For example, the percentile $p=0.1$ would be compared to $p_\text{pred} = \frac{1}{\ndata}\sum_\idata \mathbb{I}[F_{\expparam\dataix}( \y^{*, (\idata)})) \in [0, 0.05] \cup [0.95, 1]]$ which should be close to $0.10$ for calibrated predictions. We compute a single calibration score by summing the square difference for $p \in \{0.1, \ldots, 0.9\}$ i.e.  $\sqrt{\sum_p (p - p_\text{pred})^2}$ \citep{accurate-uncertainties-deep-learning-regression}. 
 
-\paragraph{OOD Metric.} The OOD detection task can be evaluated as a binary classification. Hence, we assign class 1 to ID data and class 0 to OOD data task and use the aleatoric and epistemic uncertainty estimates as scores for OOD data. It enables to compute final scores using the area under the precision-recall curve (AUC-PR) and the area under the receiver operating characteristic curve (AUC-ROC). Both metrics have been scaled by $100$. We obtain numbers in $[0, 100]$  for all scores instead of $[0, 1]$. Results for AUC-ROC are reported in Sec.~\ref{sec:auroc}. For the aleatoric uncertainty, we use the negative entropy of the predicted target distribution. For the epistemic uncertainty, we use the predicted evidence for models parametrizing conjugate-prior, or the variance of the predicted winning probability class for classification and the variance of the mean for regression and class count prediction for ensemble or dropout.
+\paragraph{OOD Metric.} The OOD detection task can be evaluated as a binary classification. Hence, we assign class 1 to ID data and class 0 to OOD data task and use the aleatoric and epistemic uncertainty estimates as scores for OOD data. It enables to compute final scores using the area under the precision-recall curve (AUC-PR) and the area under the receiver operating characteristic curve (AUC-ROC). Both metrics have been scaled by $100$. We obtain numbers in $[0, 100]$  for all scores instead of $[0, 1]$. Results for AUC-ROC are reported in \cref{sec:auroc}. For the aleatoric uncertainty, we use the negative entropy of the predicted target distribution. For the epistemic uncertainty, we use the predicted evidence for models parametrizing conjugate-prior, or the variance of the predicted winning probability class for classification and the variance of the mean for regression and class count prediction for ensemble or dropout.
 
 \paragraph{Inference Time Metric.} We measure inference time of models in ms and used NVIDIA GTX 1080 Ti GPUs. We evaluate the inference for one classification dataset (CIFAR-10) and one regression dataset (NYU Depth v2). For evaluation, we use a randomly initialized model and simply push random data through the model with batch size of 4,096 CIFAR10 and batch size of 4 for NYU Depth v2. The final numbers are averaged over 100 batches excluding the first batch due to GPU initialization. Compared models shared the same backbone architecture.
 
@@ -413,7 +413,7 @@ We train all models using $5$ seeds except for the large NYU dataset where we us
 
 \subsection{Uncertainty Visualization on Toy Datasets}
 
-We visualize the aleatoric and the epistemic uncertainty for two toy datasets with three classes with the same number of training examples for the three classes (see Fig.~\ref{fig:toy-visualization-app}) and different number of training examples for the three classes (see Fig.~\ref{fig:toy-visualization-2-app}). The predictions are more aleatorically certain close to training samples. The preidctions are more epistemically uncertain close to fewer training examples and very epistemically uncertain for region far from all training data.
+We visualize the aleatoric and the epistemic uncertainty for two toy datasets with three classes with the same number of training examples for the three classes (see \cref{fig:toy-visualization-app}) and different number of training examples for the three classes (see \cref{fig:toy-visualization-2-app}). The predictions are more aleatorically certain close to training samples. The preidctions are more epistemically uncertain close to fewer training examples and very epistemically uncertain for region far from all training data.
 
 \begin{figure}[ht!]
     \centering
@@ -441,7 +441,7 @@ We visualize the aleatoric and the epistemic uncertainty for two toy datasets wi
 
 \subsection{Latent Space Visualizations}
 
-We propose additional visualizations of the latent space for MNIST with t-SNE \citep{tsne} with different perplexities (see Fig.~\ref{fig:latent-space}). For all perplexities, we clearly observe ten green clusters corresponding to the ten classes for MNIST. The KNMIST (OOD) samples in red can easily be separated from the MNIST (ID) samples in green. As desired, \NatPNacro{} assigns higher log-probabilities used in evidence computation to ID samples from MNIST.
+We propose additional visualizations of the latent space for MNIST with t-SNE \citep{tsne} with different perplexities (see \cref{fig:latent-space}). For all perplexities, we clearly observe ten green clusters corresponding to the ten classes for MNIST. The KNMIST (OOD) samples in red can easily be separated from the MNIST (ID) samples in green. As desired, \NatPNacro{} assigns higher log-probabilities used in evidence computation to ID samples from MNIST.
 
 \begin{figure}[ht!]
     \centering
@@ -452,7 +452,7 @@ We propose additional visualizations of the latent space for MNIST with t-SNE \c
 
 \subsection{Histogram of Uncertainty Estimates}
 
-We visualize the histogram distribution of the entropy of the posterior distribution accounting for predictive uncertainty for ID (MNIST/NYU) and OOD (KNMIST and Fashion-MNIST/LSUN classroom and LSUN church + KITTI) (see Fig.~\ref{fig:entropy-histograms}). We clearly observe lower predictive entropy for ID data than for OOD data for both MNIST and NYU datasets. On one hand, the entropy clearly differentiates between ID data (MNIST) and any other OOD datasets (KMNIST, Fashion MNIST, OODom) for classification. We intuitively explain this clear distinction since the samples from the OOD datasets are irrelevant for the digit classification task. On the other hand, the entropy is still a good indicator of ID (NYU) and OOD datasets (LSUN classroom and LSUN church + KITTI) for regression although the distinction between ID and OOD datasets is less strong compared to MNIST. We intuitively explain this behavior since the task of depth estimation is still relevant to LSUN classroom and LSUN church + KITTI.
+We visualize the histogram distribution of the entropy of the posterior distribution accounting for predictive uncertainty for ID (MNIST/NYU) and OOD (KNMIST and Fashion-MNIST/LSUN classroom and LSUN church + KITTI) (see \cref{fig:entropy-histograms}). We clearly observe lower predictive entropy for ID data than for OOD data for both MNIST and NYU datasets. On one hand, the entropy clearly differentiates between ID data (MNIST) and any other OOD datasets (KMNIST, Fashion MNIST, OODom) for classification. We intuitively explain this clear distinction since the samples from the OOD datasets are irrelevant for the digit classification task. On the other hand, the entropy is still a good indicator of ID (NYU) and OOD datasets (LSUN classroom and LSUN church + KITTI) for regression although the distinction between ID and OOD datasets is less strong compared to MNIST. We intuitively explain this behavior since the task of depth estimation is still relevant to LSUN classroom and LSUN church + KITTI.
 
 \begin{figure}[ht!]
     \centering
@@ -470,7 +470,7 @@ We visualize the histogram distribution of the entropy of the posterior distribu
 
 \subsection{Uncertainty Visualization on NYU Depth v2 Dataset}
 
-We visualize the prediction and the predictive uncertainty per pixel for the NYU Depth v2 dataset (see Fig.~\ref{fig:nyu-uncertainty-visualization}). We observe accurate target predictions compared to the ground truth depth of the images. Further \NatPNacro{} assigns higher uncertainty for pixels close to object edges, which is reasonable since the depth abruptly change at these locations.
+We visualize the prediction and the predictive uncertainty per pixel for the NYU Depth v2 dataset (see \cref{fig:nyu-uncertainty-visualization}). We observe accurate target predictions compared to the ground truth depth of the images. Further \NatPNacro{} assigns higher uncertainty for pixels close to object edges, which is reasonable since the depth abruptly change at these locations.
 
 \begin{figure}[ht!]
     \centering
@@ -490,18 +490,18 @@ We visualize the prediction and the predictive uncertainty per pixel for the NYU
 \subsection{Hyper-Parameter Study}
 \label{sec:ablation-study_007}
 
-As a ablation study, we also report the results of the grid search on the latent dimension, normalizing flow types and number of normalizing flow layers for MNIST, CIFAR-10 and Bike Sharing datasets in Tab.~\ref{tab:ablation-mnist}, \ref{tab:ablation-cifar10}, \ref{tab:ablation-bikesharing-normal}, \ref{tab:ablation-bikesharing-poisson}. While most models converge to fairly good uncertainty estimates, we notice that 16 layers of simple radial flows on latent spaces of 16 dimensions were achieving very good results in practice. 
+As a ablation study, we also report the results of the grid search on the latent dimension, normalizing flow types and number of normalizing flow layers for MNIST, CIFAR-10 and Bike Sharing datasets in \cref{tab:ablation-mnist,tab:ablation-cifar10,tab:ablation-bikesharing-normal,tab:ablation-bikesharing-poisson}. While most models converge to fairly good uncertainty estimates, we notice that 16 layers of simple radial flows on latent spaces of 16 dimensions were achieving very good results in practice. 
 
 Changing the flow type or the number of normalizing flow layers does not lead to strong variations of the results except for Bike sharing with Poisson target distributions. In this case, more complex MAF normalizing flows improve \NatPNacro{} performance. 
 
 The latent dimension appears to be a more important choice for the model convergence. As an example, a higher latent dimension of $16$ or $32$ leads to significantly better performances than a latent dimension of $4$ on MNIST, CIFAR10 and Bike Sharing datasets. We hypothesize that too low latent dimensions are less able to encode the necessary information for the prediction task, leading to worse target errors.
 
-Further, we compare three different variants of the certainty budget $N_H$ used in the evidence computation $\evidence\dataix = N_H\prob(\z\dataix \condition \bm{\omega})$: a constant unit budget (i.e. $N_H=1$ (I)) corresponding to a fixed budget regardless of the number of training data and the latent dimension, a budget equals to the number of training data (i.e. $N_H=N$ (II)) similarly to \citet{charpentier2020}, or a budget which scales exponentially with the number of latent dimensions (e.g. $N_\latentdim$ equal to $e^{\frac{1}{2}\latentdim}$ (III), $e^{\latentdim}$ (IV) or $e^{\log(\sqrt{4\pi})\latentdim}$ (V)). We observe that scaling the budget w.r.t. the latent space dimension ($H$-budget) is more stable in practice than constant budget ($1$-budget) and budget related to the number of training data ($N$-budget) (see. Tab.~\ref{tab:ablation-mnist},\ref{tab:ablation-cifar10},\ref{tab:ablation-bikesharing-normal},\ref{tab:ablation-bikesharing-poisson}). In aprticular, the $H$-budgets achieve more  better results on higher latent dimensions and performance on par with the other certainty budget scheme otherwise. The intuition is that due to the curse of dimensionality, the expected value of a probability density function $\expectation_{\z}[\prob(\z)]$ tends to decrease exponentially fast. For example, we have $\expectation_{\z}[\prob(\z)] = \frac{1}{(\sqrt{4\pi})^H}$ when $\z \sim \DNormal(\bm{0, \bm{1}})$ in a $H$-dimensional space. Increasing the certainty budget $N_H$ exponentially w.r.t. to the dimension $H$ avoids numerical issues by allocating close to $0$ evidence to latent representations. In our experiments, we use a grid search in different exponential scaling $N_\latentdim$ equal to $e^{\frac{1}{2}\latentdim}$ (III), $e^{\latentdim}$ (IV),  $e^{\log(\sqrt{4\pi})\latentdim}$ (V).
+Further, we compare three different variants of the certainty budget $N_H$ used in the evidence computation $\evidence\dataix = N_H\prob(\z\dataix \condition \bm{\omega})$: a constant unit budget (i.e. $N_H=1$ (I)) corresponding to a fixed budget regardless of the number of training data and the latent dimension, a budget equals to the number of training data (i.e. $N_H=N$ (II)) similarly to \citet{charpentier2020}, or a budget which scales exponentially with the number of latent dimensions (e.g. $N_\latentdim$ equal to $e^{\frac{1}{2}\latentdim}$ (III), $e^{\latentdim}$ (IV) or $e^{\log(\sqrt{4\pi})\latentdim}$ (V)). We observe that scaling the budget w.r.t. the latent space dimension ($H$-budget) is more stable in practice than constant budget ($1$-budget) and budget related to the number of training data ($N$-budget) (see. \cref{tab:ablation-mnist,tab:ablation-cifar10,tab:ablation-bikesharing-normal,tab:ablation-bikesharing-poisson}). In aprticular, the $H$-budgets achieve more  better results on higher latent dimensions and performance on par with the other certainty budget scheme otherwise. The intuition is that due to the curse of dimensionality, the expected value of a probability density function $\expectation_{\z}[\prob(\z)]$ tends to decrease exponentially fast. For example, we have $\expectation_{\z}[\prob(\z)] = \frac{1}{(\sqrt{4\pi})^H}$ when $\z \sim \DNormal(\bm{0, \bm{1}})$ in a $H$-dimensional space. Increasing the certainty budget $N_H$ exponentially w.r.t. to the dimension $H$ avoids numerical issues by allocating close to $0$ evidence to latent representations. In our experiments, we use a grid search in different exponential scaling $N_\latentdim$ equal to $e^{\frac{1}{2}\latentdim}$ (III), $e^{\latentdim}$ (IV),  $e^{\log(\sqrt{4\pi})\latentdim}$ (V).
 
 \subsection{OOD Detection with AUC-ROC Scores}
 \label{sec:auroc}
 
-In addition to the AUC-APR scores, we report the OOD detection results for MNIST, CIFAR10 and Bike Sharing datasets in Tab.~\ref{tab:auroc-mnist}, \ref{tab:auroc-cifar10}, \ref{tab:auroc-bikesharing} with AUC-ROC scores. Similarly as with AUC-APR scores, \NatPNacro{} and NatPE achieve very competitive performances compare to the baselines. It particular, they outperform all baselines to detect challenging OODom data.
+In addition to the AUC-APR scores, we report the OOD detection results for MNIST, CIFAR10 and Bike Sharing datasets in \cref{tab:auroc-mnist,tab:auroc-cifar10,tab:auroc-bikesharing} with AUC-ROC scores. Similarly as with AUC-APR scores, \NatPNacro{} and NatPE achieve very competitive performances compare to the baselines. It particular, they outperform all baselines to detect challenging OODom data.
 
 \input{sections/007_iclr2022/tables/ablation-mnist}
 \input{sections/007_iclr2022/tables/ablation-cifar10}

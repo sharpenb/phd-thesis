@@ -1,6 +1,6 @@
 \section{Computation of the approximation for the \UncertaintyLoss of \GPModel} \label{loss_closed_form_proof}
 
-Given true categorical distribution $\bm{p}_\IndexEvent^*,$ and predicted $\bm{p}_\IndexEvent(\DeltaTime),$ the \UncertaintyLoss can be calculated as in Eq.\ \ref{eq:loss}. For the \GPModel model $\bm{p}_\IndexEvent(\DeltaTime)=\text{softmax}(\bm{z}_\IndexEvent(\DeltaTime))$, where $\bm{z}_\IndexEvent(\DeltaTime)$ are logits that come from a Gaussian process and follow a normal distribution $\mathcal{N}(\bm{\mu}_\IndexEvent(\DeltaTime), \bm{\Sigma}_\IndexEvent(\DeltaTime)),$. Therefore, $\exp(\bm{z}_\IndexEvent(\DeltaTime))$ follows a log-normal distribution. We will use this to derive an approximation of the loss. From now on, we omit $\DeltaTime$ from the equations. Mean and variance for $\smash{\sum_\IndexClass^\NbClasses \exp(\bm{z}_{\IndexClass_\IndexEvent})}$ are then:
+Given true categorical distribution $\bm{p}_\IndexEvent^*,$ and predicted $\bm{p}_\IndexEvent(\DeltaTime),$ the \UncertaintyLoss can be calculated as in \cref{eq:loss}. For the \GPModel model $\bm{p}_\IndexEvent(\DeltaTime)=\text{softmax}(\bm{z}_\IndexEvent(\DeltaTime))$, where $\bm{z}_\IndexEvent(\DeltaTime)$ are logits that come from a Gaussian process and follow a normal distribution $\mathcal{N}(\bm{\mu}_\IndexEvent(\DeltaTime), \bm{\Sigma}_\IndexEvent(\DeltaTime)),$. Therefore, $\exp(\bm{z}_\IndexEvent(\DeltaTime))$ follows a log-normal distribution. We will use this to derive an approximation of the loss. From now on, we omit $\DeltaTime$ from the equations. Mean and variance for $\smash{\sum_\IndexClass^\NbClasses \exp(\bm{z}_{\IndexClass_\IndexEvent})}$ are then:
 \begin{equation}
 \begin{split}
     \E \left[ \sum\nolimits_\IndexClass^\NbClasses \exp(\bm{z}_{\IndexClass_\IndexEvent}) \right] &= \sum\nolimits_\IndexClass^\NbClasses \exp(\bm{\mu}_{\IndexClass_\IndexEvent} + \bm{\sigma}_{\IndexClass_\IndexEvent}^2 / 2) \\
@@ -24,7 +24,7 @@ expansion around the mean $\mu$:
         &\approx \E[\log \mu] - \frac{\textbf{Var}[x]}{2 \mu^2}
 \end{split}\label{eq:cross-entropy-expectation-taylor}
 \end{equation}
-Using \ref{eq:cross-entropy-expectation-taylor} together with \ref{eq:log-normal-moments} and plugging into \ref{eq:cross-entropy-expectation} we get a closed-form solution for the loss for event $\IndexEvent$:
+Using \cref{eq:cross-entropy-expectation-taylor} together with \cref{eq:log-normal-moments} and plugging into \cref{eq:cross-entropy-expectation} we get a closed-form solution for the loss for event $\IndexEvent$:
 \small
 \begin{equation}
     \mathcal{L}_\IndexEvent^{\text{UCE}}

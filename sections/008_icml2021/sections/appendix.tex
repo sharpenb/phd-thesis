@@ -126,7 +126,7 @@ $\varepsilon_2 = \Gamma(0.5 D +1)^{\frac{1}{D}} \sqrt{\pi} \varepsilon_{\infty}$
 
 
 
-Table~\ref{tab:acc_label_attack} and~\ref{tab:acc_label_attack_fgsm} illustrate that no DBU model maintains high accuracy under gradient-based label attacks. Accuracy under PGD attacks decreases more than under FGSM attacks, since PGD is stronger.  Interestingly Noise attacks achieve also good performances with increasing Noise standard deviation. Note that the attack is not constraint to be with a given radius for Noise attacks.
+\cref{tab:acc_label_attack,tab:acc_label_attack_fgsm} illustrate that no DBU model maintains high accuracy under gradient-based label attacks. Accuracy under PGD attacks decreases more than under FGSM attacks, since PGD is stronger.  Interestingly Noise attacks achieve also good performances with increasing Noise standard deviation. Note that the attack is not constraint to be with a given radius for Noise attacks.
 
 
 
@@ -431,8 +431,8 @@ On non-perturbed data uncertainty estimates are an indicator of correctly classi
 
 
 
-Table~\ref{tab:conf_label_attack}, \ref{tab:conf_label_attack_2}, \ref{tab:conf_label_attack_alpha}, and~\ref{tab:conf_label_attack_mi} illustrate that neither differential entropy nor precision, nor mutual information are a reliable indicator of correct predictions under PGD attacks. 
-DBU-models achieve significantly better results when they are attacked by FGSM-attacks (Table~\ref{tab:conf_label_attack_fgsm}), but as FGSM attacks provide much weaker adversarial examples than PGD attacks, this cannot be seen as real advantage. 
+\cref{tab:conf_label_attack,tab:conf_label_attack_2,tab:conf_label_attack_alpha,tab:conf_label_attack_mi} illustrate that neither differential entropy nor precision, nor mutual information are a reliable indicator of correct predictions under PGD attacks. 
+DBU-models achieve significantly better results when they are attacked by FGSM-attacks (\cref{tab:conf_label_attack_fgsm}), but as FGSM attacks provide much weaker adversarial examples than PGD attacks, this cannot be seen as real advantage. 
 
 
 
@@ -1811,9 +1811,9 @@ To improve robustness of DBU models we perform median smoothing and adversarial 
 
 The following Figures visualize the differential entropy distribution for ID data and OOD data for all models with standard training. We used label attacks and uncertainty attacks for CIFAR10 and MNIST. Thus, they show how well the DBU models separate on clean and perturbed ID data and OOD data. 
 
-Figures~\ref{fig:attaked_samples_idood_label_attacks_2} and \ref{fig:attaked_samples_idood_label_attacks_3} visualizes the differential entropy distribution of ID data and OOD data under label attacks. On CIFAR10, \PriorNet and \DDNet can barely distinguish between clean ID and OOD data. We observe a better ID/OOD distinction for \PostNetacro{}  and \EvNet for clean data. However, we do not observe for any model an increase of the uncertainty estimates on label attacked data. Even worse, \PostNet, \PriorNet and \DDNet seem to assign higher confidence on class label attacks. On MNIST, models show a slightly better behavior. They are capable to assign a higher uncertainty to label attacks up to some attack radius.
+\cref{fig:attaked_samples_idood_label_attacks_2,fig:attaked_samples_idood_label_attacks_3} visualizes the differential entropy distribution of ID data and OOD data under label attacks. On CIFAR10, \PriorNet and \DDNet can barely distinguish between clean ID and OOD data. We observe a better ID/OOD distinction for \PostNetacro{}  and \EvNet for clean data. However, we do not observe for any model an increase of the uncertainty estimates on label attacked data. Even worse, \PostNet, \PriorNet and \DDNet seem to assign higher confidence on class label attacks. On MNIST, models show a slightly better behavior. They are capable to assign a higher uncertainty to label attacks up to some attack radius.
 
-Figures~\ref{fig:attaked_samples_idood_2}, \ref{fig:attaked_samples_idood_3}, \ref{fig:attaked_samples_idood_mnist} and \ref{fig:attaked_samples_idood_mnist_2} visualizes the differential entropy distribution of ID data and OOD data under uncertainty attacks. For both CIFAR10 and MNIST data sets, we observed that uncertainty estimations of all models can be manipulated. That is, OOD uncertainty attacks can shift the OOD uncertainty distribution to more certain predictions, and ID uncertainty attacks can shift the ID uncertainty distribution to less certain predictions.
+\cref{fig:attaked_samples_idood_2,fig:attaked_samples_idood_3,fig:attaked_samples_idood_mnist,fig:attaked_samples_idood_mnist_2} visualizes the differential entropy distribution of ID data and OOD data under uncertainty attacks. For both CIFAR10 and MNIST data sets, we observed that uncertainty estimations of all models can be manipulated. That is, OOD uncertainty attacks can shift the OOD uncertainty distribution to more certain predictions, and ID uncertainty attacks can shift the ID uncertainty distribution to less certain predictions.
 
 
 \begin{figure*}[ht!]

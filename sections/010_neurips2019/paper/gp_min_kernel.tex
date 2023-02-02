@@ -32,5 +32,5 @@ W.l.o.g.\ consider $\NbPoints$ pseudo points $\DeltaTime_1, \dots, \DeltaTime_\N
    k(\DeltaTime_\NbPoints, \DeltaTime_1) & \dots & k(\DeltaTime_\NbPoints, \DeltaTime_\NbPoints)
 \end{bmatrix}
 \end{equation}
-Assuming $w_1=0$ returns $\bm{k}$ without the first row and $\bm{K}$ without the first row and column. Plugging them back into equation \ref{eq:gp_prediction} we can see that the point $\DeltaTime_1$ is discarded, as desired.
-In practice, the weights have values from interval $[0, 1]$ which in turn gives us the ability to \textit{softly discard} points. This is shown in Fig. \ref{fig:weighted_gaussian_process} we can see that the mean line does not have to cross through the points with weights $<1$ and the variance can remain higher around them.
+Assuming $w_1=0$ returns $\bm{k}$ without the first row and $\bm{K}$ without the first row and column. Plugging them back into \cref{eq:gp_prediction} we can see that the point $\DeltaTime_1$ is discarded, as desired.
+In practice, the weights have values from interval $[0, 1]$ which in turn gives us the ability to \textit{softly discard} points. This is shown in \cref{fig:weighted_gaussian_process} we can see that the mean line does not have to cross through the points with weights $<1$ and the variance can remain higher around them.

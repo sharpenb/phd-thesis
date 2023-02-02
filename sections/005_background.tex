@@ -3,7 +3,7 @@
 
 \section{Desiderata}
 
-In this section, we review important desiderata for uncertainty estimation. We provide a summary of these desiderata in Tab.~\ref{tab:overview_desiderata}.
+In this section, we review important desiderata for uncertainty estimation. We provide a summary of these desiderata in \cref{tab:overview_desiderata}.
 
 \begin{table*}[ht]
     \begin{center}
@@ -69,7 +69,7 @@ In this case, the parameter distribution $\prior(\bm{\theta} \condition \data, \
 
 \subsection{Aleatoric, Epistemic \& Predictive Uncertainty}
 
-The Equation~\ref{eq:posterior_predictive} involves three types of distribution (i.e. $\prob(\y \condition \bm{\theta})$, $\prior(\bm{\theta} \condition \data)$, and $\prob(\y \condition \data)$) which cover the three main sources of uncertainty (i.e. aleatoric, epistemic, and predictive).
+The \cref{eq:posterior_predictive} involves three types of distribution (i.e. $\prob(\y \condition \bm{\theta})$, $\prior(\bm{\theta} \condition \data)$, and $\prob(\y \condition \data)$) which cover the three main sources of uncertainty (i.e. aleatoric, epistemic, and predictive).
 In practice, each uncertainty type can be measured by computing the spread of its respective distribution with the (differential) entropy which represented its variability, i.e.:
 \begin{align}
      u_\text{alea} = \entropy[\prob(\y \condition \bm{\theta})], \hspace{4mm}
@@ -116,7 +116,7 @@ In this thesis, we focus on proposing practical methods which are efficient in t
 
 \section{Models}
 
-In this section, we review important family of models for uncertainty estimation. We provide a summary of these models in Fig.~\ref{fig:overview_methods}.
+In this section, we review important family of models for uncertainty estimation. We provide a summary of these models in \cref{fig:overview_methods}.
 
 \begin{figure}[ht!]
     \centering
@@ -141,7 +141,7 @@ Sampling-free models are capable of estimating uncertainty in a single forward p
 
 In this section, we present an exhaustive summary of the main metrics used to evaluate the quality of uncertainty estimation. 
 It covers correct/wrong predictions detection, OOD \& dataset shifts detection, calibration, and sample efficiency.
-We provide a collection of benchmarks which cover the different tasks in Tab.~\ref{tab:overview_evaluation}.
+We provide a collection of benchmarks which cover the different tasks in \cref{tab:overview_evaluation}.
 
 \begin{table*}[ht]
     \begin{center}
@@ -196,7 +196,7 @@ It is crucial to detect and be robust against shifts in the data to primarily in
     \textbf{Can we be robust to data drift?}
 \end{center}
 
-In practice, the model would require to \emph{jointly} look at the evolution of the accuracy and the uncertainty estimates under different magnitudes of perturbations. Ideally, while the model should maintain high accuracy on shifted data (a.k.a. OOD generalization performance \cite{ood-generalization-survey}), the uncertainty estimates of the model should increase on shifted data (a.k.a. OOD detection performance \cite{ood-detection-survey}). Further, other expectations on the predictions under dataset shifts involve maintaining good calibration \cite{dataset-shift}, high correct/wrong prediction detection performance (see Chapter~\ref{chap:robustness}), and high OOD detection performances (see Chapter~\ref{chap:robustness}). In this case, the shifted dataset is still relevant to the original task (i.e. inputs in the shifted dataset have output labels) but differ from the original ID dataset. We distinguish between natural and adversarial dataset shifts. Natural shifts correspond to natural perturbations which could occur in real world scenarios like time shifts \cite{wilds, neuhold201mapillary, shifts-dataset}, location shifts \cite{wilds, neuhold201mapillary, shifts-dataset}, or corrupted data \cite{benchmarking-corruptions, taori2020shift}. In contrast, adversarial perturbations shifts actions correspond to the worst-case scenario where the perturbations are designed to fool the model.
+In practice, the model would require to \emph{jointly} look at the evolution of the accuracy and the uncertainty estimates under different magnitudes of perturbations. Ideally, while the model should maintain high accuracy on shifted data (a.k.a. OOD generalization performance \cite{ood-generalization-survey}), the uncertainty estimates of the model should increase on shifted data (a.k.a. OOD detection performance \cite{ood-detection-survey}). Further, other expectations on the predictions under dataset shifts involve maintaining good calibration \cite{dataset-shift}, high correct/wrong prediction detection performance (see \cref{chap:robustness}), and high OOD detection performances (see \cref{chap:robustness}). In this case, the shifted dataset is still relevant to the original task (i.e. inputs in the shifted dataset have output labels) but differ from the original ID dataset. We distinguish between natural and adversarial dataset shifts. Natural shifts correspond to natural perturbations which could occur in real world scenarios like time shifts \cite{wilds, neuhold201mapillary, shifts-dataset}, location shifts \cite{wilds, neuhold201mapillary, shifts-dataset}, or corrupted data \cite{benchmarking-corruptions, taori2020shift}. In contrast, adversarial perturbations shifts actions correspond to the worst-case scenario where the perturbations are designed to fool the model.
 
 \subsection{Calibration}
 
@@ -216,4 +216,4 @@ It is crucial to wisely data select samples to efficiently learn from them while
     \textbf{How efficiently can uncertainty estimates select data samples to learn from?}
 \end{center}
 
-In practice, the sample selection process is particularly relevant in reinforcement learning (see Chapter~\ref{chap:reinforcement_learning}), active learning (e.g. \cite{gal2017bald, kirsch2019batch}), continual learning \cite{hsu2018continual, lin2021clear}, or few-shots learning \cite{antoniou2020fewshots}. Appropriate metrics would be e.g. to measure the training speed by counting the required number of training samples or the time to train.
+In practice, the sample selection process is particularly relevant in reinforcement learning (see \cref{chap:reinforcement_learning}), active learning (e.g. \cite{gal2017bald, kirsch2019batch}), continual learning \cite{hsu2018continual, lin2021clear}, or few-shots learning \cite{antoniou2020fewshots}. Appropriate metrics would be e.g. to measure the training speed by counting the required number of training samples or the time to train.

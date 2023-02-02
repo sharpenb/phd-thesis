@@ -22,7 +22,7 @@ The fast AI economic growth and the multiple AI ethical concerns urge the develo
 
 \section{Why do we need uncertainty ?}
 
-Uncertainty estimation (a.k.a. uncertainty quantification) consists in evaluating the confidence of models in their predictions. This task is crucial for both practical and theoretical reasons summarized in Fig.~\ref{fig:uncertainty_reasons}.
+Uncertainty estimation (a.k.a. uncertainty quantification) consists in evaluating the confidence of models in their predictions. This task is crucial for both practical and theoretical reasons summarized in \cref{fig:uncertainty_reasons}.
 
 \begin{figure}[ht!]
     \centering
@@ -89,12 +89,12 @@ To this end, \emph{independence} and \emph{non-independence} are key assumptions
 \end{figure}
 
 \paragraph*{Independent Data.} The independence assumption means that different data samples are not connected in any way. In other words, the knowledge of one data sample does not bring any information on another data sample.
-The independence assumption is particularly useful when representing tabular data \cite{raschka2022chronology} (e.g. a group of unrelated persons for a medicine trial, defects on multiple different devices) or image data \cite{lu2020survey, litjens2017survey} (e.g. disease detection on medical images of different patients, object detection in different self-driving cars or robots). Visualizations of such data are represented in Fig.~\ref{fig:tabular_data} and Fig.~\ref{fig:image_data}.
+The independence assumption is particularly useful when representing tabular data \cite{raschka2022chronology} (e.g. a group of unrelated persons for a medicine trial, defects on multiple different devices) or image data \cite{lu2020survey, litjens2017survey} (e.g. disease detection on medical images of different patients, object detection in different self-driving cars or robots). Visualizations of such data are represented in \cref{fig:tabular_data} and \cref{fig:image_data}.
 In this case, representing the interaction between data samples does not bring much information to perform the predictions.
 Hence, the key advantage of the independence assumption is that it allows mathematical factorization for practical modelling simplifications \citep{bishop} without important information loss.
 
 \paragraph*{Non-Independent Data.} The non-independence assumption means that different data samples might be connected in some way. In other words, observing a data sample gives some information on the value of another data sample.
-The non-independence assumption is particularly useful when representing graph data \cite{GNNBook2022} (e.g. social networks, citation networks) or sequential data \cite{shchur2021review, Dietterich2002Machine} (e.g. financial time series, interaction history of a user). Visualizations of such data are represented in Fig.~\ref{fig:graph_data} and Fig.~\ref{fig:sequential_data}.
+The non-independence assumption is particularly useful when representing graph data \cite{GNNBook2022} (e.g. social networks, citation networks) or sequential data \cite{shchur2021review, Dietterich2002Machine} (e.g. financial time series, interaction history of a user). Visualizations of such data are represented in \cref{fig:graph_data} and \cref{fig:sequential_data}.
 In this case, neighboring nodes of a graph are expected to share important information and past events are expected to give important information on future events.
 Hence, the key advantage of the non-independence assumption is that it retains the information contained in graph and sequential interactions to model the world more precisely.
 
@@ -116,19 +116,19 @@ This thesis studies the application of uncertainty estimation for independent an
     \item Practical \emph{experimental setup} evaluating uncertainty estimation in real-world applications including worst-case scenarios.
 \end{itemize} 
 
-To this end, we start by establishing the background knowledge about uncertainty estimation in Chapter~\ref{chap:background}.
+To this end, we start by establishing the background knowledge about uncertainty estimation in \cref{chap:background}.
 
-In Part~\ref{part:independent_data}, we present a study of uncertainty estimation for \emph{independent data}: 
-In Chapter~\ref{chap:classification}, we construct a new Bayesian model for uncertainty estimation for classification called \PostNet{} (\PostNetacro{}). \PostNetacro{} requires a \emph{single-forward pass}, does need \emph{no OOD data during training}, and adapt to \emph{many core architectures}.
-In Chapter~\ref{chap:regression}, we construct a new Bayesian model for uncertainty estimation for regression called \NatPN{} (\NatPNacro{}). Beyond regression, \NatPNacro{} applies to a \emph{large variety of supervised tasks} (incl. classification and count prediction) with \emph{very low computational overhead}.
-In Chapter~\ref{chap:robustness}, we present the first study of the robustness of uncertainty models in the worst-case scenario of adversarial attacks. We show that uncertainty estimates of an important family of single-forward pass models are \emph{not robust} for many important real-world tasks (incl. correct/wrong prediction detection, adversarial examples detection, and ID/OOD detection). Further, we explore first approaches methods to improve uncertainty robustness by using \emph{adversarial training} and \emph{randomized smoothing}. 
+In \cref{part:independent_data}, we present a study of uncertainty estimation for \emph{independent data}: 
+In \cref{chap:classification}, we construct a new Bayesian model for uncertainty estimation for classification called \PostNet{} (\PostNetacro{}). \PostNetacro{} requires a \emph{single-forward pass}, does need \emph{no OOD data during training}, and adapt to \emph{many core architectures}.
+In \cref{chap:regression}, we construct a new Bayesian model for uncertainty estimation for regression called \NatPN{} (\NatPNacro{}). Beyond regression, \NatPNacro{} applies to a \emph{large variety of supervised tasks} (incl. classification and count prediction) with \emph{very low computational overhead}.
+In \cref{chap:robustness}, we present the first study of the robustness of uncertainty models in the worst-case scenario of adversarial attacks. We show that uncertainty estimates of an important family of single-forward pass models are \emph{not robust} for many important real-world tasks (incl. correct/wrong prediction detection, adversarial examples detection, and ID/OOD detection). Further, we explore first approaches methods to improve uncertainty robustness by using \emph{adversarial training} and \emph{randomized smoothing}. 
 
-In Part~\ref{part:non_independent_data}, we present a study of uncertainty estimation for \emph{non-independent data}:
-In Chapter~\ref{chap:graph_data}, we present the first framework for uncertainty estimation for node classification on graph data. This framework proposes explicit desiderata, a new Bayesian model, and an exhaustive evaluation setup which cover aleatoric and epistemic uncertainty estimation \emph{without} and \emph{with network effects}.
-In Chapter~\ref{chap:sequential_data}, we present new models for uncertainty estimation in sequential data with asynchronous time events. The two proposed models are able of accurate \emph{event types} and \emph{event time} predictions while capturing \emph{uncertainty with rich temporal evolution}.
-In Chapter~\ref{chap:reinforcement_learning}, we present the first framework to disentangle aleatoric and epistemic uncertainty estimation in reinforcement learning. This framework proposes explicit desiderata, four models inspired from supervised learning, and a detailed experimental setup which cover aleatoric and epistemic uncertainty estimation at both \emph{training time} and \emph{testing time}.
+In \cref{part:non_independent_data}, we present a study of uncertainty estimation for \emph{non-independent data}:
+In \cref{chap:graph_data}, we present the first framework for uncertainty estimation for node classification on graph data. This framework proposes explicit desiderata, a new Bayesian model, and an exhaustive evaluation setup which cover aleatoric and epistemic uncertainty estimation \emph{without} and \emph{with network effects}.
+In \cref{chap:sequential_data}, we present new models for uncertainty estimation in sequential data with asynchronous time events. The two proposed models are able of accurate \emph{event types} and \emph{event time} predictions while capturing \emph{uncertainty with rich temporal evolution}.
+In \cref{chap:reinforcement_learning}, we present the first framework to disentangle aleatoric and epistemic uncertainty estimation in reinforcement learning. This framework proposes explicit desiderata, four models inspired from supervised learning, and a detailed experimental setup which cover aleatoric and epistemic uncertainty estimation at both \emph{training time} and \emph{testing time}.
 
-In Part~\ref{part:conclusion}, we present a retrospective on the evolution of the research field since our first study (see Chapter~\ref{chap:retrospective}) and a conclusion including open questions as suggestion to future research directions (see Chapter~\ref{chap:conclusion}).
+In \cref{part:conclusion}, we present a retrospective on the evolution of the research field since our first study (see \cref{chap:retrospective}) and a conclusion including open questions as suggestion to future research directions (see \cref{chap:conclusion}).
 
 \begin{table}
     \caption{List of own publications that this thesis is based on. Code and datasets for the respective publications are available at \texttt{www.cs.cit.tum.de/daml/[project]}.}
