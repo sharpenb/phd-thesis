@@ -3,7 +3,7 @@
 
 In this section, we provide an extensive evaluation set-up for uncertainty quantification for node classification. It compares \textbf{\GPNacro{}} to 13 baselines on 8 datasets and consists in two task types. First, we evaluate the detection of OOD nodes with features perturbations and Left-Out classes. Second, we evaluate the robustness of accuracy, calibration and uncertainty metrics w.r.t. feature and edge shifts.
 
-\subsection{Set-up}
+\subsection{Setup}
 
 \paragraph{Ablation.} In the experiments, \GPNacro{} uses a MLP as feature encoder, radial normalizing flows \citep{radialflow} for the density estimation and a certainty budget $N$ which scales with respect to the latent dimension \citep{NatPN2021}. We provide an ablation study covering aleatoric uncertainty through APPNP, feature-level estimates through PostNet, diffusing resulting pseudo-counts after training, and \GPNacro{} with diffusion of \smash{$\log(\beta_\iclass^{\text{ft}, (\nodev)})$} instead of \smash{$\beta_\iclass^{\text{ft}, (\nodev)}$} (see App.~\ref{sec:ablation-study_009}). The complete \GPNacro{} model outperforms the ablated models for uncertainty estimation. Further, we provide a hyper-parameter study covering for example different number of flow layers, latent dimensions, PPR teleport probabilities (see App.~\ref{sec:hyperparameter-study})). 
 

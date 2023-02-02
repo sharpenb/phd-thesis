@@ -8,7 +8,7 @@ In this section, we do not consider temporal data. The goal of this experiment i
 \textit{Set-up.} The set-up is similar to \cite{PriorNetworks} and consists of two datasets of 1500 instances divided in three equidistant 2-D Gaussians. One dataset contains non-overlapping classes (\textbf{NOG}) whereas the other contains overlapping classes (\textbf{OG}). Given one input $x_i$, we train simple two layers neural networks to predict the concentration parameters of a Dirichlet distribution $\textbf{Dir}(\alpha_1(x_i), \alpha_2(x_i), \alpha_3(x_i))$ which model the uncertainty on the categorical distribution $\bm{p}(x_i)$. On each dataset, we train two neural networks. One neural network is trained with the classic cross-entropy loss $\mathcal{L}^{\text{CE}}$ which uses only the mean prediction $\bar{\bm{p}}(x_i)$. The second neural network is trained with the \UncertaintyLoss loss plus a simple $\alpha$-regularizer:
 \begin{equation}
 \begin{aligned}
-\mathcal{L}^{\text{UCE}} + \bigl\lvert\alpha_0(x_i) - \sum_j  \mathbb{1}_{x_j \in N_w(x_i) }\bigr\rvert
+\mathcal{L}^{\text{UCE}} + \bigl\lvert\alpha_0(x_i) - \sum_j  \mathbbm{1}_{x_j \in N_w(x_i) }\bigr\rvert
 \end{aligned}
 \end{equation}
 where $x_i$ is the input 2-D vector and $N_w(x_i) = \{x', ||x' - x_i||_2^2 < w\}$ is its euclidean neighbourhood of size $w$. We set $w=10^{-5}$ for the non-overlapping Gaussians and $w=10^{-2}$ for the overlapping Gaussians.
@@ -19,25 +19,25 @@ Other interesting results are the concentration parameters learned by the two mo
 
 \begin{figure}[H]
 \centering
-    \begin{subfigure}{0.245\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/classic-narrow-cat_entropy.png}
         \caption{NOG - CE - Cat. Ent.}
         \label{classic-narrow-cat_entropy}
     \end{subfigure}
-    \begin{subfigure}{0.245\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/new-narrow-cat_entropy.png}
         \caption{NOG - UCE - Cat. Ent.}
         \label{new-narrow-cat_entropy}
     \end{subfigure}
-    \begin{subfigure}{0.245\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/classic-spread-cat_entropy.png}
         \caption{OG - CE - Cat. Ent.}
         \label{classic-spread-cat_entropy}
     \end{subfigure}
-    \begin{subfigure}{0.245\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/new-spread-cat_entropy.png}
         \caption{OG - UCE - Cat. Ent.}
@@ -51,56 +51,56 @@ Other interesting results are the concentration parameters learned by the two mo
 
 \begin{figure}[H]
 \centering
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/classic-narrow-alpha0.png}
         \caption{CE - $\alpha_0$}
         \label{classic-narrow-alpha0}
     \end{subfigure}
     \hspace{-0.4cm}
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/classic-narrow-alpha1.png}
         \caption{CE - $\alpha_1$}
         \label{classic-narrow-alpha1}
     \end{subfigure}
     \hspace{-0.4cm}
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/classic-narrow-alpha2.png}
         \caption{CE - $\alpha_2$}
         \label{classic-narrow-alpha2}
     \end{subfigure}
     \hspace{-0.4cm}
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/classic-narrow-alpha3.png}
         \caption{CE - $\alpha_3$}
         \label{classic-narrow-alpha3}
     \end{subfigure}
 
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/new-narrow-alpha0.png}
         \caption{UCE - $\alpha_0$}
         \label{new-narrow-alpha0}
     \end{subfigure}
     \hspace{-0.4cm}
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/new-narrow-alpha1.png}
         \caption{UCE - $\alpha_1$}
         \label{new-narrow-alpha1}
     \end{subfigure}
     \hspace{-0.4cm}
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/new-narrow-alpha2.png}
         \caption{UCE - $\alpha_2$}
         \label{new-narrow-alpha2}
     \end{subfigure}
     \hspace{-0.4cm}
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/new-narrow-alpha3.png}
         \caption{UCE - $\alpha_3$}
@@ -112,56 +112,56 @@ Other interesting results are the concentration parameters learned by the two mo
 
 \begin{figure}[H]
 \centering
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/classic-spread-alpha0.png}
         \caption{CE - $\alpha_0$}
         \label{classic-spread-alpha0}
     \end{subfigure}
     \hspace{-0.4cm}
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/classic-spread-alpha1.png}
         \caption{CE - $\alpha_1$}
         \label{classic-spread-alpha1}
     \end{subfigure}
     \hspace{-0.4cm}
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/classic-spread-alpha2.png}
         \caption{CE - $\alpha_2$}
         \label{classic-spread-alpha2}
     \end{subfigure}
     \hspace{-0.4cm}
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/classic-spread-alpha3.png}
         \caption{CE - $\alpha_3$}
         \label{classic-spread-alpha3}
     \end{subfigure}
 
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/new-spread-alpha0.png}
         \caption{UCE - $\alpha_0$}
         \label{new-spread-alpha0}
     \end{subfigure}
     \hspace{-0.4cm}
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/new-spread-alpha1.png}
         \caption{UCE - $\alpha_1$}
         \label{new-spread-alpha1}
     \end{subfigure}
     \hspace{-0.4cm}
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/new-spread-alpha2.png}
         \caption{UCE - $\alpha_2$}
         \label{new-spread-alpha2}
     \end{subfigure}
     \hspace{-0.4cm}
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.24\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sections/010_neurips2019/paper/images/new-spread-alpha3.png}
         \caption{UCE - $\alpha_3$}

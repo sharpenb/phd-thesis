@@ -115,19 +115,20 @@ The entropy term is equal to:
 
 \textbf{GKDE - } We adopt the Graph Kernel Dirichlet Estimate from \citep{Zhao2020} as a standalone and parameterless baseline. With $d_{v,u}$ being the shortest path between nodes $v$ and $u$ and the Gaussian 
 transformation $g(d_{v,u}) = \nicefrac{1}{\sigma \sqrt{2\pi}} \exp \left(\nicefrac{-d_{v,u}^2}{2\sigma^2}\right)$, a Dirichlet estimate is obtained in the following way
-\begin{equation}
-    \valpha^{(v)} = 1 + \vect{e}^{(v)} \quad \text{ with } \quad \vect{e}^{(v)} = \sum_{u \in \nodeslabeled} \vect{h}(y^{(u)}, d_{v,u}) \quad \text{ and } \quad h_c(y^{(u)}, d_{v,u}) = \begin{cases}0 & y^{(u)} \neq c\\ g(d_{v,u}) &  y^{(u)} = c \end{cases}
-\end{equation}
+\begin{align*}
+    \valpha^{(v)} &= 1 + \vect{e}^{(v)} \\
+    \text{ with } \quad \vect{e}^{(v)} = \sum_{u \in \nodeslabeled} \vect{h}(y^{(u)}, d_{v,u}) \quad &\text{ and } \quad h_c(y^{(u)}, d_{v,u}) = \begin{cases}0 & y^{(u)} \neq c\\ g(d_{v,u}) &  y^{(u)} = c \end{cases}
+\end{align*}
 Similar to \citep{Zhan2020}, we use $\sigma=1$. We would also like to point out that the computation of this kernel requires extracting the shorted distance of each node to each labeled node $u \in \nodeslabeled$. Larger datasets like \emph{OGBN-Arxiv} come with larger sets of labeled data with the size $|\nodeslabeled|$ having a same magnitude as the number of nodes in the graph, i.e. $|\vertices$|. This approach therefore scales quadratically with the number of nodes in the graph and therefore does not generalize well to larger datasets. 
 
 \textbf{LP - } Following the idea of the GKDE baseline, we propose similar Dirichlet estimates by relying on Label Propagation which achieve strong results in Left-Out classes experiments. GKDE extracts Dirichlet evidence scores by relying on node distances. We propose taking the density of labeled nodes in neighborhoods instead. To this end, we define one initial conditional density per class $\rho_0(u \condition c)$ and diffuse them with Personalized Page Rank i.e.
-\begin{equation}
+\begin{align*}
 \rho_0(u \condition c) = 
 \begin{cases}
 0 & u \in \sU \\
 \frac{1}{|\sL_c|} \cdot \delta_{y^{(u)}, c} & u \in \sL
 \end{cases} \rightarrow \rho(v \condition c) = \sum_u \pprelem_{v, u}\cdot \rho_0(u \condition c)
-\end{equation}
+\end{align*}
 where $\sL_c$ is the set of labeled nodes for class $c$. The diffused density $\rho(v \condition c)$ is still a valid density i.e. $\sum_c \sum_u \rho(u\mid c) = \sum_c \sum_u \rho_0(u\mid c) = 1$. Finally, we use this diffused conditional densities to obtain Dirichlet evidence scores in a similar fashion to the GKDE kernel \citep{Zhao2020}, i.e. $\alpha_c^{(v)} = 1.0 + \rho(v\mid c)$. The diffusion is performed with power-iteration similar to APPNP \citep{Klicpera2018}. We use a teleport probability of $\tau=0.1$ and $K=10$ power iteration steps.
 
 \textbf{Gaussian Processes - } We use the official implementations for \textbf{MaternGGP} \citep{Borovitskiy2020} and the re-implementation\footnote{https://github.com/FelixOpolka/GGP-TF2} for \textbf{GGP} \citep{Ng2018}. The re-implementation transfers the official implementation to Tensorflow 2.0 \citep{tensorflow} which we wrapped in our Pytorch pipeline. Since those approaches do not scale well to large real-world datasets, we restrict to a single random initialization. GGP only finished the experiments on CoraML and CiteSeer. Similarly, MaternGGP did not finished the experiments on OGBN Arxiv. For recall, we set the memory an time limits to 64 GiB and 12 hours per run. For comparison, note that all GNN-based models require significantly less memory and finished \emph{all} runs in a couple of hours.

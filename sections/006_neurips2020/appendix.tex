@@ -39,7 +39,10 @@ The epistemic distribution in \PostNetacro is a Dirichlet distribution Dir$(\bm{
 \text{Var}_{\vect{p}\sim \Dir(\boldsymbol{\alpha}\dataix)}(p_\iclass) & = \frac{\alpha_\iclass (\alpha_0 - \alpha_\iclass)}{\alpha_0^2 (\alpha_0 + 1)}; \; \text{Cov}_{\vect{p}\sim \Dir(\boldsymbol{\alpha}\dataix)}(p_\iclass, p_{\iclass'}) & = \frac{-\alpha_\iclass\alpha_{\iclass'}}{\alpha_0^2 (\alpha_0 + 1)}
 \end{aligned}
 \end{equation}
-For in-distribution data (i.e. $\prob(\latent\dataix; \phi) \rightarrow \infty$), we have $\text{Var}_{\vect{p}\sim \Dir(\boldsymbol{\alpha}\dataix)}(p_\iclass) = \mathcal{O}\left(\frac{\prob(\iclass | \latent\dataix; \phi)(1-\prob(\iclass | \latent\dataix; \phi))}{\prob(\latent\dataix; \phi) N}\right)$ and $\text{Cov}_{\vect{p}\sim \Dir(\boldsymbol{\alpha}\dataix)}(p_\iclass, p_{\iclass'}) = \mathcal{O}\left(\frac{-\prob(\iclass | \latent\dataix; \phi)\prob(\iclass' | \latent\dataix; \phi)}{\prob(\latent\dataix; \phi)N}\right)$. Hence both terms converge to $0$ when $\prob(\latent\dataix; \phi) \rightarrow \infty$.
+For in-distribution data (i.e. $\prob(\latent\dataix; \phi) \rightarrow \infty$), we have 
+$$\text{Var}_{\vect{p}\sim \Dir(\boldsymbol{\alpha}\dataix)}(p_\iclass) = \mathcal{O}\left(\frac{\prob(\iclass | \latent\dataix; \phi)(1-\prob(\iclass | \latent\dataix; \phi))}{\prob(\latent\dataix; \phi) N}\right)$$
+$$\text{Cov}_{\vect{p}\sim \Dir(\boldsymbol{\alpha}\dataix)}(p_\iclass, p_{\iclass'}) = \mathcal{O}\left(\frac{-\prob(\iclass | \latent\dataix; \phi)\prob(\iclass' | \latent\dataix; \phi)}{\prob(\latent\dataix; \phi)N}\right)$$. 
+Hence both terms converge to $0$ when $\prob(\latent\dataix; \phi) \rightarrow \infty$.
 
 \section{Model details}
 \label{model_detais}
