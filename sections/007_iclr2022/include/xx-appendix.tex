@@ -304,6 +304,7 @@ We train all models using $5$ seeds except for the large NYU dataset where we us
 \paragraph{Inference Time Metric.} We measure inference time of models in ms and used NVIDIA GTX 1080 Ti GPUs. We evaluate the inference for one classification dataset (CIFAR-10) and one regression dataset (NYU Depth v2). For evaluation, we use a randomly initialized model and simply push random data through the model with batch size of 4,096 CIFAR10 and batch size of 4 for NYU Depth v2. The final numbers are averaged over 100 batches excluding the first batch due to GPU initialization. Compared models shared the same backbone architecture.
 
 \section{Additional Experiments}
+\label{app:additional_experiments_007}
 
 \subsection{MNIST, Fashion MNIST, CIFAR10 and Bike Sharing results}
 

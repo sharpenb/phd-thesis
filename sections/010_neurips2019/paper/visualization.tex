@@ -2,7 +2,7 @@
 
 \textit{Set-up:} We use two toy datasets where the probability of an event depends only on time. The first one (\textbf{3-G}) has three classes occuring at three distinct times. It represents the events in the \cref{fig:car_categorical}. The second one (\textbf{Multi-G}) consists of two classes where one of them has two modes and corresponds to the \cref{fig:kitchen_categorical}. We use these datasets to showcase the importance of time when predicting the next event. In \cref{fig:visualization}, the four top plots show the evolution of the categorical distribution for the \DirModel and the logits for the \GPModel with $10$ points each. The four bottom plots describe the certainty of the models on the probability prediction by plotting the probability $q_\IndexClass(\DeltaTime)$ that the probability of class $\IndexClass$ is higher than others, as introduced in \cref{sec:model_010}.
 % These values are computed with sampling methods for \DirModel and with a closed-form expression for \GPModel which explains the difference in the smoothness of these curves.
-Additionally, the evolution of the dirichlet distribution over the probability simplex is presented in app.~\ref{dirichlet_triangle_evolution}.
+Additionally, the evolution of the dirichlet distribution over the probability simplex is presented in \cref{dirichlet_triangle_evolution}.
 
 \begin{figure}
 \centering

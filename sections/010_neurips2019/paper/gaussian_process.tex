@@ -54,7 +54,7 @@ To do this we generate an additional weight vector $\smash{\bm{w}^{(\IndexClass)
 %\parskip 0pt
 where $k$ is the same as above. The function $f$ weights the kernel $k$ according to the weigths for $\DeltaTime_1$ and $\DeltaTime_2$.
 We require $f$ to have the following properties: (1) $f$ should be a valid kernel over the weights, since then the function $k'$ is a valid kernel as well; (2) the importance of pseudo points should not increase, giving $f(w_1, w_2) \leq \min(w_1,w_2)$; this fact implies that a point with zero weight will be discarded since $f(w_1, 0)=0$ as desired. The function $f(w_1,w_2)=\min(w_1,w_2)$  is a simple choice that fulfills these properties.
-In \cref{fig:weighted_gaussian_process}  we show the effect of different weights when fitting of a GP (see app.~\ref{gp_min_kernel} for a more detailed discussion of the behavior of the $\min$ kernel).
+In \cref{fig:weighted_gaussian_process}  we show the effect of different weights when fitting of a GP (see \cref{gp_min_kernel} for a more detailed discussion of the behavior of the $\min$ kernel).
 %\parskip 5pt
 To predict $\mu$ and $\sigma^2$ for a new time $\DeltaTime$, we can now simply apply \cref{eq:gp_prediction} based on the new kernel $k'$, where the weight for the \textit{query} point $\DeltaTime$ is $1$.
 

@@ -3,13 +3,13 @@
 
 Artificial Intelligence (AI) consists in the intelligence demonstrated by machines in contrast with intelligence demonstrated by humans or animals.
 AI includes both Machine Learning (ML) which consists in the study of computer programs which automatically learn from experience \citep{Mitchell97}, and Deep Learning (DL) which is a subfield of ML and can be defined as models which hierarchically learn complex representations based on simpler ones \citep{GoodBengCour16}.
-AI is a very important technology with high potential economical and ethical impact. 
+AI is a very important technology with high potential \emph{economical} and \emph{ethical} impacts. 
 
 Economically, AI has a high momentum. Indeed, 48\% of companies claim that they use AI \cite{ai-market-oreilly} and 83\% companies have AI is their priority \cite{ai-market-forbes}. Overall, the market value of AI is \$136 billion in 2022 \cite{ai-market} and had a Compound Annual Growth Rate (CAGR) of 38.5\% between 2022-2030 \cite{ai-market}, thus indicating a very fast growth.
-Hence, AI founds many applications in science and industry. 
-Industry applications include e.g. agriculture (e.g. Cropin, Iron Ox, FarmWise), manufacturing (e.g. Exotec, Bright Machines, Fieldbox), automotive industry (e.g. Tesla, Waymo), medicine (e.g. Exscientia, Valence Discovery, Radium), construction (Procore Technologies, OpenSpace), finance (e.g. Affirm, Kreditech, Kayrros), education (e.g. Duolingo, Age of Learning), or even for art (e.g. Bytedance, OpenAI).
+Hence, AI finds many applications in industry and science. 
+Industry applications include e.g. agriculture (e.g. Cropin, Iron Ox, FarmWise), manufacturing (e.g. Exotec, Bright Machines, Fieldbox), automotive industry (e.g. Tesla, Waymo), medicine (e.g. Exscientia, Valence Discovery, Radium), construction (Procore Technologies, OpenSpace), finance (e.g. Affirm, Kreditech, Kayrros), education (e.g. Duolingo, Age of Learning), or even AI for art (e.g. Bytedance, OpenAI).
 Scientific applications include e.g. physics (e.g. \cite{gao2022abinitio}), chemistry (e.g. \cite{huang2021abinitio}), biology (e.g. \cite{hetzel2022predicting}), or even math (e.g. \cite{cobbe2021math}).
-Hence, AI have shown to be applicable in various data types (e.g. images, tabular, text, graphs) and at various scales from very small (e.g. molecules) to very large systems (e.g. social networks).
+In all these applications, AI have shown to be applicable for various data types (e.g. images, tabular, text, graphs) and at various scales from very small (e.g. molecules) to very large systems (e.g. social networks).
 
 Ethically, AI systems demonstrate multiple important concerns.
 It does not guarantee a safe behavior and can create accidents \cite{amodei2019problems}.
@@ -18,11 +18,11 @@ It might be racist and discriminate minorities \cite{mehrabi2019fairness}.
 It can partially replace human jobs by stealing human creations which leaves the question of intellectual property unclear \cite{moerland2022intellectual, gervais2020intellectual}.
 Finally, it might have goals which are not aligned with human goals. This is particularly problematic when AI systems achieve a super-intelligence \cite{bostrom2014superintelligence} which is realistic in many task where AI systems are already better than humans \cite{firestone2020performance}.
 
-The fast AI economic growth and the multiple AI ethical concerns urge the development of reliable AI models which is the main subject of this thesis.
+Hence, the fast AI economic growth and the multiple AI ethical concerns urge the development of reliable AI models which is the main subject of this thesis.
 
 \section{Why do we need uncertainty ?}
 
-Uncertainty estimation (a.k.a. uncertainty quantification) consists in evaluating the confidence of models in their predictions. This task is crucial for both practical and theoretical reasons summarized in \cref{fig:uncertainty_reasons}.
+\emph{Uncertainty estimation} (a.k.a. uncertainty quantification) consists in evaluating the confidence of models in their predictions. This task is crucial for both \emph{practical} and \emph{theoretical} reasons summarized in \cref{fig:uncertainty_reasons}.
 
 \begin{figure}[ht!]
     \centering
@@ -35,21 +35,21 @@ Uncertainty estimation (a.k.a. uncertainty quantification) consists in evaluatin
 	% \vspace{-.5cm}
 \end{figure}
 
-\paragraph*{Practical reasons.} The Dunning-Kruger effect \cite{dunning-kruger} describes a psychological cognitive bias in which people lacking knowledge in a particular domain overestimate their abilities. Interestingly, this phenomenon also applies to machine learning models. Traditional neural networks show overconfident predictions, in particular on data that is different from the data seen during training \cite{overconfident-relu}. The illusion of knowledge of machine learning models highly impacts the reliability of such  models  in  safety-critical  domains.
+\paragraph*{Practical reasons.} The Dunning-Kruger effect \cite{dunning-kruger} describes a psychological cognitive bias in which people lacking knowledge in a particular domain overestimate their abilities. Interestingly, a similar phenomenon also applies to machine learning models. Traditional neural networks show overconfident predictions, in particular on data that is different from the data utilized during training \cite{overconfident-relu}. The illusion of knowledge of machine learning models highly impacts the reliability of such  models  in  safety-critical  domains.
 First, it affects the \emph{trust} in ML model predictions. Ideally, we expect ML models to be confident when predicting correctly and uncertain when predicting wrongly. 
 Second, it affects the \emph{safety} of ML predictions in unfamiliar situations. Ideally, we expect ML models to flag predictions on unknown domains corresponding to anomaly detection.
 Third, it affects the \emph{maintenance} of ML models. Ideally, we expect ML models to become more uncertain when the testing data has drifted away from the training data, thus indicating the need of retraining the model. This is particularly important in application where ML models need to explore and learn all life-long.
-Finally, it affects the \emph{fairness} of ML models. Ideally, we expect ML models to provide calibrated predictions on all input regions including underrepresented data.
+And finally, it affects the \emph{fairness} of ML models. Ideally, we expect ML models to provide calibrated predictions on all input regions including underrepresented data.
 
 \paragraph*{Theoretical reasons.} ML models aim at precisely representing the flow of information in the world which is inherently uncertain.
-The world is \emph{non-deterministic at a large scale}. Indeed, uncertainty emerges when small individual events contribute to macro phenomena like GDP growth, micro phenomena like the growth rate of firms, and non-economic events like war and climate change \cite{macro-micro-uncertainty}.
-The world is \emph{non-deterministic at a small scale}. Indeed, the uncertainty principle in (quantum) physics implies that it is in general not possible to predict the value of a particle quantity (like position and speed) with arbitrary certainty, even if all initial conditions are specified \cite{hilgevoord2016heisenberg}.
-The world is only \emph{partially observable}. Indeed, agents like humans or robots have to deal with incomplete information on the environment in which they evolve \cite{kaelbling1998pomdp}. At the extreme, since the speed of information is limited by the speed of light, accessible information is restricted to the observable world, thus making the world inherently uncertainty for any agent \cite{ord2021universe}.
+First, the world is \emph{non-deterministic at a large scale}. Indeed, uncertainty emerges when small individual events contribute to macro phenomena like GDP growth, micro phenomena like the growth rate of firms, and non-economic events like war and climate change \cite{macro-micro-uncertainty}.
+Second, the world is \emph{non-deterministic at a small scale}. A prominent evidence of this is the uncertainty principle in (quantum) physics. Indeed, the uncertainty principle implies that it is in general not possible to predict the value of a particle quantity (like position and speed) with arbitrary certainty, even if all initial conditions are specified \cite{hilgevoord2016heisenberg}.
+Eventually, the world is also only \emph{partially observable}. On one hand, any agent (e.g. human or robot) has to deal with incomplete information on the environment in which it evolves \cite{kaelbling1998pomdp}. Indeed, its available information is limited by its internal sensors which cannot capture any signal type at any resolution. On the other hand, the accessible information is restricted to the observable world which is, at the extreme, limited by the speed of light \cite{ord2021universe}, thus making the world inherently uncertain for any agent (even if it is equipped with perfect sensors).
 
 \paragraph*{} All these reasons underline the need of accurate uncertainty estimation methods in ML. 
 Specifically, a reliable ML model should provide high-quality estimates of \emph{aleatoric} and \emph{epistemic} uncertainty \citep{uncertainty-deep-learning}.
 The aleatoric uncertainty allows a model to account for the irreducible data uncertainty (e.g. the inherent sensor noise, or the inherent environment stochasticity).
-The epistemic uncertainty allows a model to account for its lack of knowledge about unseen data regions (e.g. testing data differs significantly from training data). \bc{Add figure for aleatoric and epistemic uncertainty?}
+The epistemic uncertainty allows a model to account for its lack of knowledge about unseen data regions (e.g. testing data differs significantly from training data).
 Aleatoric and epistemic uncertainty levels can eventually be combined into an overall \emph{predictive} uncertainty \citep{uncertainty-deep-learning}. Hence, this thesis studies the usage of different types of uncertainty for ML methods.
 
 \section{Why do we need independent and non-independent data ?}
@@ -104,8 +104,7 @@ While the training data are assumed to come from the same data distribution, the
 Indeed, the testing data might come from the \emph{In-Distribution (ID)} similar to the training data, or a \emph{Out-Of-Distribution (OOD)} which could be any distribution different from the training distribution \cite{ood-detection-survey, shen2021ood}.
 This scenario frequently happens in \emph{safety} and \emph{maintenance} use-cases where the data distribution observed by the model continuously drifts at testing time. 
 
-Hence, this thesis acknowledges the limitation of the standard \emph{independent and identically distributed (i.i.d.)} assumptions.
-To this end, this thesis studies the application of uncertainty estimation to independent and non-independent data.
+Hence, this thesis acknowledges the limitation of the standard \emph{independent and identically distributed (i.i.d.)} assumptions by studying the application of uncertainty estimation to independent and non-independent data.
 
 \section{Contributions and outline}
 
@@ -116,7 +115,7 @@ This thesis studies the application of uncertainty estimation for independent an
     \item Practical \emph{experimental setup} evaluating uncertainty estimation in real-world applications including worst-case scenarios.
 \end{itemize} 
 
-To this end, we start by establishing the background knowledge about uncertainty estimation in \cref{chap:background}.
+In \cref{chap:background}, we start by establishing the background knowledge about uncertainty estimation.
 
 In \cref{part:independent_data}, we present a study of uncertainty estimation for \emph{independent data}: 
 In \cref{chap:classification}, we construct a new Bayesian model for uncertainty estimation for classification called \PostNet{} (\PostNetacro{}). \PostNetacro{} requires a \emph{single-forward pass}, does need \emph{no OOD data during training}, and adapt to \emph{many core architectures}.
@@ -124,7 +123,7 @@ In \cref{chap:regression}, we construct a new Bayesian model for uncertainty est
 In \cref{chap:robustness}, we present the first study of the robustness of uncertainty models in the worst-case scenario of adversarial attacks. We show that uncertainty estimates of an important family of single-forward pass models are \emph{not robust} for many important real-world tasks (incl. correct/wrong prediction detection, adversarial examples detection, and ID/OOD detection). Further, we explore first approaches methods to improve uncertainty robustness by using \emph{adversarial training} and \emph{randomized smoothing}. 
 
 In \cref{part:non_independent_data}, we present a study of uncertainty estimation for \emph{non-independent data}:
-In \cref{chap:graph_data}, we present the first framework for uncertainty estimation for node classification on graph data. This framework proposes explicit desiderata, a new Bayesian model, and an exhaustive evaluation setup which cover aleatoric and epistemic uncertainty estimation \emph{without} and \emph{with network effects}.
+In \cref{chap:graph_data}, we present the first framework for uncertainty estimation for node classification on graph data. This framework proposes explicit desiderata, a new Bayesian model, and an exhaustive evaluation setup which covers aleatoric and epistemic uncertainty estimation \emph{without} and \emph{with network effects}.
 In \cref{chap:sequential_data}, we present new models for uncertainty estimation in sequential data with asynchronous time events. The two proposed models are able of accurate \emph{event types} and \emph{event time} predictions while capturing \emph{uncertainty with rich temporal evolution}.
 In \cref{chap:reinforcement_learning}, we present the first framework to disentangle aleatoric and epistemic uncertainty estimation in reinforcement learning. This framework proposes explicit desiderata, four models inspired from supervised learning, and a detailed experimental setup which cover aleatoric and epistemic uncertainty estimation at both \emph{training time} and \emph{testing time}.
 
@@ -151,7 +150,7 @@ In \cref{part:conclusion}, we present a retrospective on the evolution of the re
 \section{Own publications}
 
 The content of Chapters \ref{chap:classification} to \ref{chap:reinforcement_learning} is mostly based on papers previously published at international peer-reviewed conferences. We list these papers in Table~\ref{tab:publications}.
-We also provide the full list of publications that the author was involved in during the PhD studies below. These publications focus on three main topics: \emph{uncertainty estimation} (incl. bayesian models, energy-based models and robustness), \emph{structure learning} (incl. hierarchical and directed acyclic graphs), and \emph{efficient ML} (incl. pruning methods and sparse neural networks).
+We also provide the full list of publications that the author was involved in during the PhD studies below. These publications focus on three main topics: \emph{uncertainty estimation} including Bayesian models, energy-based models and robustness \citep{charpentier2020,NatPN2021,robustness-uncertainty-dirichlet,graph-postnet,uceloss,charpentier2022uncertainty-rl,ood_ebm,ayle2022robustness-sparse}, \emph{structure learning} including hierarchical and directed acyclic graphs \cite{charpentier2022dpdag,charpentier2019tsd,zugner2022endtoend,bonald2020scikitnetwork}, and \emph{efficient ML} including pruning methods and sparse neural networks \cite{rachwan2022earlycrop,ayle2022robustness}.
 
 \renewcommand{\bibsection}{}
 \input{sections/own_publications/own_publications.bbl}

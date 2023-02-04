@@ -25,7 +25,7 @@ $\mathcal{L}=\sum_\IndexEvent \E_{\bm{p}_{\IndexEvent} \sim P_{\IndexEvent}(\the
 \mathcal{L}_\IndexEvent^{\text{UCE}} = \E_{\bm{p}_\IndexEvent(\DeltaTime_\IndexEvent^*) \sim \textbf{Dir}(\bm{\alpha}(\DeltaTime_\IndexEvent^*))}[\log p_{\IndexClass_\IndexEvent}(\DeltaTime_\IndexEvent^*)] = \Psi(\alpha_{\IndexClass_\IndexEvent}(\DeltaTime_\IndexEvent^*)) - \Psi(\alpha_0(\DeltaTime_\IndexEvent^*))
 \end{equation}
 where $\Psi$ denotes the digamma function and $\alpha_0(\DeltaTime_\IndexEvent^*) = \sum_\IndexClass^\NbClasses \alpha_\IndexClass(\DeltaTime_\IndexEvent^*)$.
-\textit{(2) Loss approximation for GP.} For \GPModel, we approximate $ \mathcal{L}_\IndexEvent^{\text{UCE}}$ based on second order series expansion (app.~\ref{loss_closed_form_proof}):
+\textit{(2) Loss approximation for GP.} For \GPModel, we approximate $ \mathcal{L}_\IndexEvent^{\text{UCE}}$ based on second order series expansion (\cref{loss_closed_form_proof}):
 \small
 \begin{equation} \label{eq:gp_loss}
     \mathcal{L}_\IndexEvent^{\text{UCE}}
