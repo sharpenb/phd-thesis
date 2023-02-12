@@ -10,10 +10,11 @@ Economically, AI has a high momentum. Indeed, 48\% of companies claim that they 
 Hence, AI finds many applications in industry and science. 
 Industry applications include e.g. agriculture (e.g. Cropin, Iron Ox, FarmWise), manufacturing (e.g. Exotec, Bright Machines, Fieldbox), automotive industry (e.g. Tesla, Waymo), medicine (e.g. Exscientia, Valence Discovery, Radium), construction (Procore Technologies, OpenSpace), finance (e.g. Affirm, Kreditech, Kayrros), education (e.g. Duolingo, Age of Learning), or even AI for art (e.g. Bytedance, OpenAI).
 Scientific applications include e.g. physics (e.g. \cite{gao2022abinitio}), chemistry (e.g. \cite{huang2021abinitio}), biology (e.g. \cite{hetzel2022predicting}), or even math (e.g. \cite{cobbe2021math}).
-In all these applications, AI have shown to be applicable with various data types (e.g. images, tabular, text, graphs) and at various scales from very small (e.g. molecules) to very large systems (e.g. social networks).
+In all these applications, AI have shown to be applicable with various data types (e.g. images, tabular, text, graphs) and at various scales from very small (e.g. quantum systems or molecules) to very large systems (e.g. social networks or climate).
 
 Ethically, AI systems raises multiple major concerns \cite{bartneck2021ethic}.
 It does not guarantee a safe behavior and can create accidents \cite{amodei2019problems}.
+It can generate fake data, thus potentially to fake news \cite{nguyen2022deepfakes}.
 It does not provide clear explanations for its predictions or provide unreliable explanations \cite{overview-interpretable-ml,interpretable-ml, krishnan2020against}.
 It can be racist and discriminate minorities, e.g., due to biased data or manipulation of learning by users \cite{mehrabi2019fairness}.
 It can partially replace human jobs by stealing human creations which leaves the question of intellectual property unclear \cite{moerland2022intellectual, gervais2020intellectual}.
@@ -23,7 +24,7 @@ Finally, it might have goals which are not aligned with human goals. This turns 
 
 Hence, the fast AI economic growth and the multiple AI ethical concerns urge the development of reliable AI models which is the main subject of this thesis.
 
-\section{Why do we need uncertainty ?}
+\section{Why do we need uncertainty estimation?}
 
 \emph{Uncertainty estimation} (a.k.a. \emph{uncertainty quantification}) consists in evaluating the confidence of models in their predictions. This task is crucial for both \emph{practical} and \emph{theoretical} reasons summarized in \cref{fig:uncertainty_reasons}.
 
@@ -115,7 +116,7 @@ Hence, this thesis acknowledges the limitation of the standard \emph{independent
 This thesis studies the application of uncertainty estimation for independent and non-independent data via three main components:
 \begin{itemize}
     \item Explicit \emph{desiderata} capturing the desired behavior of uncertainty estimation.
-    \item Accurate and efficient \emph{models} for uncertainty estimation.
+    \item Accurate and efficient \emph{models} for uncertainty estimation with low practical overhead.
     \item Practical \emph{experimental setup} evaluating uncertainty estimation in real-world applications including worst-case scenarios.
 \end{itemize} 
 

@@ -1,7 +1,7 @@
 \chapter{Retrospective}
 \label{chap:retrospective}
 
-In this section we do a retrospective on the previous chapters by discussing the limitations and the related works published a posteriori.
+In this section, we provide a retrospective on the \cref{chap:classification,chap:regression,chap:robustness,chap:graph_data,chap:sequential_data,chap:reinforcement_learning} since their publications by discussing potential improvements and the related works published a posteriori.
 
 \section{Uncertainty estimation for classification and regression} 
 
@@ -9,7 +9,7 @@ In this section we do a retrospective on the previous chapters by discussing the
 
 \paragraph{Recent related works.} Recently, the approaches presented in this thesis have been  at the core of a survey on evidential deep learning \cite{survey_evidential_uncertainty} and implemented in google uncertainty benchmark \cite{nado2021uncertainty}. Similar to our approach, other works have also subsequently explored Bayesian neural networks which are not fully stochastic \cite{bnnfullystochastic2022sharma} and uncertainty estimation methods with density estimation \cite{du2022vos, postels2020hiddenuncertainty, uncertainty-generative-classifier}. Some other works explored efficient uncertainty estimation by proposing to train a single larger network \cite{abe2022deep}, an ensemble of subnetworks \cite{mimo-independent-subnetworks}, training energy-based models \cite{ood_ebm}, or pruning neural networks \cite{ayle2022robustness-sparse}. Further, multiple methods proposed to use conformal predictions to provide uncertainty estimates for any trained model by using an additional calibration set \cite{conformal-survey, Park2020PAC}. Finally, other recent works \cite{minderer2021revisiting, tran2022plex} had a close look at the evaluation of uncertainty estimation for modern and large pretrained models.
 
-\paragraph{Current Field status.} We believe that the field of uncertainty estimation for classification and regression is very active and has solved many issues concerning the flexibility, the efficiency, and the scalability of uncertainty methods.
+\paragraph{A view on the current field status.} We believe that the field of uncertainty estimation for classification and regression is very active and has solved many issues concerning the flexibility, the efficiency, and the scalability of uncertainty methods.
 
 \section{Robustness of uncertainty estimation} 
 
@@ -17,7 +17,7 @@ In this section we do a retrospective on the previous chapters by discussing the
 
 \paragraph{Recent related works.} Recently, \cite{galil2021disrupting} and \cite{huimin2022attackingOOD} proposed attacks on uncertainty estimations which are very similar to our approach without proposing solutions for robust uncertainty estimation. Only \cite{meinke2021provably} has proposed another method for certifiable uncertainty estimation. On a different direction, \cite{dia2021localizeduncertainty} proposed to use input uncertainty to design less perceptible adversarial attacks. Finally, \cite{alarab2021attackucertainty} proposed to provide uncertainty estimates based on adversarial attacks.
 
-\paragraph{Current Field status.} We believe that the field of adversarial robustness for uncertainty estimation has achieved fast progress regarding the uncertainty attacks. Nonetheless, it is still a very new field and adversarial robustness of uncertainty estimates is still unsolved. 
+\paragraph{A view on the current field status.} We believe that the field of adversarial robustness for uncertainty estimation has achieved fast progress regarding the uncertainty attacks. Nonetheless, it is still a very new field and adversarial robustness of uncertainty estimates is still unsolved. 
 
 \section{Uncertainty for graph data.}
 
@@ -26,7 +26,7 @@ In this section we do a retrospective on the previous chapters by discussing the
 
 \paragraph{Recent related works.} Recent works \cite{texeira2019GNNmiscalibrated, hsu2022GNNmiscalibrated, wang2021confident} had a deeper focused on calibration for GNNs. They observed that GNNs are miscalibrated and can be recalibrated temperature rescaling. Other works \cite{zhou2022OODlink, hsu2022structure} have extended our approach by proposing uncertainty on edges for calibration and OOD detection. Finally, other approaches \cite{soleimany2021evidential} focused on uncertainty estimation for graph-level tasks like molecular property prediction.
 
-\paragraph{Current Field status.} Even if this topic is still very recent, We believe that the field of uncertainty estimation for graph is evolving fast with many new models and evaluations for uncertainty estimation at node level, edge level, and graph level. 
+\paragraph{A view on the current field status.} Even if this topic is still very recent, We believe that the field of uncertainty estimation for graph is evolving fast with many new models and evaluations for uncertainty estimation at node level, edge level, and graph level. 
 
 \section{Uncertainty for sequential data.}
 
@@ -34,7 +34,7 @@ In this section we do a retrospective on the previous chapters by discussing the
 
 \paragraph{Recent related works.} Beyond sequential data with time events, other works have recently looked at uncertainty estimation for sequential data with text. For example, \cite{malinin2021uncertainty} models uncertainty at token and sequence level with applications to translation datasets. Further, \cite{he2020toward, hu2021uncertainty} proposed uncertainty methods for text classification.
 
-\paragraph{Current Field status.} We believe that the field of uncertainty estimation for sequential data has achieved fast progress for both time event data and text data. Nonetheless, the emergence of powerful large language models have demonstrated unreliable behaviors which urges further development of uncertainty methods. 
+\paragraph{A view on the current field status.} We believe that the field of uncertainty estimation for sequential data has achieved fast progress for both time event data and text data. Nonetheless, the emergence of powerful large language models have demonstrated unreliable behaviors which urges further development of uncertainty methods. 
 
 \section{Uncertainty for reinforcement learning.}
 
@@ -42,4 +42,4 @@ In this section we do a retrospective on the previous chapters by discussing the
 
 \paragraph{Recent related works.} Recently, \cite{tennenholtz2022plan} and \cite{wu2022plan} proposed a new uncertainty methods for model-based RL. Similar to our approach, another work \cite{liu2022uncertaintyaware} used aleatoric and epistemic uncertainty with density estimation  in RL for player evaluation in games. Finally, another work \cite{luo2022distributional} developed other method for distributional RL.
 
-\paragraph{Current Field status.} We believe that although uncertainty estimation for RL has already a long history, the benefit of uncertainty estimation in RL is still under-explored without well-established desiderata and large-scale benchmarks.
+\paragraph{A view on the current field status.} We believe that although uncertainty estimation for RL has already a long history, the benefit of uncertainty estimation in RL is still under-explored without well-established desiderata and large-scale benchmarks.
