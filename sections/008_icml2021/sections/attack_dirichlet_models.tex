@@ -27,7 +27,7 @@ Experiments are performed on two image data sets (MNIST \citep{mnist} and CIFAR1
 Label attacks aim at changing the predicted class. To obtain a perturbed input with a different label, we maximize the cross-entropy loss $\tilde{\x}\dataix \approx \arg\max_{\x} l(\x) = \text{CE}(\vp\dataix, \vy\dataix)$ under the radius constraint. For the sake of completeness we additionally analyze label attacks w.r.t. to their performance of changing the class prediction and the accuracy of the neural network under label attacks constraint by different radii (see Appendix, \cref{tab:acc_label_attack}). As expected and partially shown by previous works, none of the DBU models is robust against label attacks. %, neither on the image data sets nor on the tabular data sets.
 However, we note that \PriorNet is slightly more robust than the other DBU models. This might be explained by the use of OOD data during training, which can be seen as some kind of robust training. 
 %
-From now on, we switch to the core focus of this work and analyze robustness properties of uncertainty estimation. 
+From now on, we switch to the core focus of this chapter and analyze robustness properties of uncertainty estimation. 
 
 
 
