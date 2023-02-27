@@ -72,7 +72,7 @@ where $\bm{\theta}$ denote the direct parameters of the distribution over the ta
 \subsection{Aleatoric, Epistemic \& Predictive Uncertainty}
 
 The Bayesian formula in \cref{eq:posterior_predictive} involves three types of distribution (i.e. $\prob(\y \condition \bm{\theta})$, $\prior(\bm{\theta} \condition \data)$, and $\prob(\y \condition \data)$) which cover the three main sources of uncertainty (i.e. aleatoric, epistemic, and predictive).
-In practice, each uncertainty type can be measured by computing the spread of its respective distribution with the (differential) entropy which represented its variability, i.e.:
+In practice, each uncertainty type can be measured by computing the spread of its respective distribution with the (differential) entropy which represented its variability, i.e. \citep{PriorNetworks,uncertainty-deep-learning}:
 \begin{align}
      u_\text{alea} = \entropy[\prob(\y \condition \bm{\theta})], \hspace{4mm}
      u_\text{epist} = \entropy[\prior(\bm{\theta} \condition \data)], \hspace{4mm}
@@ -130,6 +130,55 @@ In this section, we review important family of models for uncertainty estimation
     \label{fig:overview_methods}
 	% \vspace{-.5cm}
 \end{figure}
+
+% Make more detailed description of method types
+% - Ensembles
+% - Monte Carlo Dropout
+%% - Markov Chain Monte Carlo (incl. Gibbs, Metropolis-Hasting, Hamiltonian)
+%% - Variational Inference
+%% - Laplace approximation
+% - Gaussian process
+% - Evidential
+% - Calibration
+% - Conformal predictions
+% - Energy-based models
+%% - Density-based models
+%% - Distance-based models
+
+% Add a table with useful existing implementations/packages of those methods
+
+\paragraph*{Ensembles.} This family of methods consists in combining the predictions of an ensemble of multiple models $f_{\bm{\phi}_1},\cdot, f_{\bm{\phi}_K}$ by using stacking, bagging, boosting, Bayesian averaging or other Bayesian combinations \citep{bayesian-averaging-to-combination}. The variance of the different model predictions can be viewed as uncertainty estimates. These uncertainty estimates can be considered Bayesian where the member weights are sampled from the posterior weight distribution, i.e. $\bm{\phi}_k \sim \prior(\bm{\phi} \condition \data)$. The ensembles can be \emph{homogeneous ensembles}, i.e. the models share the same architecture, be \emph{heterogeneous ensembles}, i.e. the models have different architectures, or \emph{implicit ensembles}, i.e. a single model approximated ensembles parameter sampling \citep{abe2022deep}. Further, the different models can be trained sequentially (see e.g. \citep{schapire2013explaining, chenG16xgboost}) or independently (see e.g. \citep{ensembles}).
+%
+Ensembles are considered as strong baselines in terms of uncertainty estimation and predictive performances \citep{dataset-shift}. Ensemble also benefit from a simple implementation \citep{ensembles}.
+%
+Ensembles are often considered to be expensive as they require multiple forward passes. Many approaches \citep{batch-ensembles,mimo-independent-subnetworks} proposed to make faster ensembles. Further, while ensembles improve predictive performance, this performance gain can actually be replicated through the use of (larger) single models \citep{abe2022deep}.
+
+\paragraph*{Variational Inference.} This family of methods consists in approximating the (generally intractable) posterior distribution with a variational distribution belonging to a tractable family of distributions \cite{blei2017vi}. The approximate posterior distribution is often optimized using an Evidence Lower Bound (ELBO) loss. Many methods (see e.g. \cite{practical-bnn,bayesian-networks,practical_deep_bayesian_principles}) are interested in the posterior distribution over the model weights, i.e. $\prior(\bm{\phi} \condition \data)$ where $\bm{\phi}$ are the model weights. These methods generally needs to trade off the expressivity of the posterior distribution with computational complexity. To approximate the posterior distribution over the high dimensional weights, many works proposed to use techniques like mean-field approximations \citep{practical-bnn,bayesian-networks,practical_deep_bayesian_principles}, normalizing flows \cite{radialflow,Louizos2017}, or matrix decomposition with low rank or Kronecker products \cite{mishkin2018slang,bae2018eigen,zhang2017noisy}. In contrast with methods which are interested in posterior distributions $\prior(\bm{\phi} \condition \data)$ over model weights $\bm{\phi}$, we present in this thesis variational methods which approximate the posterior distribution $\prior(\bm{\theta} \condition \data, \x)$ over the target distribution parameters $\bm{\theta}$ (see \cref{chap:classification,chap:regression}).
+
+\paragraph*{Monte Carlo Dropout.} Monte Carlo (MC) dropout consists in randomly dropping neurons to form different models $f_{\bm{\phi}_1},\cdot, f_{\bm{\phi}_K}$ and combine their predictions \citep{dropout} at both training and testing time. This approach can be considered as an ensemble of implicit models \citep{abe2022deep} but also as performing variational inference \citep{dropout}. Hence, similarly to ensembles, the variance of the predictions can be viewed as Bayesian uncertainty estimates the member weights are sampled from the posterior weight distribution, i.e. $\bm{\phi}_k \sim \prior(\bm{\phi} \condition \data)$.. Many works extended this approach for e.g. convolutional layers \citep{tassi2020bayesian} or dropping connection instead of activations \citep{wan2013dropconnect}.
+
+\paragraph*{Markov Chain Monte Carlo.} Markov Chain Monte Carlo (MCMC) methods, consists in building a Markov Chain which will converge to samples from the posterior distribution. A key example is the Metropolis-Hastings algorithm which iteratively draw a sample from a transition rule and then decide to accept or reject it \cite{robert2015metropolis}. Many works focus on sampling from the approximate posterior distribution $\prior(\bm{\phi} \condition \data)$ over model weights $\bm{\phi}$ (see e.g. \citep{duane1987hybrid,welling2011langevin}). In this case, the Markov Chain builds a sequence $\bm{\phi},\cdot,\bm{\phi}_t$ by following e.g. Hamiltonian dynamics \citep{duane1987hybrid} or Stochastic Gradient Langevin Dynamics \cite{welling2011langevin,garriga-alonso2021exact,ma2015mcmc} which converge to sample from the posterior distribution, i.e. $\bm{\phi}_t \sim \prior(\bm{\phi} \condition \data)$ when $t \rightarrow \infty$. On one hand, while full batch MCMC has managed to scale to modern tasks and models, they often come at a heavy computational cost \citep{what-bnn-posterior}. On the other hand, while stochastic gradient MCMC improve the computational efficiency \cite{welling2011langevin,garriga-alonso2021exact,ma2015mcmc}, it might introduce bias in the stationary by omitting the Metropolis-Hasting rejection or subsampling the data \citep{betancourt2015data,what-bnn-posterior}.
+
+\paragraph*{Laplace Approximation.} The Laplace approximation consists in approximating the posterior distribution with a Gaussian distribution centered around a mode of the posterior distribution. Many works focus on approximating the posterior distribution $\prior(\bm{\phi} \condition \data)$ over model weights $\bm{\phi}$. In this case the Laplace approximation gives:
+\begin{align*}
+    \prior(\bm{\phi} \condition \data) \approx \DNormal(\bm{\phi}_\text{MAP}, \bm{\Sigma})
+\end{align*}
+where $\bm{\phi}_\text{MAP}$ is the maximum a posteriori estimate, and $\bm{\Sigma}=-(\nabla_{\bm{\phi}}^2 \left.\loss(\data;\bm{\phi})\right|_{\bm{\phi}_\text{MAP}})^{-1}$ is the Laplace approximation of the covariance based on the Hessian of the loss. The posterior distribution can be defined on all model weights, subnetworks \cite{daxberger2021bayesian}, or only the last layer \cite{bayesian-a-bit}. The Hessian computation can be costly and can be approximated using the different techniques like the Fisher information matrix, the generalized Gauss-Newton matrix, diagonal factorization, Kronecker-factored approximate curvature, or low-rank approximation \citep{daxberger2021laplace}. Finally, the computation of the predictive distribution needs further approximation like linearizing the neural network or using Monte-Carlo approximation \citep{daxberger2021laplace}.
+
+\paragraph*{Gaussian Process.}
+
+\paragraph*{Evidential.}
+
+\paragraph*{Calibration.} Temperature scaling
+
+\paragraph*{Conformal Predictions.}
+
+\paragraph*{Energy-based models.}
+
+\paragraph*{Density-based models.} Hidden uncertianty, PostNet
+
+\paragraph*{Distance-based models.} SNGP
+
 
 \subsection{Sampling-based models}
 
