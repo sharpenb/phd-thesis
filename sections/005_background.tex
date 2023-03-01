@@ -3,6 +3,8 @@
 
 \epigraph{Science is the outcome of being prepared to live without certainty and therefore a mark of maturity. It embraces doubt and loose ends.}{\textit{A.C. Grayling}}
 
+In this chapter, we introduce the main background on the content of this thesis. It covers background on the desiderata, models, and experimental setup for uncertainty estimation in Machine Learning. In order to preserve the original storyline of the original publications, we kept the background sections in \cref{chap:classification,chap:regression,chap:robustness,chap:graph_data,chap:sequential_data,chap:reinforcement_learning}. Beyond this chapter, we also recommend existing surveys on uncertainty estimation for further details uncertainty estimation in deep learning \citep{uncertainty-survey,review-uncertainty-dl,psaros2023uncertainty,conformal-survey,hullermeier2021aleatoric}.
+
 \section{Desiderata}
 
 In this section, we review important desiderata for uncertainty estimation. We provide a summary of these desiderata in \cref{tab:overview_desiderata}.
@@ -55,16 +57,19 @@ However, it might be costly to compute the posterior distribution since it requi
 In supervised learning, the goal is to predict the value of a target output variable $\y$ given an input $\x$ after observing a dataset $\data=\{(\x^{(1)}, \y^{(1)}), ..., (\x^{(\ndata)}, \y^{(\ndata)})\}$.
 In this case the posterior predictive requires to be adapted with three main options. The first option is:
 \begin{equation}
+    \label{eq:factorization_1}
     \prob(\y \condition \data, \x) = \int \prob(\y \condition \bm{\phi}, \x) \prior(\bm{\phi} \condition \data) d\bm{\phi}
 \end{equation}
 where $\bm{\phi}$ denote the model parameters. In this case, the parameter distribution $\prior(\bm{\phi} \condition \data)$ is not conditioned on the input $\x$ and only accounts for an uncertainty dependent on the dataset $\data$. Examples of such models are Bayesian neural networks which learn Bayesian distribution $\prior(\bm{\phi} \condition \data)$ where $\bm{\phi}$ denote the model weights \cite{bayesian-networks}.
 The second option is:
 \begin{equation}
+    \label{eq:factorization_2}
     \prob(\y \condition \data, \x) = \int \prob(\y \condition \bm{a}) \prior(\bm{a} \condition \data, \x) d\bm{a}
 \end{equation}
 where $\bm{a}$ denote intermediate representations of $\x$. In this case, the parameter distribution $\prior(\bm{a} \condition \data, \x)$ is conditioned on the new input $\x$ and accounts for an uncertainty dependent on the input $\x$. Examples of such models are Bayesian neural networks which learn Bayesian distribution $\prior(\bm{a} \condition \data, \x)$ where $\bm{a}$ denote the values of the activations \cite{gp-uncertainty-activation,natural-parameter-network}.
 Alternatively, the third option is:
 \begin{equation}
+    \label{eq:factorization_3}
     \prob(\y \condition \data, \x) = \int \prob(\y \condition \bm{\theta}) \prior(\bm{\theta} \condition \data, \x) d\bm{\theta}
 \end{equation}
 where $\bm{\theta}$ denote the direct parameters of the distribution over the target $\y$. In this case, the parameter distribution $\prior(\bm{\theta} \condition \data, \x)$ is conditioned on the new input $\x$ and also accounts for an uncertainty dependent on the input $\x$. Examples of such models are the Bayesian neural networks proposed in this thesis \cite{charpentier2020,natpn, graph-postnet,charpentier2022uncertainty-rl,uceloss} which learn Bayesian distributions $\prior(\bm{\theta} \condition \data, \x)$ where $\bm{\theta}$ denote the parameters of the distribution over the target labels $\y$. In this thesis, we focus on learning  Bayesian distributions on the (generally) low dimensional target parameters $\bm{\theta}$, in contrast to the (generally) high dimensional activation $\bm{a}$ or weights  $\bm{\phi}$, thus advantageously allowing to reduce the approximation complexity.
@@ -139,8 +144,7 @@ In this section, we review important family of models for uncertainty estimation
 %% - Laplace approximation
 % - Gaussian process
 % - Evidential
-% - Calibration
-% - Conformal predictions
+% - Calibration/Conformal predictions
 % - Energy-based models
 %% - Density-based models
 %% - Distance-based models
@@ -165,17 +169,19 @@ Ensembles are often considered to be expensive as they require multiple forward 
 \end{align*}
 where $\bm{\phi}_\text{MAP}$ is the maximum a posteriori estimate, and $\bm{\Sigma}=-(\nabla_{\bm{\phi}}^2 \left.\loss(\data;\bm{\phi})\right|_{\bm{\phi}_\text{MAP}})^{-1}$ is the Laplace approximation of the covariance based on the Hessian of the loss. The posterior distribution can be defined on all model weights, subnetworks \cite{daxberger2021bayesian}, or only the last layer \cite{bayesian-a-bit}. The Hessian computation can be costly and can be approximated using the different techniques like the Fisher information matrix, the generalized Gauss-Newton matrix, diagonal factorization, Kronecker-factored approximate curvature, or low-rank approximation \citep{daxberger2021laplace}. Finally, the computation of the predictive distribution needs further approximation like linearizing the neural network or using Monte-Carlo approximation \citep{daxberger2021laplace}.
 
-\paragraph*{Gaussian Process.}
+\paragraph*{Gaussian Process.} Gaussian Processes (GPs) is a family of Bayesian methods which, given a dataset $\data$, associates to each new input $\x$ a predictive Gaussian distribution over the output $\y \sim \prob(\y \condition \data, \x) = \DNormal(m(\x), \sigma^2(x))$. The mean function $m(\x)$ and the variance function $\sigma^2(x)$ depends on the kernel function $\kappa(.,.)$ which encodes the similarity between data samples. 
+On one hand, standard GPs have computational and storage limitations \cite{jakkala2021deepgp}. E.g. the computation of the variance function is cubic in the number of data samples which does not scale well to large datasets. To mitigate this issue, previous works proposed sparse Gaussian process which introduce variational pseudo-points can be optimized with stochastic gradient descent (see e.g. \cite{snelson2005sparse,titsias2010gplvm,due}).
+On the other hand, standard GPs does not naturally extract hierarchical representations from structured data. To mitigate this issue, previous works proposed e.g. to use multilayer GPs \cite{damianou2012deepgp} or deep neural networks as the kernel function \cite{wilson2016stochastic}. We refer to existing survey on Gaussian process in deep learning for further details \citep{gp-for-ml,damianou2012deepgp,jakkala2021deepgp}.
 
-\paragraph*{Evidential.}
+\paragraph*{Evidential.} Instead of predicting directly the parameters $\bm{\theta}$ of the target distribution $\prob(\y \condition \bm{\theta})$, evidential methods consist in predicting the parameters of the distribution $\prior(\bm{\theta} \condition \data, \x)$ defined over the parameters $\bm{\theta}$, thus following the factorization in \cref{eq:factorization_3}. Hence, this family of distribution does not need to approximate distribution over the model weights which is generally expensive. To improve performances of evidential models, other works proposed to use OOD data during training \cite{PriorNetworks,reverse-kl}, knowledge distillation \cite{distribution-distillation}, or contrastive learning \cite{uncertainty-generative-classifier}. In this thesis, we introduce a new family of evidential models called \emph{Posterior networks} with a clear Bayesian interpretation and low practical overhead (see \cref{chap:classification,chap:regression,chap:robustness,chap:graph_data,chap:sequential_data,chap:reinforcement_learning}). We refer to existing survey on evidential deep learning for uncertainty quantification for further details \citep{survey_evidential_uncertainty}.
 
-\paragraph*{Calibration.} Temperature scaling
+\paragraph*{Calibration.} Calibration methods aim at predicting confidence which are good approximations of the true probability of correctness (see \cref{sec:calibration}). Beyond uncertainty-aware models which are expected to be well-calibrated, we distinguish between two other groups of calibration methods: during-training calibration methods and post-training calibration methods. During-training calibration methods apply regularization techniques in the loss objective to create inherently calibrated models (see e.g. \cite{lee2018training,corbieres2019confidence,minderer2021revisiting}). Post-training calibration methods recalibrate the model predictions after training (see e.g. \cite{calibration-network,wenger201calibration}). While these methods can adapt well to different architectures types, they usually require additional held-out validation data and assume that validation and test distribution are similar. Prominent classes of post-training calibration method are histogram binning \cite{zadrozny2001calibrated}, Temperature scaling \cite{calibration-network}, isotonic calibration \cite{zadrozny2002transforming}, Dirichlet calibration \cite{kull2019beyond}, or conformal predictions \cite{conformal-survey,marx2022conformal}.
 
-\paragraph*{Conformal Predictions.}
+\paragraph*{Energy-based models.} Energy-based models (EBMs) associates, to every combination of input $\x$ and output $\y$, a scalar energy value $E_{\bm{\phi}}(\y, \x)$ \cite{lecun2006tutorial}. Interestingly, the energy function $E_{\bm{\phi}}(\y, \x)$ can be transformed into Gibbs distributions $\prob(\y \condition \bm{\phi}, \x)$, $\prob(\y, \x \condition \bm{\phi})$, or even $\prob(\x \condition \bm{\phi})$ given some integrations constraints on $E_{\bm{\phi}}(\y, \x)$, thus assigning uncertainty estimates on for different combinations of variables $\y, \x$ \cite{energy_based_classifier}. Hence, EBMs are flexible models capable to achieve great performances in OOD detection in many tasks \citep{energy-ood,wang2021ebm} as long as they can capture semantic features of the data \cite{ood_ebm}.
 
-\paragraph*{Energy-based models.}
+\paragraph*{Density-based models.} This family of models assigned density values to 
 
-\paragraph*{Density-based models.} Hidden uncertianty, PostNet
+Hidden uncertianty, PostNet
 
 \paragraph*{Distance-based models.} SNGP
 
@@ -250,6 +256,7 @@ It is crucial to detect and be robust against shifts in the data to primarily in
 In practice, the model would require to \emph{jointly} look at the evolution of the accuracy and the uncertainty estimates under different magnitudes of perturbations. Ideally, while the model should maintain high accuracy on shifted data (a.k.a. OOD generalization performance \cite{ood-generalization-survey}), the uncertainty estimates of the model should increase on shifted data (a.k.a. OOD detection performance \cite{ood-detection-survey}). Further, other expectations on the predictions under dataset shifts involve maintaining good calibration \cite{dataset-shift}, high correct/wrong prediction detection performance (see \cref{chap:robustness}), and high OOD detection performances (see \cref{chap:robustness}). In this case, the shifted dataset is still relevant to the original task (i.e. inputs in the shifted dataset have output labels) but differ from the original ID dataset. We distinguish between natural and adversarial dataset shifts. Natural shifts correspond to natural perturbations which could occur in real world scenarios like time shifts \cite{wilds, neuhold201mapillary, shifts-dataset}, location shifts \cite{wilds, neuhold201mapillary, shifts-dataset}, or corrupted data \cite{benchmarking-corruptions, taori2020shift}. In contrast, adversarial perturbations shifts actions correspond to the worst-case scenario where the perturbations are designed to fool the model.
 
 \subsection{Calibration}
+\label{sec:calibration}
 
 It is crucial to provide confidence intervals accurately reflecting the true chance of an event to happen. This allows to increase \emph{fairness} and \emph{trust} of the ML prediction even on under-represented data regions. Intuitively, if the model predict $80\%$ chance for a class to be the correct one, we would expect the model to be $80\%$ of the time correct. Hence, uncertainty estimates are important to answer the following practical question:
 
