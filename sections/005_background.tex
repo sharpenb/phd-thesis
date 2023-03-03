@@ -6,6 +6,7 @@
 In this chapter, we introduce the main background on the content of this thesis. It covers background on the desiderata, models, and experimental setup for uncertainty estimation in Machine Learning. In order to preserve the original storyline of the original publications, we kept the background sections in \cref{chap:classification,chap:regression,chap:robustness,chap:graph_data,chap:sequential_data,chap:reinforcement_learning}. Beyond this chapter, we also recommend existing surveys on uncertainty estimation for further details uncertainty estimation in deep learning \citep{uncertainty-survey,review-uncertainty-dl,psaros2023uncertainty,conformal-survey,hullermeier2021aleatoric}.
 
 \section{Desiderata}
+\label{sec:background-desiderata}
 
 In this section, we review important desiderata for uncertainty estimation. We provide a summary of these desiderata in \cref{tab:overview_desiderata}.
 
@@ -28,7 +29,9 @@ In this section, we review important desiderata for uncertainty estimation. We p
     \label{tab:overview_desiderata}
 \end{table*}
 
-\subsection{Bayesian Distributions} We recall the Bayes formula since it is a core concept in many uncertainty estimation approaches.
+\subsection{Bayesian Distributions} 
+
+We recall the Bayes formula since it is a core concept in many uncertainty estimation approaches.
 We define the distribution $\prob(\y \condition \bm{\theta})$ over the target variable $\y \in \real$ given the parameter $\bm{\theta}$.
 Given a dataset $\data=\{\y^{(1)}, ..., \y^{(\ndata)}\}$, the Bayes formula is:
 \begin{equation}
@@ -122,6 +125,7 @@ A second aspect is \emph{adversarial robustness} meaning that the method should 
 In this thesis, we focus on proposing practical methods which are efficient in terms of data and time, flexible in terms of architecture and optimization schemes, and robust in terms of natural and adversarial perturbations.
 
 \section{Models}
+\label{sec:background-models}
 
 In this section, we review important families of models for uncertainty estimation. We provide a summary of these models in \cref{fig:overview_methods}. We refer the reader to seed papers and surveys provided in the following paragraphs presenting each family of methods for a detailed presentation of their concepts. Overall, we observed that these families of methods could be approximately be classified in two groups. On one hand, ensembles, Monte Carlo dropout, Monte Carlo Markov chain, variational inference, and Laplace approximation methods form a first group of methods with strong Bayesian guarantees but often requiring expensive computations. On the other hand, Gaussian process, evidential, calibration, density-based, energy-based, and distance-based methods form a second group of methods sometimes capable of efficient uncertainty predictions to the cost of weaker Bayesian guarantees or additional practical constraints like the need of additional training or validation data.
 
@@ -178,6 +182,7 @@ On the other hand, standard GPs does not naturally extract hierarchical represen
 % Sampling-free models are capable of estimating uncertainty in a single forward pass. A first family of models explicitly parametrize the distribution $\prior(\bm{\theta} \condition \data, \x)$ with evidential distributions \citep{survey_evidential_uncertainty,robustness-uncertainty-dirichlet,max_gap_id_ood,uncertainty-generative-classifier,multifaceted_uncertainty,graph-postnet, lightweight-prob-net}. A second family aims at learning deep Gaussian processes on a learned latent space \citep{uncertainty-distance-awareness, due, duq, uceloss}. A third family aims at learning deep energy-based models \citep{ood_ebm, jem_ebm}. The GP and energy-based approaches might sometimes not be able to disentangle the different uncertainty types. Another family of models tries to recalibrate existing models by using calibration methods like temperature scaling \cite{calibration-network} or conformal predictions \cite{conformal-survey}. Calibration and conformal prediction methods generally require additional data to calibrate uncertainty estimates. Finally, a last family of models propagate uncertainty across layers \citep{natural-parameter-network, sampling-free-variance-propagation, feed-forward-propagation, lightweight-prob-net, probabilistic-backprop-scalable-bnn}. They model uncertainty at the weight and/or activation levels and are generally constrained to specific transformations.
 
 \section{Experimental setup}
+\label{sec:background-experiments}
 
 In this section, we present an exhaustive summary of the main metrics used to evaluate the quality of uncertainty estimation. 
 It covers correct/wrong predictions detection, OOD \& dataset shifts detection, calibration, and sample efficiency.
@@ -223,7 +228,7 @@ In practice, each application would require to set a threshold on the uncertaint
 It is crucial to detect when incoming data are anomalous to increase the \emph{safety} of model predictions. The anomalous data are often considered out-of-distribution (OOD) in contrast with normal data similar to data observed during training which are considered in-distribution (ID). Intuitively, uncertainty estimates should be good indicators of anomalous data. Indeed, high uncertainty should indicate likely abnormal data while low uncertainty should indicate likely normal data. Hence, uncertainty estimates are important to answer the following practical question:
 
 \begin{center}
-    \textbf{Can we detect anomalous data?}
+    \textbf{Can uncertainty estimates detect anomalous data?}
 \end{center}
 
 Similarly to the detection of correct and wrong predictions, the detection of anomalous data would also require to set a threshold on the uncertainty estimates. In this case, while predictions associated with uncertainty estimates below this threshold should be normal ID data, predictions associated with uncertainty estimates above this threshold should ideally be abnormal OOD data. Hence, we can also use evaluation metrics like precision, recall, AUC-ROC, and AUC-PR which compare scores (i.e. uncertainty estimates) with binary classes (i.e. ID/OOD data). While ID data should be relevant to the task (i.e. ID inputs have output labels), the OOD data should be clear anomalies (e.g. OOD data come from a different dataset) and might not be relevant to the task (e.g. OOD data are noisy inputs without output labels).
@@ -233,7 +238,7 @@ Similarly to the detection of correct and wrong predictions, the detection of an
 It is crucial to detect and be robust against shifts in the data to primarily increase the ease of \emph{maintenance} of ML models. Intuitively, while the predictions should be robust to dataset shifts, the uncertainty estimates should increase under dataset shifts. Hence, uncertainty estimates are able to indicate when the incoming data drifts away from the training data before that the model breaks. Hence, uncertainty estimates are important to answer the following practical question:
 
 \begin{center}
-    \textbf{Can we be robust to data drift?}
+    \textbf{Are model predictions robust to data drift?}
 \end{center}
 
 In practice, the model would require to \emph{jointly} look at the evolution of the accuracy and the uncertainty estimates under different magnitudes of perturbations. Ideally, while the model should maintain high accuracy on shifted data (a.k.a. OOD generalization performance \cite{ood-generalization-survey}), the uncertainty estimates of the model should increase on shifted data (a.k.a. OOD detection performance \cite{ood-detection-survey}). Further, other expectations on the predictions under dataset shifts involve maintaining good calibration \cite{dataset-shift}, high correct/wrong prediction detection performance (see \cref{chap:robustness}), and high OOD detection performances (see \cref{chap:robustness}). In this case, the shifted dataset is still relevant to the original task (i.e. inputs in the shifted dataset have output labels) but differ from the original ID dataset. We distinguish between natural and adversarial dataset shifts. Natural shifts correspond to natural perturbations which could occur in real world scenarios like time shifts \cite{wilds, neuhold201mapillary, shifts-dataset}, location shifts \cite{wilds, neuhold201mapillary, shifts-dataset}, or corrupted data \cite{benchmarking-corruptions, taori2020shift}. In contrast, adversarial perturbations shifts actions correspond to the worst-case scenario where the perturbations are designed to fool the model.
