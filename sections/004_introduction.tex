@@ -3,7 +3,7 @@
 
 \epigraph{As far as the laws of mathematics refer to reality, they are not certain; and as far as they are certain, they do not refer to reality.}{\textit{Albert Einstein}}
 
-\epigraph{Madness is the consequence not of uncertainty but of certainty.}{-- \textit{Friedrich W. Nietzsche}}
+\epigraph{Madness is the consequence not of uncertainty but of certainty.}{\textit{Friedrich W. Nietzsche}}
 
 Artificial Intelligence (AI) consists in the intelligence demonstrated by machines in contrast with intelligence demonstrated by humans or animals. 
 Hence, AI models are usually computing systems able to perform tasks which would normally require human intelligence, such as visual perception, speech recognition, decision-making, translation between languages, or even art generation.
@@ -150,6 +150,7 @@ In \cref{part:conclusion}, we present a retrospective on the evolution of the re
       \midrule
       \ref{chap:classification} & \cite{charpentier2020} & \makecell[l]{Posterior network: Uncertainty estimation without\\ ood samples via density-based pseudo-counts} & NeurIPS 2020 & \texttt{/postnet/}\\
       \ref{chap:regression} & \cite{NatPN2021} & \makecell[l]{Natural posterior network: Deep bayesian predictive\\ uncertainty for exponential family distributions.} & ICLR 2021 & \texttt{/natpn/}\\
+      \ref{chap:practicality} & \cite{charpentier2023training} & \makecell[l]{Training, Architecture, and Prior\\ for Deterministic Uncertainty Methods?} & TrustML-(un)Limited - ICLR 2023 & \texttt{/training-architecture-prior-dum/}\\
       \ref{chap:robustness} & \cite{robustness-uncertainty-dirichlet} & \makecell[l]{Evaluating robustness of predictive uncertainty estimation:\\ Are dirichlet-based models reliable?} & ICML 2020 & \texttt{/dbu-robustness/}\\
       \ref{chap:graph_data} & \cite{graph-postnet} & \makecell[l]{Graph posterior network: Bayesian predictive uncertainty\\ for node classification.} & NeurIPS 2021 & \texttt{/graph-postnet/}\\
       \ref{chap:sequential_data} & \cite{uceloss} & \makecell[l]{Uncertainty on asynchronous time event prediction} & NeurIPS 2019 & \texttt{/uncertainty-event-prediction/}\\
@@ -161,7 +162,7 @@ In \cref{part:conclusion}, we present a retrospective on the evolution of the re
 \section{Own publications}
 
 The content of Chapters \ref{chap:classification} to \ref{chap:reinforcement_learning} is mostly based on papers previously published at international peer-reviewed conferences. We list these papers in Table~\ref{tab:publications}.
-We also provide the full list of publications that the author was involved in during the PhD studies below. The name of the author of this thesis is put first in case of equal first authorship. These publications focus on three main topics: \emph{uncertainty estimation} including Bayesian models, energy-based models and robustness \citep{charpentier2020,NatPN2021,robustness-uncertainty-dirichlet,graph-postnet,uceloss,charpentier2022uncertainty-rl,ood_ebm,ayle2022robustness-sparse}, \emph{structure learning} including hierarchical and directed acyclic graphs \cite{charpentier2022dpdag,charpentier2019tsd,zugner2022endtoend,bonald2020scikitnetwork}, and \emph{efficient ML} including pruning methods and sparse neural networks \cite{rachwan2022earlycrop,ayle2022robustness-sparse}.
+We also provide the full list of publications that the author was involved in during the PhD studies below. The name of the author of this thesis is put first in case of equal first authorship. These publications focus on three main topics: \emph{uncertainty estimation} including Bayesian models, energy-based models and robustness \citep{charpentier2020,NatPN2021,robustness-uncertainty-dirichlet,charpentier2023training,graph-postnet,uceloss,charpentier2022uncertainty-rl,ood_ebm,ayle2022robustness-sparse}, \emph{structure learning} including hierarchical and directed acyclic graphs \cite{charpentier2022dpdag,charpentier2019tsd,zugner2022endtoend,bonald2020scikitnetwork}, and \emph{efficient ML} including pruning methods and sparse neural networks \cite{rachwan2022earlycrop,ayle2022robustness-sparse,getzner2023accuracy}.
 
 \renewcommand{\bibsection}{}
 \input{sections/own_publications/own_publications.bbl}
