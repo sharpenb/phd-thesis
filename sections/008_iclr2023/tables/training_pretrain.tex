@@ -1,0 +1,19 @@
+% \begin{table}[!htp]\centering
+% \caption{\textbf{Pretrain schema.} Both DUMs benefits from the quantity of data under the ImageNet pretrained encoder. The reported OOD results are an average over all the independent OOD dataset result. The encoder ResNet50 from torchvision is used for the schemas.}
+% \label{tab:training_pretrain}
+% \tiny
+% \begin{tabular}{llccccc}\toprule
+% \textbf{Model} &\textbf{Pretrain Schema} &\textbf{Accuracy} &\textbf{Brier Score} &\textbf{OOD Pred.} &\textbf{OOD Epis.} \\
+% \midrule
+% \multirow{4}{*}{NatPN} &None &78.45 $\pm$ 1.94 &30.16 $\pm$ 2.57 &79.85 $\pm$ 3.30 &85.81 $\pm$ 2.05 \\
+% &C100 (10\%) &67.25 $\pm$ 0.71 &44.69 $\pm$ 0.94 &68.10 $\pm$ 1.90 &78.50 $\pm$ 3.27 \\
+% &C100 (100\%) &76.31 $\pm$ 0.45 &34.32 $\pm$ 0.51 &78.95 $\pm$ 3.19 &76.91 $\pm$ 2.64 \\
+% &\textbf{ImageNet} &\textbf{84.22 $\pm$ 0.12} &\textbf{23.67 $\pm$ 0.27} &\textbf{84.95 $\pm$ 1.48} &\textbf{89.08 $\pm$ 0.70} \\
+% \midrule
+% \multirow{4}{*}{DUE} &None &72.41 $\pm$ 0.24 &47.35 $\pm$ 0.25 &80.04 $\pm$ 1.28 &- \\
+% &C100 (10\%) &63.86 $\pm$ 0.58 &50.94 $\pm$ 0.53 &72.44 $\pm$ 1.32 &- \\
+% &C100 (100\%) &76.38 $\pm$ 0.35 &36.89 $\pm$ 0.50 &81.71 $\pm$ 1.87 &- \\
+% &\textbf{ImageNet} &\textbf{82.42 $\pm$ 0.14} &\textbf{28.09 $\pm$ 0.19} &\textbf{90.24 $\pm$ 0.51} &- \\
+% \bottomrule
+% \end{tabular}
+% \end{table}

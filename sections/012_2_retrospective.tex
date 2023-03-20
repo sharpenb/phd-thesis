@@ -1,0 +1,31 @@
+\chapter{Retrospective}
+\label{chap:retrospective_2}
+
+% \epigraph{I can live with doubt and uncertainty and not knowing. \\ I think it is much more interesting to live not knowing than to have answers that might be wrong.}{\textit{Richard P. Feynman}}
+
+In this section, we provide a retrospective on the \cref{chap:graph_data,chap:sequential_data,chap:reinforcement_learning} since their publications by discussing potential improvements and the related works published a posteriori.
+
+\section{Uncertainty for graph data.}
+
+\paragraph{Potential improvements.} The proposed method \GPNacro{} (see \cref{chap:graph_data}) has two main directions of improvements. First, \GPNacro{} focuses on homophilic graphs. Recent works have proposed methods \cite{bodnar2022sheaf, giovanni2022graff} working on both homophilic and heterophilic graphs but do not provide uncertainty estimates. Second, it would be interesting to extend our proposed benchmark for uncertainty estimation on more datasets including very large scale datasets. Recently, \cite{gui2022good} has proposed to extend OOD detection benchmarks for graph datasets.
+
+
+\paragraph{Recent related works.} While the field of uncertainty estimation for graph data is still new, multiple recent works already proposed extension for uncertainty estimation at node level, edge level, and graph level. Indeed,  \cite{bazhenov2023revisiting} proposed to benchmark uncertainty estimation for node classification and finds that \GPNacro{} and its combination with \NatPN{} achieves strong results on various datasets. Further, other recent works \cite{texeira2019GNNmiscalibrated, hsu2022GNNmiscalibrated, wang2021confident} had a deeper focused on calibration for GNNs at node level. They observed that GNNs are generally miscalibrated but can be partially recalibrated with calibration methods like temperature rescaling. Other works \cite{zhou2022OODlink, hsu2022structure} have extended our approach by proposing uncertainty on edges for calibration and OOD detection. Finally, other approaches \cite{soleimany2021evidential} focused on uncertainty estimation for graph-level tasks like molecular property prediction. In particular, \cite{bazhenov2022ood} showed that OOD detection on graph classification is still unsolved.
+
+% \paragraph{A view on the current field status.} Even if this topic is still very recent, We believe that the field of uncertainty estimation for graph is evolving fast with many new models and evaluations for uncertainty estimation at node level, edge level, and graph level. 
+
+\section{Uncertainty for sequential data.}
+
+\paragraph{Potential improvements.} The approaches proposed in \cref{chap:sequential_data} for uncertainty estimation has two main directions of improvement. First, while the uncertainty on the event type is represented via explicit and expressive categorical distributions, the uncertainty on the event time is represented via implicit temporal point processes distributions with contained intensity functions. To solve this issue, \cite{shchur2020intensity} and \cite{shchur2020fast} extended our work by modelling expressive point processes which are intensity free and point processes where likelihood computation, sampling, and prediction can all be done efficiently in closed form. Second, it would be interesting to extend the benchmark for uncertainty estimation for event sequences. Recently, \cite{shchur2021detecting} had a closer look at anomalous event detection in both simulated and real-world data and \cite{shchur2021review} provided an overview of application areas for temporal point processes. 
+
+\paragraph{Recent related works.} Beyond sequential data with time events, other works have recently looked at uncertainty estimation for sequential data with text to account for the emergence of new powerful large language models. For example, \cite{malinin2021uncertainty} models uncertainty at token and sequence level with applications to translation datasets. \cite{kuhn2023semantic} recently proposes to estimate uncertainty on semantic meaning in question answering tasks. Further, \cite{he2020toward, hu2021uncertainty} proposed uncertainty methods for text classification.
+
+% \paragraph{A view on the current field status.} We believe that the field of uncertainty estimation for sequential data has achieved fast progress for both time event data and text data. Nonetheless, the emergence of powerful large language models have demonstrated unreliable behaviors which urges further development of uncertainty methods. 
+
+\section{Uncertainty for reinforcement learning.}
+
+\paragraph{Potential improvements.} The uncertainty framework proposed in \cref{chap:reinforcement_learning} has several directions of improvements. First, similarly to generalization benchmarks for RL \cite{generalization-rl-survey, assessing-generalization-rl, procgen}, it would be interesting to extend this uncertainty benchmark for RL to more complex environments. Second, our uncertainty framework is limited to model-free RL methods and could be extended to model-based RL methods. 
+
+\paragraph{Recent related works.} Although the uncertainty estimation for RL is not new, this field is still an active domanin of research. Recently, \cite{tennenholtz2022plan} and \cite{wu2022plan} proposed a new uncertainty methods for model-based RL. Similar to our approach, another work \cite{liu2022uncertaintyaware} used aleatoric and epistemic uncertainty with density estimation  in RL for player evaluation in games. Finally, another work \cite{luo2022distributional} developed other method for distributional RL.
+
+% \paragraph{A view on the current field status.} We believe that although uncertainty estimation for RL has already a long history, the benefit of uncertainty estimation in RL is still under-explored without well-established desiderata and large-scale benchmarks.

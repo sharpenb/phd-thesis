@@ -1,0 +1,23 @@
+\section{Training for DUMs}
+\label{sec:training}
+
+In this section, we study the importance of the training procedure in the performance of DUMs. To this end, we look at \emph{decoupling the learning rates} of the core encoder architecture and the uncertainty head, different \emph{training schemes}, and different \emph{pretraining schemes}.
+
+\textbf{Decoupling learning rates.} We decouple the learning rates of the core architecture and the uncertainty head. We show the validation results for CIFAR100 as ID and SVHN as OOD with the core architecture ResNet18 in \cref{fig:decoupled_test}.
+\underline{\textit{Observation:}} We observe that, when using different learning rates for the core architecture and the uncertainty head, NatPN improves Brier Score and OOD epistemic results and DUE significantly improves both predictive and uncertainty results. Hence, this shows that decoupling learning rates can improve results of DUMs, thus suggesting that the core architecture and the uncertainty head have training dynamics which requires different considerations.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.8\linewidth]{sections/008_iclr2023/figures/decoupled_test.pdf}
+    \caption{Results of DUMS on CIFAR100 with ResNet18 when \textbf{decoupling learning rates} of the core architecture and the uncertainty head. Decoupling learning rates improve DUMs performance. }
+    \label{fig:decoupled_test}
+\end{figure}
+
+\textbf{Training schemes.} We compare two settings: the \textit{joint} training in which we jointly train the weights of the core architecture and uncertainty head, and the \textit{sequential} training in which we only train the uncertainty head by keeping the weights of the pretrained core architecture fixed. For each of the setting, we apply two additional techniques to stabilize the training: adding a \textit{batch normalization} to the last layer of the encoder to enforce latent representations to locate in a normalized region \citep{ioffe2015bn,charpentier2022natpn}, and \textit{resetting the last layer} to retrain its weights to improve robustness to spurious correlation \citep{kirichenko2022reset}. We show the results for CIFAR100 as ID and five difference OOD datasets with the ResNet18 as core architecture in \cref{tab:training_schema} and additional results in the appendix \cref{tab:training_schema_ood}.
+\underline{\textit{Observation:}} We observe that, compared to its sequential counterpart, joint training consistently improves DUMs performance for most metrics, thus suggesting that joint training should be preferred in practice for DUMs. Furthermore, while the GP-based method DUE does not benefit from stabilization techniques, we observe that they can significantly increase performance of the density-based method NatPN. This behavior is intuitively explained by the practical difficulty to accurately fit densities in high dimensional latent space. This can be significantly improved by using more powerful density estimator (see \cref{tab:normalizing_flow} in appendix).
+
+\textbf{Pretraining schemes.} We compare multiple training schemes which differ in terms of \emph{amount} and \emph{quality} of data used for pretraining. Hence, we do not pretrain the core architecture or pretrain it with 10\% of CIFAR100, 100\% of CIFAR100 without and with Gaussian noise, or ImageNet. We show the results for CIFAR100 as ID and five different OOD datasets with ResNet50 as core architecture in \cref{tab:training_pretrain} and additional results in the appendix \cref{tab:training_pretrain_ood}.
+\underline{\textit{Observation:}} We observe that, while too few data for pretraining does not improve final performance of DUMs, the overall performance significantly increase when the encoder is pretrained with high quantity and high quality of data.  Similarly to \citet{kirichenko2020why}, this suggests that the embedding quality is important to improve uncertainty quantification. Here, we show additionally that embeddings pretrained with many high quality data are crucial to facilitate the prediction of the uncertainty head.
+
+\input{sections/008_iclr2023/tables/training_schema}
+\input{sections/008_iclr2023/tables/training_pretrain}

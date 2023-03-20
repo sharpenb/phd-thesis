@@ -1,7 +1,7 @@
 \section{Introduction}
 \label{sec:introduction_008}
 
-While we have focused in the previous sections on proposing new Bayesian models for efficient uncertainty estimation on independent data, we now turn our attention on the robustness of uncertainty estimates in adversarial contexts. 
+In \cref{chap:practicality}, we studied practical considerations when using efficient uncertainty estimation methods in non-adversarial contexts. In this chapter, we now focus on the robustness of uncertainty estimates in adversarial contexts.
 
 Indeed, although neural networks achieve high predictive accuracy in many tasks, they are known to have two substantial weaknesses: First, neural networks are not robust against adversarial perturbations, i.e., semantically meaningless input changes that lead to wrong predictions \citep{szegedy2014, goodfellow2014}. 
 Second, standard neural networks are unable to identify samples that are different from the ones they were trained on and tend to make over-confident predictions at test time \citep{ensembles}. These weaknesses make them impracticable in sensitive domains like financial, autonomous driving or medical areas which require trust in predictions.

@@ -1,0 +1,111 @@
+% Validation Results --------------------------------
+% \begin{table}[!htb]\centering
+% \caption{\textbf{Training Schema Validation Results.} The dataset used was CIFAR100 with SVHN as OOD dataset. The results are averaged over 5 seeds.}
+% \label{tab:training_schema_val}
+% \tiny
+% \begin{tabular}{llcccccc}
+%     \toprule
+%     \textbf{Model} &\textbf{Schema} &\textbf{Val. Accuracy} &\textbf{Val. Brier} &\textbf{Val OOD Alea.} &\textbf{Val OOD Epis.} &\textbf{Val OOD Pred.} \\
+%     \midrule
+%     \multirow{6}{*}{NatPN} &joint &71.24 $\pm$ 0.25 &41.53 $\pm$ 0.28 &80.91 $\pm$ 1.34 &66.48 $\pm$ 3.04 &80.91 $\pm$ 1.34 \\
+%     &joint + bn &71.74 $\pm$ 0.15 &\textbf{41.15 $\pm$ 0.15} &\textbf{84.67 $\pm$ 1.99} &71.27 $\pm$ 3.58 &\textbf{84.67 $\pm$ 1.99} \\
+%     &joint + reset &71.67 $\pm$ 0.12 &41.24 $\pm$ 0.26 &81.37 $\pm$ 1.46 &\textbf{75.32 $\pm$ 2.42} &81.37 $\pm$ 1.46 \\
+%     &sequential &\textbf{71.84 $\pm$ 0.10} &43.19 $\pm$ 0.16 &81.11 $\pm$ 0.47 &43.23 $\pm$ 4.30 &81.11 $\pm$ 0.47 \\
+%     &sequential + bn &71.80 $\pm$ 0.12 &42.98 $\pm$ 0.13 &81.06 $\pm$ 0.39 &43.47 $\pm$ 5.55 &81.06 $\pm$ 0.39 \\
+%     &sequential + reset &71.74 $\pm$ 0.09 &41.51 $\pm$ 0.15 &79.59 $\pm$ 0.66 &60.21 $\pm$ 4.03 &79.59 $\pm$ 0.66 \\
+%     \midrule
+%     \multirow{6}{*}{DUE} &joint &72.36 $\pm$ 0.10 &\textbf{40.83 $\pm$ 0.14} &- &- &81.23 $\pm$ 0.58 \\
+%     &joint + bn &\textbf{72.43 $\pm$ 0.17} &40.85 $\pm$ 0.14 &- &- &80.85 $\pm$ 0.81 \\
+%     &joint + reset &71.98 $\pm$ 0.18 &41.46 $\pm$ 0.14 &- &- &81.21 $\pm$ 0.55 \\
+%     &sequential &72.14 $\pm$ 0.16 &41.71 $\pm$ 0.16 &- &- &81.34 $\pm$ 0.80 \\
+%     &sequential + bn &72.11 $\pm$ 0.14 &41.76 $\pm$ 0.16 &- &- &\textbf{81.49 $\pm$ 0.81} \\
+%     &sequential + reset &71.67 $\pm$ 0.15 &42.36 $\pm$ 0.17 &- &- &80.86 $\pm$ 0.89 \\
+%     \bottomrule
+% \end{tabular}
+% \end{table}
+
+% NatPN/DUE Test OOD Results ------------------
+
+\begin{table}[!htb]\centering
+\caption{\textbf{Train schema OOD detection.} Uncertainty estimation results broken down for each OOD dataset. We observe that NatPN performs significantly better when using \textit{joint}, while DUE is insensitive to the schema used. The ID dataset used for training is CIFAR100.}
+\label{tab:training_schema_ood}
+\tiny
+
+\begin{tabular}{lllccc}
+\toprule
+\textbf{Model} &\textbf{OOD Data} &\textbf{Train Schema} &\textbf{OOD Alea. ($\uparrow$)} &\textbf{OOD Epis. ($\uparrow$)} &\textbf{OOD Pred. ($\uparrow$)} \\
+\midrule
+\multirow{30}{*}{NatPN} &\multirow{6}{*}{SVHN} &joint &80.64 $\pm$ 1.22 &65.00 $\pm$ 3.18 &80.64 $\pm$ 1.22 \\
+& &joint + bn &\textbf{82.07 $\pm$ 0.62} &69.98 $\pm$ 4.40 &\textbf{82.07 $\pm$ 0.62} \\
+& &joint + reset &80.77 $\pm$ 1.63 &\textbf{74.67 $\pm$ 2.37} &80.77 $\pm$ 1.63 \\
+& &sequential &80.76 $\pm$ 0.95 &43.99 $\pm$ 4.16 &80.76 $\pm$ 0.95 \\
+& &sequential + bn &80.64 $\pm$ 0.83 &44.46 $\pm$ 5.63 &80.64 $\pm$ 0.83 \\
+& &sequential + reset &78.92 $\pm$ 1.06 &59.54 $\pm$ 4.25 &78.92 $\pm$ 1.06 \\
+\cmidrule[0.1pt](lr){2-6}
+&\multirow{6}{*}{STL10} &joint &76.63 $\pm$ 0.20 &58.79 $\pm$ 0.24 &76.63 $\pm$ 0.20 \\
+& &joint + bn &76.53 $\pm$ 0.22 &63.51 $\pm$ 0.38 &76.53 $\pm$ 0.22 \\
+& &joint + reset &76.92 $\pm$ 0.36 &\textbf{64.44 $\pm$ 0.52} &76.92 $\pm$ 0.36 \\
+& &sequential &77.57 $\pm$ 0.20 &42.83 $\pm$ 0.62 &77.57 $\pm$ 0.20 \\
+& &sequential + bn &\textbf{77.64 $\pm$ 0.22} &44.26 $\pm$ 0.59 &\textbf{77.64 $\pm$ 0.22} \\
+& &sequential + reset &77.35 $\pm$ 0.15 &57.56 $\pm$ 0.38 &77.35 $\pm$ 0.15 \\
+\cmidrule[0.1pt](lr){2-6}
+&\multirow{6}{*}{CelebA} &joint &51.42 $\pm$ 1.29 &28.90 $\pm$ 1.59 &51.42 $\pm$ 1.29 \\
+& &joint + bn &51.45 $\pm$ 1.15 &27.67 $\pm$ 2.45 &51.45 $\pm$ 1.15 \\
+& &joint + reset &52.01 $\pm$ 0.46 &\textbf{32.54 $\pm$ 0.32} &52.01 $\pm$ 0.46 \\
+& &sequential &52.58 $\pm$ 1.08 &24.41 $\pm$ 1.94 &52.58 $\pm$ 1.08 \\
+& &sequential + bn &52.44 $\pm$ 1.11 &23.65 $\pm$ 1.85 &52.44 $\pm$ 1.11 \\
+& &sequential + reset &\textbf{53.12 $\pm$ 0.92} &26.82 $\pm$ 1.41 &\textbf{53.12 $\pm$ 0.92} \\
+\cmidrule[0.1pt](lr){2-6}
+&\multirow{6}{*}{Camelyon} &joint &\textbf{67.17 $\pm$ 5.30} &67.03 $\pm$ 9.00 &\textbf{67.17 $\pm$ 5.30} \\
+& &joint + bn &61.06 $\pm$ 2.70 &69.69 $\pm$ 5.54 &61.06 $\pm$ 2.70 \\
+& &joint + reset &67.07 $\pm$ 1.12 &\textbf{73.45 $\pm$ 4.22} &67.07 $\pm$ 1.12 \\
+& &sequential &64.54 $\pm$ 2.08 &56.23 $\pm$ 6.07 &64.54 $\pm$ 2.08 \\
+& &sequential + bn &64.34 $\pm$ 2.12 &49.31 $\pm$ 5.99 &64.34 $\pm$ 2.12 \\
+& &sequential + reset &63.76 $\pm$ 2.13 &65.59 $\pm$ 4.65 &63.76 $\pm$ 2.13 \\
+\cmidrule[0.1pt](lr){2-6}
+&\multirow{6}{*}{SVHN OODom.} &joint &100.00 $\pm$ 0.00 &100.00 $\pm$ 0.00 &100.00 $\pm$ 0.00 \\
+& &joint + bn &100.00 $\pm$ 0.00 &100.00 $\pm$ 0.00 &100.00 $\pm$ 0.00 \\
+& &joint + reset &100.00 $\pm$ 0.00 &100.00 $\pm$ 0.00 &100.00 $\pm$ 0.00 \\
+& &sequential &99.99 $\pm$ 0.00 &100.00 $\pm$ 0.00 &99.99 $\pm$ 0.00 \\
+& &sequential + bn &100.00 $\pm$ 0.00 &100.00 $\pm$ 0.00 &100.00 $\pm$ 0.00 \\
+& &sequential + reset &100.00 $\pm$ 0.00 &100.00 $\pm$ 0.00 &100.00 $\pm$ 0.00 \\
+
+\midrule
+
+\multirow{30}{*}{DUE} &\multirow{6}{*}{SVHN} &joint &- &- &80.75 $\pm$ 0.79 \\
+& &joint + bn &- &- &80.47 $\pm$ 1.09 \\
+& &joint + reset &- &- &80.92 $\pm$ 0.70 \\
+& &sequential &- &- &81.04 $\pm$ 0.82 \\
+& &sequential + bn &- &- &\textbf{81.20 $\pm$ 0.86} \\
+& &sequential + reset &- &- &80.66 $\pm$ 1.07 \\
+\cmidrule[0.1pt](lr){2-6}
+&\multirow{6}{*}{STL10} &joint &- &- &77.20 $\pm$ 0.19 \\
+& &joint + bn &- &- &77.24 $\pm$ 0.22 \\
+& &joint + reset &- &- &77.42 $\pm$ 0.25 \\
+& &sequential &- &- &77.50 $\pm$ 0.09 \\
+& &sequential + bn &- &- &\textbf{77.52 $\pm$ 0.13} \\
+& &sequential + reset &- &- &77.48 $\pm$ 0.17 \\
+\cmidrule[0.1pt](lr){2-6}
+&\multirow{6}{*}{CelebA} &joint &- &- &47.99 $\pm$ 1.25 \\
+& &joint + bn &- &- &47.90 $\pm$ 1.13 \\
+& &joint + reset &- &- &49.10 $\pm$ 0.86 \\
+& &sequential &- &- &48.07 $\pm$ 0.99 \\
+& &sequential + bn &- &- &48.43 $\pm$ 1.06 \\
+& &sequential + reset &- &- &\textbf{49.39 $\pm$ 1.29} \\
+\cmidrule[0.1pt](lr){2-6}
+&\multirow{6}{*}{Camelyon} &joint &- &- &67.76 $\pm$ 2.20 \\
+& &joint + bn &- &- &67.54 $\pm$ 2.33 \\
+& &joint + reset &- &- &67.03 $\pm$ 2.00 \\
+& &sequential &- &- &67.49 $\pm$ 2.58 \\
+& &sequential + bn &- &- &67.23 $\pm$ 2.72 \\
+& &sequential + reset &- &- &\textbf{67.85 $\pm$ 2.54} \\
+\cmidrule[0.1pt](lr){2-6}
+&\multirow{6}{*}{SVHN OODom.} &joint &- &- &100.00 $\pm$ 0.00 \\
+& &joint + bn &- &- &100.00 $\pm$ 0.00 \\
+& &joint + reset &- &- &100.00 $\pm$ 0.00 \\
+& &sequential &- &- &100.00 $\pm$ 0.00 \\
+& &sequential + bn &- &- &100.00 $\pm$ 0.00 \\
+& &sequential + reset &- &- &100.00 $\pm$ 0.00 \\
+\bottomrule
+\end{tabular}
+\end{table}

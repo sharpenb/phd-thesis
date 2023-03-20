@@ -1,0 +1,56 @@
+\section{Training for DUMs Details}
+\label{subsec:appendix_training}
+
+By default, we first start by only pretraining the core encoder architecture using the cross-entropy loss, before attaching the DUM uncertainty head to the pretrained encoder and continue with the joint training phase. We do not pretrain the encoder for MNIST. we provide further details in \cref{tab:appendix_default_hyper}.
+Following the original method in \cite{charpentier2022natpn}, we train the NatPN uncertainty head before (\textit{warmup}) and after (\textit{finetune}) the joint training. In the warmup phase, we use the lambda scheduler increasing linearly from zero to LR head value in \cref{tab:appendix_default_hyper}. In the finetune phase, we use a multistep scheduler that scales the learning rate by 0.2 at 70\% and 90\% of the training starting from the LR head value in \cref{tab:appendix_default_hyper}. We warmup for 0/5/0 and finetune for 60/200/5 epochs for the datasets MNIST/CIFAR/Camelyon respectively.
+
+
+\begin{table}[!htp]\centering
+\caption{\textbf{Default training hyperparameters.} For CIFAR10, CIFAR100 and Camelyon we first pretrain a core encoder architecture for the join training phase. In MNIST we directly joint train given its lower computational cost.}\label{tab:appendix_default_hyper}
+\tiny
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrllllr}
+\toprule
+\textbf{Dataset} &\textbf{Phase} &\textbf{Encoder} &\textbf{Epochs} &\textbf{\thead{Optimizer \\ Enc. / Head}} &\textbf{\thead{LR \\ Enc. / Head}} &\textbf{\thead{LR scheduler \\ Enc. / Head}} &\textbf{\thead{Weight decay \\ Enc. / Head}} &\textbf{\thead{Latent \\ Dimension}} \\
+\midrule
+\multirow{3}{*}{MNIST} &Pretrain &- &- &- &- &- &- &- \\
+&Joint train (DUE) &ResNet18 &20 &AdamW / AdamW &1e-3 / 1e-4 &cosine $\eta_{min}$=5e-4 / - &1e-6 / 1e-6 &16 \\
+&Joint train (NatPN) &ResNet18 &20 &AdamW / AdamW &1e-3 / 5e-3 &cosine $\eta_{min}$=5e-4 / - &1e-6 / 1e-6 &16 \\
+\midrule
+\multirow{3}{*}{CIFAR10 \& CIFAR100} &Pretrain &ResNet18 &200 &SGD &1e-1 &cosine $\eta_{min}$=5e-4 &5e-4 &- \\
+&Joint train (DUE) &ResNet18 &20 &AdamW / AdamW &1e-4 / 1e-4 &cosine $\eta_{min}$=1e-5 / - &1e-6 / 1e-6 &64 \\
+&Joint train (NatPN) &ResNet18 &20 &AdamW / AdamW &1e-5 / 5e-3 &cosine $\eta_{min}$=1e-5 / - &1e-6 / 1e-6 &64 \\
+\midrule
+\multirow{3}{*}{Camelyon} &Pretrain &WideResNet28-10 &5 &AdamW &1e-3 &cosine $\eta_{min}$=1e-5 &1e-8 &- \\
+&Joint train (DUE) &WideResNet28-10 &1 &AdamW / AdamW &1e-5 / 5e-3 &cosine $\eta_{min}$=1e-6 / - &1e-6 / 1e-6 &128 \\
+&Joint train (NatPN) &WideResNet28-10 &1 &AdamW / AdamW &5e-6 / 1e-5 &cosine $\eta_{min}$=1e-6 / - &1e-6 / 1e-6 &128 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+
+\textbf{Decoupling learning rate.} In this experiment we use different values for the learning rates of the core architecture and of the uncertainty head. After the decoupling learning rate experiment, we choose the best combination of learning rates through model selection via the validation results and apply it to other experiments. E.g., for the joint training schema and pretraining schema experiments, NatPN uses a learning rate of 1e-4/1e-4 for encoder/head respectively, while for DUE it is 1e-5/5e-3.
+
+\textbf{Training schemes.} In this experiment, we compare the \textit{joint} training in which we jointly train the weights of the core architecture and uncertainty head, and the \textit{sequential} training in which we only train the uncertainty head by keeping the weights of the pretrained core architecture fixed. For each of the setting, we apply two additional techniques to stabilize the training: adding a \textit{batch normalization} to the last layer of the encoder to enforce latent representations to locate in a normalized region \citep{ioffe2015bn,charpentier2022natpn}, and \textit{resetting the last layer} to retrain its weights to improve robustness to spurious correlation \citep{kirichenko2022reset}.
+
+\textbf{Pretraining schemes.} In this experiment, we do not pretrain the core encoder architecture or pretrain it with 10\% of CIFAR100, 100\% of CIFAR100, and ImageNet. For the schemes \textit{None} and \textit{C100 (10\%)} which use no or few pretraining data, we increase the joint training phase to 200 epochs with for the core architecture to ensure proper convergence.
+
+% \textbf{Pretraining.} For the datasets CIFAR, and Camelyon datasets we first pretraining the encoder alone using the cross-entropy loss, while for MNIST we jointly train from scratch as it requires less computation resources. For pretraining the encoders we use the following setting for each dataset:
+% \begin{itemize}
+%     \item \textbf{CIFAR.} We train ResNet18 for 200 epochs with SGD optimizer parametrized with learning rate of 1e-1, and momentum of 0.9, and weight decay of 1e-6. The cosine annealing scheduler is used with the minimum learning rate $\eta_{min}$ of 5e-4. 
+%     \item \textbf{Camelyon.} We train Wide-ResNet-28-10 for 5 epochs with AdamW optimizer parametrized with learning rate of 1e-3, and weight decay of 1e-8. The cosine annealing scheduler is used with the $\eta_{min}$ of 1e-5.
+% \end{itemize}
+
+% \textbf{Training.} After the pretraining the encoder, DUMs can simply load the encoder to continue with the joint training. For each dataset and encoder experiment, we use the following settings for joint training:  
+% \begin{itemize}
+%     \item \textbf{MNIST.} We directly joint train for 20 epochs with AdamW optimizer for both DUMs. NatPN uses a learning rate of 1e-3/1e-4 for encoder/head respectively, and for DUE it is 1e-3/5e-3. The cosine annealing scheduler is used with the $\eta_{min}$ of 5e-4 applied only to the encoder. The latent dimension used is 16.
+%     \item \textbf{CIFAR.} we joint train for 20 epochs with AdamW optimizer for both DUMs. NatPN uses a learning rate of 1e-4/1e-4, and DUE 1e-5/5e-3. The cosine annealing scheduler $\eta_{min}$ is 1e-5 applied only to the encoder. The latent dimension used is 64.
+%     \item \textbf{Camelyon.} we joint train for 1 epoch with AdamW optimizer for both DUMs. NatPN's learning rate of 5e-6/1e-5, and DUE 1e-5/5e-3. The cosine annealing scheduler $\eta_{min}$ is 1e-6 applied only to the encoder. The latent dimension used is 128.
+% \end{itemize}
+
+%For the pretrained data experiment, we use the encoder directly loaded from the \textit{torchvision} APIs. Since these models requires input of dimension 3x224x224, we scale the CIFAR100 dataset to satisfy this requirement.
+
+
+\input{sections/008_iclr2023/tables/training_schema_ood.tex}
+\input{sections/008_iclr2023/tables/training_pretrain_ood.tex}
