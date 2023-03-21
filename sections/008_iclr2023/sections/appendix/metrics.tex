@@ -5,7 +5,7 @@
 
 \textbf{Accuracy.} The standard accuracy $\frac{1}{N}\sum_i \mathbbm{1}[y^{*,(i)} = y^{(i)}]$ is used, where $y^{*,(i)}$ is the true label and $y^{(i)}$ is the predicted label. 
 
-\textbf{Calibration.} The Brier score $\frac{1}{C}\sum_i^N||\vp^{(i)} - \vy^{*, (i)}||$ is used, where $\vp^{(i)}$ is the predicted softmax probability and $\vy^{*, (i)}$ is the one-hot encoded true label. Lower calibration indicates a better calibrated model. Note that in constrast with the Expected Calibration Error (ECE), the Brier score is a strictly proper scoring rule which makes it a particularly good evaluation metric for calibration \cite{gneiting2007proper}.
+\textbf{Calibration.} The Brier score $\frac{1}{C}\sum_i^N||\vp^{(i)} - \vy^{*, (i)}||$ is used, where $\vp^{(i)}$ is the predicted softmax probability and $\vy^{*, (i)}$ is the one-hot encoded true label. Lower calibration indicates a better calibrated model. Note that in constrast with the Expected Calibration Error (ECE), the Brier score is a strictly proper scoring rule which makes it a particularly good evaluation metric for calibration \cite{scoring-rules}.
 
 \textbf{OOD Generalization.} We apply accuracy and calibration to the distribution shifted OOD dataset and compare the results with the ID dataset to estimate the model's ability for generalization.
 

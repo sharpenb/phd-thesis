@@ -121,18 +121,10 @@ where $\bm{\theta}$ denote the direct parameters of the distribution over the ta
 
 \subsection{Aleatoric, Epistemic \& Predictive Uncertainty}
 
-The Bayesian formula in \cref{eq:posterior_predictive} involves three types of distribution (i.e. $\prob(\y \condition \bm{\theta})$, $\prior(\bm{\theta} \condition \data)$, and $\prob(\y \condition \data)$) which cover the three main sources of uncertainty introduced below: the aleatoric uncertainty represented by the distribution $\prob(\y \condition \bm{\theta})$, the epistemic uncertainty represented by the distribution $\prior(\bm{\theta} \condition \data)$, and the predictive uncertainty represented by the distribution $\prob(\y \condition \data)$ (see \cref{tab:overview_desiderata} middle).
-In practice, each uncertainty type can be measured by computing the spread of its respective distribution with the (differential) entropy which represents its variability, i.e. \citep{PriorNetworks,uncertainty-deep-learning}:
-\begin{align}
-     u_\text{alea} = \entropy[\prob(\y \condition \bm{\theta})], \hspace{4mm}
-     u_\text{epist} = \entropy[\prior(\bm{\theta} \condition \data)], \hspace{4mm}
-     u_\text{pred} = \entropy[\prob(\y \condition \data)]
-\end{align}
-Apart from the entropy, other uncertainty metrics commonly use the variance of the distributions to indicate their variability. Finally, it is also to measure the variability of a distribution with their concentration parameters if they exist.
+The Bayesian formula in \cref{eq:posterior_predictive} involves three types of distribution (i.e. $\prob(\y \condition \bm{\theta})$, $\prior(\bm{\theta} \condition \data)$, and $\prob(\y \condition \data)$) which cover the three main sources of uncertainty: the aleatoric uncertainty represented by the distribution $\prob(\y \condition \bm{\theta})$, the epistemic uncertainty represented by the distribution $\prior(\bm{\theta} \condition \data)$, and the predictive uncertainty represented by the distribution $\prob(\y \condition \data)$ (see \cref{tab:overview_desiderata} middle).
 
 \textbf{Aleatoric uncertainty.} The \emph{aleatoric uncertainty} is sometimes also called data uncertainty, stochastic uncertainty or risk \cite{hullermeier2021aleatoric,knight1921, malini2018}. 
 The aleatoric uncertainty is represented by the distribution $\prob(\y \condition \bm{\theta})$.
-Beyond entropy computation, it can also be computed using max probability for classification \cite{malini2018}.
 The aleatoric uncertainty should be high when \emph{the model does not know because of inherent noise in a given context} (e.g. noisy environment, noisy sensors, low computation resources, model mispecification) \cite{wenger2022posterior, hullermeier2021aleatoric}.
 Given a specific context, the aleatoric uncertainty is \emph{irreducible} since additional observations cannot resolve the information loss due noisy measurements or misspecifications. 
 However, aleatoric uncertainty can be reduced by using higher measurement resolution or improving the model specification. 
@@ -144,7 +136,15 @@ Hence, the epistemic uncertainty is \emph{reducible} since it should decrease wh
 
 \textbf{Predictive uncertainty.} The \emph{predictive uncertainty} is sometimes also called total uncertainty \cite{hullermeier2021aleatoric,malini2018}.
 The predictive uncertainty is represented by the distribution $\prob(\y \condition \data)$.
-Intuitively, the predictive uncertainty aggregates the effect of the aleatoric and epistemic uncertainty by integrating jointly the distributions $\prob(\y \condition \bm{\theta})$ and $\prior(\bm{\theta} \condition \data)$. 
+Intuitively, the predictive uncertainty aggregates the effect of the aleatoric and epistemic uncertainty by integrating jointly the distributions $\prob(\y \condition \bm{\theta})$ and $\prior(\bm{\theta} \condition \data)$.
+
+In practice, each uncertainty type can be measured by computing the spread of its respective distribution with the (differential) entropy which represents its variability \citep{PriorNetworks,uncertainty-deep-learning}, i.e.:
+\begin{align}
+     u_\text{alea} = \entropy[\prob(\y \condition \bm{\theta})], \hspace{4mm}
+     u_\text{epist} = \entropy[\prior(\bm{\theta} \condition \data)], \hspace{4mm}
+     u_\text{pred} = \entropy[\prob(\y \condition \data)]
+\end{align}
+Apart from the entropy, other uncertainty metrics can be commonly used. E.g. the variance of the distributions can indicate different uncertainty types, the max probability for classification \cite{malini2018} can indicate the aleatoric uncertainty, or the concentration parameters can indicate the epistemic uncertainty if they exist \cite{charpentier2020}.
 
 In this thesis, we focus on methods capable to estimates the three types of uncertainty types.
 

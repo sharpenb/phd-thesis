@@ -2,48 +2,39 @@
 \label{appendix:dums}
 % We provide a formal definition for the DUMs used in our experiments. 
 
-\textbf{NatPN}. The deep Bayesian uncertainty model NatPN \citep{charpentier2022natpn} can be decomposed into these steps: 
+\textbf{NatPN}. The deep Bayesian uncertainty model NatPN \citep{NatPN2021} can be decomposed into these steps: 
 \textbf{(1)} a core architecture predicts one latent representation of the input $\vx^{(i)}$ i.e. \smash{$\vz^{(i)} = f_{\bm{\phi}}(\vx^{(i)}) \in \mathbb{R}^H$}, 
 \textbf{(2)} While a density estimator \smash{$\mathbb{P}(.|\bm{w})$} predicts the evidence parameter update \smash{$n^{(i)}=N_H\mathbb{P}(z^{(i)}|\bm{w})$} where the $N_H$ is a scaling factor named certainty budget, a single linear decoder $g_{\bm{\psi}}$ outputs the parameter update \smash{$\boldsymbol{\chi}^{(i)} = g_{\bm{\psi}}(\vz^{(i)}) \in \mathbb{R}^L$}, which can be viewed as a softmax output prediction.
 \textbf{(3)} We perform an input-dependent Bayesian update which can be expressed in a closed-form as:
 $$\mathbb{Q}(\boldsymbol{\theta}^{(i)}|\boldsymbol{\chi}^{\text{post},(i)}, n^{\text{post},(i)}) = \text{exp}(n^{\text{post},(i)}\boldsymbol{\theta}^{(i) T}\boldsymbol{\chi}^{\text{post},(i)}-n^{\text{post},(i)}A(\boldsymbol{\theta}^{(i)}))$$
 $$\text{where} \qquad \boldsymbol{\chi}^{\text{post},(i)}=\frac{n^{\text{prior}}\boldsymbol{\chi}^{\text{prior}}+n^{(i)}\boldsymbol{\chi}^{(i)}}{n^{\text{prior}}+n^{(i)}}, \quad n^{\text{post},(i)}=n^\text{prior}+n^{(i)}$$
 where $\boldsymbol{\chi}^\text{prior}, n^\text{prior}$ are fixed prior parameters, and  $\boldsymbol{\chi}^{\text{post}, (i)}, n^{\text{post}, (i)}$ are the input-dependent posterior parameters.
-For the classification, the variable $\boldsymbol{\theta}^{(i)}$ represents the normalized categorical vector $\vp^{(i)}$. The predictive uncertainty is computed via the entropy of the predictive categorical distribution, and the epistemic uncertainty is computed via the evidence parameter $n^{post,(i)}$. We train all the components of neural network parameters $\{\bm{\phi}, \bm{w}, \bm{\psi}\}$ jointly with the Bayesian loss \citep{charpentier2022natpn}:
+For the classification, the variable $\boldsymbol{\theta}^{(i)}$ represents the normalized categorical vector $\vp^{(i)}$. The predictive uncertainty is computed via the entropy of the predictive categorical distribution, and the epistemic uncertainty is computed via the evidence parameter $n^{post,(i)}$. We train all the components of neural network parameters $\{\bm{\phi}, \bm{w}, \bm{\psi}\}$ jointly with the Bayesian loss \citep{NatPN2021}:
 \begin{equation}
     \begin{split}
         \mathcal{L}^{(i)} \propto \mathbb{E}[\boldsymbol{\theta}^{(i)}]^T u(y^{(i)})-\mathbb{E}[A(\boldsymbol{\theta}^{(i)})]- \lambda\mathbb{H}[\mathbb{Q}^{post,(i)}] 
     \end{split}
 \end{equation}
-where $\lambda$ is the regularization factor of the entropy term representing. We refer to \citep{charpentier2022natpn} for a more detailed description of the method.
+where $\lambda$ is the regularization factor of the entropy term representing. We refer to \citep{NatPN2021} for a more detailed description of the method.
 
-% \textbf{NatPN} \citep{charpentier2022natpn} is a deep Bayesian uncertainty model which leverages the exponential family distribution to enable a input-dependent Bayesian update. 
+% \textbf{NatPN} \citep{NatPN2021} is a deep Bayesian uncertainty model which leverages the exponential family distribution to enable a input-dependent Bayesian update. 
 % Given an input $\vx\dataix$, NatPN performs an input-dependent Bayesian update which can be expressed in a closed-form as:
 % $$\mathbb{Q}(\boldsymbol{\theta}|\boldsymbol{\chi}^{post,(i)}, n^{post,(i)}) = \text{exp}(n^{post,(i)}\boldsymbol{\theta}^T\boldsymbol{\chi}^{post,(i)}-n^{post,(i)}A(\boldsymbol{\theta}))$$
 % $$\text{where} \qquad \boldsymbol{\chi}^{post,(i)}=\frac{n^{prior}\boldsymbol{\chi}^{prior}+n^{(i)}\boldsymbol{\chi}^{(i)}}{n^{prior}+n^{(i)}}, \quad n^{post,(i)}=n^{prior}+n^{(i)}$$
 
 % where $\boldsymbol{\chi}^{prior}, n^{prior}$ are fixed prior parameters. $\boldsymbol{\chi}^{(i)}, n^{(i)}$ are predicted parameters dependent on the input $\vx\dataix$ with a core architecture, and  $\boldsymbol{\chi}^{post, (i)}, n^{post, (i)}$ are the input-dependent posterior parameters. The parameters $\boldsymbol{\chi}^{(i)}, n^{(i)}$ are predicted with the core architecture $f_{\bm{\psi}}$ and a density estimator $\mathbb{P}(.|\boldsymbol{\omega})$.
-% We train NatPN with a Bayesian loss \cite{charpentier2020pn} which can be rewritten in closed-form as: 
+% We train NatPN with a Bayesian loss \cite{NatPN2021} which can be rewritten in closed-form as: 
 % \begin{equation}
 %     \begin{split}
 %         \mathcal{L}^{(i)} & =-\mathbb{E}_{\boldsymbol{\theta}^{(i)} \sim \mathbb{Q}^{post, (i)}}[log\mathbb{P}(y^{(i)}|\boldsymbol{\theta}^{(i)}]-\mathbb{H}[\mathbb{Q}^{post,(i)}] \\
 %         & \propto \mathbb{E}[\boldsymbol{\theta}^{(i)}]^T u(y^{(i)})-\mathbb{E}[A(\boldsymbol{\theta}^{(i)})]-\mathbb{H}[\mathbb{Q}^{post,(i)}] 
 %     \end{split}
 % \end{equation}
-% We refer to \citep{charpentier2022natpn} for a more detailed description of the method.
+% We refer to \citep{NatPN2021} for a more detailed description of the method.
 
 
-\textbf{DUE.} The deep kernel learning method DUE \citep{van2021due} can be decomposed into these steps: \textbf{(1)} a core architecture predicts one latent representation of the input $\vx^{(i)}$ i.e. \smash{$\vz^{(i)} = f_{\bm{\theta}}(\vx^{(i)}) \in \mathbb{R}^H$}, 
+\textbf{DUE.} The deep kernel learning method DUE \citep{due} can be decomposed into these steps: \textbf{(1)} a core architecture predicts one latent representation of the input $\vx^{(i)}$ i.e. \smash{$\vz^{(i)} = f_{\bm{\theta}}(\vx^{(i)}) \in \mathbb{R}^H$}, 
 \textbf{(2)} a Gaussian Process defined from a fixed set of $K$ learnable inducing points \smash{$\{\bm{\phi}_{k}\}_{k=1}^{K}$} and a predefined positive definite kernel \smash{$\kappa(\cdot, \cdot)$} predicts the mean \smash{$\mu(\vx^{(i)})$} and the variance \smash{$\sigma(\vx^{(i)})$} of a Gaussian distribution, and 
-\textbf{(3)} we apply softmax to the mean output \smash{$\mu(\vx^{(i)})$} for the classification prediction, i.e. $\vp^{(i)} = \text{softmax}(\mu(\vx^{(i)})$. We train the neural network parameters $\bm{\theta}$ and the inducing points \smash{$\{\bm{\phi}_{k}\}_{k=1}^{K}$} jointly with a variational ELBO loss. %We refer to \citep{van2021due} for a more detailed description of the method.
+\textbf{(3)} we apply softmax to the mean output \smash{$\mu(\vx^{(i)})$} for the classification prediction, i.e. $\vp^{(i)} = \text{softmax}(\mu(\vx^{(i)})$. We train the neural network parameters $\bm{\theta}$ and the inducing points \smash{$\{\bm{\phi}_{k}\}_{k=1}^{K}$} jointly with a variational ELBO loss.
 For classification, the predictive uncertainty is computed as the entropy of the predictive categorical distribution. 
-We refer to \citep{van2021due} for a more detailed description of the method.
-
-% \textbf{DUE} \citep{van2021due} is a Deep Kernel Learning (DKL) model which estimates uncertainty by using a Gaussian process (GP) to compute the distance of a particular input from the in-distribution training data. The DKL is made of a feature extractor $f_\theta$ and a kernel function $k_l$:
-% $$k_{l,\theta}(\vx^{(i)}, \vx^{(j)}) \rightarrow k_l(f_\theta(\vx^{(i)}), f_\theta(\vx^{(j)}))$$
-
-% Specifically, DUE uses a sparse GP which is based on $m \ll n$ inducing points to approximate the full dataset, achieving a faster inference speed while sacrificing a negligible performance loss. The inducing points are variational parameters learned by maximizing the ELBO loss. Let $f^{(i)} \in \mathbb{R}^H$ be the value of a latent function for the input $\vx^{(i)} \in \mathbb{R}^D$, the joint distribution over $y^{(i)}$ and $f^{(i)}$ is: 
-% $$\mathbb{P}(y^{(i)}, f^{(i)}|x^{(i)})=\mathbb{P}(y^{(i)}|f^{(i)})\prod_{h=1}^{H}\mathbb{P}(f^{(i),(h)}|\vx^{(i)}) $$
-% $$\text{where} \qquad \mathbb{P}(f^{(i),(h)}|\vx^{(i)})=\mathcal{GP}(\mu_t(\vx^{(i)}), k_{l_h,\theta}(\vx^{(i)}, \vx^{(i)})), \quad \mathbb{P}(y^{(i)}|f^{(i)})=\text{softmax}(f^{(i)})$$
-
-% where the notation $h$ indicates the h-th specific dimension for the vector, i.e. $\mu_t$ is a mean function for the dimension $h$. DUE uses a constant mean function $\mu_t$ and an RBF kernel function $k_{l_t,\theta}$ whose parameters $l_t$ are learned during the training together with the encoder's parameter $\theta$.
+We refer to \citep{due} for a more detailed description of the method.
