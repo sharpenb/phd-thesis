@@ -228,7 +228,7 @@ On the other hand, standard GPs does not naturally extract hierarchical represen
 
 While ML models are primarily expected to provide accurate predictions, we present in this section an exhaustive summary of the main metrics used to evaluate the quality of uncertainty estimation. 
 It covers correct/wrong predictions detection, OOD \& dataset shifts detection, calibration, and sample efficiency.
-We provide a collection of evaluation setup covering various tasks to benchmark uncertainty models in \cref{tab:overview_evaluation}. Beyond these metrics, note that Bayesian methods have been also used in other tasks like  model pruning, model selection, or hyper-parameter tuning \citep{bayesian-networks,daxberger2021laplace}.
+We provide a collection of evaluation setups covering various tasks to benchmark uncertainty models in \cref{tab:overview_evaluation}. Beyond these metrics, note that Bayesian methods have been also used in other tasks like  model pruning, model selection, or hyper-parameter tuning \citep{bayesian-networks,daxberger2021laplace}.
 
 \begin{table*}[ht]
     \begin{center}
@@ -261,7 +261,7 @@ We provide a collection of evaluation setup covering various tasks to benchmark 
 It is crucial to provide confidence intervals accurately reflecting the true chance of an event to happen. This allows to increase \emph{fairness} and \emph{trust} of the ML prediction even on under-represented data regions. Intuitively, if the model predict $80\%$ chance for a class to be the correct one, we would expect the model to be $80\%$ of the time correct. Hence, uncertainty estimates are important to answer the following practical question:
 
 \begin{center}
-    \textbf{Does probabilities predicted by ML models correspond to the true probabilities?}
+    \textbf{Do probabilities predicted by ML models correspond to the true probabilities?}
 \end{center}
 
 In practice, the confidence intervals provided by the models can be used to estimate risks when making decisions. Appropriate metrics to evaluate calibration involve (strictly) proper scoring rules like Brier scores for classification and quantiles scores for regression \cite{scoring-rules}.
@@ -301,7 +301,7 @@ In practice, the model would require to \emph{jointly} look at the evolution of 
 It is crucial to wisely select data samples to learn efficiently while avoiding failures. This allows to ease the \emph{development} and \emph{maintenance} of the ML models by reducing training time, number of model failures, or enabling to continually learn from the environment. Intuitively, samples with high confidence might not be interesting since already learned, while samples with too high uncertainty might not be irrelevant outliers Hence, uncertainty estimates are important to answer the following practical question:
 
 \begin{center}
-    \textbf{How uncertainty estimates can efficiently select data samples to learn from?}
+    \textbf{How can uncertainty estimates efficiently select data samples to learn from?}
 \end{center}
 
 In practice, the sample selection process is particularly relevant in reinforcement learning (see \cref{chap:reinforcement_learning}), active learning (e.g. \cite{gal2017bald, kirsch2019batch}), continual learning \cite{hsu2018continual, lin2021clear}, or few-shots learning \cite{antoniou2020fewshots}. Appropriate metrics would be e.g. to measure the training speed by counting the required number of training samples or the time to train.

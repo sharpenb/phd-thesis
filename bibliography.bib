@@ -1,552 +1,424 @@
-% DATASETS ---------------------
-
+@misc{hullermeier2022quantifying,
+	title        = {Quantifying Aleatoric and Epistemic Uncertainty in Machine Learning: Are Conditional Entropy and Mutual Information Appropriate Measures?},
+	author       = {Eyke Hüllermeier},
+	year         = 2022,
+	eprint       = {2209.03302},
+	archiveprefix = {arXiv},
+}
+@misc{bengs2023secondorder,
+	title        = {On Second-Order Scoring Rules for Epistemic Uncertainty Quantification},
+	author       = {Viktor Bengs and Eyke Hüllermeier and Willem Waegeman},
+	year         = 2023,
+	eprint       = {2301.12736},
+	archiveprefix = {arXiv},
+}
 @article{arjovsky2019cmnist,
-  author    = {Mart{\'{\i}}n Arjovsky and
-               L{\'{e}}on Bottou and
-               Ishaan Gulrajani and
-               David Lopez{-}Paz},
-  title     = {Invariant Risk Minimization},
-  journal   = {arXiv},
-  year = {2019}
+	title        = {Invariant Risk Minimization},
+	author       = {Mart{\'{\i}}n Arjovsky and L{\'{e}}on Bottou and Ishaan Gulrajani and David Lopez{-}Paz},
+	year         = 2019,
+	journal      = {arXiv}
 }
-
 @inproceedings{coates2011stl10,
-  author    = {Adam Coates and
-               Andrew Y. Ng and
-               Honglak Lee},
-  editor    = {Geoffrey J. Gordon and
-               David B. Dunson and
-               Miroslav Dud{\'{\i}}k},
-  title     = {An Analysis of Single-Layer Networks in Unsupervised Feature Learning},
-  booktitle = {AISTATS},
-  year      = {2011}
+	title        = {An Analysis of Single-Layer Networks in Unsupervised Feature Learning},
+	author       = {Adam Coates and Andrew Y. Ng and Honglak Lee},
+	year         = 2011,
+	booktitle    = {AISTATS}
 }
-
-% ENCODER ----------------------
-
 @inproceedings{tan2021effcientnet,
-  author    = {Mingxing Tan and
-               Quoc V. Le},
-  title     = {EfficientNetV2: Smaller Models and Faster Training},
-  booktitle = {ICML},
-  year      = {2021}
+	title        = {EfficientNetV2: Smaller Models and Faster Training},
+	author       = {Mingxing Tan and Quoc V. Le},
+	year         = 2021,
+	booktitle    = {ICML}
 }
-
 @inproceedings{liu2021swin,
-  author    = {Ze Liu and
-               Yutong Lin and
-               Yue Cao and
-               Han Hu and
-               Yixuan Wei and
-               Zheng Zhang and
-               Stephen Lin and
-               Baining Guo},
-  title     = {Swin Transformer: Hierarchical Vision Transformer using Shifted Windows},
-  booktitle = {ICCV},
-  year      = {2021}
+	title        = {Swin Transformer: Hierarchical Vision Transformer using Shifted Windows},
+	author       = {Ze Liu and Yutong Lin and Yue Cao and Han Hu and Yixuan Wei and Zheng Zhang and Stephen Lin and Baining Guo},
+	year         = 2021,
+	booktitle    = {ICCV}
 }
-
 @inproceedings{zagoruyko2016wide,
-  author    = {Sergey Zagoruyko and
-               Nikos Komodakis},
-  title     = {Wide Residual Networks},
-  booktitle = {BMVC},
-  year      = {2016},
+	title        = {Wide Residual Networks},
+	author       = {Sergey Zagoruyko and Nikos Komodakis},
+	year         = 2016,
+	booktitle    = {BMVC}
 }
-
-% NORMALIZING FLOWS ---------------------------
-
 @inproceedings{durkan2019nsf,
-  author    = {Conor Durkan and
-               Artur Bekasov and
-               Iain Murray and
-               George Papamakarios},
-  title     = {Neural Spline Flows},
-  booktitle = {NeurIPS},
-  year      = {2019},
+	title        = {Neural Spline Flows},
+	author       = {Conor Durkan and Artur Bekasov and Iain Murray and George Papamakarios},
+	year         = 2019,
+	booktitle    = {NeurIPS}
 }
-
 @inproceedings{stimper2022resampled-nf,
-  title = 	 {Resampling {B}ase {D}istributions of {N}ormalizing {F}lows},
-  author =       {Vincent Stimper and Bernhard Sch{\"o}lkopf and Jos{\'e} Miguel Hern{\'a}ndez-Lobato},
-  booktitle = 	 {AISTATS},
-  year = 	 {2022}
+	title        = {Resampling {B}ase {D}istributions of {N}ormalizing {F}lows},
+	author       = {Vincent Stimper and Bernhard Sch{\"o}lkopf and Jos{\'e} Miguel Hern{\'a}ndez-Lobato},
+	year         = 2022,
+	booktitle    = {AISTATS}
 }
-
-% UNCERTAINTY ---------------------------
-
 @inproceedings{postels2022practicalitydum,
-  author    = {Janis Postels and
-               Mattia Seg{\`{u}} and
-               Tao Sun and
-               Luca Daniel Sieber and
-               Luc Van Gool and
-               Fisher Yu and
-               Federico Tombari},
-  title     = {On the Practicality of Deterministic Epistemic Uncertainty},
-  booktitle = {ICML},
-  year      = {2022}
+	title        = {On the Practicality of Deterministic Epistemic Uncertainty},
+	author       = {Janis Postels and Mattia Seg{\`{u}} and Tao Sun and Luca Daniel Sieber and Luc Van Gool and Fisher Yu and Federico Tombari},
+	year         = 2022,
+	booktitle    = {ICML}
 }
-
 @article{kirichenko2022reset,
-  author    = {Polina Kirichenko and
-               Pavel Izmailov and
-               Andrew Gordon Wilson},
-  title     = {Last Layer Re-Training is Sufficient for Robustness to Spurious Correlations},
-  journal   = {arXiv},
-  year      = {2022}
+	title        = {Last Layer Re-Training is Sufficient for Robustness to Spurious Correlations},
+	author       = {Polina Kirichenko and Pavel Izmailov and Andrew Gordon Wilson},
+	year         = 2022,
+	journal      = {arXiv}
 }
-
-% PRIOR ---------------------
-
 @inproceedings{noci2021prior_cpe,
-  author    = {Lorenzo Noci and
-               Kevin Roth and
-               Gregor Bachmann and
-               Sebastian Nowozin and
-               Thomas Hofmann},
-  title     = {Disentangling the Roles of Curation, Data-Augmentation and the Prior
-               in the Cold Posterior Effect},
-  booktitle = {NeurIPS},
-  year      = {2021}
+	title        = {Disentangling the Roles of Curation, Data-Augmentation and the Prior in the Cold Posterior Effect},
+	author       = {Lorenzo Noci and Kevin Roth and Gregor Bachmann and Sebastian Nowozin and Thomas Hofmann},
+	year         = 2021,
+	booktitle    = {NeurIPS}
 }
-
 @inproceedings{fortuin2022prior,
-  author    = {Vincent Fortuin and
-               Adri{\`{a}} Garriga{-}Alonso and
-               Sebastian W. Ober and
-               Florian Wenzel and
-               Gunnar R{\"{a}}tsch and
-               Richard E. Turner and
-               Mark van der Wilk and
-               Laurence Aitchison},
-  title     = {Bayesian Neural Network Priors Revisited},
-  booktitle = {ICLR},
-  year      = {2022}
+	title        = {Bayesian Neural Network Priors Revisited},
+	author       = {Vincent Fortuin and Adri{\`{a}} Garriga{-}Alonso and Sebastian W. Ober and Florian Wenzel and Gunnar R{\"{a}}tsch and Richard E. Turner and Mark van der Wilk and Laurence Aitchison},
+	year         = 2022,
+	booktitle    = {ICLR}
 }
-
 @article{kapoor2022prior_cpe,
-  author    = {Sanyam Kapoor and
-               Wesley J. Maddox and
-               Pavel Izmailov and
-               Andrew Gordon Wilson},
-  title     = {On Uncertainty, Tempering, and Data Augmentation in Bayesian Classification},
-  journal   = {arXiv},
-  year      = {2022}
+	title        = {On Uncertainty, Tempering, and Data Augmentation in Bayesian Classification},
+	author       = {Sanyam Kapoor and Wesley J. Maddox and Pavel Izmailov and Andrew Gordon Wilson},
+	year         = 2022,
+	journal      = {arXiv}
 }
-
 @inproceedings{loshchilov2019adamw,
-  author    = {Ilya Loshchilov and
-               Frank Hutter},
-  title     = {Decoupled Weight Decay Regularization},
-  booktitle = {ICLR},
-  year      = {2019}
+	title        = {Decoupled Weight Decay Regularization},
+	author       = {Ilya Loshchilov and Frank Hutter},
+	year         = 2019,
+	booktitle    = {ICLR}
 }
-
 @inproceedings{ioffe2015bn,
-  author    = {Sergey Ioffe and
-               Christian Szegedy},
-  title     = {Batch Normalization: Accelerating Deep Network Training by Reducing
-               Internal Covariate Shift},
-  booktitle = {ICML},
-  year      = {2015}
+	title        = {Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift},
+	author       = {Sergey Ioffe and Christian Szegedy},
+	year         = 2015,
+	booktitle    = {ICML}
 }
-
 @inproceedings{loshchilov2017cosinescheduler,
-  author    = {Ilya Loshchilov and
-               Frank Hutter},
-  title     = {{SGDR:} Stochastic Gradient Descent with Warm Restarts},
-  booktitle = {ICLR},
-  year      = {2017}
+	title        = {{SGDR:} Stochastic Gradient Descent with Warm Restarts},
+	author       = {Ilya Loshchilov and Frank Hutter},
+	year         = 2017,
+	booktitle    = {ICLR}
 }
-
 @inproceedings{miyato2018sn,
-  author = {Takeru Miyato, Toshiki Kataoka, Masanori Koyama, and Yuichi Yoshida},
-  title = {Spectral normalization for generative adversarial networks}, 
-  booktitle = {ICLR},
-  year = {2018}
+	title        = {Spectral normalization for generative adversarial networks},
+	author       = {Takeru Miyato, Toshiki Kataoka, Masanori Koyama, and Yuichi Yoshida},
+	year         = 2018,
+	booktitle    = {ICLR}
 }
-
 @article{postels2020mir,
-  author    = {Janis Postels and
-               Hermann Blum and
-               Cesar Cadena and
-               Roland Siegwart and
-               Luc Van Gool and
-               Federico Tombari},
-  title     = {Quantifying Aleatoric and Epistemic Uncertainty Using Density Estimation
-               in Latent Space},
-  journal   = {arXiv},
-  year      = {2020},
+	title        = {Quantifying Aleatoric and Epistemic Uncertainty Using Density Estimation in Latent Space},
+	author       = {Janis Postels and Hermann Blum and Cesar Cadena and Roland Siegwart and Luc Van Gool and Federico Tombari},
+	year         = 2020,
+	journal      = {arXiv}
 }
-
 @article{mukhoti2021ddu,
-  author    = {Jishnu Mukhoti and
-               Andreas Kirsch and
-               Joost van Amersfoort and
-               Philip H. S. Torr and
-               Yarin Gal},
-  title     = {Deterministic Neural Networks with Appropriate Inductive Biases Capture
-               Epistemic and Aleatoric Uncertainty},
-  journal   = {arXiv},
-  year      = {2021}
+	title        = {Deterministic Neural Networks with Appropriate Inductive Biases Capture Epistemic and Aleatoric Uncertainty},
+	author       = {Jishnu Mukhoti and Andreas Kirsch and Joost van Amersfoort and Philip H. S. Torr and Yarin Gal},
+	year         = 2021,
+	journal      = {arXiv}
 }
-
 @article{wu2020contrastive,
-  author    = {Mike Wu and
-               Noah D. Goodman},
-  title     = {A Simple Framework for Uncertainty in Contrastive Learning},
-  journal   = {arXiv},
-  year      = {2020}
+	title        = {A Simple Framework for Uncertainty in Contrastive Learning},
+	author       = {Mike Wu and Noah D. Goodman},
+	year         = 2020,
+	journal      = {arXiv}
 }
-
 @inproceedings{getzner2023accuracy,
-title={Accuracy is not the only Metric that matters: Estimating the Energy Consumption of Deep Learning Models},
-author={Johannes Getzner and Bertrand Charpentier and Stephan G{\"u}nnemann},
-booktitle={ICLR 2023 Workshop on Tackling Climate Change with Machine Learning: Global Perspectives and Local Challenges},
-year={2023}
+	title        = {Accuracy is not the only Metric that matters: Estimating the Energy Consumption of Deep Learning Models},
+	author       = {Johannes Getzner and Bertrand Charpentier and Stephan G{\"u}nnemann},
+	year         = 2023,
+	booktitle    = {ICLR 2023 Workshop on Tackling Climate Change with Machine Learning: Global Perspectives and Local Challenges}
 }
-
 @inproceedings{charpentier2023training,
-title={Training, Architecture, and Prior for Deterministic Uncertainty Methods},
-author={Bertrand Charpentier and Chenxiang Zhang and Stephan G{\"u}nnemann},
-booktitle={ICLR 2023 Workshop on Pitfalls of limited data and computation for Trustworthy ML},
-year={2023},
-url={https://openreview.net/forum?id=iYA80086YH}
+	title        = {Training, Architecture, and Prior for Deterministic Uncertainty Methods},
+	author       = {Bertrand Charpentier and Chenxiang Zhang and Stephan G{\"u}nnemann},
+	year         = 2023,
+	booktitle    = {ICLR 2023 Workshop on Pitfalls of limited data and computation for Trustworthy ML},
+	url          = {https://openreview.net/forum?id=iYA80086YH}
 }
-
 @misc{bazhenov2022ood,
-      title={Towards OOD Detection in Graph Classification from Uncertainty Estimation Perspective}, 
-      author={Gleb Bazhenov and Sergei Ivanov and Maxim Panov and Alexey Zaytsev and Evgeny Burnaev},
-      year={2022},
-      eprint={2206.10691},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
+	title        = {Towards OOD Detection in Graph Classification from Uncertainty Estimation Perspective},
+	author       = {Gleb Bazhenov and Sergei Ivanov and Maxim Panov and Alexey Zaytsev and Evgeny Burnaev},
+	year         = 2022,
+	eprint       = {2206.10691},
+	archiveprefix = {arXiv},
 }
-
 @misc{bazhenov2023revisiting,
-title={Revisiting Uncertainty Estimation for Node Classification: New Benchmark and Insights},
-author={Gleb Bazhenov and Denis Kuznedelev and Andrey Malinin and Artem Babenko and Liudmila Prokhorenkova},
-year={2023},
-url={https://openreview.net/forum?id=DB3BH3arU2Y}
+	title        = {Revisiting Uncertainty Estimation for Node Classification: New Benchmark and Insights},
+	author       = {Gleb Bazhenov and Denis Kuznedelev and Andrey Malinin and Artem Babenko and Liudmila Prokhorenkova},
+	year         = 2023,
+	url          = {https://openreview.net/forum?id=DB3BH3arU2Y}
 }
-
 @book{shafer1976mathematical,
-  author = {Shafer, Glenn},
-  booktitle = {A Mathematical Theory of Evidence},
-  publisher = {Princeton University Press},
-  title = {A Mathematical Theory of Evidence},
-  year = 1976
+	title        = {A Mathematical Theory of Evidence},
+	author       = {Shafer, Glenn},
+	year         = 1976,
+	booktitle    = {A Mathematical Theory of Evidence},
+	publisher    = {Princeton University Press}
 }
-
 @inproceedings{dempster1968evidence,
-  title={A Generalization of Bayesian Inference},
-  author={Arthur P. Dempster},
-  booktitle={Classic Works of the Dempster-Shafer Theory of Belief Functions},
-  year={1968}
+	title        = {A Generalization of Bayesian Inference},
+	author       = {Arthur P. Dempster},
+	year         = 1968,
+	booktitle    = {Classic Works of the Dempster-Shafer Theory of Belief Functions}
 }
-
 @inproceedings{huang2021feature,
-  title={Feature Space Singularity for Out-of-Distribution Detection},
-  author={Huang, Haiwen and Li, Zhihan and Wang, Lulu and Chen, Sishuo and Dong, Bin and Zhou, Xinyu},
-  booktitle={Proceedings of the Workshop on Artificial Intelligence Safety 2021 (SafeAI 2021)},
-  year={2021}
+	title        = {Feature Space Singularity for Out-of-Distribution Detection},
+	author       = {Huang, Haiwen and Li, Zhihan and Wang, Lulu and Chen, Sishuo and Dong, Bin and Zhou, Xinyu},
+	year         = 2021,
+	booktitle    = {Proceedings of the Workshop on Artificial Intelligence Safety 2021 (SafeAI 2021)}
 }
-
 @inproceedings{gomes2022igeood,
-title={Igeood: An Information Geometry Approach to Out-of-Distribution Detection},
-author={Eduardo Dadalto Camara Gomes and Florence Alberge and Pierre Duhamel and Pablo Piantanida},
-booktitle={ICLR},
-year={2022}
+	title        = {Igeood: An Information Geometry Approach to Out-of-Distribution Detection},
+	author       = {Eduardo Dadalto Camara Gomes and Florence Alberge and Pierre Duhamel and Pablo Piantanida},
+	year         = 2022,
+	booktitle    = {ICLR}
 }
-
 @article{sun2022knnood,
-  title={Out-of-distribution Detection with Deep Nearest Neighbors},
-  author={Sun, Yiyou and Ming, Yifei and Zhu, Xiaojin and Li, Yixuan},
-  journal={ICML},
-  year={2022}
+	title        = {Out-of-distribution Detection with Deep Nearest Neighbors},
+	author       = {Sun, Yiyou and Ming, Yifei and Zhu, Xiaojin and Li, Yixuan},
+	year         = 2022,
+	journal      = {ICML}
 }
-
-@article{mohseni2020self, 
-	title={Self-Supervised Learning for Generalizable Out-of-Distribution Detection},
-	journal={AAAI}, 
-	author={Mohseni, Sina and Pitale, Mandar and Yadawa, JBS and Wang, Zhangyang},
- 	year={2020}
- }
-
-@Inproceedings{wang2021ebm,
-  author = {Wang, Yezhen and Li, Bo and Che, Tong and Zhou, Kaiyang and Liu, Ziwei and Li, Dongsheng},
-  keywords = {Machine Learning (cs.LG), Computer Vision and Pattern Recognition (cs.CV), FOS: Computer and information sciences, FOS: Computer and information sciences},
-  title = {Energy-Based Open-World Uncertainty Modeling for Confidence Calibration},
- booktitle = {ICCV},
-  year = {2021},
+@article{mohseni2020self,
+	title        = {Self-Supervised Learning for Generalizable Out-of-Distribution Detection},
+	author       = {Mohseni, Sina and Pitale, Mandar and Yadawa, JBS and Wang, Zhangyang},
+	year         = 2020,
+	journal      = {AAAI}
 }
-
+@inproceedings{wang2021ebm,
+	title        = {Energy-Based Open-World Uncertainty Modeling for Confidence Calibration},
+	author       = {Wang, Yezhen and Li, Bo and Che, Tong and Zhou, Kaiyang and Liu, Ziwei and Li, Dongsheng},
+	year         = 2021,
+	booktitle    = {ICCV}
+}
 @inbook{lecun2006tutorial,
-title = "A tutorial on energy-based learning",
-author = "Yann Lecun and Sumit Chopra and Raia Hadsell and Ranzato, {Marc Aurelio} and Huang, {Fu Jie}",
-year = "2006",
-booktitle = "Predicting structured data",
-publisher = "MIT Press",
+	title        = {A tutorial on energy-based learning},
+	author       = {Yann Lecun and Sumit Chopra and Raia Hadsell and Ranzato, {Marc Aurelio} and Huang, {Fu Jie}},
+	year         = 2006,
+	booktitle    = {Predicting structured data},
+	publisher    = {MIT Press}
 }
-
-
-@Inproceedings{marx2022but,
- author = {Charlie Marx and Youngsuk Park and Hilaf Hasson and Yuyang (Bernie) Wang and Stefano Ermon and Jun Huan},
- title = {But are you sure? An uncertainty-aware perspective on explainable AI},
- year = {2022},
- booktitle = {NeurIPS 2022 Workshop on Trustworthy and Socially Responsible Machine Learning (TSRML)},
+@inproceedings{marx2022but,
+	title        = {But are you sure? An uncertainty-aware perspective on explainable AI},
+	author       = {Charlie Marx and Youngsuk Park and Hilaf Hasson and Yuyang (Bernie) Wang and Stefano Ermon and Jun Huan},
+	year         = 2022,
+	booktitle    = {NeurIPS 2022 Workshop on Trustworthy and Socially Responsible Machine Learning (TSRML)}
 }
-
-@InProceedings{marx2022conformal,  
-title =  {Modular Conformal Calibration},  
-author = {Marx, Charles and Zhao, Shengjia and Neiswanger, Willie and Ermon, Stefano},  
-booktitle =  {ICML},
-year =  {2022}
+@inproceedings{marx2022conformal,
+	title        = {Modular Conformal Calibration},
+	author       = {Marx, Charles and Zhao, Shengjia and Neiswanger, Willie and Ermon, Stefano},
+	year         = 2022,
+	booktitle    = {ICML}
 }
-
 @inproceedings{zadrozny2002transforming,
-author = {Zadrozny, Bianca and Elkan, Charles},
-title = {Transforming Classifier Scores into Accurate Multiclass Probability Estimates},
-year = {2002},
-booktitle = {KDD}
+	title        = {Transforming Classifier Scores into Accurate Multiclass Probability Estimates},
+	author       = {Zadrozny, Bianca and Elkan, Charles},
+	year         = 2002,
+	booktitle    = {KDD}
 }
-
 @inproceedings{zadrozny2001calibrated,
-author = {Zadrozny, Bianca and Elkan, Charles},
-title = {Obtaining Calibrated Probability Estimates from Decision Trees and Naive Bayesian Classifiers},
-year = {2001},
-booktitle = {ICML}
+	title        = {Obtaining Calibrated Probability Estimates from Decision Trees and Naive Bayesian Classifiers},
+	author       = {Zadrozny, Bianca and Elkan, Charles},
+	year         = 2001,
+	booktitle    = {ICML}
 }
-
 @inproceedings{kull2019beyond,
- author = {Kull, Meelis and Perello Nieto, Miquel and K\"{a}ngsepp, Markus and Silva Filho, Telmo and Song, Hao and Flach, Peter},
- booktitle = {Advances in Neural Information Processing Systems},
- title = {Beyond temperature scaling: Obtaining well-calibrated multi-class probabilities with Dirichlet calibration},
- year = {2019}
+	title        = {Beyond temperature scaling: Obtaining well-calibrated multi-class probabilities with Dirichlet calibration},
+	author       = {Kull, Meelis and Perello Nieto, Miquel and K\"{a}ngsepp, Markus and Silva Filho, Telmo and Song, Hao and Flach, Peter},
+	year         = 2019,
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
-
 @misc{wenger201calibration,
-  author = {Wenger, Jonathan and Kjellström, Hedvig and Triebel, Rudolph},
-  title = {Non-Parametric Calibration for Classification},
-  publisher = {arXiv},
-  year = {2019}
+	title        = {Non-Parametric Calibration for Classification},
+	author       = {Wenger, Jonathan and Kjellström, Hedvig and Triebel, Rudolph},
+	year         = 2019,
+	publisher    = {arXiv}
 }
-
 @inproceedings{lee2018training,
-title={Training Confidence-calibrated Classifiers for Detecting Out-of-Distribution Samples},
-author={Kimin Lee and Honglak Lee and Kibok Lee and Jinwoo Shin},
-booktitle={ICLR},
-year={2018}
+	title        = {Training Confidence-calibrated Classifiers for Detecting Out-of-Distribution Samples},
+	author       = {Kimin Lee and Honglak Lee and Kibok Lee and Jinwoo Shin},
+	year         = 2018,
+	booktitle    = {ICLR}
 }
-
 @inproceedings{corbieres2019confidence,
- author = {Corbi\`{e}re, Charles and THOME, Nicolas and Bar-Hen, Avner and Cord, Matthieu and P\'{e}rez, Patrick},
- booktitle = {NeurIPS},
- title = {Addressing Failure Prediction by Learning Model Confidence},
- year = {2019}
+	title        = {Addressing Failure Prediction by Learning Model Confidence},
+	author       = {Corbi\`{e}re, Charles and THOME, Nicolas and Bar-Hen, Avner and Cord, Matthieu and P\'{e}rez, Patrick},
+	year         = 2019,
+	booktitle    = {NeurIPS}
 }
-
 @inproceedings{wilson2016stochastic,
- author = {Wilson, Andrew G and Hu, Zhiting and Salakhutdinov, Russ R and Xing, Eric P},
- booktitle = {NeurIPS},
- title = {Stochastic Variational Deep Kernel Learning},
- year = {2016}
+	title        = {Stochastic Variational Deep Kernel Learning},
+	author       = {Wilson, Andrew G and Hu, Zhiting and Salakhutdinov, Russ R and Xing, Eric P},
+	year         = 2016,
+	booktitle    = {NeurIPS}
 }
-
-@InProceedings{titsias2010gplvm,
-  title = 	 {Bayesian Gaussian Process Latent Variable Model},
-  author = 	 {Titsias, Michalis and Lawrence, Neil D.},
-  booktitle = 	 {Proceedings of the Thirteenth International Conference on Artificial Intelligence and Statistics},
-  year = 	 {2010},
-  publisher =    {PMLR}}
-
-
+@inproceedings{titsias2010gplvm,
+	title        = {Bayesian Gaussian Process Latent Variable Model},
+	author       = {Titsias, Michalis and Lawrence, Neil D.},
+	year         = 2010,
+	booktitle    = {Proceedings of the Thirteenth International Conference on Artificial Intelligence and Statistics},
+	publisher    = {PMLR}
+}
 @inproceedings{snelson2005sparse,
- author = {Snelson, Edward and Ghahramani, Zoubin},
- booktitle = {NeurIPS},
- title = {Sparse Gaussian Processes using Pseudo-inputs},
- year = {2005}
+	title        = {Sparse Gaussian Processes using Pseudo-inputs},
+	author       = {Snelson, Edward and Ghahramani, Zoubin},
+	year         = 2005,
+	booktitle    = {NeurIPS}
 }
-
 @misc{damianou2012deepgp,
-  author = {Damianou, Andreas C. and Lawrence, Neil D.},  
-  title = {Deep Gaussian Processes},
-  publisher = {arXiv},
-  year = {2012}
+	title        = {Deep Gaussian Processes},
+	author       = {Damianou, Andreas C. and Lawrence, Neil D.},
+	year         = 2012,
+	publisher    = {arXiv}
 }
-
-
 @misc{jakkala2021deepgp,
-  author = {Jakkala, Kalvik},
-  title = {Deep Gaussian Processes: A Survey},
-  publisher = {arXiv},
-  year = {2021}
+	title        = {Deep Gaussian Processes: A Survey},
+	author       = {Jakkala, Kalvik},
+	year         = 2021,
+	publisher    = {arXiv}
 }
-
 @article{psaros2023uncertainty,
-	year = 2023,
-	publisher = {Elsevier {BV}},
-	author = {Apostolos F. Psaros and Xuhui Meng and Zongren Zou and Ling Guo and George Em Karniadakis},
-	title = {Uncertainty quantification in scientific machine learning: Methods, metrics, and comparisons},
-	journal = {Journal of Computational Physics}
+	title        = {Uncertainty quantification in scientific machine learning: Methods, metrics, and comparisons},
+	author       = {Apostolos F. Psaros and Xuhui Meng and Zongren Zou and Ling Guo and George Em Karniadakis},
+	year         = 2023,
+	journal      = {Journal of Computational Physics},
+	publisher    = {Elsevier {BV}}
 }
-
 @inproceedings{daxberger2021bayesian,
-  title={Bayesian Deep Learning via Subnetwork Inference},
-  author={Daxberger, Erik and Nalisnick, Eric and Allingham, James Urquhart and Antor{\'a}n, Javier and Hern{\'a}ndez-Lobato, Jos{\'e} Miguel},
-  booktitle={ICML},
-  year={2021}
+	title        = {Bayesian Deep Learning via Subnetwork Inference},
+	author       = {Daxberger, Erik and Nalisnick, Eric and Allingham, James Urquhart and Antor{\'a}n, Javier and Hern{\'a}ndez-Lobato, Jos{\'e} Miguel},
+	year         = 2021,
+	booktitle    = {ICML}
 }
-
 @inproceedings{daxberger2021laplace,
-title={Laplace Redux - Effortless Bayesian Deep Learning},
-author={Erik Daxberger and Agustinus Kristiadi and Alexander Immer and Runa Eschenhagen and Matthias Bauer and Philipp Hennig},
-booktitle={NeurIPS},
-year={2021}
+	title        = {Laplace Redux - Effortless Bayesian Deep Learning},
+	author       = {Erik Daxberger and Agustinus Kristiadi and Alexander Immer and Runa Eschenhagen and Matthias Bauer and Philipp Hennig},
+	year         = 2021,
+	booktitle    = {NeurIPS}
 }
-
-@InProceedings{betancourt2015data,
-  title = 	 {The Fundamental Incompatibility of Scalable Hamiltonian Monte Carlo and Naive Data Subsampling},
-  author = 	 {Betancourt, Michael},
-  booktitle = 	 {ICML},
-  year = 	 {2015}
+@inproceedings{betancourt2015data,
+	title        = {The Fundamental Incompatibility of Scalable Hamiltonian Monte Carlo and Naive Data Subsampling},
+	author       = {Betancourt, Michael},
+	year         = 2015,
+	booktitle    = {ICML}
 }
-
 @inproceedings{ma2015mcmc,
-author = {Ma, Yi-An and Chen, Tianqi and Fox, Emily B.},
-title = {A Complete Recipe for Stochastic Gradient MCMC},
-year = {2015},
-booktitle = {NeurIPS},
+	title        = {A Complete Recipe for Stochastic Gradient MCMC},
+	author       = {Ma, Yi-An and Chen, Tianqi and Fox, Emily B.},
+	year         = 2015,
+	booktitle    = {NeurIPS}
 }
-
 @misc{robert2015metropolis,
-  author = {Robert, Christian P.},
-  title = {The Metropolis-Hastings algorithm},
-  publisher = {arXiv},
-  year = {2015}
+	title        = {The Metropolis-Hastings algorithm},
+	author       = {Robert, Christian P.},
+	year         = 2015,
+	publisher    = {arXiv}
 }
-
 @inproceedings{garriga-alonso2021exact,
-title={Exact Langevin Dynamics with Stochastic Gradients},
-author={Adri{\`a} Garriga-Alonso and Vincent Fortuin},
-booktitle={Third Symposium on Advances in Approximate Bayesian Inference},
-year={2021},
-url={https://openreview.net/forum?id=Rprd8aVUYkE}
+	title        = {Exact Langevin Dynamics with Stochastic Gradients},
+	author       = {Adri{\`a} Garriga-Alonso and Vincent Fortuin},
+	year         = 2021,
+	booktitle    = {Third Symposium on Advances in Approximate Bayesian Inference},
+	url          = {https://openreview.net/forum?id=Rprd8aVUYkE}
 }
-
 @inproceedings{welling2011langevin,
-  author = {Welling, Max and Teh, Yee Whye},
-  booktitle = {ICML},
-  title = {Bayesian Learning via Stochastic Gradient Langevin Dynamics.},
-  year = 2011
+	title        = {Bayesian Learning via Stochastic Gradient Langevin Dynamics.},
+	author       = {Welling, Max and Teh, Yee Whye},
+	year         = 2011,
+	booktitle    = {ICML}
 }
-
 @article{duane1987hybrid,
-  author = {Duane, Simon and Kennedy, A. D. and Pendleton, Brian J. and Roweth, Duncan},
-  journal = {Physics Letters B},
-  title = {Hybrid Monte Carlo},
-  year = 1987
+	title        = {Hybrid Monte Carlo},
+	author       = {Duane, Simon and Kennedy, A. D. and Pendleton, Brian J. and Roweth, Duncan},
+	year         = 1987,
+	journal      = {Physics Letters B}
 }
-
-
-@InProceedings{wan2013dropconnect,
-  title = 	 {Regularization of Neural Networks using DropConnect},
-  author = 	 {Wan, Li and Zeiler, Matthew and Zhang, Sixin and Le Cun, Yann and Fergus, Rob},
-  booktitle = 	 {Proceedings of the 30th International Conference on Machine Learning},
-  year = 	 {2013},
-  publisher =    {PMLR}}
-
-
-@InProceedings{tassi2020bayesian,
-author="Njieutcheu Tassi, Cedrique Rovile",
-title="Bayesian Convolutional Neural Network: Robustly Quantify Uncertainty for Misclassifications Detection",
-booktitle="Pattern Recognition and Artificial Intelligence",
-year="2020",
-publisher="Springer International Publishing"
+@inproceedings{wan2013dropconnect,
+	title        = {Regularization of Neural Networks using DropConnect},
+	author       = {Wan, Li and Zeiler, Matthew and Zhang, Sixin and Le Cun, Yann and Fergus, Rob},
+	year         = 2013,
+	booktitle    = {Proceedings of the 30th International Conference on Machine Learning},
+	publisher    = {PMLR}
 }
-
+@inproceedings{tassi2020bayesian,
+	title        = {Bayesian Convolutional Neural Network: Robustly Quantify Uncertainty for Misclassifications Detection},
+	author       = {Njieutcheu Tassi, Cedrique Rovile},
+	year         = 2020,
+	booktitle    = {Pattern Recognition and Artificial Intelligence},
+	publisher    = {Springer International Publishing}
+}
 @misc{bae2018eigen,
-  author = {Bae, Juhan and Zhang, Guodong and Grosse, Roger},
-  title = {Eigenvalue Corrected Noisy Natural Gradient},
-  publisher = {arXiv},
-  year = {2018}
+	title        = {Eigenvalue Corrected Noisy Natural Gradient},
+	author       = {Bae, Juhan and Zhang, Guodong and Grosse, Roger},
+	year         = 2018,
+	publisher    = {arXiv}
 }
-
-
 @article{zhang2017noisy,
-  title={Noisy Natural Gradient as Variational Inference},
-  author={Zhang, Guodong and Sun, Shengyang and Duvenaud, David and Grosse, Roger},
-  journal={ICML},
-  year={2017}
+	title        = {Noisy Natural Gradient as Variational Inference},
+	author       = {Zhang, Guodong and Sun, Shengyang and Duvenaud, David and Grosse, Roger},
+	year         = 2017,
+	journal      = {ICML}
 }
-
 @inproceedings{mishkin2018slang,
-  author    = {Aaron Mishkin and Frederik Kunstner and Didrik Nielsen and Mark W. Schmidt and Mohammad Emtiyaz Khan},
-  editor    = {Samy Bengio and Hanna M. Wallach and Hugo Larochelle and Kristen Grauman and Nicol{\`{o}} Cesa{-}Bianchi and Roman Garnett},
-  title     = {{SLANG:} Fast Structured Covariance Approximations for {B}ayesian Deep Learning with Natural Gradient},
-  booktitle = {NeurIPS},
-  year      = {2018},
+	title        = {{SLANG:} Fast Structured Covariance Approximations for {B}ayesian Deep Learning with Natural Gradient},
+	author       = {Aaron Mishkin and Frederik Kunstner and Didrik Nielsen and Mark W. Schmidt and Mohammad Emtiyaz Khan},
+	year         = 2018,
+	booktitle    = {NeurIPS}
 }
-
 @article{blei2017vi,
-	year = 2017,
-	author = {David M. Blei and Alp Kucukelbir and Jon D. McAuliffe},
-	title = {Variational Inference: A Review for Statisticians},
-	journal = {Journal of the American Statistical Association}
+	title        = {Variational Inference: A Review for Statisticians},
+	author       = {David M. Blei and Alp Kucukelbir and Jon D. McAuliffe},
+	year         = 2017,
+	journal      = {Journal of the American Statistical Association}
 }
-
 @inproceedings{dietterich2000ensemble,
-author = {Dietterich, Thomas G.},
-title = {Ensemble Methods in Machine Learning},
-year = {2000},
-publisher = {Springer-Verlag},
-booktitle = {Proceedings of the First International Workshop on Multiple Classifier Systems}
+	title        = {Ensemble Methods in Machine Learning},
+	author       = {Dietterich, Thomas G.},
+	year         = 2000,
+	booktitle    = {Proceedings of the First International Workshop on Multiple Classifier Systems},
+	publisher    = {Springer-Verlag}
 }
-
 @inproceedings{chenG16xgboost,
-  author = {Chen, Tianqi and Guestrin, Carlos},
-  booktitle = {KDD},
-  publisher = {ACM},
-  title = {XGBoost: A Scalable Tree Boosting System.},
-  year = 2016
+	title        = {XGBoost: A Scalable Tree Boosting System.},
+	author       = {Chen, Tianqi and Guestrin, Carlos},
+	year         = 2016,
+	booktitle    = {KDD},
+	publisher    = {ACM}
 }
-
 @incollection{schapire2013explaining,
-  title={Explaining adaboost},
-  author={Schapire, Robert E},
-  booktitle={Empirical inference},
-  pages={37--52},
-  year={2013},
-  publisher={Springer}
-} 
-
-@misc{kadavath2022language,
-  author = {Kadavath, Saurav and Conerly, Tom and Askell, Amanda and Henighan, Tom and Drain, Dawn and Perez, Ethan and Schiefer, Nicholas and Hatfield-Dodds, Zac and DasSarma, Nova and Tran-Johnson, Eli and Johnston, Scott and El-Showk, Sheer and Jones, Andy and Elhage, Nelson and Hume, Tristan and Chen, Anna and Bai, Yuntao and Bowman, Sam and Fort, Stanislav and Ganguli, Deep and Hernandez, Danny and Jacobson, Josh and Kernion, Jackson and Kravec, Shauna and Lovitt, Liane and Ndousse, Kamal and Olsson, Catherine and Ringer, Sam and Amodei, Dario and Brown, Tom and Clark, Jack and Joseph, Nicholas and Mann, Ben and McCandlish, Sam and Olah, Chris and Kaplan, Jared},
-  keywords = {Computation and Language (cs.CL), Artificial Intelligence (cs.AI), Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences},
-  title = {Language Models (Mostly) Know What They Know},
-  publisher = {arXiv},
-  year = {2022}  
+	title        = {Explaining adaboost},
+	author       = {Schapire, Robert E},
+	year         = 2013,
+	booktitle    = {Empirical inference},
+	publisher    = {Springer}
 }
-
+@misc{kadavath2022language,
+	title        = {Language Models (Mostly) Know What They Know},
+	author       = {Kadavath, Saurav and Conerly, Tom and Askell, Amanda and Henighan, Tom and Drain, Dawn and Perez, Ethan and Schiefer, Nicholas and Hatfield-Dodds, Zac and DasSarma, Nova and Tran-Johnson, Eli and Johnston, Scott and El-Showk, Sheer and Jones, Andy and Elhage, Nelson and Hume, Tristan and Chen, Anna and Bai, Yuntao and Bowman, Sam and Fort, Stanislav and Ganguli, Deep and Hernandez, Danny and Jacobson, Josh and Kernion, Jackson and Kravec, Shauna and Lovitt, Liane and Ndousse, Kamal and Olsson, Catherine and Ringer, Sam and Amodei, Dario and Brown, Tom and Clark, Jack and Joseph, Nicholas and Mann, Ben and McCandlish, Sam and Olah, Chris and Kaplan, Jared},
+	year         = 2022,
+	publisher    = {arXiv}
+}
 @inproceedings{kuhn2023semantic,
-	title={Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation},
-	author={Lorenz Kuhn and Yarin Gal and Sebastian Farquhar},
-	booktitle={International Conference on Learning Representations},
-	year={2023}
+	title        = {Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation},
+	author       = {Lorenz Kuhn and Yarin Gal and Sebastian Farquhar},
+	year         = 2023,
+	booktitle    = {International Conference on Learning Representations}
 }
 @article{nguyen2022deepfakes,
-	title = {Deep learning for deepfakes creation and detection: A survey},
-	journal = {Computer Vision and Image Understanding},
-	pages = {103525},
-	year = {2022},
-	author = {Thanh Thi Nguyen and Quoc Viet Hung Nguyen and Dung Tien Nguyen and Duc Thanh Nguyen and Thien Huynh-The and Saeid Nahavandi and Thanh Tam Nguyen and Quoc-Viet Pham and Cuong M. Nguyen}
+	title        = {Deep learning for deepfakes creation and detection: A survey},
+	author       = {Thanh Thi Nguyen and Quoc Viet Hung Nguyen and Dung Tien Nguyen and Duc Thanh Nguyen and Thien Huynh-The and Saeid Nahavandi and Thanh Tam Nguyen and Quoc-Viet Pham and Cuong M. Nguyen},
+	year         = 2022,
+	journal      = {Computer Vision and Image Understanding}
 }
 @inproceedings{tata2022can,
 	title        = {Can Calibration Improve Sample Prioritization?},
 	author       = {Ganesh Tata and Gautham Krishna Gudur and Gopinath Chennupati and Mohammad Emtiyaz Khan},
 	year         = 2022,
-	booktitle    = {Has it Trained Yet? NeurIPS 2022 Workshop},
+	booktitle    = {Has it Trained Yet? NeurIPS 2022 Workshop}
 }
 @article{khan2021knowledge,
 	title        = {Knowledge-Adaptation Priors},
@@ -558,14 +430,12 @@ booktitle = {Proceedings of the First International Workshop on Multiple Classif
 	title        = {Defining Benchmarks for Continual Few-Shot Learning},
 	author       = {Antoniou, Antreas and Patacchiola, Massimiliano and Ochal, Mateusz and Storkey, Amos},
 	year         = 2020,
-	month        = {04},
-	pages        = {}
 }
 @inproceedings{hsu2018continual,
 	title        = {Re-evaluating Continual Learning Scenarios: A Categorization and Case for Strong Baselines},
 	author       = {Yen-Chang Hsu and Yen-Cheng Liu and Anita Ramasamy and Zsolt Kira},
 	year         = 2018,
-	booktitle    = {NeurIPS Continual learning Workshop},
+	booktitle    = {NeurIPS Continual learning Workshop}
 }
 @inproceedings{lin2021clear,
 	title        = {The CLEAR Benchmark: Continual LEArning on Real-World Imagery},
@@ -577,18 +447,13 @@ booktitle = {Proceedings of the First International Workshop on Multiple Classif
 	title        = {PyTorch-OOD: A Library for Out-of-Distribution Detection Based on PyTorch},
 	author       = {Kirchheim, Konstantin and Filax, Marco and Ortmeier, Frank},
 	year         = 2022,
-	month        = {June},
-	booktitle    = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
-	pages        = {4351--4360}
+	booktitle    = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops}
 }
 @misc{cao2020ood,
 	title        = {A Benchmark of Medical Out of Distribution Detection},
 	author       = {Cao, Tianshi and Huang, Chin-Wei and Hui, David Yu-Tung and Cohen, Joseph Paul},
 	year         = 2020,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2007.04250},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Machine Learning (cs.LG), Computer Vision and Pattern Recognition (cs.CV), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @article{chung2021uncertainty,
 	title        = {Uncertainty Toolbox: an Open-Source Library for Assessing, Visualizing, and Improving Uncertainty Quantification},
@@ -600,7 +465,7 @@ booktitle = {Proceedings of the First International Workshop on Multiple Classif
 	title        = {RobustBench: a standardized adversarial robustness benchmark},
 	author       = {Croce, Francesco and Andriushchenko, Maksym and Sehwag, Vikash and Debenedetti, Edoardo and Flammarion, Nicolas and Chiang, Mung and Mittal, Prateek and Matthias Hein},
 	year         = 2021,
-	booktitle    = {Thirty-fifth Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
+	booktitle    = {Thirty-fifth Conference on Neural Information Processing Systems Datasets and Benchmarks Track}
 }
 @article{yang2022openood,
 	title        = {OpenOOD: Benchmarking Generalized Out-of-Distribution Detection},
@@ -612,10 +477,7 @@ booktitle = {Proceedings of the First International Workshop on Multiple Classif
 	author       = {Taori, Rohan and Dave, Achal and Shankar, Vaishaal and Carlini, Nicholas and Recht, Benjamin and Schmidt, Ludwig},
 	year         = 2020,
 	booktitle    = {Advances in Neural Information Processing Systems},
-	publisher    = {Curran Associates, Inc.},
-	volume       = 33,
-	pages        = {18583--18599},
-	editor       = {H. Larochelle and M. Ranzato and R. Hadsell and M.F. Balcan and H. Lin}
+	publisher    = {Curran Associates, Inc.}
 }
 @inproceedings{neuhold201mapillary,
 	title        = {The Mapillary Vistas Dataset for Semantic Understanding of Street Scenes},
@@ -628,92 +490,56 @@ booktitle = {Proceedings of the First International Workshop on Multiple Classif
 	author       = {Powers, D. M. W.},
 	year         = 2011,
 	journal      = {Journal of Machine Learning Technologies},
-	volume       = 2,
-	number       = 1,
-	pages        = {37--63},
-	biburl       = {https://www.bibsonomy.org/bibtex/2e79179c264c479540bfb3dbafe82eef5/jpvaldes},
-	citeulike-article-id = 12882259,
-	interhash    = {37577a768a07235affb7a09b2f5574fb},
-	intrahash    = {e79179c264c479540bfb3dbafe82eef5},
-	keywords     = {metrics, nlp evaluation},
-	posted-at    = {2017-01-30 09:12:08},
-	priority     = 2,
-	timestamp    = {2018-12-07T09:32:19.000+0100}
 }
 @inproceedings{gal2017bald,
 	title        = {Deep {B}ayesian Active Learning with Image Data},
 	author       = {Yarin Gal and Riashat Islam and Zoubin Ghahramani},
 	year         = 2017,
-	month        = {06--11 Aug},
 	booktitle    = {Proceedings of the 34th International Conference on Machine Learning},
-	publisher    = {PMLR},
-	volume       = 70,
-	pages        = {1183--1192},
-	editor       = {Precup, Doina and Teh, Yee Whye},
-	pdf          = {http://proceedings.mlr.press/v70/gal17a/gal17a.pdf},
+	publisher    = {PMLR}
 }
 @inproceedings{kirsch2019batch,
 	title        = {BatchBALD: Efficient and Diverse Batch Acquisition for Deep Bayesian Active Learning},
 	author       = {Kirsch, Andreas and van Amersfoort, Joost and Gal, Yarin},
 	year         = 2019,
 	booktitle    = {Advances in Neural Information Processing Systems},
-	publisher    = {Curran Associates, Inc.},
-	volume       = 32,
-	pages        = {},
-	editor       = {H. Wallach and H. Larochelle and A. Beygelzimer and F. d\textquotesingle Alch\'{e}-Buc and E. Fox and R. Garnett}
+	publisher    = {Curran Associates, Inc.}
 }
 @inproceedings{farquhar2018towards,
-   author = {{Farquhar}, S. and {Gal}, Y.},
-    title = "{Differentially private continual learning}",
-  booktitle = {Privacy in Machine Learning and Artificial Intelligence workshop, ICML},
-     year = 2018,
+	title        = {{Differentially private continual learning}},
+	author       = {{Farquhar}, S. and {Gal}, Y.},
+	year         = 2018,
+	booktitle    = {Privacy in Machine Learning and Artificial Intelligence workshop, ICML}
 }
 @article{kirsch2021simple,
-  author    = {Andreas Kirsch and
-               Sebastian Farquhar and
-               Yarin Gal},
-  title     = {A Simple Baseline for Batch Active Learning with Stochastic Acquisition
-               Functions},
-  journal   = {CoRR},
-  year      = {2021}
+	title        = {A Simple Baseline for Batch Active Learning with Stochastic Acquisition Functions},
+	author       = {Andreas Kirsch and Sebastian Farquhar and Yarin Gal},
+	year         = 2021,
+	journal      = {CoRR}
 }
 @article{han2020adversarial,
 	title        = {Adversarial Attacks and Defenses in Images, Graphs and Text: A Review},
 	author       = {Xu, Han and Ma, Yao and Liu, Haochen and Deb, Debayan and Liu, Hui and Tang, Ji-Liang and Jain, Anil},
 	year         = 2020,
-	month        = {03},
-	journal      = {International Journal of Automation and Computing},
-	volume       = 17,
-	pages        = {},
-	doi          = {10.1007/s11633-019-1211-x}
+	journal      = {International Journal of Automation and Computing}
 }
 @book{knight1921,
 	title        = {{Risk, Uncertainty and Profit}},
 	author       = {Knight, Frank H.},
 	year         = 1921,
 	publisher    = {Houghton Mifflin Co},
-	address      = {Boston, MA},
-	biburl       = {https://www.bibsonomy.org/bibtex/2d38b30740cce608bf6ea1bf829e3ad7e/carl-boettiger},
-	interhash    = {e0b231cd0b09ea123d24e4f92e8ea47d},
-	intrahash    = {d38b30740cce608bf6ea1bf829e3ad7e},
-	keywords     = {theoretical-ecology},
-	timestamp    = {2013-04-11T15:42:55.000+0200}
 }
 @article{hullermeier2021aleatoric,
 	title        = {Aleatoric and epistemic uncertainty in machine learning: an introduction to concepts and methods},
 	author       = {Eyke H\"ullermeier and Willem Waegeman},
 	year         = 2021,
 	journal      = {Machine Learning},
-	volume       = 110,
-	number       = 3,
-	pages        = {457--506},
 }
 @inproceedings{wenger2022posterior,
 	title        = {Posterior and Computational Uncertainty in Gaussian Processes},
 	author       = {Jonathan Wenger and Geoff Pleiss and Marvin Pf{\"o}rtner and Philipp Hennig and John Patrick Cunningham},
 	year         = 2022,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	editor       = {Alice H. Oh and Alekh Agarwal and Danielle Belgrave and Kyunghyun Cho}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @misc{silvestro2020prior,
 	title        = {Prior choice affects ability of Bayesian neural networks to identify unknowns},
@@ -727,19 +553,17 @@ booktitle = {Proceedings of the First International Workshop on Multiple Classif
 	year         = 2018,
 	publisher    = {Pew Research Center}
 }
-@Inbook{bartneck2021privacy,
-	author="Bartneck, Christoph	and L{\"u}tge, Christoph
-	and Wagner, Alan Welsh, Sean",
-	title="Privacy Issues of AI",
-	bookTitle="An Introduction to Ethics in Robotics and AI",
-	year="2021",
-	publisher="Springer International Publishing",
-	pages="61--70"
+@inbook{bartneck2021privacy,
+	title        = {Privacy Issues of AI},
+	author       = {Bartneck, Christoph	and L{\"u}tge, Christoph and Wagner, Alan Welsh, Sean},
+	year         = 2021,
+	booktitle    = {An Introduction to Ethics in Robotics and AI},
+	publisher    = {Springer International Publishing}
 }
 @book{bartneck2021ethic,
-author = {Bartneck, Christoph and Lütge, Christoph and Wagner, Alan and Welsh, Sean},
-year = {2021},
-title = {An Introduction to Ethics in Robotics and AI}
+	title        = {An Introduction to Ethics in Robotics and AI},
+	author       = {Bartneck, Christoph and Lütge, Christoph and Wagner, Alan and Welsh, Sean},
+	year         = 2021
 }
 @article{jeffreys1946prior,
 	title        = {An Invariant Form for the Prior Probability in Estimation Problems},
@@ -747,29 +571,19 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 1946,
 	journal      = {Proceedings of the Royal Society of London. Series A, Mathematical and Physical Sciences},
 	publisher    = {The Royal Society},
-	number       = 1007,
-	pages        = {453--461},
-	abstract     = {It is shown that a certain differential form depending on the values of the parameters in a law of chance is invariant for all transformations of the parameters when the law is differentiable with regard to all parameters. For laws containing a location and a scale parameter a form with a somewhat restricted type of invariance is found even when the law is not everywhere differentiable with regard to the parameters. This form has the properties required to give a general rule for stating the prior probability in a large class of estimation problems.},
-	keywords     = {prior\_probability probabilistic\_framework scale\_parameter}
 }
 @inproceedings{rabanser2019shift,
 	title        = {Failing Loudly: An Empirical Study of Methods for Detecting Dataset Shift},
 	author       = {Rabanser, Stephan and G\"{u}nnemann, Stephan and Lipton, Zachary},
 	year         = 2019,
 	booktitle    = {Advances in Neural Information Processing Systems},
-	publisher    = {Curran Associates, Inc.},
-	volume       = 32,
-	pages        = {},
-	editor       = {H. Wallach and H. Larochelle and A. Beygelzimer and F. d\textquotesingle Alch\'{e}-Buc and E. Fox and R. Garnett}
+	publisher    = {Curran Associates, Inc.}
 }
 @incollection{Dietterich2002Machine,
 	title        = {Machine Learning for Sequential Data: A Review},
 	author       = {Dietterich, Thomas G.},
 	year         = 2002,
-	journal      = {Structural, Syntactic, and Statistical Pattern Recognition},
-	posted-at    = {2007-12-20 19:52:13},
-	priority     = 4,
-	timestamp    = {2009-04-22T10:30:19.000+0200}
+	journal      = {Structural, Syntactic, and Statistical Pattern Recognition}
 }
 @book{GNNBook2022,
 	title        = {Graph Neural Networks: Foundations, Frontiers, and Applications},
@@ -781,9 +595,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {A survey on deep learning in medical image analysis},
 	author       = {Geert Litjens and Thijs Kooi and Babak Ehteshami Bejnordi and Arnaud Arindra Adiyoso Setio and Francesco Ciompi and Mohsen Ghafoorian and Jeroen A.W.M. {van der Laak} and Bram {van Ginneken} and Clara I. Sánchez},
 	year         = 2017,
-	journal      = {Medical Image Analysis},
-	volume       = 42,
-	pages        = {60--88}
+	journal      = {Medical Image Analysis}
 }
 @article{lu2020survey,
 	title        = {A survey of image classification methods and techniques for improving classification performance},
@@ -791,10 +603,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2007,
 	journal      = {International Journal of Remote Sensing},
 	publisher    = {Taylor & Francis},
-	volume       = 28,
-	number       = 5,
-	pages        = {823--870}
-}
 }
 @misc{raschka2022chronology,
 	title        = {A Short Chronology Of Deep Learning For Tabular Data},
@@ -806,25 +614,13 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Kaelbling, Leslie P. and Littman, Michael L. and Cassandra, Anthony R.},
 	year         = 1998,
 	journal      = {Artificial Intelligence},
-	volume       = 101,
-	pages        = {99--134},
-	biburl       = {https://www.bibsonomy.org/bibtex/2d6effd9408536384a3c88fda3979cade/schaul},
-	citeulike-article-id = 2377356,
-	description  = {idsia},
-	interhash    = {0ed6d2b6eeb309557ffe4c5d8c4ee8d5},
-	intrahash    = {d6effd9408536384a3c88fda3979cade},
-	keywords     = {nn},
-	priority     = 2,
-	timestamp    = {2008-02-26T12:04:26.000+0100}
+	description  = {idsia}
 }
 @misc{ord2021universe,
 	title        = {The Edges of Our Universe},
 	author       = {Ord, Toby},
 	year         = 2021,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2104.01191},
-	copyright    = {Creative Commons Attribution Non Commercial No Derivatives 4.0 International},
-	keywords     = {General Relativity and Quantum Cosmology (gr-qc), High Energy Physics - Theory (hep-th), History and Philosophy of Physics (physics.hist-ph), FOS: Physical sciences, FOS: Physical sciences}
 }
 @incollection{hilgevoord2016heisenberg,
 	title        = {{The Uncertainty Principle}},
@@ -832,8 +628,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2016,
 	booktitle    = {The {Stanford} Encyclopedia of Philosophy},
 	publisher    = {Metaphysics Research Lab, Stanford University},
-	editor       = {Edward N. Zalta},
-	howpublished = {\url{https://plato.stanford.edu/archives/win2016/entries/qt-uncertainty/}},
 	edition      = {{W}inter 2016}
 }
 @article{firestone2020performance,
@@ -841,9 +635,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Chaz Firestone},
 	year         = 2020,
 	journal      = {Proceedings of the National Academy of Sciences},
-	volume       = 117,
-	number       = 43,
-	pages        = {26562--26571}
 }
 @article{gervais2020intellectual,
 	title        = {{Is Intellectual Property Law Ready for Artificial Intelligence?}},
@@ -862,60 +653,42 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Mehrabi, Ninareh and Morstatter, Fred and Saxena, Nripsuta and Lerman, Kristina and Galstyan, Aram},
 	year         = 2019,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.1908.09635},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @article{krishnan2020against,
 	title        = {Against Interpretability: a Critical Examination of the Interpretability Problem in Machine Learning},
 	author       = {Krishnan, Maya},
 	year         = 2020,
-	month        = {09},
-	journal      = {Philosophy \& Technology},
-	volume       = 33,
-	pages        = {},
-	doi          = {10.1007/s13347-019-00372-9}
+	journal      = {Philosophy \& Technology}
 }
 @misc{amodei2019problems,
 	title        = {Concrete Problems in AI Safety},
 	author       = {Amodei, Dario and Olah, Chris and Steinhardt, Jacob and Christiano, Paul and Schulman, John and Mané, Dan},
 	year         = 2016,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.1606.06565},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Artificial Intelligence (cs.AI), Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @article{cobbe2021math,
 	title        = {Training Verifiers to Solve Math Word Problems},
 	author       = {Karl Cobbe and Vineet Kosaraju and Mohammad Bavarian and Jacob Hilton and Reiichiro Nakano and Christopher Hesse and John Schulman},
 	year         = 2021,
 	journal      = {CoRR},
-	volume       = {abs/2110.14168},
-	timestamp    = {Fri, 29 Oct 2021 10:49:32 +0200},
-	biburl       = {https://dblp.org/rec/journals/corr/abs-2110-14168.bib},
-	bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 @inproceedings{hetzel2022predicting,
 	title        = {Predicting Cellular Responses to Novel Drug Perturbations at a Single-Cell Resolution},
 	author       = {Leon Hetzel and Simon Boehm and Niki Kilbertus and Stephan G{\"u}nnemann and Mohammad Lotfollahi and Fabian J Theis},
 	year         = 2022,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	editor       = {Alice H. Oh and Alekh Agarwal and Danielle Belgrave and Kyunghyun Cho}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @article{huang2021abinitio,
 	title        = {Ab Initio Machine Learning in Chemical Compound Space},
 	author       = {Huang, Bing and von Lilienfeld, O. Anatole},
 	year         = 2021,
 	journal      = {Chemical Reviews},
-	volume       = 121,
-	number       = 16,
-	pages        = {10001--10036}
 }
 @inproceedings{gao2022abinitio,
 	title        = {Ab-Initio Potential Energy Surfaces by Pairing {GNN}s with Neural Wave Functions},
 	author       = {Nicholas Gao and Stephan G{\"u}nnemann},
 	year         = 2022,
-	booktitle    = {International Conference on Learning Representations},
+	booktitle    = {International Conference on Learning Representations}
 }
 @article{ai-market-forbes,
 	title        = {3 Ways Artificial Intelligence Is Transforming Business Operations},
@@ -936,34 +709,19 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Fluctuations in Uncertainty},
 	author       = {Bloom, Nicholas},
 	year         = 2014,
-	month        = {May},
 	journal      = {Journal of Economic Perspectives},
-	volume       = 28,
-	number       = 2,
-	pages        = {153--76},
-	doi          = {10.1257/jep.28.2.153}
 }
 @book{Mitchell97,
 	title        = {Machine Learning},
 	author       = {Mitchell, Tom M.},
 	year         = 1997,
 	publisher    = {McGraw-Hill},
-	address      = {New York},
-	isbn         = {978-0-07-042807-2},
-	abstract     = {This book covers the field of machine learning, which is the study of algorithms that allow computer programs to automatically improve through experience. This exciting addition to the McGraw-Hill Series in Computer Science focuses on the concepts and techniques that contribute to the rapidly changing field of machine learning---including probability and statistics, artificial intelligence, and neural networks---unifying them all in a logical and coherent manner.},
-	groups       = {public},
-	interhash    = {479a66c32badb3a455fbdcf8e6633a5d},
-	intrahash    = {3e79734ee1a6e49aee02ffd108224d1c},
-	keywords     = {01624 105 book shelf ai learn algorithm},
-	timestamp    = {2017-07-13T17:10:10.000+0200},
-	username     = {flint63}
 }
 @book{GoodBengCour16,
 	title        = {Deep Learning},
 	author       = {Ian J. Goodfellow and Yoshua Bengio and Aaron Courville},
 	year         = 2016,
 	publisher    = {MIT Press},
-	address      = {Cambridge, MA, USA}
 }
 @inproceedings{charpentier2019tsd,
 	title        = {Tree Sampling Divergence: An Information-Theoretic Metric for Hierarchical Graph Clustering},
@@ -1012,30 +770,24 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Sharma, Mrinank and Farquhar, Sebastian and Nalisnick, Eric and Rainforth, Tom},
 	year         = 2022,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2211.06291},
-	copyright    = {Creative Commons Attribution Share Alike 4.0 International},
-	keywords     = {Machine Learning (cs.LG), Artificial Intelligence (cs.AI), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @inproceedings{Park2020PAC,
 	title        = {PAC Confidence Sets for Deep Neural Networks via Calibrated Prediction},
 	author       = {Sangdon Park and Osbert Bastani and Nikolai Matni and Insup Lee},
 	year         = 2020,
-	booktitle    = {International Conference on Learning Representations},
+	booktitle    = {International Conference on Learning Representations}
 }
 @misc{conformal-survey,
 	title        = {A Gentle Introduction to Conformal Prediction and Distribution-Free Uncertainty Quantification},
 	author       = {Angelopoulos, Anastasios N. and Bates, Stephen},
 	year         = 2021,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2107.07511},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Machine Learning (cs.LG), Artificial Intelligence (cs.AI), Statistics Theory (math.ST), Methodology (stat.ME), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences, FOS: Mathematics, FOS: Mathematics}
 }
 @inproceedings{du2022towards,
 	title        = {Towards Unknown-aware Learning with Virtual Outlier Synthesis},
 	author       = {Xuefeng Du and Zhaoning Wang and Mu Cai and Sharon Li},
 	year         = 2022,
-	booktitle    = {International Conference on Learning Representations},
+	booktitle    = {International Conference on Learning Representations}
 }
 @article{du2022vos,
 	title        = {VOS: Learning What You Don’t Know by Virtual Outlier Synthesis},
@@ -1048,25 +800,18 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Postels, Janis and Blum, Hermann and Strümpler, Yannick and Cadena, Cesar and Siegwart, Roland and Van Gool, Luc and Tombari, Federico},
 	year         = 2020,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2012.03082},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Machine Learning (cs.LG), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @inproceedings{bengs2022pitfalls,
 	title        = {Pitfalls of Epistemic Uncertainty Quantification through Loss Minimisation},
 	author       = {Viktor Bengs and Eyke Hüllermeier and Willem Waegeman},
 	year         = 2022,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	editor       = {Alice H. Oh and Alekh Agarwal and Danielle Belgrave and Kyunghyun Cho}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @misc{tran2022plex,
 	title        = {Plex: Towards Reliability using Pretrained Large Model Extensions},
 	author       = {Tran, Dustin and Liu, Jeremiah and Dusenberry, Michael W. and Phan, Du and Collier, Mark and Ren, Jie and Han, Kehang and Wang, Zi and Mariet, Zelda and Hu, Huiyi and Band, Neil and Rudner, Tim G. J. and Singhal, Karan and Nado, Zachary and van Amersfoort, Joost and Kirsch, Andreas and Jenatton, Rodolphe and Thain, Nithum and Yuan, Honglin and Buchanan, Kelly and Murphy, Kevin and Sculley, D. and Gal, Yarin and Ghahramani, Zoubin and Snoek, Jasper and Lakshminarayanan, Balaji},
 	year         = 2022,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2207.07411},
-	copyright    = {Creative Commons Attribution 4.0 International},
-	keywords     = {Machine Learning (cs.LG), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @article{nado2021uncertainty,
 	title        = {{Uncertainty Baselines}:  Benchmarks for Uncertainty and Robustness in Deep Learning},
@@ -1079,114 +824,80 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Zeng, Huimin and Yue, Zhenrui and Zhang, Yang and Kou, Ziyi and Shang, Lanyu and Wang, Dong},
 	year         = 2022,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2210.02191},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Machine Learning (cs.LG), Artificial Intelligence (cs.AI), Computer Vision and Pattern Recognition (cs.CV), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @inproceedings{galil2021disrupting,
 	title        = {Disrupting Deep Uncertainty Estimation Without Harming Accuracy},
 	author       = {Ido Galil and Ran El-Yaniv},
 	year         = 2021,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	editor       = {A. Beygelzimer and Y. Dauphin and P. Liang and J. Wortman Vaughan}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @misc{dia2021localizeduncertainty,
 	title        = {Localized Uncertainty Attacks},
 	author       = {Dia, Ousmane Amadou and Karaletsos, Theofanis and Hazirbas, Caner and Ferrer, Cristian Canton and Kabul, Ilknur Kaynar and Meijer, Erik},
 	year         = 2021,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2106.09222},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Machine Learning (stat.ML), Cryptography and Security (cs.CR), Computer Vision and Pattern Recognition (cs.CV), Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @article{alarab2021attackucertainty,
 	title        = {Adversarial Attack for Uncertainty Estimation: Identifying Critical Regions in Neural Networks},
 	author       = {Ismail Alarab and Simant Prakoonwit},
 	year         = 2021,
-	month        = {dec},
 	journal      = {Neural Processing Letters},
 	publisher    = {Springer Science and Business Media {LLC}},
-	volume       = 54,
-	number       = 3,
-	pages        = {1805--1821},
-	doi          = {10.1007/s11063-021-10707-3},
 }
 @misc{meinke2021provably,
 	title        = {Provably Robust Detection of Out-of-distribution Data (almost) for free},
 	author       = {Meinke, Alexander and Bitterwolf, Julian and Hein, Matthias},
 	year         = 2021,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2106.04260},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Machine Learning (cs.LG), Artificial Intelligence (cs.AI), Computer Vision and Pattern Recognition (cs.CV), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @misc{giovanni2022graff,
 	title        = {Graph Neural Networks as Gradient Flows: understanding graph convolutions via energy},
 	author       = {Di Giovanni, Francesco and Rowbottom, James and Chamberlain, Benjamin P. and Markovich, Thomas and Bronstein, Michael M.},
 	year         = 2022,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2206.10991},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Machine Learning (cs.LG), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @inproceedings{bodnar2022sheaf,
 	title        = {Neural Sheaf Diffusion:  A Topological Perspective on Heterophily and Oversmoothing in {GNN}s},
 	author       = {Cristian Bodnar and Francesco Di Giovanni and Benjamin Paul Chamberlain and Pietro Lio and Michael M. Bronstein},
 	year         = 2022,
-	booktitle    = {ICLR 2022 Workshop on Geometrical and Topological Representation Learning},
+	booktitle    = {ICLR 2022 Workshop on Geometrical and Topological Representation Learning}
 }
 @misc{hsu2022GNNmiscalibrated,
 	title        = {What Makes Graph Neural Networks Miscalibrated?},
 	author       = {Hsu, Hans Hao-Hsun and Shen, Yuesong and Tomani, Christian and Cremers, Daniel},
 	year         = 2022,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2210.06391},
-	copyright    = {Creative Commons Attribution 4.0 International},
-	keywords     = {Machine Learning (cs.LG), Artificial Intelligence (cs.AI), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @misc{hsu2022structure,
 	title        = {A Graph Is More Than Its Nodes: Towards Structured Uncertainty-Aware Learning on Graphs},
 	author       = {Hsu, Hans Hao-Hsun and Shen, Yuesong and Cremers, Daniel},
 	year         = 2022,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2210.15575},
-	copyright    = {Creative Commons Attribution 4.0 International},
-	keywords     = {Machine Learning (cs.LG), Artificial Intelligence (cs.AI), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @misc{zhou2022OODlink,
 	title        = {OOD Link Prediction Generalization Capabilities of Message-Passing GNNs in Larger Test Graphs},
 	author       = {Zhou, Yangze and Kutyniok, Gitta and Ribeiro, Bruno},
 	year         = 2022,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2205.15117},
-	copyright    = {Creative Commons Attribution 4.0 International},
-	keywords     = {Machine Learning (cs.LG), Artificial Intelligence (cs.AI), Numerical Analysis (math.NA), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences, FOS: Mathematics, FOS: Mathematics}
 }
 @article{texeira2019GNNmiscalibrated,
 	title        = {Are Graph Neural Networks Miscalibrated?},
 	author       = {Leonardo Teixeira and Brian Jalaian and Bruno Ribeiro},
 	year         = 2019,
 	journal      = {CoRR},
-	volume       = {abs/1905.02296},
-	timestamp    = {Wed, 29 May 2019 12:29:31 +0200},
-	biburl       = {https://dblp.org/rec/journals/corr/abs-1905-02296.bib},
-	bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 @inproceedings{wang2021confident,
 	title        = {Be Confident! Towards Trustworthy Graph Neural Networks via Confidence Calibration},
 	author       = {Wang, Xiao and Liu, Hongrui and Shi, Chuan and Yang, Cheng},
 	year         = 2021,
 	booktitle    = {Advances in Neural Information Processing Systems},
-	publisher    = {Curran Associates, Inc.},
-	volume       = 34,
-	pages        = {23768--23779},
-	editor       = {M. Ranzato and A. Beygelzimer and Y. Dauphin and P.S. Liang and J. Wortman Vaughan}
+	publisher    = {Curran Associates, Inc.}
 }
 @inproceedings{gui2022good,
 	title        = {{GOOD}: A Graph Out-of-Distribution Benchmark},
 	author       = {Shurui Gui and Xiner Li and Limei Wang and Shuiwang Ji},
 	year         = 2022,
-	booktitle    = {Thirty-sixth Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
+	booktitle    = {Thirty-sixth Conference on Neural Information Processing Systems Datasets and Benchmarks Track}
 }
 @article{soleimany2021evidential,
 	title        = {Evidential Deep Learning for Guided Molecular Property Prediction and Discovery},
@@ -1205,8 +916,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Detecting Anomalous Event Sequences with Temporal Point Processes},
 	author       = {Oleksandr Shchur and Ali Caner Turkmen and Tim Januschowski and Jan Gasthaus and Stephan G{\"u}nnemann},
 	year         = 2021,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	editor       = {A. Beygelzimer and Y. Dauphin and P. Liang and J. Wortman Vaughan}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @inproceedings{shchur2020fast,
 	title        = {Fast and Flexible Temporal Point Processes with Triangular Maps},
@@ -1218,69 +928,56 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Neural Temporal Point Processes: A Review},
 	author       = {Oleksandr Shchur and Ali Caner Turkmen and Tim Januschowski and Stephan Günnemann},
 	year         = 2021,
-	booktitle    = {IJCAI 2021},
+	booktitle    = {IJCAI 2021}
 }
 @inproceedings{minderer2021revisiting,
 	title        = {Revisiting the Calibration of Modern Neural Networks},
 	author       = {Minderer, Matthias and Djolonga, Josip and Romijnders, Rob and Hubis, Frances and Zhai, Xiaohua and Houlsby, Neil and Tran, Dustin and Lucic, Mario},
 	year         = 2021,
 	booktitle    = {Advances in Neural Information Processing Systems},
-	publisher    = {Curran Associates, Inc.},
-	volume       = 34,
-	pages        = {15682--15694},
-	editor       = {M. Ranzato and A. Beygelzimer and Y. Dauphin and P.S. Liang and J. Wortman Vaughan}
+	publisher    = {Curran Associates, Inc.}
 }
 @inproceedings{malinin2021uncertainty,
 	title        = {Uncertainty Estimation in Autoregressive Structured Prediction},
 	author       = {Andrey Malinin and Mark Gales},
 	year         = 2021,
-	booktitle    = {International Conference on Learning Representations},
+	booktitle    = {International Conference on Learning Representations}
 }
 @inproceedings{hu2021uncertainty,
 	title        = {Uncertainty-Aware Reliable Text Classification},
 	author       = {Yibo Hu and Latifur Khan},
 	year         = 2021,
-	month        = {aug},
 	booktitle    = {Proceedings of the 27th {ACM} {SIGKDD} Conference on Knowledge Discovery {\&} Data Mining},
-	publisher    = {{ACM}},
-	doi          = {10.1145/3447548.3467382},
+	publisher    = {{ACM}}
 }
 @article{he2020toward,
 	title        = {Towards More Accurate Uncertainty Estimation In Text Classification},
 	author       = {He, Jianfeng and Zhang, Xuchao and Lei, Shuo and Chen, Zhiqian and Chen, Fanglan and Alhamadani, Abdulaziz and Xiao, Bei and Lu, Chang-Tien},
 	year         = 2020,
-	month        = 10,
-	pages        = {}
 }
 @inproceedings{huang2022tiered,
 	title        = {Tiered Reinforcement Learning: Pessimism in the Face of Uncertainty and Constant Regret},
 	author       = {Jiawei Huang and Li Zhao and Tao Qin and Wei Chen and Nan Jiang and Tie-Yan Liu},
 	year         = 2022,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	editor       = {Alice H. Oh and Alekh Agarwal and Danielle Belgrave and Kyunghyun Cho}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @inproceedings{wu2022plan,
 	title        = {Plan To Predict: Learning an Uncertainty-Foreseeing Model For Model-Based Reinforcement Learning},
 	author       = {Zifan Wu and Chao Yu and Chen Chen and Jianye HAO and Hankz Hankui Zhuo},
 	year         = 2022,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	editor       = {Alice H. Oh and Alekh Agarwal and Danielle Belgrave and Kyunghyun Cho}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @inproceedings{tennenholtz2022plan,
 	title        = {Uncertainty Estimation Using Riemannian Model Dynamics for Offline Reinforcement Learning},
 	author       = {Guy Tennenholtz and Shie Mannor},
 	year         = 2022,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	editor       = {Alice H. Oh and Alekh Agarwal and Danielle Belgrave and Kyunghyun Cho}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @misc{silva2020opportunies,
 	title        = {Opportunities and Challenges in Deep Learning Adversarial Robustness: A Survey},
 	author       = {Silva, Samuel Henrique and Najafirad, Peyman},
 	year         = 2020,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2007.00753},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Machine Learning (cs.LG), Artificial Intelligence (cs.AI), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @incollection{GNNBook-ch8-gunnemann,
 	title        = {Graph Neural Networks: Adversarial Robustness},
@@ -1288,8 +985,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2022,
 	booktitle    = {Graph Neural Networks: Foundations, Frontiers, and Applications},
 	publisher    = {Springer},
-	pages        = {149--176},
-	editor       = {Wu, Lingfei and Cui, Peng and Pei, Jian and Zhao, Liang},
 	chapter      = 8
 }
 @misc{arrieta2019explainable,
@@ -1297,9 +992,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Arrieta, Alejandro Barredo and Díaz-Rodríguez, Natalia and Del Ser, Javier and Bennetot, Adrien and Tabik, Siham and Barbado, Alberto and García, Salvador and Gil-López, Sergio and Molina, Daniel and Benjamins, Richard and Chatila, Raja and Herrera, Francisco},
 	year         = 2019,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.1910.10045},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Artificial Intelligence (cs.AI), Machine Learning (cs.LG), Neural and Evolutionary Computing (cs.NE), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @article{tu2020empirical,
 	title        = {An Empirical Study on Robustness to Spurious Correlations using Pre-trained Language Models},
@@ -1307,58 +999,32 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2020,
 	journal      = {Transactions of the Association for Computational Linguistics},
 	publisher    = {MIT Press},
-	address      = {Cambridge, MA},
-	volume       = 8,
-	pages        = {621--633},
-	doi          = {10.1162/tacl_a_00335},
 }
 @misc{chun2020empirical,
 	title        = {An Empirical Evaluation on Robustness and Uncertainty of Regularization Methods},
 	author       = {Chun, Sanghyuk and Oh, Seong Joon and Yun, Sangdoo and Han, Dongyoon and Choe, Junsuk and Yoo, Youngjoon},
 	year         = 2020,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2003.03879},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Computer Vision and Pattern Recognition (cs.CV), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @inproceedings{zugner2020certifiable,
 	title        = {Certifiable Robustness of Graph Convolutional Networks under Structure Perturbations},
 	author       = {Z\"{u}gner, Daniel and G\"{u}nnemann, Stephan},
 	year         = 2020,
 	booktitle    = {Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery; Data Mining},
-	location     = {Virtual Event, CA, USA},
 	publisher    = {Association for Computing Machinery},
-	address      = {New York, NY, USA},
-	pages        = {1656–1665},
-	doi          = {10.1145/3394486.3403217},
-	isbn         = 9781450379984,
-	abstract     = {Recent works show that message-passing neural networks (MPNNs) can be fooled by adversarial attacks on both the node attributes and the graph structure. Since MPNNs are currently being rapidly adopted in real-world applications, it is thus crucial to improve their reliablility and robustness. While there has been progress on robustness certification of MPNNs under perturbation of the node attributes, no existing method can handle structural perturbations. These perturbations are especially challenging because they alter the message passing scheme itself. In this work we close this gap and propose the first method to certify robustness of Graph Convolutional Networks (GCNs) under perturbations of the graph structure. We show how this problem can be expressed as a jointly constrained bilinear program - a challenging, yet well-studied class of problems - and propose a novel branch-and-bound algorithm to obtain lower bounds on the global optimum. These lower bounds are significantly tighter and can certify up to twice as many nodes compared to a standard linear relaxation.},
-	numpages     = 10,
-	keywords     = {semi-supervised learning, deep learning, graph neural networks, adversarial attacks, adversarial robustness}
 }
 @article{cristofaro2021privacy,
 	title        = {A Critical Overview of Privacy in Machine Learning},
 	author       = {E. De Cristofaro},
 	year         = 2021,
-	month        = {jul},
 	journal      = {IEEE Security; Privacy},
 	publisher    = {IEEE Computer Society},
-	address      = {Los Alamitos, CA, USA},
-	volume       = 19,
-	number       = {04},
-	pages        = {19--27},
-	doi          = {10.1109/MSEC.2021.3076443},
-	issn         = {1558-4046},
-	keywords     = {data models;training;predictive models;training data;privacy;context modeling;task analysis}
 }
 @misc{cristofaro2020privacy,
 	title        = {An Overview of Privacy in Machine Learning},
 	author       = {De Cristofaro, Emiliano},
 	year         = 2020,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2005.08679},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Machine Learning (cs.LG), Artificial Intelligence (cs.AI), Cryptography and Security (cs.CR), Computers and Society (cs.CY), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @inproceedings{buglesi2006privacy,
 	title        = {Differential Privacy},
@@ -1366,65 +1032,38 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2006,
 	booktitle    = {Automata, Languages and Programming},
 	publisher    = {Springer Berlin Heidelberg},
-	address      = {Berlin, Heidelberg},
-	isbn         = {978-3-540-35908-1},
-	editor       = {Bugliesi, Michele and Preneel, Bart and Sassone, Vladimiro and Wegener, Ingo}
 }
 @misc{schwartz2019greenAI,
 	title        = {Green AI},
 	author       = {Schwartz, Roy and Dodge, Jesse and Smith, Noah A. and Etzioni, Oren},
 	year         = 2019,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.1907.10597},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Computers and Society (cs.CY), Computation and Language (cs.CL), Computer Vision and Pattern Recognition (cs.CV), Machine Learning (cs.LG), Methodology (stat.ME), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @misc{neill2020compression,
 	title        = {An Overview of Neural Network Compression},
 	author       = {Neill, James O'},
 	year         = 2020,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2006.03669},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Machine Learning (cs.LG), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @book{bostrom2014superintelligence,
 	title        = {Superintelligence: Paths, Dangers, Strategies},
 	author       = {Bostrom, Nick},
 	year         = 2014,
 	publisher    = {Oxford University Press},
-	address      = {Oxford, UK},
-	isbn         = {978-0-19-967811-2},
-	abstract     = {The human brain has some capabilities that the brains of other animals lack. It is to these distinctive capabilities that our species owes its dominant position. Other animals have stronger muscles or sharper claws, but we have cleverer brains. If machine brains one day come to surpass human brains in general intelligence, then this new superintelligence could become very powerful. As the fate of the gorillas now depends more on us humans than on the gorillas themselves, so the fate of our species then would come to depend on the actions of the machine superintelligence. But we have one advantage: we get to make the first move. Will it be possible to construct a seed AI or otherwise to engineer initial conditions so as to make an intelligence explosion survivable? How could one achieve a controlled detonation? To get closer to an answer to this question, we must make our way through a fascinating landscape of topics and considerations. Read the book and learn about oracles, genies, singletons; about boxing methods, tripwires, and mind crime; about humanity's cosmic endowment and differential technological development; indirect normativity, instrumental convergence, whole brain emulation and technology couplings; Malthusian economics and dystopian evolution; artificial intelligence, and biological cognitive enhancement, and collective intelligence.},
-	biburl       = {https://www.bibsonomy.org/bibtex/2bec0230f125a1b30f5e55fd825d842fa/flint63},
 	file         = {eBook:2014/Bostrom14.pdf:PDF;OUP Product Page:https\://global.oup.com/academic/product/superintelligence-9780199678112:URL;Amazon Search inside:http\://www.amazon.de/gp/reader/0199678111/:URL},
-	groups       = {public},
-	interhash    = {8bf4bb3df7ad68466b21fecb70f3371d},
-	intrahash    = {bec0230f125a1b30f5e55fd825d842fa},
-	keywords     = {01801 103 book ai cognitive science theory},
-	timestamp    = {2018-04-16T12:22:22.000+0200},
-	username     = {flint63}
 }
 @article{gabriel2020AI,
 	title        = {Artificial Intelligence, Values, and Alignment},
 	author       = {Iason Gabriel},
 	year         = 2020,
-	month        = {sep},
 	journal      = {Minds and Machines},
 	publisher    = {Springer Science and Business Media {LLC}},
-	volume       = 30,
-	number       = 3,
-	pages        = {411--437},
-	doi          = {10.1007/s11023-020-09539-2},
 }
 @misc{instructgpt,
 	title        = {Training language models to follow instructions with human feedback},
 	author       = {Ouyang, Long and Wu, Jeff and Jiang, Xu and Almeida, Diogo and Wainwright, Carroll L. and Mishkin, Pamela and Zhang, Chong and Agarwal, Sandhini and Slama, Katarina and Ray, Alex and Schulman, John and Hilton, Jacob and Kelton, Fraser and Miller, Luke and Simens, Maddie and Askell, Amanda and Welinder, Peter and Christiano, Paul and Leike, Jan and Lowe, Ryan},
 	year         = 2022,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2203.02155},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Computation and Language (cs.CL), Artificial Intelligence (cs.AI), Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @misc{chatgpt,
 	title        = {ChatGPT: Optimizing Language Models for Dialogue},
@@ -1435,111 +1074,86 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Robin Rombach and Andreas Blattmann and Dominik Lorenz and Patrick Esser and Björn Ommer},
 	year         = 2021,
 	archiveprefix = {arXiv},
-	primaryclass = {cs.CV}
 }
 @misc{gpt,
 	title        = {Language Models are Few-Shot Learners},
 	author       = {Brown, Tom B. and Mann, Benjamin and Ryder, Nick and Subbiah, Melanie and Kaplan, Jared and Dhariwal, Prafulla and Neelakantan, Arvind and Shyam, Pranav and Sastry, Girish and Askell, Amanda and Agarwal, Sandhini and Herbert-Voss, Ariel and Krueger, Gretchen and Henighan, Tom and Child, Rewon and Ramesh, Aditya and Ziegler, Daniel M. and Wu, Jeffrey and Winter, Clemens and Hesse, Christopher and Chen, Mark and Sigler, Eric and Litwin, Mateusz and Gray, Scott and Chess, Benjamin and Clark, Jack and Berner, Christopher and McCandlish, Sam and Radford, Alec and Sutskever, Ilya and Amodei, Dario},
 	year         = 2020,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2005.14165},
-	copyright    = {arXiv.org perpetual, non-exclusive license},
-	keywords     = {Computation and Language (cs.CL), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @misc{galactica,
 	title        = {Galactica: A Large Language Model for Science},
 	author       = {Taylor, Ross and Kardas, Marcin and Cucurull, Guillem and Scialom, Thomas and Hartshorn, Anthony and Saravia, Elvis and Poulton, Andrew and Kerkez, Viktor and Stojnic, Robert},
 	year         = 2022,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2211.09085},
-	copyright    = {Creative Commons Attribution Share Alike 4.0 International},
-	keywords     = {Computation and Language (cs.CL), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @inproceedings{ebrahimi2020uncertainty-guided,
 	title        = {Uncertainty-guided Continual Learning with Bayesian Neural Networks},
 	author       = {Sayna Ebrahimi and Mohamed Elhoseiny and Trevor Darrell and Marcus Rohrbach},
 	year         = 2020,
-	booktitle    = {International Conference on Learning Representations},
+	booktitle    = {International Conference on Learning Representations}
 }
 @misc{jain2022biological,
 	title        = {Biological Sequence Design with GFlowNets},
 	author       = {Jain, Moksh and Bengio, Emmanuel and Garcia, Alex-Hernandez and Rector-Brooks, Jarrid and Dossou, Bonaventure F. P. and Ekbote, Chanakya and Fu, Jie and Zhang, Tianyu and Kilgour, Micheal and Zhang, Dinghuai and Simine, Lena and Das, Payel and Bengio, Yoshua},
 	year         = 2022,
 	publisher    = {arXiv},
-	doi          = {10.48550/ARXIV.2203.04115},
-	copyright    = {Creative Commons Attribution 4.0 International},
-	keywords     = {Biomolecules (q-bio.BM), Machine Learning (cs.LG), FOS: Biological sciences, FOS: Biological sciences, FOS: Computer and information sciences, FOS: Computer and information sciences}
 }
 @inproceedings{antoran2021getting,
 	title        = {Getting a {\{}CLUE{\}}: A  Method for Explaining Uncertainty Estimates},
 	author       = {Javier Antoran and Umang Bhatt and Tameem Adel and Adrian Weller and Jos{\'e} Miguel Hern{\'a}ndez-Lobato},
 	year         = 2021,
-	booktitle    = {International Conference on Learning Representations},
+	booktitle    = {International Conference on Learning Representations}
 }
 @book{pearl2009causality,
 	title        = {Causality: Models, Reasoning and Inference},
 	author       = {Pearl, Judea},
 	year         = 2009,
 	publisher    = {Cambridge University Press},
-	biburl       = {https://www.bibsonomy.org/bibtex/2ed1c50e2f3a9bda76e622f15cffad570/machinelearning},
 	date-added   = {2010-10-05 10:15:23 -0700},
 	date-modified = {2010-10-05 10:15:52 -0700},
-	edition      = {2nd},
-	interhash    = {e1ad305042e608819815bbbc7a91a821},
-	intrahash    = {ed1c50e2f3a9bda76e622f15cffad570},
-	keywords     = {imported ml},
-	timestamp    = {2016-11-26T13:20:49.000+0100}
+	edition      = {2nd}
 }
 @inproceedings{liu2022uncertaintyaware,
 	title        = {Uncertainty-Aware Reinforcement Learning for Risk-Sensitive Player Evaluation in Sports Game},
 	author       = {Guiliang Liu and Yudong Luo and Oliver Schulte and Pascal Poupart},
 	year         = 2022,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	editor       = {Alice H. Oh and Alekh Agarwal and Danielle Belgrave and Kyunghyun Cho}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @inproceedings{luo2022distributional,
 	title        = {Distributional Reinforcement Learning with Monotonic Splines},
 	author       = {Yudong Luo and Guiliang Liu and Haonan Duan and Oliver Schulte and Pascal Poupart},
 	year         = 2022,
-	booktitle    = {International Conference on Learning Representations},
+	booktitle    = {International Conference on Learning Representations}
 }
 @inproceedings{abe2022deep,
 	title        = {Deep Ensembles Work, But Are They Necessary?},
 	author       = {Taiga Abe and E. Kelly Buchanan and Geoff Pleiss and Richard Zemel and John Patrick Cunningham},
 	year         = 2022,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	editor       = {Alice H. Oh and Alekh Agarwal and Danielle Belgrave and Kyunghyun Cho}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
-% 006
 @article{barham2003xen,
 	title        = {Xen and the art of virtualization},
 	author       = {Barham, Paul and Dragovic, Boris and Fraser, Keir and Hand, Steven and Harris, Tim and Ho, Alex and Neugebauer, Rolf and Pratt, Ian and Warfield, Andrew},
 	year         = 2003,
 	journal      = {ACM SIGOPS Operating Systems Review},
 	publisher    = {ACM},
-	volume       = 37,
-	number       = 5,
-	pages        = {164--177}
 }
 @webpage{LIS,
 	title        = {{Lehrstuhl für Integrierte Systeme}},
 	year         = 2016,
-	lastchecked  = {2016-11-28}
 }
 @inproceedings{variationaldiffussion2022kingma,
 	title        = {Variational Diffusion Models},
 	author       = {Kingma, Diederik and Salimans, Tim and Poole, Ben and Ho, Jonathan},
 	year         = 2021,
 	booktitle    = {Advances in Neural Information Processing Systems},
-	publisher    = {Curran Associates, Inc.},
-	volume       = 34,
-	pages        = {21696--21707},
-	editor       = {M. Ranzato and A. Beygelzimer and Y. Dauphin and P.S. Liang and J. Wortman Vaughan}
+	publisher    = {Curran Associates, Inc.}
 }
 @inproceedings{coldaleatoric2020adlam,
 	title        = {Cold Posteriors and Aleatoric Uncertainty},
 	author       = {Ben Adlam and Jasper Roland Snoek and Sam Smith},
-	year         = 2020,
+	year         = 2020
 }
 @inproceedings{bayesposterior2020wenzel,
 	title        = {How Good is the Bayes Posterior in Deep Neural Networks Really?},
@@ -1547,31 +1161,20 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2020,
 	booktitle    = {Proceedings of the 37th International Conference on Machine Learning},
 	publisher    = {JMLR.org},
-	abstract     = {During the past five years the Bayesian deep learning community has developed increasingly accurate and efficient approximate inference procedures that allow for Bayesian inference in deep neural networks. However, despite this algorithmic progress and the promise of improved uncertainty quantification and sample efficiency there are--as of early 2020--no publicized deployments of Bayesian neural networks in industrial practice. In this work we cast doubt on the current understanding of Bayes posteriors in popular deep neural networks: we demonstrate through careful MCMC sampling that the posterior predictive induced by the Bayes posterior yields systematically worse predictions compared to simpler methods including point estimates obtained from SGD. Furthermore, we demonstrate that predictive performance is improved significantly through the use of a "cold posterior" that overcounts evidence. Such cold posteriors sharply deviate from the Bayesian paradigm but are commonly used as heuristic in Bayesian deep learning papers. We put forward several hypotheses that could explain cold posteriors and evaluate the hypotheses through experiments. Our work questions the goal of accurate posterior approximations in Bayesian deep learning: If the true Bayes posterior is poor, what is the use of more accurate approximations? Instead, we argue that it is timely to focus on understanding the origin of the improved performance of cold posteriors.},
-	articleno    = 949,
-	numpages     = 12
 }
-%%%%% NEURIPS 2020 %%%%%
 @incollection{practical_deep_bayesian_principles,
 	title        = {Practical Deep Learning with Bayesian Principles},
 	author       = {Osawa, Kazuki and Swaroop, Siddharth and Khan, Mohammad Emtiyaz E and Jain, Anirudh and Eschenhagen, Runa and Turner, Richard E and Yokota, Rio},
 	year         = 2019,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	pages        = {4289--4301}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @article{semi_conditional_flow,
 	title        = {{Semi-Conditional Normalizing Flows for Semi-Supervised Learning}},
 	author       = {{Atanov}, Andrei and {Volokhova}, Alexandra and {Ashukha}, Arsenii and {Sosnovik}, Ivan and {Vetrov}, Dmitry},
 	year         = 2019,
-	month        = {May},
 	journal      = {arXiv e-prints},
-	pages        = {arXiv:1905.00505},
-	keywords     = {Statistics - Machine Learning, Computer Science - Machine Learning},
 	eid          = {arXiv:1905.00505},
 	archiveprefix = {arXiv},
-	primaryclass = {stat.ML},
-	adsurl       = {https://ui.adsabs.harvard.edu/abs/2019arXiv190500505A},
-	adsnote      = {Provided by the SAO/NASA Astrophysics Data System}
 }
 @inproceedings{energy_based_classifier,
 	title        = {Your classifier is secretly an energy based model and you should treat it like one},
@@ -1583,29 +1186,25 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Improved Variational Inference with Inverse Autoregressive Flow},
 	author       = {Kingma, Durk P and Salimans, Tim and Jozefowicz, Rafal and Chen, Xi and Sutskever, Ilya and Welling, Max},
 	year         = 2016,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	pages        = {4743--4751}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @inproceedings{neural_flow,
 	title        = {Neural Autoregressive Flows},
 	author       = {Huang, Chin-Wei and Krueger, David and Lacoste, Alexandre and Courville, Aaron},
 	year         = 2018,
-	booktitle    = {International Conference on Machine Learning},
-	pages        = {2078--2087}
+	booktitle    = {International Conference on Machine Learning}
 }
 @incollection{glow,
 	title        = {Glow: Generative Flow with Invertible 1x1 Convolutions},
 	author       = {Kingma, Durk P and Dhariwal, Prafulla},
 	year         = 2018,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	pages        = {10215--10224}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @incollection{pixel_cnn,
 	title        = {Conditional Image Generation with PixelCNN Decoders},
 	author       = {van den Oord, Aaron and Kalchbrenner, Nal and Espeholt, Lasse and kavukcuoglu, koray and Vinyals, Oriol and Graves, Alex},
 	year         = 2016,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	pages        = {4790--4798}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @article{robust_generative,
 	title        = {Are Generative Classifiers More Robust to Adversarial Attacks?},
@@ -1617,10 +1216,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Optimal Information Processing and Bayes's Theorem},
 	author       = {Zellner, Arnold},
 	year         = 1988,
-	month        = 11,
-	journal      = {The American Statistician},
-	pages        = 278,
-	doi          = {10.2307/2685143}
+	journal      = {The American Statistician}
 }
 @article{learning_algo_bayes_principles,
 	title        = {Learning-Algorithms from Bayesian Principles},
@@ -1631,34 +1227,23 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {{UCI} Machine Learning Repository},
 	author       = {Dua, Dheeru and Graff, Casey},
 	year         = 2017,
-	institution  = {Univion-ersity of California, Irvine, School of Information and Computer Sciences}
 }
 @article{mnist,
 	title        = {{MNIST} handwritten digit database},
 	author       = {LeCun, Yann and Cortes, Corinna},
 	year         = 2010,
-	biburl       = {https://www.bibsonomy.org/bibtex/2935bad99fa1f65e03c25b315aa3c1032/mhwombat},
-	groups       = {public},
-	howpublished = {http://yann.lecun.com/exdb/mnist/},
-	interhash    = {21b9d0558bd66279df9452562df6e6f3},
-	intrahash    = {935bad99fa1f65e03c25b315aa3c1032},
-	lastchecked  = {2016-01-14 14:24:11},
-	timestamp    = {2016-07-12T19:25:30.000+0200},
-	username     = {mhwombat}
 }
 @online{fashionmnist,
 	title        = {Fashion-MNIST: a Novel Image Dataset for Benchmarking Machine Learning Algorithms},
 	author       = {Han Xiao and Kashif Rasul and Roland Vollgraf},
 	year         = 2017,
 	date         = {2017-08-28},
-	eprintclass  = {cs.LG},
 }
 @online{kmnist,
 	title        = {Deep Learning for Classical Japanese Literature},
 	author       = {Tarin Clanuwat and Mikel Bober-Irizar and Asanobu Kitamoto and Alex Lamb and Kazuaki Yamamoto and David Ha},
 	year         = 2018,
 	date         = {2018-12-03},
-	eprintclass  = {cs.CV},
 }
 @inproceedings{svhn,
 	title        = {Reading Digits in Natural Images with Unsupervised Feature Learning},
@@ -1670,7 +1255,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Learning multiple layers of features from tiny images},
 	author       = {Alex Krizhevsky},
 	year         = 2009,
-	institution  = {}
 }
 @inproceedings{grathwohl2018scalable,
 	title        = {Scalable Reversible Generative Models with Free-form Continuous Dynamics},
@@ -1682,36 +1266,31 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Lipschitz regularity of deep neural networks: analysis and efficient estimation},
 	author       = {Virmaux, Aladin and Scaman, Kevin},
 	year         = 2018,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	pages        = {3835--3844}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @inproceedings{GAN_principles,
 	title        = {Towards Principled Methods for Training Generative Adversarial Networks},
 	author       = {Martin Arjovsky and Léon Bottou},
 	year         = 2017,
 	booktitle    = {International Conference on Learning Representations},
-	primaryclass = {stat.ML}
 }
 @inproceedings{GAN_lipschitz_regularization,
 	title        = {Adversarial Lipschitz Regularization},
 	author       = {Dávid Terjék},
 	year         = 2020,
-	booktitle    = {International Conference on Learning Representations},
+	booktitle    = {International Conference on Learning Representations}
 }
 @incollection{GAN_stable_regularization,
 	title        = {Stabilizing Training of Generative Adversarial Networks through Regularization},
 	author       = {Roth, Kevin and Lucchi, Aurelien and Nowozin, Sebastian and Hofmann, Thomas},
 	year         = 2017,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	pages        = {2018--2028},
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @inproceedings{GAN_batch_norm,
 	title        = {Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks},
 	author       = {Alec Radford and Luke Metz and Soumith Chintala},
 	year         = 2016,
 	booktitle    = {International Conference on Learning Representations},
-	timestamp    = {Thu, 25 Jul 2019 14:25:38 +0200},
-	bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 @misc{typicality_OOD_generative,
 	title        = {Detecting Out-of-Distribution Inputs to Deep Generative Models Using Typicality},
@@ -1722,8 +1301,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Very Deep Convolutional Networks for Large-Scale Image Recognition},
 	author       = {Karen Simonyan and Andrew Zisserman},
 	year         = 2015,
-	booktitle    = {International Conference on Learning Representations,},
-	timestamp    = {Wed, 17 Jul 2019 10:40:54 +0200}
+	booktitle    = {International Conference on Learning Representations,}
 }
 @article{resnet,
 	title        = {Deep Residual Learning for Image Recognition},
@@ -1735,21 +1313,14 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {ImageNet Classification with Deep Convolutional Neural Networks},
 	author       = {Alex Krizhevsky and Sutskever, Ilya and Hinton, Geoffrey E},
 	year         = 2012,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	pages        = {1097--1105}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @incollection{pytorch,
 	title        = {PyTorch: An Imperative Style, High-Performance Deep Learning Library},
 	author       = {Paszke, Adam and Gross, Sam and Massa, Francisco and Lerer, Adam and Bradbury, James and Chanan, Gregory and Killeen, Trevor and Lin, Zeming and Gimelshein, Natalia and Antiga, Luca and Desmaison, Alban and Kopf, Andreas and Yang, Edward and DeVito, Zachary and Raison, Martin and Tejani, Alykhan and Chilamkurthy, Sasank and Steiner, Benoit and Fang, Lu and Bai, Junjie and Chintala, Soumith},
 	year         = 2019,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	pages        = {8024--8035}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
-% 007
-
-%%%%%%%%%%%%%
-%%% BOOKS %%%
-%%%%%%%%%%%%%
 @book{bishop,
 	title        = {Pattern Recognition and Machine Learning},
 	author       = {Bishop, Christopher M},
@@ -1785,9 +1356,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2004,
 	publisher    = {Chapman and Hall/CRC}
 }
-%%%%%%%%%%%%%%
-%%% ONLINE %%%
-%%%%%%%%%%%%%%
 @article{nyu-depth,
 	title        = {Indoor Segmentation and Support Inference from RGBD Images},
 	author       = {Nathan Silberman, Derek Hoiem, Pushmeet Kohli and Rob Fergus},
@@ -1799,11 +1367,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Fei-Fei Li, Andrej Karpathy and Justin Johnson},
 	year         = 2017,
 	journal      = {Stanford CS231N},
-	howpublished = {\url{https://tiny-imagenet.herokuapp.com/}}
 }
-%%%%%%%%%%%%%%
-%%% PAPERS %%%
-%%%%%%%%%%%%%%
 @article{dunning-kruger,
 	title        = {Unskilled and Unaware of It: How Difficulties in Recognizing One's Own Incompetence Lead to Inflated Self-Assessments},
 	author       = {Kruger, Justin and Dunning, David},
@@ -2067,7 +1631,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {A Survey on Evidential Deep Learning For Single-Pass Uncertainty Estimation},
 	author       = {Dennis Ulmer},
 	year         = 2021,
-	journal      = {CoRR},
+	journal      = {CoRR}
 }
 @article{max_gap_id_ood,
 	title        = {Towards Maximizing the Representation Gap between In-Domain \& Out-of-Distribution Examples},
@@ -2473,11 +2037,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2020,
 	journal      = {NeurIPS}
 }
-% 008
-
-%%%%%%%%%%%%%%%%
-%% uncertainty
-%%%%%%%%%%%%%%%%
 @article{malini2018,
 	title        = {Predictive Uncertainty Estimation via Prior Networks},
 	author       = {Andrey Malinin and Mark Gales},
@@ -2502,9 +2061,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2018,
 	journal      = {Neural Information Processing Systems}
 }
-%%%%%%%%%%%%%%%%
-%% other uncertainty approaches
-%%%%%%%%%%%%%%%%
 @article{osawa2019,
 	title        = {Practical deep learning with bayesian principles},
 	author       = {Kazuki Osawa and Siddharth Swaroop and Mohammad Emtiyaz E. Khan and Anirudh Jain and Runa Eschenhagen and Richard E. Turner and Rio Yokota},
@@ -2538,7 +2094,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 @article{cheng2020,
 	title        = {Seq2Sick: Evaluating the Robustness of Sequence-to-Sequence Models with Adversarial Examples},
 	author       = {Cheng, Minhao and Yi, Jinfeng and Chen, Pin-Yu and Zhang, Huan and Hsieh, Cho-Jui},
-	year         = {2020},
+	year         = 2020,
 	journal      = {AAAI Conference on Artificial Intelligence}
 }
 @article{smith2018,
@@ -2553,25 +2109,18 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2020,
 	journal      = {arXiv:2006.16375 [cs.LG]}
 }
-%%%%%%%%%%%%%%%%
-%% robustness
-%%%%%%%%%%%%%%%%
-
-% adversarials
 @article{szegedy2014,
 	title        = {Intriguing properties of neural networks},
 	author       = {Christian Szegedy and Wojciech Zaremba and Ilya Sutskever and Joan Bruna and Dumitru Erhan and Ian Goodfellow and Rob Fergus},
 	year         = 2014,
 	journal      = {International Conference on Learning Representations}
 }
-% adversarials
 @article{goodfellow2014,
 	title        = {Explaining and harnessing adversarial examples},
 	author       = {Ian J. Goodfellow and Jonathon Shlens and Christian Szegedy},
 	year         = 2015,
 	journal      = {International Conference on Learning Representations}
 }
-% pgd attack
 @article{madry2018,
 	title        = {Towards Deep Learning Models Resistant to Adversarial Attacks},
 	author       = {Aleksander Madry and Aleksandar Makelov and Ludwig Schmidt and Dimitris Tsipras and Adrian Vladu},
@@ -2584,7 +2133,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2017,
 	journal      = {International Conference on Learning Representations}
 }
-%mode_based_hierarchical
 @article{cohen2019,
 	title        = {Certified Adversarial Robustness via Randomized Smoothing},
 	author       = {Jeremy M. Cohen and Elan Rosenfeld and J. Zico Kolter},
@@ -2639,9 +2187,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2019,
 	journal      = {Neural Information Processing Systems}
 }
-%%%%%%%%%%%%%%%%
-%% datasets
-%%%%%%%%%%%%%%%%
 @article{imbalance_apr,
 	title        = {The Precision-Recall Plot Is More Informative than the ROC Plot When Evaluating Binary Classifiers on Imbalanced Datasets},
 	author       = {Saito, Takaya AND Rehmsmeier, Marc},
@@ -2660,7 +2205,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2020,
 	journal      = {Neural Information Processing Systems}
 }
-% literature reviewer wanted to add
 @article{raphael2020,
 	title        = {Adversarial Attacks on Probabilistic Autoregressive Forecasting Models},
 	author       = {Dang-Nhu, Rapha\"el and Singh, Gagandeep and Bielik, Pavol and Vechev, Martin},
@@ -2679,7 +2223,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2020,
 	journal      = {Uncertainty in Artificial Intelligence}
 }
-% neurips literature
 @article{robustness_bnn,
 	title        = {Robustness of Bayesian Neural Networks to Gradient-Based Attacks},
 	author       = {Ginevra Carbone and Matthew Wicker and Luca Laurenti and Andrea Patane and Luca Bortolussi and Guido Sanguinetti},
@@ -2692,7 +2235,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2020,
 	journal      = {Neural Information Processing Systems}
 }
-% further literature
 @article{wong2017,
 	title        = {Provable defenses against adversarial examples via the convex outer adversarial polytope},
 	author       = {Wong, Eric and Kolter, J. Zico},
@@ -2753,7 +2295,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2016,
 	journal      = {Conference on Computer Vision and Pattern Recognition}
 }
-% 009
 @article{Zhi2020,
 	title        = {Gaussian processes on graphs via spectral kernel learning},
 	author       = {Zhi, Yin-Cong and Ng, Yin Cheng and Dong, Xiaowen},
@@ -2801,38 +2342,31 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Combining Label Propagation and Simple Models Out-performs Graph Neural Networks},
 	author       = {Huang, Qian and He, Horace and Singh, Abhay and Lim, Ser-Nam and Benson, Austin R},
 	year         = 2020,
-	journal      = {arXiv preprint arXiv:2010.13993},
-	keywords     = {correct and smooth,graphs,node classification}
+	journal      = {arXiv preprint arXiv:2010.13993}
 }
 @article{Zhao2020,
 	title        = {Uncertainty Aware Semi-Supervised Learning on Graph Data},
 	author       = {Zhao, Xujiang and Chen, Feng and Hu, Shu and Cho, Jin-Hee},
 	year         = 2020,
-	journal      = {Advances in Neural Information Processing Systems},
-	keywords     = {gaussian dirichlet kernel, uncertainty}
+	journal      = {Advances in Neural Information Processing Systems}
 }
 @inproceedings{Dietterich2000,
 	title        = {Ensemble methods in machine learning},
 	author       = {Dietterich, Thomas G},
 	year         = 2000,
 	booktitle    = {International workshop on multiple classifier systems},
-	pages        = {1--15},
-	keywords     = {graphs,pagerank},
-	keywords     = {ensemble},
 	organization = {Springer}
 }
 @techreport{Page1999,
 	title        = {The PageRank citation ranking: Bringing order to the web.},
 	author       = {Page, Lawrence and Brin, Sergey and Motwani, Rajeev and Winograd, Terry},
 	year         = 1999,
-	institution  = {Stanford InfoLab}
 }
 @inproceedings{Akita2018,
 	title        = {Bayesgrad: Explaining predictions of graph convolutional networks},
 	author       = {Akita, Hirotaka and Nakago, Kosuke and Komatsu, Tomoki and Sugawara, Yohei and Maeda, Shin-ichi and Baba, Yukino and Kashima, Hisashi},
 	year         = 2018,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	keywords     = {bayesian,explainer,gcn,gradient,graphs}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @article{Atanov2019,
 	title        = {Semi-conditional normalizing flows for semi-supervised learning},
@@ -2844,29 +2378,25 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Robust graph convolutional networks against adversarial attacks},
 	author       = {Zhu, Dingyuan and Zhang, Ziwei and Cui, Peng and Zhu, Wenwu},
 	year         = 2019,
-	booktitle    = {SIGKDD International Conference on Knowledge Discovery \& Data Mining},
-	keywords     = {Adversarial Attacks,Deep Learning,Graph Convolutional Networks,Robustness}
+	booktitle    = {SIGKDD International Conference on Knowledge Discovery \& Data Mining}
 }
 @article{Wang2020,
 	title        = {Unifying graph convolutional neural networks and label propagation},
 	author       = {Wang, Hongwei and Leskovec, Jure},
 	year         = 2020,
-	journal      = {arXiv preprint arXiv:2002.06755},
-	keywords     = {gnn,label propagation,learnable edge weights,node classification}
+	journal      = {arXiv preprint arXiv:2002.06755}
 }
 @article{Kalofolias2017,
 	title        = {Large scale graph learning from smooth signals},
 	author       = {Kalofolias, Vassilis and Perraudin, Nathana{\"e}l},
 	year         = 2017,
-	journal      = {arXiv preprint arXiv:1710.05654},
-	keywords     = {graph learning}
+	journal      = {arXiv preprint arXiv:1710.05654}
 }
 @inproceedings{Kingma2016,
 	title        = {Improved variational inference with inverse autoregressive flow},
 	author       = {Kingma, Diederik P and Salimans, Tim and Jozefowicz, Rafal and Chen, Xi and Sutskever, Ilya and Welling, Max},
 	year         = 2016,
-	booktitle    = {International Conference on Neural Information Processing Systems},
-	keywords     = {autoregressive,density estimation,iaf}
+	booktitle    = {International Conference on Neural Information Processing Systems}
 }
 @article{Ryu2019a,
 	title        = {A Bayesian graph convolutional network for reliable prediction of molecular properties with uncertainty quantification},
@@ -2874,30 +2404,24 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2019,
 	journal      = {Chemical science},
 	publisher    = {Royal Society of Chemistry},
-	volume       = 10,
-	number       = 36,
-	pages        = {8438--8446}
 }
 @article{pal2019bayesian,
 	title        = {Bayesian graph convolutional neural networks using non-parametric graph learning},
 	author       = {Pal, Soumyasundar and Regol, Florence and Coates, Mark},
 	year         = 2019,
-	journal      = {arXiv preprint arXiv:1910.12132},
-	keywords     = {bayesian,gcn,graphs,uncertainty}
+	journal      = {arXiv preprint arXiv:1910.12132}
 }
 @inproceedings{Gal2017,
 	title        = {Concrete dropout},
 	author       = {Gal, Yarin and Hron, Jiri and Kendall, Alex},
 	year         = 2017,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	pages        = {3584--3593}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @article{Feng2020,
 	title        = {Uncertainty-aware Attention Graph Neural Network for Defending Adversarial Attacks},
 	author       = {Feng, Boyuan and Wang, Yuke and Wang, Zheng and Ding, Yufei},
 	year         = 2020,
-	journal      = {arXiv preprint arXiv:2009.10235},
-	keywords     = {attack,defense,graphs,uat,uncertainty,weighted aggregation}
+	journal      = {arXiv preprint arXiv:2009.10235}
 }
 @article{Wu2018,
 	title        = {MoleculeNet: a benchmark for molecular machine learning},
@@ -2905,9 +2429,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2018,
 	journal      = {Chemical science},
 	publisher    = {Royal Society of Chemistry},
-	volume       = 9,
-	number       = 2,
-	pages        = {513--530}
 }
 @article{Degroot1983,
 	title        = {{The comparison and evaluation of forecasters}},
@@ -2915,10 +2436,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 1983,
 	journal      = {Journal of the Royal Statistical Society: Series D (The Statistician)},
 	publisher    = {Wiley Online Library},
-	volume       = 32,
-	number       = {1-2},
-	pages        = {12--22},
-	keywords     = {calibration,reference}
 }
 @inproceedings{Qu2019,
 	title        = {GMNN: Graph markov neural networks},
@@ -2930,16 +2447,13 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Deep gaussian embedding of graphs: Unsupervised inductive learning via ranking},
 	author       = {Bojchevski, Aleksandar and G{\"u}nnemann, Stephan},
 	year         = 2017,
-	journal      = {arXiv preprint arXiv:1707.03815},
-	keywords     = {Graph2Gauss,cora-ml,dataset,graphs,node classification,uncertainty}
+	journal      = {arXiv preprint arXiv:1707.03815}
 }
 @inproceedings{Zugner2018b,
 	title        = {Adversarial attacks on neural networks for graph data},
 	author       = {Z{\"u}gner, Daniel and Akbarnejad, Amir and G{\"u}nnemann, Stephan},
 	year         = 2018,
-	booktitle    = {SIGKDD International Conference on Knowledge Discovery \& Data Mining},
-	pages        = {2847--2856},
-	keywords     = {Adversarial machine learning,Graph convolutional networks,Graph mining,Network mining,Semi-supervised learning}
+	booktitle    = {SIGKDD International Conference on Knowledge Discovery \& Data Mining}
 }
 @inproceedings{Hron2018,
 	title        = {Variational bayesian dropout: pitfalls and fixes},
@@ -2951,33 +2465,26 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Semi-supervised learning with normalizing flows},
 	author       = {Izmailov, Pavel and Kirichenko, Polina and Finzi, Marc and Wilson, Andrew Gordon},
 	year         = 2020,
-	booktitle    = {International Conference on Machine Learning},
-	keywords     = {density estimation,flowgmm,normalizing flow,semi-supervised}
+	booktitle    = {International Conference on Machine Learning}
 }
 @article{Sen2008a,
 	title        = {Collective classification in network data},
 	author       = {Sen, Prithviraj and Namata, Galileo and Bilgic, Mustafa and Getoor, Lise and Galligher, Brian and Eliassi-Rad, Tina},
 	year         = 2008,
 	journal      = {AI magazine},
-	volume       = 29,
-	number       = 3,
-	pages        = {93--93}
 }
 @inproceedings{Ma2019,
 	title        = {Deep neural architecture search with deep graph bayesian optimization},
 	author       = {Ma, Lizheng and Cui, Jiaxu and Yang, Bo},
 	year         = 2019,
 	booktitle    = {2019 IEEE/WIC/ACM International Conference on Web Intelligence (WI)},
-	pages        = {500--507},
-	keywords     = {Bayesian optimization,Deep learning,Graph neural network,Image recognition,Neural architecture search},
 	organization = {IEEE}
 }
 @article{Chen2018,
 	title        = {Fastgcn: fast learning with graph convolutional networks via importance sampling},
 	author       = {Chen, Jie and Ma, Tengfei and Xiao, Cao},
 	year         = 2018,
-	journal      = {arXiv preprint arXiv:1801.10247},
-	keywords     = {fast-gcn,gcn variant,sampling,scale gcn}
+	journal      = {arXiv preprint arXiv:1801.10247}
 }
 @article{Kipf2016,
 	title        = {{Semi-Supervised Classification with Graph Convolutional Networks}},
@@ -2989,9 +2496,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Uncertainty aware graph gaussian process for semi-supervised learning},
 	author       = {Liu, Zhao-Yang and Li, Shao-Yuan and Chen, Songcan and Hu, Yao and Huang, Sheng-Jun},
 	year         = 2020,
-	booktitle    = {AAAI Conference on Artificial Intelligence},
-	volume       = 34,
-	pages        = {4957--4964}
+	booktitle    = {AAAI Conference on Artificial Intelligence}
 }
 @article{Goyal2018,
 	title        = {Capturing edge attributes via network embedding},
@@ -2999,9 +2504,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2018,
 	journal      = {IEEE Transactions on Computational Social Systems},
 	publisher    = {IEEE},
-	volume       = 5,
-	number       = 4,
-	pages        = {907--917}
 }
 @article{Gao2019,
 	title        = {edge2vec: Representation learning using edge semantics for biomedical knowledge discovery},
@@ -3009,9 +2511,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2019,
 	journal      = {BMC bioinformatics},
 	publisher    = {BioMed Central},
-	volume       = 20,
-	number       = 1,
-	pages        = {1--15}
 }
 @article{Cai2020,
 	title        = {Graphnorm: A principled approach to accelerating graph neural network training},
@@ -3024,10 +2523,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Kwon, Yongchan and Won, Joong-Ho and Kim, Beom Joon and Paik, Myunghee Cho},
 	year         = 2020,
 	journal      = {Computational Statistics \& Data Analysis},
-	publisher    = {Elsevier},
-	volume       = 142,
-	pages        = 106816,
-	keywords     = {example,medical,uncertainty}
+	publisher    = {Elsevier}
 }
 @inproceedings{Borovitskiy2020,
 	title        = {{Mat\'ern Gaussian Processes on Graphs}},
@@ -3039,46 +2535,38 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Pitfalls of in-domain uncertainty estimation and ensembling in deep learning},
 	author       = {Ashukha, Arsenii and Lyzhov, Alexander and Molchanov, Dmitry and Vetrov, Dmitry},
 	year         = 2020,
-	journal      = {arXiv preprint arXiv:2002.06470},
-	keywords     = {todo}
+	journal      = {arXiv preprint arXiv:2002.06470}
 }
 @article{Clarke2003,
 	title        = {Comparing Bayes model averaging and stacking when model approximation error cannot be ignored},
 	author       = {Clarke, Bertrand},
 	year         = 2003,
 	journal      = {Journal of Machine Learning Research},
-	volume       = 4,
-	number       = {Oct},
-	pages        = {683--712}
 }
 @inproceedings{Zhang2019b,
 	title        = {Bayesian graph convolutional neural networks for semi-supervised classification},
 	author       = {Zhang, Yingxue and Pal, Soumyasundar and Coates, Mark and Ustebay, Deniz},
 	year         = 2019,
-	booktitle    = {AAAI Conference on Artificial Intelligence},
-	keywords     = {bayesian,gcn,graphs,uncertainty}
+	booktitle    = {AAAI Conference on Artificial Intelligence}
 }
 @article{Tabak2010,
 	title        = {Density estimation by dual ascent of the log-likelihood},
 	author       = {Tabak, Esteban G and Vanden-Eijnden, Eric and others},
 	year         = 2010,
 	journal      = {Communications in Mathematical Sciences},
-	publisher    = {International Press of Boston},
-	keywords     = {todo}
+	publisher    = {International Press of Boston}
 }
 @inproceedings{Chin2019,
 	title        = {Decoupled smoothing on graphs},
 	author       = {Chin, Alex and Chen, Yatong and M. Altenburger, Kristen and Ugander, Johan},
 	year         = 2019,
-	booktitle    = {The World Wide Web Conference},
-	keywords     = {Attribute prediction,Graph smoothing,Semi-supervised learning}
+	booktitle    = {The World Wide Web Conference}
 }
 @article{Ryu2019,
 	title        = {Uncertainty quantification of molecular property prediction with Bayesian neural networks},
 	author       = {Ryu, Seongok and Kwon, Yongchan and Kim, Woo Youn},
 	year         = 2019,
-	journal      = {arXiv preprint arXiv:1903.08375},
-	keywords     = {bayesian,dropout,graphs,reference,uncertainty}
+	journal      = {arXiv preprint arXiv:1903.08375}
 }
 @inproceedings{Bojchevski2018a,
 	title        = {Bayesian robust attributed graph clustering: Joint learning of partial anomalies and group structure},
@@ -3092,9 +2580,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2015,
 	journal      = {siam REVIEW},
 	publisher    = {SIAM},
-	volume       = 57,
-	number       = 3,
-	pages        = {321--363}
 }
 @inproceedings{Yang2016,
 	title        = {Revisiting semi-supervised learning with graph embeddings},
@@ -3112,15 +2597,13 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Image-based recommendations on styles and substitutes},
 	author       = {McAuley, Julian and Targett, Christopher and Shi, Qinfeng and Van Den Hengel, Anton},
 	year         = 2015,
-	booktitle    = {Research and Development in Information Retrieval},
-	keywords     = {amazon,co-purchase,dataset}
+	booktitle    = {Research and Development in Information Retrieval}
 }
 @inproceedings{Osband2016,
 	title        = {{Risk versus uncertainty in deep learning: Bayes, bootstrap and the dangers of dropout}},
 	author       = {Osband, Ian},
 	year         = 2016,
-	booktitle    = {NeurIPS Workshop on Bayesian Deep Learning},
-	keywords     = {todo}
+	booktitle    = {NeurIPS Workshop on Bayesian Deep Learning}
 }
 @article{Bandyopadhyay2019,
 	title        = {Beyond node embedding: a direct unsupervised edge representation framework for homogeneous networks},
@@ -3139,23 +2622,19 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Anirudh, Rushil and Thiagarajan, Jayaraman J},
 	year         = 2019,
 	booktitle    = {ICASSP 2019-2019 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
-	pages        = {3197--3201},
-	keywords     = {autism spectrum disorder classification,fMRI,graph convolutional networks,population graphs},
 	organization = {IEEE}
 }
 @article{Klicpera2019,
 	title        = {Diffusion improves graph learning},
 	author       = {Klicpera, Johannes and Wei{\ss}enberger, Stefan and G{\"u}nnemann, Stephan},
 	year         = 2019,
-	journal      = {arXiv preprint arXiv:1911.05485},
-	keywords     = {diffusion,graphs}
+	journal      = {arXiv preprint arXiv:1911.05485}
 }
 @inproceedings{Giles1998,
 	title        = {CiteSeer: An automatic citation indexing system},
 	author       = {Giles, C Lee and Bollacker, Kurt D and Lawrence, Steve},
 	year         = 1998,
-	booktitle    = {Proceedings of the third ACM conference on Digital libraries},
-	pages        = {89--98}
+	booktitle    = {Proceedings of the third ACM conference on Digital libraries}
 }
 @article{Antoran2020,
 	title        = {Depth uncertainty in neural networks},
@@ -3167,40 +2646,32 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {{Residual gated graph convnets}},
 	author       = {Bresson, Xavier and Laurent, Thomas},
 	year         = 2017,
-	journal      = {arXiv preprint arXiv:1711.07553},
-	keywords     = {gnn,residual gated network}
+	journal      = {arXiv preprint arXiv:1711.07553}
 }
 @article{Lee2017,
 	title        = {{Training confidence-calibrated classifiers for detecting out-of-distribution samples}},
 	author       = {Lee, Kimin and Lee, Honglak and Lee, Kibok and Shin, Jinwoo},
 	year         = 2017,
-	journal      = {arXiv preprint arXiv:1711.09325},
-	keywords     = {generating samples,learning,ood}
+	journal      = {arXiv preprint arXiv:1711.09325}
 }
 @article{Gui2014,
 	title        = {{Semi-supervised learning with local and global consistency}},
 	author       = {Gui, Jie and Hu, Rongxiang and Zhao, Zhongqiu and Jia, Wei},
 	year         = 2014,
 	journal      = {International Journal of Computer Mathematics},
-	volume       = 91,
-	number       = 11,
-	pages        = {2389--2402},
-	keywords     = {class prior knowledge,geodesic distance,label information,semi-supervised learning}
 }
 @inproceedings{Malinin2017,
 	title        = {{Incorporating uncertainty into deep learning for spoken language assessment}},
 	author       = {Malinin, Andrey and Ragni, Anton and Knill, Kate and Gales, Mark},
 	year         = 2017,
-	booktitle    = {Annual Meeting of the Association for Computational Linguistics},
-	keywords     = {todo}
+	booktitle    = {Annual Meeting of the Association for Computational Linguistics}
 }
 @article{Mccallum2000,
 	title        = {{Automating the construction of internet portals with machine learning}},
 	author       = {McCallum, Andrew Kachites and Nigam, Kamal and Rennie, Jason and Seymore, Kristie},
 	year         = 2000,
 	journal      = {Information Retrieval},
-	publisher    = {Springer},
-	keywords     = {cora,dataset,node classification}
+	publisher    = {Springer}
 }
 @article{Hendrycks2018,
 	title        = {Deep anomaly detection with outlier exposure},
@@ -3212,8 +2683,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {{Enhancing the reliability of out-of-distribution image detection in neural networks}},
 	author       = {Liang, Shiyu and Li, Yixuan and Srikant, Rayadurgam},
 	year         = 2017,
-	journal      = {arXiv preprint arXiv:1706.02690},
-	keywords     = {odin,ood,temperature scaling}
+	journal      = {arXiv preprint arXiv:1706.02690}
 }
 @article{Elinas2019,
 	title        = {Variational Inference for Graph Convolutional Networks in the Absence of Graph Data and Adversarial Settings},
@@ -3244,15 +2714,13 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Minka, Thomas P},
 	year         = 2000,
 	journal      = {Available electronically at http://www. stat. cmu. edu/minka/papers/bma. html},
-	publisher    = {Citeseer},
-	pages        = {1--2}
+	publisher    = {Citeseer}
 }
 @article{Dinh2014,
 	title        = {{Nice: Non-linear independent components estimation}},
 	author       = {Dinh, Laurent and Krueger, David and Bengio, Yoshua},
 	year         = 2014,
-	journal      = {arXiv preprint arXiv:1410.8516},
-	keywords     = {NICE,density estimation}
+	journal      = {arXiv preprint arXiv:1410.8516}
 }
 @article{Velickovic2017,
 	title        = {Graph attention networks},
@@ -3264,30 +2732,24 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {{The Well-Calibrated Bayesian}},
 	author       = {Dawid, A. P.},
 	year         = 1982,
-	volume       = 77,
-	number       = 379,
-	pages        = {605--610}
 }
 @inproceedings{Zhu2003,
 	title        = {Semi-supervised learning using gaussian fields and harmonic functions},
 	author       = {Zhu, Xiaojin and Ghahramani, Zoubin and Lafferty, John D},
 	year         = 2003,
-	booktitle    = {International Conference on Machine Learning},
-	pages        = {912--919}
+	booktitle    = {International Conference on Machine Learning}
 }
 @inproceedings{Monti2017,
 	title        = {Geometric deep learning on graphs and manifolds using mixture model cnns},
 	author       = {Monti, Federico and Boscaini, Davide and Masci, Jonathan and Rodola, Emanuele and Svoboda, Jan and Bronstein, Michael M},
 	year         = 2017,
-	booktitle    = {Computer Vision and Pattern Recognition},
-	pages        = {5115--5124}
+	booktitle    = {Computer Vision and Pattern Recognition}
 }
 @inproceedings{Postels2019,
 	title        = {Sampling-free epistemic uncertainty estimation using approximated variance propagation},
 	author       = {Postels, Janis and Ferroni, Francesco and Coskun, Huseyin and Navab, Nassir and Tombari, Federico},
 	year         = 2019,
-	booktitle    = {Proceedings of the IEEE/CVF International Conference on Computer Vision},
-	pages        = {2931--2940}
+	booktitle    = {Proceedings of the IEEE/CVF International Conference on Computer Vision}
 }
 @article{Tabacof2019,
 	title        = {Probability calibration for knowledge graph embedding models},
@@ -3305,16 +2767,13 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {{Residual correlation in graph neural network regression}},
 	author       = {Jia, Junteng and Benson, Austion R},
 	year         = 2020,
-	booktitle    = {Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery {\&} Data Mining},
-	pages        = {588--598},
-	keywords     = {gnn,residual correlation}
+	booktitle    = {Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery {\&} Data Mining}
 }
 @inproceedings{Joachims2003,
 	title        = {Transductive learning via spectral graph partitioning},
 	author       = {Joachims, Thorsten},
 	year         = 2003,
-	booktitle    = {International Conference on Machine Learning},
-	pages        = {290--297}
+	booktitle    = {International Conference on Machine Learning}
 }
 @article{Geisler2020,
 	title        = {Reliable Graph Neural Networks via Robust Aggregation},
@@ -3326,8 +2785,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {{Query-driven active surveying for collective classification}},
 	author       = {Namata, Galileo and London, Ben and Getoor, Lise and Huang, Bert and EDU, U M D},
 	year         = 2012,
-	booktitle    = {10th International Workshop on Mining and Learning with Graphs},
-	keywords     = {dataset,node classification,pubmed}
+	booktitle    = {10th International Workshop on Mining and Learning with Graphs}
 }
 @article{Goodfellow2014a,
 	title        = {Explaining and harnessing adversarial examples},
@@ -3347,9 +2805,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2017,
 	journal      = {IEEE Journal of Selected Topics in Signal Processing},
 	publisher    = {IEEE},
-	volume       = 11,
-	number       = 6,
-	pages        = {884--896}
 }
 @article{Kingma2015,
 	title        = {Variational dropout and the local reparameterization trick},
@@ -3375,15 +2830,13 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Predict then propagate: Graph neural networks meet personalized pagerank},
 	author       = {Klicpera, Johannes and Bojchevski, Aleksandar and G{\"u}nnemann, Stephan},
 	year         = 2018,
-	journal      = {arXiv preprint arXiv:1810.05997},
-	keywords     = {appnp,graphs,reference}
+	journal      = {arXiv preprint arXiv:1810.05997}
 }
 @inproceedings{You2019,
 	title        = {{Position-aware graph neural networks}},
 	author       = {You, Jiaxuan and Ying, Rex and Leskovec, Jure},
 	year         = 2019,
-	booktitle    = {International Conference on Machine Learning},
-	keywords     = {network,position-aware gnn}
+	booktitle    = {International Conference on Machine Learning}
 }
 @inproceedings{Depeweg2018,
 	title        = {Decomposition of uncertainty in Bayesian deep learning for efficient and risk-sensitive learning},
@@ -3395,15 +2848,13 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {{Gated graph sequence neural networks}},
 	author       = {Li, Yujia and Tarlow, Daniel and Brockschmidt, Marc and Zemel, Richard},
 	year         = 2015,
-	journal      = {arXiv preprint arXiv:1511.05493},
-	keywords     = {gated gnn}
+	journal      = {arXiv preprint arXiv:1511.05493}
 }
 @article{Ruff2020,
 	title        = {{A unifying review of deep and shallow anomaly detection}},
 	author       = {Ruff, Lukas and Kauffmann, Jacob R and Vandermeulen, Robert A and Montavon, Gr{\'{e}}goire and Samek, Wojciech and Kloft, Marius and Dietterich, Thomas G and M{\"{u}}ller, Klaus-Robert},
 	year         = 2020,
-	journal      = {arXiv preprint arXiv:2009.11732},
-	keywords     = {anomaly detection,basics,ood,overview,review,todo}
+	journal      = {arXiv preprint arXiv:2009.11732}
 }
 @article{Tack2020,
 	title        = {Csi: Novelty detection via contrastive learning on distributionally shifted instances},
@@ -3421,25 +2872,20 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {{How powerful are graph neural networks?}},
 	author       = {Xu, Keyulu and Hu, Weihua and Leskovec, Jure and Jegelka, Stefanie},
 	year         = 2018,
-	journal      = {arXiv preprint arXiv:1810.00826},
-	keywords     = {GIN,todo}
+	journal      = {arXiv preprint arXiv:1810.00826}
 }
 @article{Ying2019,
 	title        = {{Gnnexplainer: Generating explanations for graph neural networks}},
 	author       = {Ying, Rex and Bourgeois, Dylan and You, Jiaxuan and Zitnik, Marinka and Leskovec, Jure},
 	year         = 2019,
 	journal      = {Advances in Neural Information Processing Systems},
-	publisher    = {NIH Public Access},
-	volume       = 32,
-	pages        = 9240,
-	keywords     = {gnn-explainer,graphs}
+	publisher    = {NIH Public Access}
 }
 @article{Dinh2016,
 	title        = {{Density estimation using real nvp}},
 	author       = {Dinh, Laurent and Sohl-Dickstein, Jascha and Bengio, Samy},
 	year         = 2016,
-	journal      = {arXiv preprint arXiv:1605.08803},
-	keywords     = {coupling,density estimation,normalizing flow}
+	journal      = {arXiv preprint arXiv:1605.08803}
 }
 @article{Hensman2013,
 	title        = {Gaussian processes for big data},
@@ -3451,22 +2897,19 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {{What uncertainties do we need in bayesian deep learning for computer vision?}},
 	author       = {Kendall, Alex and Gal, Yarin},
 	year         = 2017,
-	journal      = {arXiv preprint arXiv:1703.04977},
-	keywords     = {model uncertainty,type of uncertainty,uncertainty}
+	journal      = {arXiv preprint arXiv:1703.04977}
 }
 @article{Malinin2019b,
 	title        = {{Reverse kl-divergence training of prior networks: Improved uncertainty and adversarial robustness}},
 	author       = {Malinin, Andrey and Gales, Mark},
 	year         = 2019,
-	journal      = {arXiv preprint arXiv:1905.13472},
-	keywords     = {priornet,reverse-kl,uncertainty}
+	journal      = {arXiv preprint arXiv:1905.13472}
 }
 @article{Peel2017,
 	title        = {Graph-based semi-supervised learning for relational networks},
 	author       = {Peel, Leto},
 	year         = 2017,
 	booktitle    = {Proceedings of the 2017 SIAM International Conference on Data Mining},
-	pages        = {435--443},
 	organization = {SIAM}
 }
 @article{Zhang2019,
@@ -3474,8 +2917,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Zhang, Yao and Others},
 	year         = 2019,
 	journal      = {Chemical science},
-	publisher    = {Royal Society of Chemistry},
-	keywords     = {active learning,bayesian,graphs,uncertainty}
+	publisher    = {Royal Society of Chemistry}
 }
 @article{Srivastava2014,
 	title        = {Dropout: a simple way to prevent neural networks from overfitting},
@@ -3495,8 +2937,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Node classification in uncertain graphs},
 	author       = {Dallachiesa, Michele and Aggarwal, Charu and Palpanas, Themis},
 	year         = 2014,
-	booktitle    = {Proceedings of the 26th international conference on scientific and statistical database management},
-	pages        = {1--4}
+	booktitle    = {Proceedings of the 26th international conference on scientific and statistical database management}
 }
 @inproceedings{Hu2017,
 	title        = {On embedding uncertain graphs},
@@ -3520,15 +2961,13 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Bayesian graph convolutional neural networks using non-parametric graph learning},
 	author       = {Pal, Soumyasundar and Regol, Florence and Coates, Mark},
 	year         = 2019,
-	journal      = {arXiv preprint arXiv:1910.12132},
-	keywords     = {bayesian,gcn,graphs,uncertainty}
+	journal      = {arXiv preprint arXiv:1910.12132}
 }
 @inproceedings{Sun2020,
 	title        = {A framework for recommending accurate and diverse items using bayesian graph convolutional neural networks},
 	author       = {Sun, Jianing and Guo, Wei and Zhang, Dengcheng and Zhang, Yingxue and Regol, Florence and Hu, Yaochen and Guo, Huifeng and Tang, Ruiming and Yuan, Han and He, Xiuqiang and others},
 	year         = 2020,
-	booktitle    = {Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery \& Data Mining},
-	pages        = {2030--2039}
+	booktitle    = {Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery \& Data Mining}
 }
 @inproceedings{NatPN2021,
 	title        = {Natural Posterior Network: Deep Bayesian Predictive Uncertainty for Exponential Family Distributions},
@@ -3540,8 +2979,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Obtaining well calibrated probabilities using bayesian binning},
 	author       = {Naeini, Mahdi Pakdaman and Cooper, Gregory and Hauskrecht, Milos},
 	year         = 2015,
-	booktitle    = {AAAI Conference on Artificial Intelligence},
-	volume       = 29
+	booktitle    = {AAAI Conference on Artificial Intelligence}
 }
 @article{Brier1950,
 	title        = {Verification of forecasts expressed in terms of probability},
@@ -3584,59 +3022,48 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Kevin Tran and Willie Neiswanger and Junwoong Yoon and Qingyang Zhang and Eric Xing and Zachary W. Ulissi},
 	year         = 2020,
 	archiveprefix = {arXiv},
-	primaryclass = {cond-mat.mtrl-sci}
 }
 @misc{uncertainty-nn-molecules,
 	title        = {Uncertainty Quantification Using Neural Networks for Molecular Property Prediction},
 	author       = {Lior Hirschfeld and Kyle Swanson and Kevin Yang and Regina Barzilay and Connor W. Coley},
 	year         = 2020,
 	archiveprefix = {arXiv},
-	primaryclass = {cs.LG}
 }
 @article{network-homophily,
 	title        = {Birds of a Feather: Homophily in Social Networks},
 	author       = {McPherson, Miller and Smith-Lovin, Lynn and Cook, James M},
 	year         = 2001,
 	journal      = {Annual Review of Sociology},
-	volume       = 27,
-	number       = 1,
-	pages        = {415--444}
 }
 @inproceedings{uncertainty-continual-learning,
 	title        = {Uncertainty-based Continual Learning with Adaptive Regularization},
 	author       = {Ahn, Hongjoon and Cha, Sungmin and Lee, Donggyu and Moon, Taesup},
 	year         = 2019,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	pages        = {},
-	editor       = {H. Wallach and H. Larochelle and A. Beygelzimer and F. d' Alch\'{e}-Buc and E. Fox and R. Garnett}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @misc{uncertainty-meta-learning,
 	title        = {Uncertainty in Model-Agnostic Meta-Learning using Variational Inference},
 	author       = {Cuong Nguyen and Thanh-Toan Do and Gustavo Carneiro},
 	year         = 2019,
 	archiveprefix = {arXiv},
-	primaryclass = {cs.LG}
 }
 @misc{bayesian-meta-learning,
 	title        = {Learning to Balance: Bayesian Meta-Learning for Imbalanced and Out-of-distribution Tasks},
 	author       = {Hae Beom Lee and Hayeon Lee and Donghyun Na and Saehoon Kim and Minseop Park and Eunho Yang and Sung Ju Hwang},
 	year         = 2020,
 	archiveprefix = {arXiv},
-	primaryclass = {cs.LG}
 }
 @misc{uncertainty-rl,
 	title        = {Estimating Risk and Uncertainty in Deep Reinforcement Learning},
 	author       = {William R. Clements and Bastien Van Delft and Benoît-Marie Robaglia and Reda Bahi Slaoui and Sébastien Toth},
 	year         = 2019,
 	archiveprefix = {arXiv},
-	primaryclass = {cs.LG}
 }
 @inproceedings{heterophily-gnn,
 	title        = {Beyond Homophily in Graph Neural Networks: Current Limitations and Effective Designs},
 	author       = {Jiong Zhu and Yujun Yan and Lingxiao Zhao and Mark Heimann and Leman Akoglu and Danai Koutra},
 	year         = 2020,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	editor       = {Hugo Larochelle and Marc'Aurelio Ranzato and Raia Hadsell and Maria{-}Florina Balcan and Hsuan{-}Tien Lin}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @article{ogb-dataset,
 	title        = {Open graph benchmark: Datasets for machine learning on graphs},
@@ -3677,8 +3104,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Graph-Based Transduction with Confidence},
 	author       = {Orbach, Matan and Crammer, Koby},
 	year         = 2012,
-	booktitle    = {Machine Learning and Knowledge Discovery in Databases},
-	editor       = {Flach, Peter A. and De Bie, Tijl and Cristianini, Nello}
+	booktitle    = {Machine Learning and Knowledge Discovery in Databases}
 }
 @article{postels2021hidden,
 	title        = {The Hidden Uncertainty in a Neural Networks Activations},
@@ -3698,25 +3124,17 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2019,
 	booktitle    = {ICLR}
 }
-% 010
-
-% Multimodal
 @techreport{MixtureDensity,
 	title        = {Mixture density networks},
 	author       = {Christopher M. Bishop},
 	year         = 1994,
-	institution  = {}
 }
-% Asynchronous time
 @article{hawkes1971spectra,
 	title        = {Spectra of some self-exciting and mutually exciting point processes},
 	author       = {Hawkes, Alan G},
 	year         = 1971,
 	journal      = {Biometrika},
 	publisher    = {Oxford University Press},
-	volume       = 58,
-	number       = 1,
-	pages        = {83--90}
 }
 @article{SelfCorrecting,
 	title        = {A self-correcting point process},
@@ -3724,9 +3142,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 1979,
 	journal      = {Stochastic Processes and Their Applications},
 	publisher    = {Elsevier},
-	volume       = 8,
-	number       = 3,
-	pages        = {335--347}
 }
 @inproceedings{RMTPP,
 	title        = {Recurrent marked temporal point processes: Embedding event history to vector},
@@ -3746,9 +3161,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 1997,
 	journal      = {Neural computation},
 	publisher    = {MIT Press},
-	volume       = 9,
-	number       = 8,
-	pages        = {1735--1780}
 }
 @inproceedings{TimeDependentRNN,
 	title        = {Time-Dependent Representation for Neural Event Sequence Prediction},
@@ -3768,16 +3180,9 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2004,
 	journal      = {J. Artif. Int. Res.},
 	publisher    = {AI Access Foundation},
-	address      = {USA},
-	volume       = 22,
-	number       = 1,
-	pages        = {385--421},
-	issn         = {1076-9757},
 	issue_date   = {July 2004},
-	numpages     = 37,
 	acmid        = 1622499
 }
-% Uncertainty
 @article{BayesianRNN,
 	title        = {Bayesian recurrent neural networks},
 	author       = {Fortunato, Meire and Blundell, Charles and Vinyals, Oriol},
@@ -3788,8 +3193,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {{Predictive Uncertainty Estimation via Prior Networks}},
 	author       = {{Malinin}, Andrey and {Gales}, Mark},
 	year         = 2018,
-	booktitle    = {NIPS},
-	keywords     = {Statistics - Machine Learning, Computer Science - Machine Learning}
+	booktitle    = {NIPS}
 }
 @misc{ProbabilityEvolutionRNN,
 	title        = {Learning temporal evolution of probability distribution with Recurrent Neural Network},
@@ -3800,30 +3204,24 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {{Bayesian Recurrent Neural Network Models for Forecasting and Quantifying Uncertainty in Spatial-Temporal Data}},
 	author       = {{McDermott}, Patrick L. and {Wikle}, Christopher K.},
 	year         = 2019,
-	journal      = {Entropy 21(2): 184 (2019)},
-	keywords     = {Statistics - Methodology, Statistics - Machine Learning}
+	journal      = {Entropy 21(2): 184 (2019)}
 }
 @misc{NNRBetaDir,
 	title        = {Neural Network Regression with Beta, Dirichlet, and Dirichlet-Multinomial Outputs},
 	author       = {Peter Sadowski and Pierre Baldi},
 	year         = 2019
 }
-% Function expressiveness
 @article{ApproximatingWithGaussians,
 	title        = {Approximating with gaussians},
 	author       = {Calcaterra, Craig and Boldt, Axel},
 	year         = 2008,
 	journal      = {arXiv preprint arXiv:0805.3795}
 }
-% Gaussian Process
 @inproceedings{StateSpaceGP,
 	title        = {State-Space Inference and Learning with Gaussian Processes},
 	author       = {Ryan Turner and Marc Deisenroth and Carl Rasmussen},
 	year         = 2010,
 	booktitle    = {AISTATS},
-	editor       = {Yee Whye Teh and Mike Titterington},
-	pdf          = {http://proceedings.mlr.press/v9/turner10a/turner10a.pdf},
-	abstract     = {State-space inference and learning with Gaussian processes (GPs) is an unsolved problem. We propose a new, general methodology for inference and learning in nonlinear state-space models that are described probabilistically by non-parametric GP models. We apply the expectation maximization algorithm to iterate between inference in the latent state-space and learning the parameters of the underlying GP dynamics model.}
 }
 @incollection{StateSpaceGPIdentification,
 	title        = {Identification of Gaussian Process State Space Models},
@@ -3835,19 +3233,14 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Neural Processes},
 	author       = {Marta Garnelo and Jonathan Schwarz and Dan Rosenbaum and Fabio Viola and Danilo J. Rezende and S. M. Ali Eslami and Yee Whye Teh},
 	archiveprefix = {arXiv},
-	timestamp    = {Mon, 13 Aug 2018 16:49:14 +0200},
-	bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 @article{NNasGP,
 	title        = {{Deep Neural Networks as Gaussian Processes}},
 	author       = {{Lee}, Jaehoon and {Bahri}, Yasaman and {Novak}, Roman and {Schoenholz}, Samuel S. and {Pennington}, Jeffrey and {Sohl-Dickstein}, Jascha},
 	year         = 2017,
 	journal      = {arXiv e-prints},
-	keywords     = {Statistics - Machine Learning, Computer Science - Machine Learning},
 	eid          = {arXiv:1711.00165},
 	archiveprefix = {arXiv},
-	primaryclass = {stat.ML},
-	adsnote      = {Provided by the SAO/NASA Astrophysics Data System}
 }
 @inproceedings{SparseGP,
 	title        = {Sparse Gaussian processes using pseudo-inputs},
@@ -3861,21 +3254,17 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 1991,
 	journal      = {International journal of computer vision},
 	publisher    = {Springer},
-	volume       = 7,
-	number       = 1
 }
 @article{WeightedGP,
 	title        = {Weighted Gaussian Process for Estimating Treatment Effect},
 	author       = {Wen, Junfeng and Hassanpour, Negar and Greiner, Russell},
 	year         = 2018
 }
-% Dataset
 @incollection{SmartHome,
 	title        = {Activity Recognition in Pervasive Intelligent Environments of the Atlantis Ambient and Pervasive Intelligence series, Atlantis Press},
 	author       = {T.L.M. van Kasteren, G. Englebienne and Ben Kröse},
 	year         = 2010,
 	publisher    = {Springer},
-	editor       = {Liming Chen, Chris Nugent, Jit Biswas, Jesse Hoey},
 	chapter      = 8
 }
 @article{GRU,
@@ -3896,7 +3285,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2014,
 	booktitle    = {ICLR}
 }
-% 011
 @string{ aaai        = {AAAI Conference on Artificial Intelligence (AAAI)} }
 @string{ aamas       = {International Conference on Autonomous Agents and Multiagent Systems (AAMAS)} }
 @string{ acc         = {American Control Conference (ACC)} }
@@ -3958,9 +3346,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 @string{ ieeeral     = {IEEE Robotics and Automation Letters} }
 @string{ ieeetor     = {IEEE Transactions on Robotics} }
 @string{ hri         = {ACM/IEEE International Conference on Human-Robot Interaction (HRI)} }
-%%%%%%%%%%%%%
-%%% BOOKS %%%
-%%%%%%%%%%%%%
 @book{rl-introduction,
 	title        = {Reinforcement Learning: An Introduction},
 	author       = {Sutton, Richard S. and Barto, Andrew G.},
@@ -3972,19 +3357,14 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Information and Exponential Families: In Statistical Theory},
 	author       = {Barndorff-Nielsen, Ole},
 	year         = 2014,
-	publisher    = {John Wiley \& Sons},
-	pages        = {111--114}
+	publisher    = {John Wiley \& Sons}
 }
 @book{ml-dataset-shift,
 	title        = {Dataset Shift in Machine Learning},
 	author       = {Quionero-Candela, Joaquin and Sugiyama, Masashi and Schwaighofer, Anton and Lawrence, Neil D.},
 	year         = 2009,
-	publisher    = {The MIT Press},
-	pages        = {1--28}
+	publisher    = {The MIT Press}
 }
-%%%%%%%%%%%%%%
-%%% PAPERS %%%
-%%%%%%%%%%%%%%
 @phdthesis{expressing-structure-kernels,
 	title        = {Automatic Model Construction with Gaussian Processes},
 	author       = {Duvenaud, David},
@@ -4001,44 +3381,37 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {A review of uncertainty quantification in deep learning: Techniques, applications and challenges},
 	author       = {Abdar, Moloud and Pourpanah, Farhad and Hussain, Sadiq and Rezazadegan, Dana and Liu, Li and Ghavamzadeh, Mohammad and Fieguth, Paul and Khosravi, Abbas and Acharya, U Rajendra and Makarenkov, Vladimir and others},
 	year         = 2021,
-	journal      = {Information Fusion},
-	volume       = 76,
-	pages        = {243--297}
+	journal      = {Information Fusion}
 }
 @inproceedings{being-bayesian-categorical,
 	title        = {Being {B}ayesian about Categorical Probability},
 	author       = {Joo, Taejong and Chung, Uijung and Seo, Min-Gwan},
 	year         = 2020,
-	booktitle    = {International Conference on Machine Learning},
-	pages        = {4950--4961}
+	booktitle    = {International Conference on Machine Learning}
 }
 @inproceedings{lipschitz,
 	title        = {Lipschitz Regularity of Deep Neural Networks: Analysis and Efficient Estimation},
 	author       = {Virmaux, Aladin and Scaman, Kevin},
 	year         = 2018,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	pages        = {3835--3844}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @inproceedings{softplus,
 	title        = {Deep Sparse Rectifier Neural Networks},
 	author       = {Glorot, Xavier and Bordes, Antoine and Bengio, Yoshua},
 	year         = 2011,
-	booktitle    = {International Conference on Artificial Intelligence and Statistics},
-	pages        = {315--323}
+	booktitle    = {International Conference on Artificial Intelligence and Statistics}
 }
 @inproceedings{unet,
 	title        = {U-Net: Convolutional Networks for Biomedical Image Segmentation},
 	author       = {Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas},
 	year         = 2015,
-	booktitle    = {MICCAI},
-	pages        = {234--241}
+	booktitle    = {MICCAI}
 }
 @inproceedings{softplus,
 	title        = {Deep Sparse Rectifier Neural Networks},
 	author       = {Glorot, Xavier and Bordes, Antoine and Bengio, Yoshua},
 	year         = 2011,
-	booktitle    = {International Conference on Artificial Intelligence and Statistics},
-	pages        = {315--323}
+	booktitle    = {International Conference on Artificial Intelligence and Statistics}
 }
 @article{squad,
 	title        = {Know What You Don't Know: Unanswerable Questions for SQuAD},
@@ -4081,27 +3454,18 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Young, Tom and Hazarika, Devamanyu and Poria, Soujanya and Cambria, Erik},
 	year         = 2018,
 	journal      = {IEEE CIM},
-	volume       = 13,
-	number       = 3,
-	pages        = {55--75}
 }
 @article{deep-learning-bio,
 	title        = {Deep Learning in Bioinformatics},
 	author       = {Min, Seonwoo and Lee, Byunghan and Yoon, Sungroh},
 	year         = 2017,
 	journal      = {Briefings in Bioinformatics},
-	volume       = 18,
-	number       = 5,
-	pages        = {851--869}
 }
 @article{deep-learning-health,
 	title        = {Deep Learning for Health Informatics},
 	author       = {Rav{\`\i}, Daniele and Wong, Charence and Deligianni, Fani and Berthelot, Melissa and Andreu-Perez, Javier and Lo, Benny and Yang, Guang-Zhong},
 	year         = 2016,
 	journal      = {IEEE J-BHI},
-	volume       = 21,
-	number       = 1,
-	pages        = {4--21}
 }
 @article{deep-learning-recommender,
 	title        = {Deep Learning Based Recommender System: A Survey and New Perspectives},
@@ -4109,44 +3473,30 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2019,
 	journal      = {ACM CSUR},
 	publisher    = {ACM New York, NY, USA},
-	volume       = 52,
-	number       = 1,
-	pages        = {1--38}
 }
 @article{deep-learning-medical,
 	title        = {A Survey on Deep Learning in Medical Image Analysis},
 	author       = {Litjens, Geert and Kooi, Thijs and Bejnordi, Babak Ehteshami and Setio, Arnaud Arindra Adiyoso and Ciompi, Francesco and Ghafoorian, Mohsen and Van Der Laak, Jeroen Awm and Van Ginneken, Bram and S{\'a}nchez, Clara I},
 	year         = 2017,
-	journal      = {Medical Image Analysis},
-	volume       = 42,
-	pages        = {60--88}
+	journal      = {Medical Image Analysis}
 }
 @article{safe-rl-survey,
 	title        = {A Comprehensive Survey on Safe Reinforcement Learning},
 	author       = {Javier Garc{{\'i}}a and Fern and o Fern{{\'a}}ndez},
 	year         = 2015,
 	journal      = {Journal of Machine Learning Research},
-	volume       = 16,
-	number       = 42,
-	pages        = {1437--1480}
 }
 @article{deep-learning-ad,
 	title        = {Object Recognition and Detection with Deep Learning for Autonomous Driving Applications},
 	author       = {U{\c{c}}ar, Ay{\c{s}}eg{\"u}l and Demir, Yakup and G{\"u}zeli{\c{s}}, C{\"u}neyt},
 	year         = 2017,
 	journal      = {Simulation},
-	volume       = 93,
-	number       = 9,
-	pages        = {759--769}
 }
 @article{deep-learning-robotics,
 	title        = {The Limits and Potentials of Deep Learning for Robotics},
 	author       = {S{\"u}nderhauf, Niko and Brock, Oliver and Scheirer, Walter and Hadsell, Raia and Fox, Dieter and Leitner, J{\"u}rgen and Upcroft, Ben and Abbeel, Pieter and Burgard, Wolfram and Milford, Michael and others},
 	year         = 2018,
 	journal      = {IJRR},
-	volume       = 37,
-	number       = {4-5},
-	pages        = {405--420}
 }
 @article{deep-learning-finance,
 	title        = {Deep Learning in Finance},
@@ -4164,9 +3514,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Improved Variational Inference with Inverse Autoregressive Flow},
 	author       = {Kingma, Durk P and Salimans, Tim and Jozefowicz, Rafal and Chen, Xi and Sutskever, Ilya and Welling, Max},
 	year         = 2016,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	volume       = 29,
-	pages        = {4743--4751}
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @inproceedings{getting-clue-uncertainty,
 	title        = {Getting a CLUE: A Method for Explaining Uncertainty Estimates},
@@ -4178,15 +3526,13 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Convolutional neural networks: an overview and application in radiology},
 	author       = {Yamashita, Rikiya and Nishio, Mizuho and Do, Richard and Togashi, Kaori},
 	year         = 2018,
-	journal      = {Insights into Imaging},
-	volume       = 9
+	journal      = {Insights into Imaging}
 }
 @inproceedings{wilds,
 	title        = {Wilds: A benchmark of in-the-wild distribution shifts},
 	author       = {Koh, Pang Wei and Sagawa, Shiori and Marklund, Henrik and Xie, Sang Michael and Zhang, Marvin and Balsubramani, Akshay and Hu, Weihua and Yasunaga, Michihiro and Phillips, Richard Lanas and Gao, Irena and others},
 	year         = 2021,
-	booktitle    = {International Conference on Machine Learning},
-	pages        = {5637--5664}
+	booktitle    = {International Conference on Machine Learning}
 }
 @inproceedings{bootstrapped-dqn,
 	title        = {Deep Exploration via Bootstrapped DQN},
@@ -4206,9 +3552,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2015,
 	journal      = {Foundations and Trends in Machine Learning},
 	publisher    = {Now Publishers, Inc.},
-	volume       = 8,
-	number       = {5-6},
-	pages        = {359--483}
 }
 @inproceedings{bsuite-rl,
 	title        = {Behaviour Suite for Reinforcement Learning},
@@ -4249,18 +3592,14 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Marc G. Bellemare and Will Dabney and R{\'e}mi Munos},
 	year         = 2017,
 	booktitle    = {International Conference on Machine Learning},
-	publisher    = {PMLR},
-	volume       = 70,
-	pages        = {449--458}
+	publisher    = {PMLR}
 }
 @inproceedings{iqn,
 	title        = {Implicit Quantile Networks for Distributional Reinforcement Learning},
 	author       = {Dabney, Will and Ostrovski, Georg and Silver, David and Munos, Remi},
 	year         = 2018,
 	booktitle    = {Proceedings of the 35th International Conference on Machine Learning},
-	publisher    = {PMLR},
-	volume       = 80,
-	pages        = {1096--1105}
+	publisher    = {PMLR}
 }
 @inproceedings{risk-sensitive-rl,
 	title        = {Risk-Sensitive Reinforcement Learning: Near-Optimal Risk-Sample Tradeoff in Regret},
@@ -4272,14 +3611,13 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Randomized Prior Functions for Deep Reinforcement Learning},
 	author       = {Osband, Ian and Aslanides, John and Cassirer, Albin},
 	year         = 2018,
-	booktitle    = {International Conference on Neural Information Processing Systems},
-	pages        = {8626–8638}
+	booktitle    = {International Conference on Neural Information Processing Systems}
 }
 @article{epsilon-greedy,
 	title        = {Human-level control through deep reinforcement learning},
 	author       = {Mnih, Volodymyr and Kavukcuoglu, Koray and Silver, David and Rusu, Andrei A. and Veness, Joel and Bellemare, Marc G. and Graves, Alex and Riedmiller, Martin and Fidjeland, Andreas K. and Ostrovski, Georg and Petersen, Stig and Beattie, Charles and Sadik, Amir and Antonoglou, Ioannis and King, Helen and Kumaran, Dharshan and Wierstra, Daan and Legg, Shane and Hassabis, Demis},
 	year         = 2015,
-	journal      = {Nature},
+	journal      = {Nature}
 }
 @article{thompson-sampling,
 	title        = {On the likelihood that one unknown probability exceeds another in view of the evidence of two samples},
@@ -4287,16 +3625,12 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 1933,
 	journal      = {Biometrika},
 	publisher    = {Oxford University Press},
-	volume       = 25,
-	number       = {3-4},
-	pages        = {285--294}
 }
 @inproceedings{thompson-sampling-mab,
 	title        = {Analysis of thompson sampling for the multi-armed bandit problem},
 	author       = {Agrawal, Shipra and Goyal, Navin},
 	year         = 2012,
-	booktitle    = {Conference on learning theory},
-	pages        = {39--1}
+	booktitle    = {Conference on learning theory}
 }
 @article{thompson-sampling-information,
 	title        = {An information-theoretic analysis of thompson sampling},
@@ -4304,9 +3638,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2016,
 	journal      = {The Journal of Machine Learning Research},
 	publisher    = {JMLR.org},
-	volume       = 17,
-	number       = 1,
-	pages        = {2442--2471}
 }
 @article{no-free-lunch-theorem-optimization,
 	title        = {No free lunch theorems for optimization},
@@ -4336,8 +3667,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Asynchronous methods for deep reinforcement learning},
 	author       = {Mnih, Volodymyr and Badia, Adria Puigdomenech and Mirza, Mehdi and Graves, Alex and Lillicrap, Timothy and Harley, Tim and Silver, David and Kavukcuoglu, Koray},
 	year         = 2016,
-	booktitle    = {International Conference on Machine Learning},
-	pages        = {1928--1937}
+	booktitle    = {International Conference on Machine Learning}
 }
 @article{gym,
 	title        = {Openai gym},
@@ -4349,8 +3679,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Generalization in Reinforcement Learning: Successful Examples Using Sparse Coarse Coding},
 	author       = {Sutton, Richard S},
 	year         = 1995,
-	booktitle    = {Advances in Neural Information Processing Systems},
-	volume       = 8
+	booktitle    = {Advances in Neural Information Processing Systems}
 }
 @article{acrobot2,
 	title        = {RLPy: A Value-Function-Based Reinforcement Learning Framework for Education and Research},
@@ -4363,14 +3692,13 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Neuronlike adaptive elements that can solve difficult learning control problems},
 	author       = {Barto, Andrew G. and Sutton, Richard S. and Anderson, Charles W.},
 	year         = 1983,
-	journal      = {IEEE transactions on Systems, Man, \& Cybernetics},
+	journal      = {IEEE transactions on Systems, Man, \& Cybernetics}
 }
 @inproceedings{lunarlander1,
 	title        = {The Challenge of Safe Lunar Landing},
 	author       = {Brady, Tye and Paschall, Stephen},
 	year         = 2010,
-	booktitle    = {2010 IEEE Aerospace Conference},
-	pages        = {1--14}
+	booktitle    = {2010 IEEE Aerospace Conference}
 }
 @article{sample-efficient-ac,
 	title        = {Sample efficient actor-critic with experience replay},
@@ -4400,8 +3728,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Efficient exploration with Double Uncertain Value Networks},
 	author       = {Thomas M. Moerland and Joost Broekens and Catholijn M. Jonker},
 	year         = 2017,
-	journal      = {ArXiv},
-	volume       = {abs/1711.10789}
+	journal      = {ArXiv}
 }
 @article{dynamic-programming,
 	title        = {Dynamic programming},
@@ -4409,9 +3736,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 1966,
 	journal      = {Science},
 	publisher    = {American Association for the Advancement of Science},
-	volume       = 153,
-	number       = 3731,
-	pages        = {34--37}
 }
 @inproceedings{domain-shifts-rl,
 	title        = {Domain Shifts in Reinforcement Learning: Identifying Disturbances in Environments},
@@ -4424,16 +3748,13 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Fei, Yingjie and Yang, Zhuoran and Chen, Yudong and Wang, Zhaoran and Xie, Qiaomin},
 	year         = 2020,
 	booktitle    = {Proceedings of the 34th International Conference on Neural Information Processing Systems},
-	publisher    = {Curran Associates Inc.},
+	publisher    = {Curran Associates Inc.}
 }
 @article{risk-constrained-rl-percentile,
 	title        = {Risk-Constrained Reinforcement Learning with Percentile Risk Criteria},
 	author       = {Yinlam Chow and Mohammad Ghavamzadeh and Lucas Janson and Marco Pavone},
 	year         = 2018,
 	journal      = {Journal of Machine Learning Research},
-	volume       = 18,
-	number       = 167,
-	pages        = {1--51}
 }
 @article{risk-sensitive-mdp,
 	title        = {Risk-Sensitive Markov Decision Processes},
@@ -4441,16 +3762,12 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 1972,
 	journal      = {Management Science},
 	publisher    = {INFORMS},
-	volume       = 18,
-	number       = 7,
-	pages        = {356--369}
 }
 @article{epistemic-risk,
 	title        = {Epistemic Risk-Sensitive Reinforcement Learning},
 	author       = {Hannes Eriksson and Christos Dimitrakakis},
 	year         = 2020,
-	journal      = {ArXiv},
-	volume       = {abs/1906.06273}
+	journal      = {ArXiv}
 }
 @inproceedings{information-directed-exploration-deep-rl,
 	title        = {Information-Directed Exploration for Deep Reinforcement Learning},
@@ -4462,8 +3779,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Nonparametric Return Distribution Approximation for Reinforcement Learning},
 	author       = {Tetsuro Morimura and Masashi Sugiyama and Hisashi Kashima and Hirotaka Hachiya and Toshiyuki Tanaka},
 	year         = 2010,
-	booktitle    = {International Conference on Machine Learning},
-	pages        = {799--806},
+	booktitle    = {International Conference on Machine Learning}
 }
 @misc{uncertainty-rl-collision-avoidance,
 	title        = {Uncertainty-Aware Reinforcement Learning for Collision Avoidance},
@@ -4481,32 +3797,27 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Bayesian Deep Reinforcement Learning via Deep Kernel Learning},
 	author       = {Junyu Xuan and Jie Lu and Zheng Yan and Guangquan Zhang},
 	year         = 2018,
-	journal      = {International Journal of Computational Intelligence Systems},
-	volume       = 12,
-	pages        = {164--171}
+	journal      = {International Journal of Computational Intelligence Systems}
 }
 @inproceedings{rl-gp,
 	title        = {Reinforcement Learning with Gaussian Processes},
 	author       = {Engel, Yaakov and Mannor, Shie and Meir, Ron},
 	year         = 2005,
 	booktitle    = {International Conference on Machine Learning},
-	publisher    = {Association for Computing Machinery},
-	pages        = {201–208}
+	publisher    = {Association for Computing Machinery}
 }
 @inproceedings{gp-rl,
 	title        = {Gaussian Processes in Reinforcement Learning},
 	author       = {Kuss, Malte and Rasmussen, Carl},
 	year         = 2003,
 	booktitle    = {Advances in Neural Information Processing Systems},
-	publisher    = {MIT Press},
-	volume       = 16
+	publisher    = {MIT Press}
 }
 @article{safe-rl-model-uncertainty,
 	title        = {Safe Reinforcement Learning with Model Uncertainty Estimates},
 	author       = {Bj{\"{o}}rn L{\"{u}}tjens and Michael Everett and Jonathan P. How},
 	year         = 2018,
-	journal      = {CoRR},
-	volume       = {abs/1810.08700},
+	journal      = {CoRR}
 }
 @article{ood-dynamic-benchmark,
 	title        = {Out-of-Distribution Dynamics Detection: RL-Relevant Benchmarks and Results},
@@ -4526,9 +3837,7 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {Cobbe, Karl and Hesse, Chris and Hilton, Jacob and Schulman, John},
 	year         = 2020,
 	booktitle    = {Proceedings of the 37th International Conference on Machine Learning},
-	publisher    = {PMLR},
-	volume       = 119,
-	pages        = {2048--2056}
+	publisher    = {PMLR}
 }
 @misc{assessing-generalization-rl,
 	title        = {Assessing Generalization in Deep Reinforcement Learning},
@@ -4540,16 +3849,14 @@ title = {An Introduction to Ethics in Robotics and AI}
 	title        = {Reinforcement Learning, Fast and Slow},
 	author       = {Botvinick, Mathew and Ritter, Sam and Wang, Jane and Kurth-Nelson, Zeb and Blundell, Charles and Hassabis, Demis},
 	year         = 2019,
-	journal      = {Trends in Cognitive Sciences},
-	volume       = 23
+	journal      = {Trends in Cognitive Sciences}
 }
 @inproceedings{sample-efficient-rl-stochastic-ensemble,
 	title        = {Sample-Efficient Reinforcement Learning with Stochastic Ensemble Value Expansion},
 	author       = {Buckman, Jacob and Hafner, Danijar and Tucker, George and Brevdo, Eugene and Lee, Honglak},
 	year         = 2018,
 	booktitle    = {Advances in Neural Information Processing Systems},
-	publisher    = {Curran Associates, Inc.},
-	volume       = 31
+	publisher    = {Curran Associates, Inc.}
 }
 @inproceedings{q-prop-sample-efficient,
 	title        = {Q-Prop: Sample-Efficient Policy Gradient with An Off-Policy Critic},
@@ -4568,9 +3875,6 @@ title = {An Introduction to Ethics in Robotics and AI}
 	author       = {W. James Murdoch  and Chandan Singh  and Karl Kumbier  and Reza Abbasi-Asl  and Bin Yu},
 	year         = 2019,
 	journal      = {Proceedings of the National Academy of Sciences},
-	volume       = 116,
-	number       = 44,
-	pages        = {22071--22080}
 }
 @article{desiderata-ml-lifecycle,
 	title        = {Assuring the Machine Learning Lifecycle: Desiderata, Methods, and Challenges},
@@ -4578,23 +3882,18 @@ title = {An Introduction to Ethics in Robotics and AI}
 	year         = 2021,
 	journal      = {ACM Comput. Surv.},
 	publisher    = {Association for Computing Machinery},
-	volume       = 54,
-	number       = 5
 }
 @article{pytorch-lightning,
 	title        = {PyTorch Lightning},
 	author       = {William {Falcon et al.}},
 	year         = 2019,
-	journal      = {GitHub. Note: https://github.com/PyTorchLightning/pytorch-lightning},
-	volume       = 3
+	journal      = {GitHub. Note: https://github.com/PyTorchLightning/pytorch-lightning}
 }
 @inproceedings{ood-automotive-perception,
 	title        = {Out-of-Distribution Detection for Automotive Perception},
 	author       = {Nitsch, Julia and Itkina, Masha and Senanayake, Ransalu and Nieto, Juan and Schmidt, Max and Siegwart, Roland and Kochenderfer, Mykel J. and Cadena, Cesar},
 	year         = 2021,
-	booktitle    = {24th IEEE International Conference on Intelligent Transportation Systems (ITSC)},
-	volume       = {},
-	pages        = {}
+	booktitle    = {24th IEEE International Conference on Intelligent Transportation Systems (ITSC)}
 }
 @misc{wandb,
 	title        = {Experiment Tracking with Weights and Biases},
