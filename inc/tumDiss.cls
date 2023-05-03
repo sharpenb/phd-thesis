@@ -240,12 +240,12 @@
         \centering
         \raggedright
 
-        \textbf{Vorsitzender:}\\
+        \textbf{Vorsitz:}\\
         \hspace{8mm}\hphantom{1. }\@vorsitz
 
         \vspace{2mm}
 
-        \textbf{Pr\"ufende der Dissertation:}\\
+        \textbf{Pr\"ufer*innen der Dissertation:}\\
         \hspace{8mm}1. \@erstpruef\\
         \hspace{8mm}2. \@zweitpruef
         \ifzweitpruefaffil
